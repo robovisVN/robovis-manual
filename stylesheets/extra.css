@@ -1,0 +1,213 @@
+:root {
+  --md-primary-fg-color: #142b43;
+  --md-primary-fg-color--light: #244a6f;
+  --md-primary-fg-color--dark: #0a1c2d;
+  --md-accent-fg-color: #19bdec;
+  --robovis-blue: #3975ff;
+  --robovis-cyan: #20c4ed;
+  --robovis-navy: #122b44;
+}
+
+.md-header {
+  background: linear-gradient(90deg, var(--robovis-navy), #184766);
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  color: var(--robovis-navy);
+  font-weight: 700;
+}
+
+.md-typeset h1 {
+  font-size: 1.4rem; 
+  margin-bottom: 0.3em;
+}
+
+.md-typeset h2 {
+  font-size: 1.0rem; 
+  margin-top: 0.6em;    /* Giảm khoảng cách phía trên tiêu đề */
+  margin-bottom: 0.3em; /* Khoảng cách từ tiêu đề đến đoạn bên dưới */
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.8rem 0;
+}
+
+.md-typeset .product-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 0.85rem;
+  min-height: 10rem;
+  padding: 1.25rem;
+  color: inherit;
+  border: 1px solid #e5ebf1;
+  border-top: 3px solid var(--robovis-blue);
+  border-radius: 0.35rem;
+  background: #fff;
+  box-shadow: 0 0.5rem 1.6rem rgba(18, 43, 68, 0.08);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.md-typeset .product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.8rem 2rem rgba(18, 43, 68, 0.14);
+}
+
+.product-card .product-icon {
+  grid-row: 1 / 4;
+  color: var(--robovis-cyan);
+  font-size: 2rem;
+}
+
+.product-card strong {
+  color: var(--robovis-blue);
+  font-size: 1.05rem;
+}
+
+.product-card span:not(.product-icon) {
+  color: #5a6b7d;
+  font-size: 0.85rem;
+}
+
+.product-card em {
+  align-self: end;
+  color: var(--robovis-blue);
+  font-size: 0.82rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.md-typeset .md-button {
+  border-radius: 2rem;
+}
+
+@media screen and (max-width: 44.984375em) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.md-sidebar--primary .md-nav__link {
+  font-size: 0.7rem;    /* Cỡ chữ menu */
+  line-height: 1.45;   /* Giãn dòng khi tên bài xuống dòng */
+  margin: 0.1rem 0;   /* Khoảng cách giữa các mục */
+}
+
+/* Highlight the current article in the left navigation. */
+.md-sidebar--primary .md-nav__link--active {
+  margin: 0.08rem 0;
+  padding: 0.2rem 0.45rem;
+  color: #0d47a1 !important;
+  font-weight: 700;
+  background-color: rgba(25, 118, 210, 0.12);
+  border-left: 0.18rem solid #1976d2;
+  border-radius: 0.2rem;
+}
+
+/* Show a clear hover and keyboard-focus state for article links. */
+.md-sidebar--primary a.md-nav__link:hover,
+.md-sidebar--primary a.md-nav__link:focus-visible {
+  color: #0d47a1;
+  background-color: rgba(25, 118, 210, 0.08);
+  border-radius: 0.2rem;
+}
+
+.md-sidebar--primary a.md-nav__link:active {
+  color: #0d47a1;
+  background-color: rgba(25, 118, 210, 0.16);
+}
+
+/* Emphasize the parent section that contains the active article. */
+.md-sidebar--primary .md-nav__item:has(.md-nav__link--active) > .md-nav__link,
+.md-sidebar--primary .md-nav__item:has(.md-nav__link--active) > label.md-nav__link {
+  color: #1565c0;
+  font-weight: 600;
+}
+
+/* Keep the same distinction when the Material slate color scheme is used. */
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__link--active {
+  color: #90caf9 !important;
+  background-color: rgba(144, 202, 249, 0.13);
+  border-left-color: #64b5f6;
+}
+
+[data-md-color-scheme="slate"] .md-sidebar--primary a.md-nav__link:hover,
+[data-md-color-scheme="slate"] .md-sidebar--primary a.md-nav__link:focus-visible,
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item:has(.md-nav__link--active) > .md-nav__link,
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__item:has(.md-nav__link--active) > label.md-nav__link {
+  color: #90caf9;
+}
+
+.md-typeset {
+  font-size: 0.75rem; /* Cỡ chữ nội dung */
+  line-height: 1.55; /* Khoảng cách giữa các dòng */
+}
+
+.md-typeset p {
+  margin: 0.15em 0;   /* Khoảng cách giữa các đoạn văn */
+}
+
+/* Bốn mục chính: Trang chủ, Kiến thức nền, Sản phẩm, Tải xuống. */
+.md-tabs__link {
+  font-weight: 500;
+  opacity: .82;
+}
+
+.md-tabs__item--active .md-tabs__link {
+  opacity: 1;
+  font-weight: 700;
+  box-shadow: inset 0 -3px 0 var(--robovis-cyan);
+}
+
+.md-tabs__link:hover,
+.md-tabs__link:focus-visible {
+  opacity: 1;
+}
+
+/* Giữ bảng và sơ đồ trong chiều rộng bài, đặc biệt trên điện thoại. */
+.md-typeset .mermaid { overflow-x: auto; }
+
+/* Product disclosure in the desktop header. Native details is the fallback. */
+.rv-tabs { overflow: visible; position: relative; z-index: 3; }
+.rv-tabs .md-tabs__list { overflow: visible; contain: none; }
+.rv-products { position: relative; }
+.rv-products__disclosure { position: relative; }
+.rv-products__trigger { display: flex; align-items: center; gap: .3rem; list-style: none; cursor: pointer; }
+.rv-products__trigger::-webkit-details-marker { display: none; }
+.rv-products__trigger:focus-visible { outline: 2px solid var(--robovis-cyan); outline-offset: 5px; }
+.rv-products__chevron { transition: transform .15s ease; }
+.rv-products__disclosure[open] .rv-products__chevron { transform: rotate(180deg); }
+.rv-products__panel {
+  position: absolute;
+  top: calc(100% + .55rem);
+  left: -.6rem;
+  width: 13.5rem;
+  margin: 0;
+  padding: .4rem;
+  list-style: none;
+  color: #142b43;
+  background: #fff;
+  border: 1px solid #e0e7ef;
+  border-radius: .35rem;
+  box-shadow: 0 .5rem 1.5rem rgba(10, 28, 45, .2);
+}
+.rv-products__panel a { display: block; padding: .55rem .7rem; border-radius: .2rem; font-size: .75rem; }
+.rv-products__panel a:hover,
+.rv-products__panel a:focus-visible { background: #eef5fc; color: #0d47a1; outline-offset: -2px; }
+.rv-products__panel .rv-products__current { background: #e7f0ff; color: #0d47a1; font-weight: 700; }
+.rv-products__panel li:first-child { border-bottom: 1px solid #e5ebf1; margin-bottom: .2rem; padding-bottom: .2rem; }
+.rv-breadcrumb { display: flex; flex-wrap: wrap; gap: .35rem; align-items: baseline; margin-bottom: .7rem; color: #637487; font-size: .65rem; }
+.rv-breadcrumb a { color: #24639f; }
+.rv-download-note { color: #5a6b7d; }
+
+@media screen and (min-width: 76.25em) {
+  /* On a product article, show only that product's lessons in the sidebar.
+     Mobile keeps the complete native Material tree under Sản phẩm. */
+  .rv-nav--product > .md-nav__list > .md-nav__item--active > label.md-nav__link { display: none; }
+  .rv-nav--product > .md-nav__list > .md-nav__item--active > nav > .md-nav__list > .md-nav__item:not(.md-nav__item--active) { display: none; }
+  .rv-nav--product > .md-nav__list > .md-nav__item--active > nav > .md-nav__list > .md-nav__item--active > label.md-nav__link { font-size: .8rem; font-weight: 700; margin-bottom: .5rem; }
+}
