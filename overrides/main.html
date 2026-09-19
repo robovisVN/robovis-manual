@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% macro first_url(entry) -%}
+  {%- if entry.children -%}{{ first_url(entry.children | first) }}
+  {%- else -%}{{ entry.url | url }}{%- endif -%}
+{%- endmacro %}
+{% block content %}
+  {% for root in nav.items %}
+    {% if root.title == "Sản phẩm" and root.active %}
+      <nav class="rv-breadcrumb" aria-label="Đường dẫn bài viết">
+        <a href="{{ 'san-pham/' | url }}">Sản phẩm</a>
+        {% for product in root.children %}
+          {% if product.children and product.active %}
+            <span aria-hidden="true">›</span>
+            <a href="{{ first_url(product) }}">{{ product.title }}</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">{{ page.title }}</span>
+          {% endif %}
+        {% endfor %}
+      </nav>
+    {% endif %}
+  {% endfor %}
+  {{ super() }}
+{% endblock %}

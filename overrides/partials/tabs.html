@@ -1,0 +1,29 @@
+{% import "partials/tabs-item.html" as item with context %}
+{% macro first_url(entry) -%}
+  {%- if entry.children -%}{{ first_url(entry.children | first) }}
+  {%- else -%}{{ entry.url | url }}{%- endif -%}
+{%- endmacro %}
+<nav class="md-tabs rv-tabs" aria-label="{{ lang.t('tabs') }}" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      {% for nav_item in nav.items %}
+        {% if nav_item.title == "Sản phẩm" and nav_item.children %}
+          <li class="md-tabs__item rv-products{% if nav_item.active %} md-tabs__item--active{% endif %}">
+            <details class="rv-products__disclosure">
+              <summary class="md-tabs__link rv-products__trigger" aria-controls="rv-products-panel">
+                Sản phẩm <span class="rv-products__chevron" aria-hidden="true">▾</span>
+              </summary>
+              <ul class="rv-products__panel" id="rv-products-panel" aria-label="Chọn sản phẩm">
+                {% for product in nav_item.children %}
+                  <li><a href="{{ first_url(product) }}"{% if product.active %} class="rv-products__current"{% endif %}>{{ product.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </details>
+          </li>
+        {% else %}
+          {{ item.render(nav_item) }}
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</nav>

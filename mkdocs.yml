@@ -1,0 +1,154 @@
+site_name: Tài liệu hướng dẫn Robovis
+site_description: Tài liệu sử dụng và lập trình các dòng robot Robovis
+site_url: https://manual.robovis.vn/
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: vi
+  features:
+    - navigation.tabs
+    #- navigation.sections
+    #- navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+extra_javascript:
+  - javascripts/navigation-accordion.js
+  - javascripts/products-dropdown.js
+
+nav:
+  - Trang chủ: index.md
+  - Kiến thức nền:
+      - Bắt đầu từ đây: kien-thuc-nen/index.md
+      - Ubuntu cơ bản:
+          - Lộ trình học: ubuntu-co-ban/index.md
+          - 1. Bắt đầu với Ubuntu:
+              - Ubuntu là gì?: ubuntu-co-ban/01-ubuntu-la-gi.md
+              - Chuẩn bị môi trường: ubuntu-co-ban/02-chuan-bi-moi-truong.md
+          - 2. Thao tác hằng ngày:
+              - Giao diện Ubuntu: ubuntu-co-ban/03-giao-dien-ubuntu.md
+              - Làm quen với Terminal: ubuntu-co-ban/04-terminal.md
+              - Thư mục, đường dẫn và tệp: ubuntu-co-ban/05-thu-muc-va-tep.md
+          - 3. Phần mềm và kết nối:
+              - Cài và chạy phần mềm: ubuntu-co-ban/06-cai-va-chay-phan-mem.md
+              - Kết nối máy tính với robot: ubuntu-co-ban/07-ket-noi-robot.md
+          - 4. Thực hành tổng hợp:
+              - Thực hành và xử lý lỗi: ubuntu-co-ban/08-thuc-hanh-va-loi.md
+  - Sản phẩm:
+      - Tất cả sản phẩm: san-pham/index.md
+      - Robot Arduino:
+          - Giới thiệu Robot Arduino: robot-arduino/01-gioi-thieu.md
+          - Chuẩn bị linh kiện: robot-arduino/02-chuan-bi.md
+          - Hướng dẫn lắp ráp: robot-arduino/03-lap-rap.md
+          - Hướng dẫn lập trình: robot-arduino/04-lap-trinh.md
+      - Robot ESP32:
+          - Tổng quan: robot-esp32/index.md
+      - Robot ESP32 Camera:
+        - 1. Bắt đầu:
+            - Tổng quan sản phẩm: robot-esp32-camera/01-bat-dau/01-tong-quan.md
+            - Chuẩn bị trước khi sử dụng: robot-esp32-camera/01-bat-dau/02-chuan-bi.md
+            - Phân biệt hai chương trình ESP32: robot-esp32-camera/01-bat-dau/03-phan-biet-hai-chuong-trinh.md
+        - 2. Cài đặt Arduino IDE:
+            - Cài Arduino IDE và driver CH340: robot-esp32-camera/02-cai-dat-arduino/01-cai-arduino-va-driver-ch340.md
+            - Cài board ESP32: robot-esp32-camera/02-cai-dat-arduino/02-cai-board-esp32.md
+            - Cài các thư viện cần thiết: robot-esp32-camera/02-cai-dat-arduino/03-cai-thu-vien.md
+        - 3. Nạp chương trình cho ESP32:
+            - Chuẩn bị thư mục mã nguồn: robot-esp32-camera/03-nap-code/01-chuan-bi-thu-muc-code.md
+            - Chọn board và nạp chương trình: robot-esp32-camera/03-nap-code/02-chon-board-va-nap-code.md
+            - Xử lý lỗi khi nạp chương trình: robot-esp32-camera/03-nap-code/03-xu-ly-loi-nap-code.md
+        - 4. Điều khiển robot bằng trình duyệt:
+            - Kết nối Wi-Fi và mở giao diện: robot-esp32-camera/04-dieu-khien-web/01-ket-noi-va-mo-giao-dien.md
+            - Sử dụng giao diện điều khiển: robot-esp32-camera/04-dieu-khien-web/02-su-dung-giao-dien.md
+        - 5. Chạy nhận diện YOLO trên Windows:
+            - Cài môi trường Python: robot-esp32-camera/05-yolo-windows/01-cai-moi-truong-python.md
+            - Chuẩn bị và chạy chương trình YOLO: robot-esp32-camera/05-yolo-windows/02-chay-chuong-trinh-yolo.md
+            - Sử dụng phần mềm YOLO: robot-esp32-camera/05-yolo-windows/03-su-dung-phan-mem-yolo.md
+        - 6. Khắc phục lỗi và lưu ý:
+            - Các lỗi thường gặp: robot-esp32-camera/06-khac-phuc-loi/01-cac-loi-thuong-gap.md
+            - Lưu ý an toàn và bảo quản mã nguồn: robot-esp32-camera/06-khac-phuc-loi/02-luu-y-an-toan.md
+
+      - Robot ESP32 LiDAR:
+        - Bắt đầu với Robot ESP32 LiDAR: robot-esp32-lidar/index.md
+
+        - 1. Giới thiệu:
+            - Tổng quan sản phẩm: robot-esp32-lidar/01-gioi-thieu/01-tong-quan-san-pham.md
+            - Kiến trúc hệ thống: robot-esp32-lidar/01-gioi-thieu/02-kien-truc-he-thong.md
+            - LiDAR và odometry: robot-esp32-lidar/01-gioi-thieu/03-lidar-va-odometry.md
+            - An toàn và giới hạn: robot-esp32-lidar/01-gioi-thieu/04-an-toan-va-gioi-han.md
+            - Tính năng và thông số: robot-esp32-lidar/01-gioi-thieu/05-tinh-nang-va-thong-so.md
+
+        - 2. Chuẩn bị:
+            - Yêu cầu hệ thống và cài ROS 2: robot-esp32-lidar/02-chuan-bi/01-yeu-cau-va-cai-ros2.md
+            - Cài đặt workspace: robot-esp32-lidar/02-chuan-bi/02-cai-dat-workspace.md
+            - Cấu hình Wi-Fi robot: robot-esp32-lidar/02-chuan-bi/03-cau-hinh-wifi.md
+            - Windows và máy ảo Ubuntu: robot-esp32-lidar/02-chuan-bi/04-windows-may-ao-ubuntu.md
+            - Sử dụng Wi-Fi ngoài: robot-esp32-lidar/02-chuan-bi/05-su-dung-wifi-ngoai.md
+
+        - 3. Bắt đầu sử dụng:
+            - Khởi động và kiểm tra dữ liệu: robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra.md
+            - Chạy thử lần đầu: robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau.md
+            - Điều khiển robot bằng tay: robot-esp32-lidar/03-van-hanh/03-dieu-khien-bang-tay.md
+
+        - 4. ROS 2 cơ bản:
+            - Node, topic và lệnh thường dùng: robot-esp32-lidar/04-ros2-co-ban/01-node-topic-va-lenh.md
+            - Các topic của robot: robot-esp32-lidar/04-ros2-co-ban/02-cac-topic-cua-robot.md
+            - RViz và hệ tọa độ TF: robot-esp32-lidar/04-ros2-co-ban/03-rviz-va-tf.md
+
+        - 5. LiDAR, SLAM và Navigation:
+            - Kiểm tra dữ liệu LiDAR: robot-esp32-lidar/05-lidar-slam-navigation/01-kiem-tra-lidar.md
+            - Tạo bản đồ SLAM: robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam.md
+            - Lưu và quản lý bản đồ: robot-esp32-lidar/05-lidar-slam-navigation/03-luu-va-quan-ly-ban-do.md
+            - Điều hướng tự động bằng Nav2: robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2.md
+            - Đánh giá chất lượng bản đồ: robot-esp32-lidar/05-lidar-slam-navigation/05-danh-gia-ban-do.md
+
+        - 6. Xử lý sự cố:
+            - Lỗi kết nối và ROS 2: robot-esp32-lidar/06-xu-ly-su-co/01-loi-ket-noi-va-ros2.md
+            - Lỗi LiDAR, SLAM và Navigation: robot-esp32-lidar/06-xu-ly-su-co/02-loi-lidar-slam-navigation.md
+            - Thông tin cần gửi khi hỗ trợ: robot-esp32-lidar/06-xu-ly-su-co/03-thong-tin-ho-tro.md
+
+        - 7. Tham khảo:
+            - Danh sách lệnh: robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh.md
+            - Thuật ngữ: robot-esp32-lidar/07-tham-khao/02-thuat-ngu.md
+  - Tải xuống:
+      - Trung tâm tải xuống: tai-xuong/index.md
+      - Robot Arduino: tai-xuong/robot-arduino.md
+      - Robot ESP32: tai-xuong/robot-esp32.md
+      - Robot ESP32 Camera: tai-xuong/robot-esp32-camera.md
+      - Robot ESP32 LiDAR: tai-xuong/robot-esp32-lidar.md
+      - Ubuntu cơ bản: tai-xuong/ubuntu-co-ban.md
+
+plugins:
+  - search:
+      lang: vi
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - stylesheets/extra.css
+
+copyright: © Robovis — Tài liệu hướng dẫn sản phẩm
