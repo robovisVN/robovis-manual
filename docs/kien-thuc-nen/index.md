@@ -4,8 +4,8 @@ Các bài học ở đây giúp bạn làm quen với những thao tác cần d�
 
 ## Lập trình vi điều khiển từ đầu
 
-- [Robot Arduino Nano](../robot-arduino/index.md): làm quen Nano, cài IDE, chọn Processor/bootloader, thêm thư viện, thử LED/nút nhấn và servo.
-- [Robot ESP32 CH340 Type-C](../robot-esp32/index.md): nhận diện module, cài driver và gói bo, nạp mã, xem Serial và thử PWM.
+- [Robot Arduino Nano](../robot-arduino/index.md): IDE, Processor/bootloader, Servo/Dabble, mạch rời và sử dụng Bluetooth/dò line/tránh vật cản theo bộ bàn giao.
+- [Robot ESP32 CH340 Type-C](../robot-esp32/index.md): driver, gói bo, thư viện, project main, Wi-Fi Manual/Line follow và bài lập trình cơ bản.
 
 Hai lộ trình này dùng Arduino IDE trên máy tính, không yêu cầu Ubuntu hoặc ROS. Bắt đầu với bo riêng và nguồn động cơ ngắt, rồi mới áp dụng vào robot theo sơ đồ thật.
 

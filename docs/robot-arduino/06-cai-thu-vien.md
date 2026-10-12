@@ -6,6 +6,16 @@
 
 ## Library Manager
 
+Các tệp bàn giao cần thư viện như sau:
+
+| Chương trình | Thư viện ngoài |
+| --- | --- |
+| `test_bluetooth.ino` | Dabble, Servo |
+| `tranh_vat_can*.ino` | Servo |
+| `do_line*.ino` | Không có thư viện ngoài trong các tệp đã đối chiếu; Arduino.h đi cùng core |
+
+Với Bluetooth, tìm **Dabble by STEMpedia**, cài rồi Verify `test_bluetooth.ino`. Giữ `CUSTOM_SETTINGS` và `INCLUDE_GAMEPAD_MODULE` trước `#include <Dabble.h>` như mã gốc. Không thay bằng DabbleESP32. Xem [thư viện Dabble](https://github.com/STEMpedia/Dabble).
+
 Mở **Library Manager** hoặc **Tools → Manage Libraries**. Tìm `Servo`, kiểm tra tác giả **Arduino**, nhấn **Install** và cài dependency được yêu cầu. Xem ví dụ ở **File → Examples → Servo**, biên dịch với Nano. Ghi lại phiên bản đã chạy tốt. Xem [hướng dẫn thư viện Arduino](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/).
 
 ## Thư viện dạng ZIP
@@ -14,11 +24,11 @@ Vào **Sketch → Include Library → Add .ZIP Library**, chọn ZIP thư viện
 
 ## Thử servo vị trí
 
-Có thể chỉ Verify nếu chưa có servo. Dùng servo vị trí; servo quay liên tục diễn giải lệnh khác. Tháo tay đòn khỏi cơ cấu robot trước khi thử.
+Có thể chỉ Verify nếu chưa có servo. Dùng servo vị trí SG90 như bộ bàn giao; servo quay liên tục diễn giải lệnh khác. Thử Nano/servo riêng, ngắt mọi dây robot. Nếu thử servo trên xe, ngắt nguồn động cơ và kiểm tra gá/ốc không gây kẹt.
 
 | Dây servo | Kết nối |
 | --- | --- |
-| Signal | D9 Nano |
+| Signal | A5 Nano, khớp SERVO_PIN trong bộ mã robot |
 | VCC | Nguồn ngoài đúng thông số servo |
 | GND | GND nguồn ngoài và GND Nano |
 
@@ -32,7 +42,7 @@ Tạo sketch `NanoServo`:
 Servo servoThu;
 
 void setup() {
-  servoThu.attach(9);
+  servoThu.attach(A5);
   servoThu.write(90);
   delay(1000);
 }
@@ -45,7 +55,7 @@ void loop() {
 }
 ```
 
-`#include` đưa khai báo thư viện vào mã; `attach(9)` chọn chân; `write()` đặt góc. Servo phải đổi vị trí trong khoảng nhỏ. Ngắt nguồn nếu kẹt, nóng hoặc va cơ cấu; không thử ngay 0°/180° vì giới hạn cơ khí tùy servo.
+`#include` đưa khai báo thư viện vào mã; `attach(A5)` chọn chân; `write()` đặt góc. Servo phải đổi vị trí trong khoảng nhỏ. Ngắt nguồn nếu kẹt, nóng hoặc va cơ cấu; không thử ngay 0°/180° vì giới hạn cơ khí tùy servo.
 
 **Kiểm tra:** không còn lỗi thiếu `Servo.h`; nếu có servo, nó chuyển động và Nano không reset. Servo dùng timer trên Nano, có thể ảnh hưởng PWM D9/D10; kiểm tra trước khi kết hợp driver động cơ.
 

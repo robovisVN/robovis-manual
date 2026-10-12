@@ -4,7 +4,7 @@
 
 ## Đối chiếu robot thực tế
 
-D2, D4, D9 trong bài học là chân ví dụ. Lập bảng từ sơ đồ thật trước khi nạp bộ mã robot:
+D2/D4 trong bài mạch rời không phải chân trống của robot; servo robot dùng A5. Đối chiếu [bảng chân và mã gốc](08-su-dung-robot.md) trước khi nạp:
 
 | Bộ phận | Cần ghi lại |
 | --- | --- |
@@ -19,12 +19,12 @@ Không nối động cơ DC trực tiếp với GPIO. Với L298N hoặc driver 
 
 1. Sao lưu mã chạy tốt, ghi board/Processor/cổng và phiên bản thư viện.
 2. Ngắt nguồn động cơ, mở sketch chính trong thư mục bộ mã robot.
-3. Cài dependency theo README; Verify rồi Upload.
-4. Xem Serial để kiểm tra riêng từng cảm biến.
+3. Cài Servo/Dabble theo [bài thư viện](06-cai-thu-vien.md); Verify rồi Upload tệp chức năng cần chạy.
+4. Kiểm tra riêng cảm biến. Nếu dùng sketch Serial chẩn đoán, tháo driver khỏi D0/D1; không bật Serial trong mã robot đang dùng hai chân này cho động cơ.
 5. Kê bánh khỏi sàn, cấp nguồn theo sơ đồ, thử mỗi động cơ thời gian ngắn ở tốc độ thấp.
 6. Kiểm tra lệnh dừng và chiều quay rồi mới thử trên sàn trống.
 
-Nếu chưa có sơ đồ/bộ mã, hoàn thành bài linh kiện rời trước. Gói tải website chứa tài liệu; mã trong bài không tự điều khiển mọi cấu hình robot.
+Bộ mã và sơ đồ nằm trong [thư mục bàn giao Arduino](https://drive.google.com/drive/folders/1gmMNJcWVTs5gortEIQQb7wWsLAIqWUl-). Gói ZIP website chứa tài liệu; tải chương trình robot từ liên kết gốc.
 
 ## Lỗi thường gặp
 
@@ -38,6 +38,9 @@ Nếu chưa có sơ đồ/bộ mã, hoàn thành bài linh kiện rời trước
 | LED không sáng | Cực LED, điện trở, GND và chân trong mã |
 | Nút luôn báo nhấn | Kiểm tra cặp chân nút và D2 có chạm GND không |
 | Reset khi tải chạy | Ngắt tải, kiểm tra nguồn, dòng yêu cầu, GND và dây |
+| Thiếu Dabble.h | Cài Dabble của STEMpedia cho Nano, không dùng DabbleESP32 |
+| Servo kẹt | Kiểm tra ốc gá không chạm vỏ servo, dây và giới hạn góc |
+| Quay tránh vật cản không dừng | Tắt nguồn động cơ, kiểm tra encoder D2/D3; vòng chờ xung trong mã chưa có timeout |
 
 Thử Blink với Nano riêng trước khi kết luận hỏng bootloader.
 

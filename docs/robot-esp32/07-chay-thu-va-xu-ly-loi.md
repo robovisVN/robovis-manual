@@ -2,6 +2,8 @@
 
 **Mục tiêu:** áp dụng bài nền tảng vào robot theo cấu hình thật.
 
+Đối chiếu [hướng dẫn sử dụng chung](08-su-dung-robot.md) và [các lỗi trong tài liệu Robovis](https://docs.google.com/document/d/1j4c4cuyZ6She5PE_y6iRa2XHlQhCYCTDqzXxScZGdfg/edit) trước khi chỉnh mã.
+
 ## Trước khi dùng mã robot
 
 Ghi tên module ESP32, pinout bo, loại driver, nguồn động cơ/cảm biến và bảng chân trong mã. GPIO23/GPIO18 của bài học không quy định chân sản phẩm. Không đấu động cơ trực tiếp vào GPIO, không đưa tín hiệu 5 V vào đầu vào ESP32.
@@ -24,12 +26,18 @@ Bo điều khiển, driver và cảm biến giao tiếp không cách ly cần ch
 | Hiện tượng | Kiểm tra theo thứ tự |
 | --- | --- |
 | Đèn nguồn sáng nhưng không có COM | Cáp Type-C dữ liệu → USB → Device Manager → CH340 |
-| `Connecting...` kéo dài / `Failed to connect` | Đúng cổng/board → BOOT và EN → thử bo riêng → giảm Upload Speed nếu cần |
+| `Connecting...` kéo dài / `Failed to connect` | Cáp dữ liệu → CH340 → ESP32 Dev Module/COM → thử bo riêng; tài liệu bàn giao yêu cầu không bấm BOOT/RST khi nạp |
 | Báo sai loại chip | Đọc module rồi chọn ESP32/S3/C3 tương ứng |
 | Cổng bận / access denied | Đóng ứng dụng đang giữ cổng, rút/cắm và chọn Port lại |
 | Thiếu `WiFi.h` | Gói ESP32 và board; không cài thư viện WiFi ngẫu nhiên |
 | Thiếu thư viện ngoài `.h` | Tên header, tác giả, phiên bản, dependency |
 | Không tìm thấy `ledcSetup` | Kiểm tra API core 2.x/3.x, không phải lỗi driver CH340 |
+| Thiếu do_line.h hoặc undefined reference tới do_line_setup | Giữ cả main.ino, do_line.cpp và do_line.h trong cùng thư mục main |
+| Không mở được trang điều khiển | Kết nối Wi-Fi ESP32-Car, nhập http://192.168.4.1, giữ kết nối dù báo không có Internet |
+| Không điều khiển tay được | Kiểm tra đang ở Line follow không; chuyển về Manual |
+| Không nhận line | Nền sáng, line tương phản, kiểm tra từng kênh; tài liệu gốc: trên line đèn tắt, ngoài line đèn sáng |
+| Xe lắc | Theo tài liệu, thử giảm v_base từ 0.4 xuống 0.35; mã hiện tại đã dùng vF = v_base * 0.90f, không giả định hệ số là 1.0 |
+| Không quay hoặc dừng ở điểm rẽ | Kiểm tra pin/encoder; tài liệu đề nghị góc line lớn hơn 90° |
 | Serial ký tự lạ hoặc trống | Đúng cổng, 115200 theo mã, nhấn EN để xem lại log |
 | LED không sáng | Cực LED, điện trở, GND, đúng GPIO; không giả định LED tích hợp ở GPIO2 |
 | `Brownout detector was triggered` / reset khi tải chạy | Ngắt tải, kiểm tra cáp, nguồn, dòng tải và dây GND; không tắt brownout để che lỗi |

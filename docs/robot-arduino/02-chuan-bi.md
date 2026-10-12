@@ -16,6 +16,8 @@ Chỉ cần Nano và cáp để chạy Blink. Đèn nguồn sáng không chứng
 
 ## Chuẩn bị nguồn và robot
 
+Robot bàn giao có board mở rộng Nano, dò line 5 kênh, HC-SR04, SG90, encoder và HM10 khi dùng Bluetooth. [Tài liệu khi nhận hàng](https://docs.google.com/document/d/1v15Tzh_bDJ4Tez326MCeS8L-1pQc-sz2sl5fraLJJmo/edit) cho biết cảm biến được tháo để vận chuyển; cần lắp lại trước khi chạy. Bài LED/nút nhấn dùng Nano riêng, không thêm linh kiện vào chân robot đang sử dụng.
+
 1. Tắt nguồn trước khi đổi dây; ghi lại sơ đồ đang có.
 2. Xác định loại driver, nhãn chân và thông số nguồn.
 3. Ngắt nguồn động cơ, thử Nano riêng qua USB trước.

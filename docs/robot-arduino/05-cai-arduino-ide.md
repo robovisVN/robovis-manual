@@ -37,4 +37,6 @@ Blink dùng `LED_BUILTIN` để chọn LED tích hợp. Xem [bài Blink của Ar
 
 **Hoàn thành khi:** mã sửa làm LED đổi nhịp. Nếu chưa đạt, xem [xử lý lỗi](07-chay-thu-va-xu-ly-loi.md).
 
+Để nạp mã sản phẩm, xem [hướng dẫn sử dụng chung](08-su-dung-robot.md). [HD nạp code Robovis](https://docs.google.com/document/d/1zUuMvjFEuTOBrwMFcFzYiy-x51EDbZutoixD51jM_8Q/edit) chọn **Nano / ATmega328P / đúng COM**. Tài liệu gọi `main.ino`, nhưng các tệp thực tế tên `test_bluetooth.ino`, `do_line.ino`, `tranh_vat_can.ino`…; mở đúng tệp tải được và giữ thư mục sketch trùng tên.
+
 [Bài trước](02-chuan-bi.md) · [Bài tiếp: Thư viện](06-cai-thu-vien.md)

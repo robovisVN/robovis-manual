@@ -2,6 +2,9 @@
 
 **Mục tiêu:** đọc đầu vào, điều khiển LED và thay đổi độ sáng.
 
+!!! warning "Bài thực hành trên bo riêng"
+    Ngắt mọi dây robot trước khi đấu LED/nút. Bộ main dùng GPIO18 cho servo gắp, nên không cắm nút vào chân này khi đang nối servo. Chân học dưới đây không thay [bảng chân sản phẩm](08-su-dung-robot.md).
+
 **Phạm vi chân:** ESP32 classic WROOM-32 có GPIO23 và GPIO18 còn trống. Bo S3/C3 hoặc robot đã nối thiết bị cần chọn chân theo pinout rồi sửa mã. Không đếm vị trí chân để suy ra số GPIO; xem [hướng dẫn GPIO](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html).
 
 ## 1. Đấu mạch khi đã ngắt nguồn

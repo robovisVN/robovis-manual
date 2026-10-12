@@ -2,6 +2,8 @@
 
 **Mục tiêu:** hiểu vai trò của Nano trong robot và các thao tác cần học.
 
+Bộ robot trong [tài liệu bàn giao Robovis](https://drive.google.com/drive/folders/1gmMNJcWVTs5gortEIQQb7wWsLAIqWUl-) dùng **Arduino Nano**, board mở rộng, driver, encoder, dò line 5 kênh, HC-SR04 và servo SG90. Mã Bluetooth dùng Dabble và module HM10. Xem [hướng dẫn sử dụng chung](08-su-dung-robot.md) để chọn mã và đối chiếu chân.
+
 ## Từ mã lệnh đến chuyển động
 
 Arduino là nền tảng giúp bạn lập trình bo vi điều khiển. Bạn viết mã trên máy tính, biên dịch rồi nạp vào bo. Bo có thể chạy chương trình khi được cấp nguồn, kể cả khi rút khỏi máy tính.

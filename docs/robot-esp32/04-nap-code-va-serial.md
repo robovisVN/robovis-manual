@@ -33,7 +33,7 @@ void loop() {
 4. Chọn **115200 baud**; quan sát số đếm mỗi giây.
 5. Nhấn EN/RESET: số đếm phải trở về 0. Nếu bỏ lỡ dòng khởi động khi mở Monitor, reset để xem lại.
 
-Bo có mạch tự nạp thường không cần bấm nút. Nếu dừng ở `Connecting...`, giữ **BOOT**, bắt đầu Upload, thả khi IDE bắt đầu ghi. Khi vẫn chưa kết nối, có thể giữ BOOT rồi nhấn/thả EN, sau đó thả BOOT khi kết nối được. Xem [hướng dẫn nạp của Espressif](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html).
+Theo [HD nạp code của Robovis](https://docs.google.com/document/d/1kt_3J2K9uy3t73HraCWzz_dliXwaGpwbH0eBLzfxwZQ/edit), **không bấm BOOT hoặc RST khi đang nạp** trên bo bàn giao. Chờ cơ chế tự nạp hoàn tất. Nếu lỗi kết nối, kiểm tra cáp, driver, board và COM trước; thao tác reset ở bước 5 chỉ thực hiện sau khi nạp xong.
 
 ## Hiểu kết quả
 
@@ -46,5 +46,20 @@ Bo có mạch tự nạp thường không cần bấm nút. Nếu dừng ở `Co
 | Khởi động lặp liên tục | Kiểm tra nguồn và log reset, chưa nối tải |
 
 **Bài tập:** đổi thời gian 1000 thành 300 ms, đổi chuỗi thông báo rồi nạp lại. Giữ một bản sketch chạy tốt để kiểm tra cáp/bo về sau.
+
+## Nạp chương trình robot thực tế
+
+Tải toàn bộ [thư mục main](https://drive.google.com/drive/folders/1HeAZaW--JOkl67SG3IJOWxS1aPKAO5UB), giải nén và giữ đúng cấu trúc:
+
+```text
+main/
+├── main.ino
+├── do_line.cpp
+└── do_line.h
+```
+
+`main.ino` chứa Wi-Fi, giao diện và điều khiển tay; `do_line.cpp` xử lý dò line/tránh vật cản; `do_line.h` khai báo hàm kết nối hai phần. Đây là tệp project, không cài `do_line.h` qua Library Manager.
+
+Ngắt nguồn động cơ, cài [thư viện sản phẩm](05-cai-thu-vien.md), mở **File → Open → main/main.ino**, chọn **ESP32 Dev Module** và đúng COM, Verify rồi Upload. Không chỉ tải riêng `main.ino`. Khi Upload báo hoàn tất và xuất hiện `Hard resetting via RTS pin...`, mở Monitor 115200 để kiểm tra dòng `Hotspot IP:`. Tiếp tục [hướng dẫn sử dụng robot](08-su-dung-robot.md).
 
 [Bài trước](03-cai-arduino-ide.md) · [Bài tiếp: Thư viện](05-cai-thu-vien.md)

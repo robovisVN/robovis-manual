@@ -2,6 +2,8 @@
 
 **Mục tiêu:** hiểu cấu tạo bo và chọn đúng hướng học.
 
+Robot trong [bộ tài liệu ESP32 Robovis](https://drive.google.com/drive/folders/12f-LH2PU0DGoAqXQk_d91QdnKpCADnDt) dùng bo CH340 Type-C, board mở rộng, L298N, dò line 5 kênh, encoder và HC-SR04. Bộ mã tạo Wi-Fi **ESP32-Car** và giao diện web với **Manual / Line follow**. Hướng dẫn bàn giao chọn **ESP32 Dev Module**. Xem [bài sử dụng robot chung](08-su-dung-robot.md) để đi từ lắp ráp tới chạy thử.
+
 ## ESP32 trong robot
 
 ESP32 là họ vi điều khiển của Espressif. Vi điều khiển chạy mã, đọc cảm biến và gửi tín hiệu điều khiển. ESP32 classic có Wi-Fi và Bluetooth; khả năng kết nối của các họ ESP32 khác nhau, nên không suy ra tính năng chỉ từ tên ESP32.

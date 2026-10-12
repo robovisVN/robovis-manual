@@ -1,8 +1,8 @@
 # Bắt đầu với Robot ESP32 CH340 Type-C
 
-Lộ trình cho người mới: nhận diện bo, cài Arduino IDE, kiểm tra USB, thêm thư viện, lập trình LED/nút nhấn và chuẩn bị chạy robot.
+Lộ trình cho người mới: nhận diện bo, cài Arduino IDE/CH340, thêm thư viện, nạp project main rồi điều khiển qua Wi-Fi và dò line theo [bộ bàn giao ESP32 Robovis](https://drive.google.com/drive/folders/12f-LH2PU0DGoAqXQk_d91QdnKpCADnDt). Hướng dẫn sản phẩm dùng chung, không tách bài theo số bánh.
 
-**CH340** là chip giao tiếp USB–Serial, **Type-C** là loại cổng USB. Hai thông tin này chưa xác định ESP32, ESP32-S3 hay ESP32-C3. Các ví dụ chân GPIO trong bộ bài dùng **ESP32 classic với module ESP32-WROOM-32**; hãy đọc tên module và pinout trước khi đấu mạch.
+**CH340** là chip USB–Serial, **Type-C** là cổng USB. Tài liệu bàn giao chọn **ESP32 Dev Module**. Bảng chân robot theo sơ đồ và mã gốc nằm trong bài 8; các ví dụ LED/nút/PWM dùng bo ESP32 classic riêng, ngắt dây robot trước khi thử.
 
 | Thứ tự | Bài học | Kết quả |
 | --- | --- | --- |
@@ -13,6 +13,9 @@ Lộ trình cho người mới: nhận diện bo, cài Arduino IDE, kiểm tra U
 | 5 | [Thêm thư viện](05-cai-thu-vien.md) | Hiểu thư viện tích hợp và thư viện ngoài |
 | 6 | [LED, nút nhấn và PWM](06-lap-trinh-co-ban.md) | Đọc đầu vào, điều khiển đầu ra |
 | 7 | [Chạy thử robot và xử lý lỗi](07-chay-thu-va-xu-ly-loi.md) | Kiểm tra từng phần trước chuyển động |
+| 8 | [Sử dụng robot theo bộ bàn giao](08-su-dung-robot.md) | Lắp ráp, bảng chân, nạp main, Manual và Line follow |
+
+Nếu robot đã lắp sẵn, đọc bài cài IDE, nạp project main và thư viện, rồi sang **bài 8**. Không bắt buộc làm mạch LED/nút trước khi dùng giao diện web.
 
 Không cần học Ubuntu hoặc ROS để làm các bài này. Nếu robot của bạn có camera hoặc LiDAR, học phần nền tảng rồi chuyển sang [ESP32 Camera](../robot-esp32-camera/01-bat-dau/01-tong-quan.md) hoặc [ESP32 LiDAR](../robot-esp32-lidar/index.md).
 

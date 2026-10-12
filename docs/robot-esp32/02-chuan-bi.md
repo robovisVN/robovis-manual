@@ -15,11 +15,15 @@
 
 Chỉ cần bo và cáp cho bài Serial. LED ngoài dùng sau để không phụ thuộc bo có LED tích hợp ở chân nào.
 
+Với robot bàn giao, kiểm tra board mở rộng ESP32, L298N, HC-SR04, dò line 5 kênh, encoder, đế pin/công tắc. Làm theo [hướng dẫn lắp ráp gốc](https://drive.google.com/file/d/1Tu1aiRez8NBzwQ63apHPXwV0UD9wpH0b/view) và [bảng chân sản phẩm](08-su-dung-robot.md). Mã còn có servo gắp GPIO18; chỉ đấu nếu robot có bộ gắp tương ứng.
+
 ## Ghi thông tin bo
 
 Đọc chữ trên nắp module: chẳng hạn `ESP32-WROOM-32`, `ESP32-S3-WROOM-1` hoặc `ESP32-C3`. Lấy pinout từ nhà cung cấp đúng phiên bản bo; bo 30 chân và 38 chân có vị trí vật lý khác nhau. Số GPIO là tên tín hiệu, không phải số thứ tự đếm chân.
 
 Ví dụ phía sau dùng GPIO23 cho LED và GPIO18 cho nút trên ESP32 classic WROOM-32. Chỉ đấu nếu bo thật có hai chân này và không dùng chúng cho thiết bị khác. Với bo họ khác, xác định chân phù hợp rồi sửa hằng số trong mã.
+
+Trong bộ mã sản phẩm, GPIO18 dành cho servo gắp. Bài LED/nút dùng bo riêng đã ngắt các dây robot; không cắm nút vào GPIO18 khi servo đang kết nối.
 
 ## Nguồn và điện áp
 

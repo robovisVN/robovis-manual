@@ -24,7 +24,7 @@ Các liên kết sang bộ tài liệu khác dẫn tới website và cần Inter
 
 ## Mã nguồn, firmware và công cụ
 
-Các tệp điều khiển robot chưa có bản tải trong mục này. Với mã nguồn ESP32, chương trình YOLO, workspace ROS 2 hoặc máy ảo `robovis.zip`, dùng bộ bàn giao tương ứng sản phẩm. Xem trang chi tiết của từng robot để đối chiếu loại tệp trước khi sử dụng.
+Trang chi tiết [Robot Arduino](robot-arduino.md) và [Robot ESP32](robot-esp32.md) có liên kết tới bộ mã/sơ đồ gốc trên Drive. Gói ZIP website vẫn là bộ tài liệu đọc ngoại tuyến. Với chương trình YOLO, workspace ROS 2 hoặc máy ảo `robovis.zip`, dùng bộ bàn giao tương ứng sản phẩm; xem phạm vi trong trang chi tiết trước khi tải.
 
 Các hướng dẫn dưới đây dẫn tới trang tải của nhà phát hành công cụ:
 

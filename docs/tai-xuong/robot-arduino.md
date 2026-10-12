@@ -1,6 +1,6 @@
 # Tải tài liệu Robot Arduino
 
-Lộ trình cho Nano classic ATmega328P: giới thiệu, cài IDE, chọn bootloader, thêm thư viện, thử servo, LED/nút nhấn và xử lý lỗi.
+Lộ trình cho Nano classic ATmega328P, đối chiếu bộ bàn giao Robovis: IDE, Servo/Dabble, lắp lại cảm biến bằng ảnh gốc, bảng chân, Bluetooth, tránh vật cản, dò line và xử lý lỗi. Bài mạch rời dùng Nano riêng.
 
 ## Bộ tài liệu có sẵn
 
@@ -20,7 +20,8 @@ Giải nén và đọc `DOC_TRUOC.md`. Các đoạn mã trong bài là ví dụ 
 
 | Loại tệp | Trạng thái |
 | --- | --- |
-| Mã nguồn Arduino | Chưa có tệp tải trong mục này. |
-| Firmware và sơ đồ phần cứng riêng | Chưa có tệp tải trong mục này. |
+| Mã nguồn Arduino | [Bộ mã bàn giao trên Drive](https://drive.google.com/drive/folders/1gmMNJcWVTs5gortEIQQb7wWsLAIqWUl-), gồm Bluetooth, dò line và tránh vật cản; chọn gói của robot |
+| Sơ đồ chân | [Sơ đồ gốc](https://drive.google.com/file/d/1kHN7YzN9rrrt3P5gOQJKpwLSXNAbj3KS/view); kiểm tra khác biệt chú thích driver với mã trong bài sử dụng |
+| Hướng dẫn sử dụng chung | [Mở bài hướng dẫn](../robot-arduino/08-su-dung-robot.md) |
 
 [← Trung tâm tải xuống](index.md)

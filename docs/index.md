@@ -16,14 +16,14 @@ Mới học lập trình robot? Bắt đầu với [Arduino Nano](robot-arduino/
 <a class="product-card" href="robot-arduino/">
   <span class="product-icon">:material-robot-industrial-outline:</span>
   <strong>Robot Arduino</strong>
-  <span>Nano: Arduino IDE, thư viện, LED, nút nhấn và servo</span>
+  <span>Nano: Arduino IDE, Dabble, Bluetooth, dò line và tránh vật cản</span>
   <em>Xem hướng dẫn →</em>
 </a>
 
 <a class="product-card" href="robot-esp32/">
   <span class="product-icon">:material-robot-outline:</span>
   <strong>Robot ESP32</strong>
-  <span>CH340 Type-C: Arduino IDE, Serial, thư viện, LED và PWM</span>
+  <span>CH340 Type-C: nạp mã, Wi-Fi, Manual và Line follow</span>
   <em>Xem hướng dẫn →</em>
 </a>
 

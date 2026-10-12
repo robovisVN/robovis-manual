@@ -2,6 +2,9 @@
 
 **Mục tiêu:** viết mã phản ứng với đầu vào. Chuẩn bị mạch ở [bài đấu nối](03-lap-rap.md).
 
+!!! warning "Học trên Nano riêng"
+    Ví dụ dùng D4/D2, còn robot dùng hai chân này cho driver/encoder. Tháo Nano khỏi board robot trước khi thử. Serial ở bài này không dùng đồng thời với bộ mã robot sử dụng D0/D1 điều khiển động cơ.
+
 ## Cấu trúc sketch
 
 `setup()` chạy một lần khi khởi động/reset; `loop()` được gọi lặp lại. `const` đặt tên chân cố định; `pinMode()` chọn chế độ chân; `digitalRead()` đọc, `digitalWrite()` xuất HIGH/LOW. `;` kết thúc lệnh, `{}` bao quanh khối mã, `//` bắt đầu ghi chú.
