@@ -188,7 +188,7 @@ Nếu module L298N có jumper trên ENA và ENB, cần tháo các jumper này kh
 
 Không nhầm jumper ENA/ENB với jumper cấu hình nguồn logic `5V_EN` trên module.
 
-**Lưu ý về chân D0 và D1:** Trên Arduino Nano, hai chân này đồng thời được sử dụng cho giao tiếp Serial qua USB. Vì vậy, khi nạp chương trình, nên ngắt nguồn động cơ và tạm thời tháo kết nối IN1/IN2 khỏi D0/D1 nếu cần. Chỉ đấu nối lại sau khi đã tắt nguồn và hoàn thành quá trình nạp.
+**Lưu ý về chân D0 và D1:** Trên Arduino Nano, hai chân này đồng thời được sử dụng cho giao tiếp Serial qua USB. Vì vậy, với các hương trình sử dụng Serial, nên ngắt nguồn động cơ và tạm thời tháo kết nối IN1/IN2 khỏi D0/D1 nếu cần. Chỉ đấu nối lại sau khi đã tắt nguồn và hoàn thành quá trình nạp.
 
 Trong các ví dụ điều khiển động cơ dưới đây, chúng ta không sử dụng `Serial.begin()`.
 
@@ -458,19 +458,27 @@ Ví dụ:
 - Duty Cycle 50%: Tín hiệu ở mức HIGH trong 50% thời gian.
 - Duty Cycle 100%: Tín hiệu luôn ở mức HIGH.
 
-<box border radius="lg" padding={3} gap={2}>
-  <text weight="medium" size="sm">Minh họa tín hiệu PWM</text>
-  {@body const duty=[{p:25,y:18},{p:50,y:65},{p:75,y:112}]}
-  <svg viewBox="0 0 340 158" width="100%">
-    {#each duty as d}
-      <text x="4" y={d.y+19} fontSize="11" fill="currentColor">{d.p}%</text>
-      {#each [0,1,2,3] as i}
-        <path d={`M${55+i*68} ${d.y+27} V${d.y+5} H${55+i*68+60*d.p/100} V${d.y+27} H${55+(i+1)*68}`} stroke="#16A34A" strokeWidth="2" fill="none"/>
-      {/each}
-    {/each}
-  </svg>
-  <caption>Duty Cycle càng lớn, tỷ lệ thời gian tín hiệu ở mức HIGH càng nhiều.</caption>
-</box>
+
+**Minh họa tín hiệu PWM**
+
+```text
+PWM 25%:
+HIGH  ┌──┐      ┌──┐      ┌──┐
+      │  │      │  │      │  │
+LOW   ┘  └──────┘  └──────┘  └────
+      
+PWM 50%:
+HIGH  ┌────┐    ┌────┐    ┌────┐
+      │    │    │    │    │    │
+LOW   ┘    └────┘    └────┘    └────
+
+PWM 75%:
+HIGH  ┌──────┐  ┌──────┐  ┌──────┐
+      │      │  │      │  │      │
+LOW   ┘      └──┘      └──┘      └──
+```
+
+Duty Cycle càng lớn, tỷ lệ thời gian tín hiệu ở mức HIGH trong mỗi chu kỳ càng nhiều.
 
 ### 8.2. Hàm analogWrite()
 

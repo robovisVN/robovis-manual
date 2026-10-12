@@ -94,17 +94,28 @@ Ví dụ, các giá trị tham khảo thường gặp:
 
 Các giá trị trên chỉ mang tính minh họa. Mối quan hệ giữa độ rộng xung và góc quay thực tế phụ thuộc vào từng servo.
 
-<box border radius="lg" padding={3} gap={2}>
-  <text weight="medium" size="sm">Minh họa tín hiệu điều khiển Servo</text>
-  <svg viewBox="0 0 340 164" width="100%">
-    {#each [{y:18,w:24,t:"Xung ngắn"},{y:67,w:36,t:"Xung trung bình"},{y:116,w:48,t:"Xung dài"}] as s}
-      <text x="3" y={s.y+9} fontSize="10" fill="currentColor">{s.t}</text>
-      <line x1="118" y1={s.y+29} x2="326" y2={s.y+29} stroke="currentColor" strokeWidth="1" opacity=".2"/>
-      <path d={`M118 ${s.y+29} V${s.y+5} H${118+s.w} V${s.y+29} H326`} stroke="#16A34A" strokeWidth="2.5" fill="none"/>
-    {/each}
-  </svg>
-  <caption>Độ rộng xung khác nhau tương ứng với các vị trí góc khác nhau. Hình không thể hiện đúng tỷ lệ thời gian thực tế.</caption>
-</box>
+**Minh họa tín hiệu điều khiển Servo**
+
+```text
+Xung 1,0 ms:
+HIGH  ┌─┐
+      │ │
+LOW   ┘ └───────────────────────
+
+Xung 1,5 ms:
+HIGH  ┌──┐
+      │  │
+LOW   ┘  └──────────────────────
+
+Xung 2,0 ms:
+HIGH  ┌───┐
+      │   │
+LOW   ┘   └─────────────────────
+```
+
+Các tín hiệu trên có chu kỳ tham khảo khoảng 20 ms. Độ rộng xung HIGH thay đổi để yêu cầu servo di chuyển đến những vị trí góc khác nhau.
+
+*Hình minh họa không theo đúng tỷ lệ thời gian thực tế.*
 
 Trong bài học này, chúng ta không cần tự tạo các xung điều khiển bằng tay.
 
