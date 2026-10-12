@@ -4,8 +4,8 @@ Chọn đúng dòng robot để mở hướng dẫn. Mỗi sản phẩm có danh
 
 | Sản phẩm | Nội dung | Mở tài liệu |
 | --- | --- | --- |
-| Robot Arduino | Nano: IDE, Servo/Dabble, lắp cảm biến, Bluetooth, tránh vật cản và dò line | [Lộ trình](../robot-arduino/index.md) |
-| Robot ESP32 | CH340 Type-C: IDE, thư viện, nạp main, Wi-Fi Manual/Line follow | [Lộ trình](../robot-esp32/index.md) |
+| Robot Arduino | 10 bài giảng Nano: LED, SG90, L298N, cảm biến, encoder, HM-10 và PID | [Lộ trình](../robot-arduino/index.md) |
+| Robot ESP32 | 10 bài giảng ESP32: LED, servo, L298N, cảm biến, encoder, Wi-Fi và PID | [Lộ trình](../robot-esp32/index.md) |
 | Robot ESP32 Camera | Arduino IDE, nạp chương trình, điều khiển và YOLO | [Bắt đầu](../robot-esp32-camera/01-bat-dau/01-tong-quan.md) |
 | Robot ESP32 LiDAR | Ubuntu, ROS 2, chạy thử, SLAM và Nav2 | [Bắt đầu](../robot-esp32-lidar/index.md) |
 

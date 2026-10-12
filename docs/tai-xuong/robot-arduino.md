@@ -1,6 +1,6 @@
 # Tải tài liệu Robot Arduino
 
-Lộ trình cho Nano classic ATmega328P, đối chiếu bộ bàn giao Robovis: IDE, Servo/Dabble, lắp lại cảm biến bằng ảnh gốc, bảng chân, Bluetooth, tránh vật cản, dò line và xử lý lỗi. Bài mạch rời dùng Nano riêng.
+Gồm 10 bài giảng theo trình tự mục tiêu → nguyên lý → đấu nối → mã → kiểm tra → bài tập: Nano, lập trình, LED, SG90, L298N, HC-SR04, TCRT5000, encoder, HM-10 và PID. Kèm cài IDE/thư viện, ảnh lắp cảm biến và hướng dẫn sử dụng theo bộ bàn giao.
 
 ## Bộ tài liệu có sẵn
 

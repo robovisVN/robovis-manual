@@ -1,6 +1,6 @@
 # Tải tài liệu Robot ESP32
 
-Lộ trình ESP32 CH340 Type-C theo bộ bàn giao: IDE/driver, thư viện, nạp đủ main.ino/do_line.cpp/do_line.h, lắp ráp, bảng chân, điều khiển Wi-Fi Manual/Line follow và xử lý lỗi. Bài LED/nút/PWM là thực hành với bo riêng.
+Gồm 10 bài giảng: ESP32, lập trình, LED, servo, L298N, HC-SR04, TCRT5000, encoder, Wi-Fi và PID. Mỗi bài có mã thử, kết quả mong đợi và bài tập. Kèm IDE/CH340, thư viện, nạp project main và hướng dẫn Manual/Line follow theo bộ bàn giao.
 
 ## Bộ tài liệu có sẵn
 

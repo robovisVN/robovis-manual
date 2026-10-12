@@ -1,23 +1,40 @@
-# Bắt đầu với Robot Arduino Nano
+# Bài giảng xe Arduino Nano
 
-Lộ trình dành cho người chưa từng lập trình: cài công cụ, nạp chương trình, thêm Servo/Dabble, rồi sử dụng robot theo [bộ bàn giao Robovis](https://drive.google.com/drive/folders/1gmMNJcWVTs5gortEIQQb7wWsLAIqWUl-). Hướng dẫn sản phẩm dùng chung, không tách bài theo số bánh.
+Lộ trình từ lập trình cơ bản đến điều khiển xe có phản hồi, theo [bộ tài liệu Robovis](https://drive.google.com/drive/folders/1gmMNJcWVTs5gortEIQQb7wWsLAIqWUl-). Các bài dùng cấu hình chân sản phẩm, không chia lộ trình theo số bánh.
 
-**Phạm vi:** Nano classic **ATmega328P, logic 5 V** như hướng dẫn nạp bàn giao. Bài LED/nút dùng Nano riêng; bảng chân sản phẩm, cách nạp và các chức năng thực tế nằm trong bài sử dụng robot chung. Nano Every/Nano ESP32/Nano 33 là bo khác.
+Mỗi bài thực hành theo trình tự: **mục tiêu → nguyên lý → bảng chân/đấu nối → mã chạy thử → giải thích → kiểm tra kết quả → lỗi thường gặp → bài tập**. Cuối bài có liên kết bài trước/bài tiếp để học liên tục.
 
-| Thứ tự | Bài học | Kết quả |
-| --- | --- | --- |
-| 1 | [Arduino và Nano là gì?](01-gioi-thieu.md) | Hiểu bo mạch và chương trình |
-| 2 | [Chuẩn bị](02-chuan-bi.md) | Có bo, cáp dữ liệu và linh kiện |
-| 3 | [Cài IDE và nạp Blink](05-cai-arduino-ide.md) | LED trên bo nhấp nháy |
-| 4 | [Thêm thư viện và thử servo](06-cai-thu-vien.md) | Biên dịch được thư viện |
-| 5 | [Lắp cảm biến và thực hành đấu nối](03-lap-rap.md) | Lắp theo ảnh gốc, hiểu mạch rời |
-| 6 | [Lập trình cơ bản](04-lap-trinh.md) | Đọc nút, điều khiển LED, xem Serial |
-| 7 | [Chạy thử robot và xử lý lỗi](07-chay-thu-va-xu-ly-loi.md) | Kiểm tra từng phần và mô tả sự cố |
-| 8 | [Sử dụng robot theo bộ bàn giao](08-su-dung-robot.md) | Đúng chân, đúng sketch; Bluetooth, tránh vật cản và dò line |
+## Lộ trình bài giảng
 
-Học theo thứ tự trong bảng; chưa cần có servo để làm bài LED và nút nhấn.
+| Bài học | Kiến thức đạt được |
+| --- | --- |
+| 1. [Giới thiệu xe Arduino Nano](01-gioi-thieu.md) | Nhận diện bo, cảm biến và driver |
+| 2. [Hướng dẫn lập trình xe](bai-giang/02-lap-trinh.md) | Sketch, Verify, Upload, Serial |
+| 3. [Điều khiển LED](bai-giang/03-led.md) | Đầu ra HIGH/LOW và thời gian |
+| 4. [Điều khiển servo SG90](bai-giang/04-servo.md) | Nguồn, tín hiệu và góc |
+| 5. [Động cơ DC với L298N](bai-giang/05-dong-co.md) | PWM, chiều quay, tiến/lùi/rẽ/dừng |
+| 6. [Đọc HC-SR04](bai-giang/06-hc-sr04.md) | Khoảng cách và timeout |
+| 7. [Cảm biến dò line TCRT5000](bai-giang/07-do-line.md) | Năm kênh và vị trí line |
+| 8. [Đọc encoder](bai-giang/08-encoder.md) | Ngắt, số xung, RPM và vận tốc |
+| 9. [Bluetooth HM-10 và Dabble](bai-giang/09-bluetooth.md) | Nhận lệnh từ điện thoại/trình duyệt |
+| 10. [Điều khiển xe với PID](bai-giang/10-pid.md) | Sai số, phản hồi và hiệu chỉnh |
 
-Nếu muốn sử dụng ngay robot đã lắp sẵn, đọc bài lắp cảm biến, cài IDE/thư viện rồi chuyển thẳng tới **bài 8**. Không cần đấu mạch LED/nút lên robot.
+Học cảm biến riêng trước khi ghép vào điều khiển motor. PID tốc độ dùng encoder; PID bám line còn cần vị trí line và một vòng điều khiển khác. Hệ số, chu vi bánh và PPR trong mã học là giá trị thử cần đo/hiệu chỉnh.
+
+## Cài công cụ và chuẩn bị
+
+- [Chuẩn bị](02-chuan-bi.md)
+- [Cài IDE và nạp Blink](05-cai-arduino-ide.md)
+- [Cài Servo/Dabble](06-cai-thu-vien.md)
+- [Lắp cảm biến theo ảnh bàn giao](03-lap-rap.md)
+- [Nút nhấn, Serial và millis](04-lap-trinh.md)
+
+Ví dụ LED/Serial dùng bo riêng hoặc ngắt các kết nối robot được ghi trong bài. Không coi chân robot là chân trống để gắn thêm linh kiện. Ngắt nguồn khi đổi dây, kê bánh khi thử motor. Mã học là sketch độc lập; Upload thay chương trình robot, nên giữ bộ mã gốc để nạp lại.
+
+## Muốn dùng ngay robot đã bàn giao?
+
+Đọc [hướng dẫn sử dụng robot chung](08-su-dung-robot.md) để lắp ráp, nạp chương trình và dùng chức năng có sẵn. Chuỗi bài giảng phía trên giúp bạn hiểu và tự viết từng phần.
+
+[Xử lý lỗi](07-chay-thu-va-xu-ly-loi.md) · [Tải bộ tài liệu](../tai-xuong/robot-arduino.md)
 
 [Bắt đầu bài 1](01-gioi-thieu.md){ .md-button .md-button--primary }
-[Tải tài liệu](../tai-xuong/robot-arduino.md){ .md-button }
