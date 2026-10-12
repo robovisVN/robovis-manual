@@ -1,6 +1,6 @@
 # Tải tài liệu Robot Arduino
 
-Gồm 10 bài giảng theo trình tự mục tiêu → nguyên lý → đấu nối → mã → kiểm tra → bài tập: Nano, lập trình, LED, SG90, L298N, HC-SR04, TCRT5000, encoder, HM-10 và PID. Kèm cài IDE/thư viện, ảnh lắp cảm biến và hướng dẫn sử dụng theo bộ bàn giao.
+Gồm 10 bài giảng dành cho người mới, chia nhỏ thao tác và có kết quả cần thấy ở từng bước: Nano, lập trình, LED, SG90, L298N, HC-SR04, dò line, encoder, HM-10 và làm quen PID. Mỗi linh kiện bắt đầu bằng kiểm tra riêng rồi mới ghép chức năng. Kèm cài IDE/thư viện, ảnh lắp cảm biến và hướng dẫn sử dụng theo bộ bàn giao.
 
 ## Bộ tài liệu có sẵn
 

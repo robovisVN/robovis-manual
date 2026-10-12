@@ -1,40 +1,61 @@
-# Bài giảng xe Arduino Nano
+# Học và sử dụng Robot Arduino Nano
 
-Lộ trình từ lập trình cơ bản đến điều khiển xe có phản hồi, theo [bộ tài liệu Robovis](https://drive.google.com/drive/folders/1gmMNJcWVTs5gortEIQQb7wWsLAIqWUl-). Các bài dùng cấu hình chân sản phẩm, không chia lộ trình theo số bánh.
+Bạn có thể bắt đầu dù chưa biết lập trình hoặc chưa từng đấu dây điện tử. Bộ bài này giúp bạn làm quen với từng bộ phận, chạy một ví dụ nhỏ, kiểm tra kết quả rồi mới ghép thành chức năng của xe.
 
-Mỗi bài thực hành theo trình tự: **mục tiêu → nguyên lý → bảng chân/đấu nối → mã chạy thử → giải thích → kiểm tra kết quả → lỗi thường gặp → bài tập**. Cuối bài có liên kết bài trước/bài tiếp để học liên tục.
+Các bài áp dụng cho **Arduino Nano classic dùng ATmega328P** và bộ robot trong [thư mục bàn giao Robovis](https://drive.google.com/drive/folders/1gmMNJcWVTs5gortEIQQb7wWsLAIqWUl-). Mỗi bài dùng chung sơ đồ chân của bộ robot, không tách hướng dẫn theo số bánh.
 
-## Lộ trình bài giảng
+## Bạn muốn bắt đầu từ đâu?
 
-| Bài học | Kiến thức đạt được |
+| Tình huống của bạn | Bắt đầu ở đây |
 | --- | --- |
-| 1. [Giới thiệu xe Arduino Nano](01-gioi-thieu.md) | Nhận diện bo, cảm biến và driver |
-| 2. [Hướng dẫn lập trình xe](bai-giang/02-lap-trinh.md) | Sketch, Verify, Upload, Serial |
-| 3. [Điều khiển LED](bai-giang/03-led.md) | Đầu ra HIGH/LOW và thời gian |
-| 4. [Điều khiển servo SG90](bai-giang/04-servo.md) | Nguồn, tín hiệu và góc |
-| 5. [Động cơ DC với L298N](bai-giang/05-dong-co.md) | PWM, chiều quay, tiến/lùi/rẽ/dừng |
-| 6. [Đọc HC-SR04](bai-giang/06-hc-sr04.md) | Khoảng cách và timeout |
-| 7. [Cảm biến dò line TCRT5000](bai-giang/07-do-line.md) | Năm kênh và vị trí line |
-| 8. [Đọc encoder](bai-giang/08-encoder.md) | Ngắt, số xung, RPM và vận tốc |
-| 9. [Bluetooth HM-10 và Dabble](bai-giang/09-bluetooth.md) | Nhận lệnh từ điện thoại/trình duyệt |
-| 10. [Điều khiển xe với PID](bai-giang/10-pid.md) | Sai số, phản hồi và hiệu chỉnh |
+| Mới nhận xe, muốn biết xe có những gì | [Bài 1: Giới thiệu xe](01-gioi-thieu.md) |
+| Chưa có Arduino IDE trên máy tính | [Chuẩn bị](02-chuan-bi.md), rồi [cài IDE và nạp thử](05-cai-arduino-ide.md) |
+| Đã nạp được chương trình, muốn học tự viết mã | [Bài 2: Lập trình đầu tiên](bai-giang/02-lap-trinh.md) |
+| Muốn dùng ngay Bluetooth, dò line hoặc tránh vật cản | [Sử dụng chương trình bàn giao](08-su-dung-robot.md) |
+| Đang gặp lỗi | [Kiểm tra theo từng hiện tượng](07-chay-thu-va-xu-ly-loi.md) |
 
-Học cảm biến riêng trước khi ghép vào điều khiển motor. PID tốc độ dùng encoder; PID bám line còn cần vị trí line và một vòng điều khiển khác. Hệ số, chu vi bánh và PPR trong mã học là giá trị thử cần đo/hiệu chỉnh.
+## Máy tính và robot làm gì?
 
-## Cài công cụ và chuẩn bị
+**Máy tính** dùng Arduino IDE để viết và nạp chương trình. **Nano trên robot** thực hiện chương trình đó: đọc cảm biến và gửi lệnh cho mạch điều khiển động cơ. Khi đã nạp xong, Nano vẫn chạy khi có nguồn, kể cả khi không nối máy tính.
 
-- [Chuẩn bị](02-chuan-bi.md)
-- [Cài IDE và nạp Blink](05-cai-arduino-ide.md)
-- [Cài Servo/Dabble](06-cai-thu-vien.md)
-- [Lắp cảm biến theo ảnh bàn giao](03-lap-rap.md)
-- [Nút nhấn, Serial và millis](04-lap-trinh.md)
+Bạn chưa cần học ROS 2 hoặc Ubuntu để làm các bài này. Nếu dùng Windows, bắt đầu bằng Arduino IDE và cáp USB.
 
-Ví dụ LED/Serial dùng bo riêng hoặc ngắt các kết nối robot được ghi trong bài. Không coi chân robot là chân trống để gắn thêm linh kiện. Ngắt nguồn khi đổi dây, kê bánh khi thử motor. Mã học là sketch độc lập; Upload thay chương trình robot, nên giữ bộ mã gốc để nạp lại.
+## Học theo thứ tự nào?
 
-## Muốn dùng ngay robot đã bàn giao?
+| Bài | Bạn sẽ làm được gì trước khi học tiếp? |
+| --- | --- |
+| [1. Giới thiệu xe Arduino Nano](01-gioi-thieu.md) | Chỉ được Nano, driver, cảm biến và nguồn trên xe |
+| [2. Lập trình xe từ đầu](bai-giang/02-lap-trinh.md) | Nạp mã và nhìn thấy một dòng thông báo từ Nano |
+| [3. Điều khiển LED](bai-giang/03-led.md) | Làm đèn trên Nano bật, tắt và đổi nhịp |
+| [4. Servo SG90](bai-giang/04-servo.md) | Đưa servo về giữa, rồi quay trong khoảng nhỏ |
+| [5. Động cơ DC và L298N](bai-giang/05-dong-co.md) | Thử từng bên động cơ, đảo chiều và dừng |
+| [6. Cảm biến HC-SR04](bai-giang/06-hc-sr04.md) | Đọc được khoảng cách và nhận biết lúc không có số đo |
+| [7. Cảm biến dò line](bai-giang/07-do-line.md) | Thấy từng mắt cảm biến đổi tín hiệu trên nền và line |
+| [8. Encoder](bai-giang/08-encoder.md) | Quay bánh bằng tay và quan sát số xung tăng |
+| [9. Bluetooth HM-10](bai-giang/09-bluetooth.md) | Nhấn nút trên điện thoại và thấy Nano nhận đúng lệnh |
+| [10. Làm quen với PID](bai-giang/10-pid.md) | Hiểu cách đo tốc độ rồi sửa mức điều khiển động cơ |
 
-Đọc [hướng dẫn sử dụng robot chung](08-su-dung-robot.md) để lắp ráp, nạp chương trình và dùng chức năng có sẵn. Chuỗi bài giảng phía trên giúp bạn hiểu và tự viết từng phần.
+Hai bài cuối cần kiến thức từ các bài trước. Bạn không cần hiểu PID để nạp chương trình có sẵn hoặc điều khiển xe bằng điện thoại.
 
-[Xử lý lỗi](07-chay-thu-va-xu-ly-loi.md) · [Tải bộ tài liệu](../tai-xuong/robot-arduino.md)
+## Cách làm một bài thực hành
+
+1. Đọc mục **Trước khi làm** và chuẩn bị đúng trạng thái đấu dây.
+2. Chạy mã của bước đầu tiên; chưa ghép nhiều ví dụ với nhau.
+3. So sánh đèn, chuyển động hoặc dòng thông báo với mục **Kết quả cần thấy**.
+4. Nếu khác, xử lý ngay tại bước đó rồi mới học tiếp.
+5. Lưu bản đã chạy đúng, sau đó chỉ thay một giá trị để quan sát sự khác nhau.
+
+**Nạp mã mới sẽ thay chương trình cũ trên Nano.** Tạo một thư mục riêng cho mỗi bài và giữ bộ mã bàn giao để khôi phục xe sau khi học.
+
+Một số bài đọc dữ liệu dùng D0/D1 để nối máy tính, trong khi robot dùng hai chân này điều khiển driver. [Bài chuẩn bị](02-chuan-bi.md) giải thích cách ngắt dây đúng; không chỉ tắt nguồn motor rồi bỏ qua các dây tín hiệu.
+
+## Các hướng dẫn có thể mở lại khi cần
+
+- [Cài Arduino IDE, chọn Nano và cổng COM](05-cai-arduino-ide.md).
+- [Thêm thư viện Servo/Dabble](06-cai-thu-vien.md).
+- [Lắp cảm biến theo ảnh khi nhận hàng](03-lap-rap.md).
+- [Thực hành nút nhấn và cách dùng millis](04-lap-trinh.md).
+- [Sơ đồ chân, bộ mã và cách sử dụng robot](08-su-dung-robot.md).
 
 [Bắt đầu bài 1](01-gioi-thieu.md){ .md-button .md-button--primary }
+[Tải tài liệu đọc trên máy](../tai-xuong/robot-arduino.md){ .md-button }

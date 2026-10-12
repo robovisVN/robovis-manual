@@ -1,54 +1,89 @@
 # Bài 1: Giới thiệu xe Arduino Nano
 
-## Mục tiêu bài học
+**Mục tiêu:** nhận diện các bộ phận và hiểu việc gì diễn ra khi bạn cho xe chạy. Bài này chỉ quan sát, chưa cần viết mã hoặc thay dây.
 
-Sau bài này, bạn có thể:
+## Xe robot khác xe đồ chơi ở đâu?
 
-- Nhận diện Nano classic và các phần của robot.
-- Giải thích đường đi từ cảm biến tới quyết định điều khiển motor.
-- Phân biệt IDE, sketch, thư viện, Verify và Upload.
+Xe đồ chơi thường di chuyển theo lệnh từ người cầm điều khiển. Với xe Arduino, bạn còn có thể viết chương trình để xe đọc cảm biến và tự chọn hành động.
 
-Bộ robot trong [tài liệu bàn giao Robovis](https://drive.google.com/drive/folders/1gmMNJcWVTs5gortEIQQb7wWsLAIqWUl-) dùng **Arduino Nano**, board mở rộng, driver, encoder, dò line 5 kênh, HC-SR04 và servo SG90. Mã Bluetooth dùng Dabble và module HM10. Xem [hướng dẫn sử dụng chung](08-su-dung-robot.md) để chọn mã và đối chiếu chân.
+Ví dụ, muốn xe dừng khi gặp vật phía trước, chương trình cần làm ba việc: đọc khoảng cách, so với mức bạn chọn, rồi gửi lệnh dừng tới mạch động cơ. Nano là nơi thực hiện các quyết định đó.
 
-## 1. Từ mã lệnh đến chuyển động
+## Robot và máy tính làm gì?
 
-Arduino là nền tảng giúp bạn lập trình bo vi điều khiển. Bạn viết mã trên máy tính, biên dịch rồi nạp vào bo. Bo có thể chạy chương trình khi được cấp nguồn, kể cả khi rút khỏi máy tính.
+| Thành phần | Hiểu đơn giản | Việc bạn sẽ làm |
+| --- | --- | --- |
+| Máy tính | Nơi viết chương trình | Mở Arduino IDE, sửa mã và nhấn Upload |
+| Arduino Nano | Bộ điều khiển trên xe | Nhận và thực hiện chương trình đã nạp |
+| Driver động cơ | Mạch cấp điện và đổi chiều cho động cơ | Nhận các tín hiệu từ Nano |
+| Cảm biến | Phần giúp xe nhận biết môi trường/chuyển động | Gửi dữ liệu về Nano |
+| Nguồn pin | Cung cấp năng lượng | Cấp điện theo sơ đồ của bộ xe |
 
-Trong robot, Nano đọc cảm biến, quyết định hành động và gửi tín hiệu tới driver động cơ. Động cơ lấy điện từ nguồn qua driver; chân Nano không cấp điện trực tiếp cho động cơ.
+**Arduino IDE** là phần mềm bạn sẽ cài trên máy tính. **Nạp chương trình** là gửi mã từ máy tính vào Nano qua cáp USB. Sau khi nạp, rút USB không làm mất chương trình; Nano sẽ chạy lại khi được cấp nguồn.
+
+## Bước 1. Tìm Nano và board mở rộng
+
+Tắt công tắc robot trước khi cầm và kiểm tra. Tìm bo nhỏ có chữ **Nano**, chip vi điều khiển và cổng USB. Bo này thường cắm lên một board lớn hơn có nhiều hàng chân để nối dây: đó là **board mở rộng**.
+
+Board mở rộng giúp chia các chân của Nano ra đầu nối thuận tiện. Nó không phải một Nano thứ hai. Các ký hiệu thường gặp:
+
+| Ký hiệu | Dùng để làm gì? |
+| --- | --- |
+| D0, D1… | Chân tín hiệu của Nano; số là tên chân, không phải vị trí đếm từ mép bo |
+| A0, A1… | Nhóm chân có thể dùng cho tín hiệu analog; một số bài cũng dùng chúng làm tín hiệu digital |
+| GND hoặc G | Đường chung làm mốc cho điện áp/tín hiệu |
+| VCC, V hoặc 5V | Đường nguồn; cần kiểm tra điện áp đúng board, không tự nối pin vào mọi chân có chữ V |
+
+**Kết quả cần thấy:** bạn chỉ được Nano, cổng USB và board mở rộng. Đối chiếu [tài liệu Nano của Arduino](https://docs.arduino.cc/hardware/nano/) nếu chưa nhận ra bo. Bộ bài dùng Nano classic ATmega328P; Nano ESP32/Nano Every là các dòng khác.
+
+## Bước 2. Nhận diện các bộ phận của xe
+
+| Bộ phận trong bộ bàn giao | Vai trò | Bạn sẽ học ở bài |
+| --- | --- | --- |
+| Động cơ DC và bánh xe | Tạo chuyển động tiến, lùi, quay | [L298N](bai-giang/05-dong-co.md) |
+| Driver động cơ | Cấp dòng tải và điều khiển chiều quay | [L298N](bai-giang/05-dong-co.md) |
+| Servo SG90 | Quay gá cảm biến siêu âm sang các phía | [Servo](bai-giang/04-servo.md) |
+| HC-SR04, có hai đầu tròn | Đo khoảng cách phía trước | [Siêu âm](bai-giang/06-hc-sr04.md) |
+| Cảm biến dò line 5 mắt | Nhận biết vị trí đường line dưới xe | [Dò line](bai-giang/07-do-line.md) |
+| Đĩa khe và module encoder | Đếm chuyển động quay của bánh | [Encoder](bai-giang/08-encoder.md) |
+| Module Bluetooth HM-10 | Nhận lệnh từ điện thoại | [Bluetooth](bai-giang/09-bluetooth.md) |
+
+Xem [ảnh khi nhận hàng](03-lap-rap.md) để nhận diện cụm siêu âm và servo. Không cần tháo dây để tìm linh kiện. Driver thực tế cần kiểm tra tên trên mạch: tài liệu có chỗ ghi L9110s nhưng mã bàn giao dùng các chân điều khiển L298N; xem [ghi chú sơ đồ](08-su-dung-robot.md) trước khi đấu lại.
+
+## Bước 3. Theo dõi một lệnh của robot
+
+Giả sử xe cần tránh một hộp phía trước:
 
 ```mermaid
 flowchart LR
-    A[Cảm biến / nút nhấn] --> B[Arduino Nano]
-    B --> C[Driver động cơ]
-    C --> D[Động cơ]
-    E[Nguồn động cơ] --> C
+    A[HC-SR04 đo khoảng cách] --> B[Nano đọc và so sánh]
+    B --> C[Gửi tín hiệu dừng hoặc quay]
+    C --> D[Driver điều khiển motor]
 ```
 
-## 2. Nhận diện Nano
+Cảm biến không tự quyết định cho xe quay. Driver không tự biết hộp ở đâu. **Chương trình trên Nano** nối hai việc đó với nhau.
 
-Ví dụ dùng **Nano classic ATmega328P**: chân digital D0–D13, analog A0–A7, mức logic 5 V. A6/A7 chỉ là đầu vào analog. D0/RX và D1/TX dùng cho Serial, nên để trống khi học nạp qua USB. Đối chiếu pinout trong [tài liệu Nano của Arduino](https://docs.arduino.cc/hardware/nano/).
+Nguồn pin cấp điện cho động cơ qua driver. Chân tín hiệu của Nano chỉ gửi lệnh, không đủ để nối động cơ trực tiếp. Vì vậy bạn sẽ thấy cả **dây nguồn** và **dây tín hiệu** trên robot.
 
-Nano tương thích có thể dùng CH340 và cổng USB khác bo gốc. Loại cổng không quyết định vi điều khiển hoặc bootloader. Nếu bo ghi Nano Every, Nano 33 hoặc Nano ESP32, cần hướng dẫn đúng dòng đó.
+## Bước 4. Làm quen các từ trong Arduino IDE
 
-## 3. Thuật ngữ cơ bản
-
-| Từ | Ý nghĩa |
+| Từ sẽ thấy | Ý nghĩa |
 | --- | --- |
-| Sketch | Chương trình Arduino, thường có tệp `.ino` |
-| IDE | Ứng dụng viết, biên dịch và nạp mã |
-| Board package / core | Gói hỗ trợ một họ bo |
-| Library | Thư viện mã có sẵn để sử dụng linh kiện/tính năng |
-| Verify | Biên dịch mã trên máy tính |
-| Upload | Biên dịch rồi gửi mã vào bo |
-| Port / COM | Cổng giao tiếp với bo |
+| Sketch | Một chương trình Arduino; tệp chính có đuôi .ino |
+| Verify, biểu tượng dấu kiểm | Kiểm tra mã và chuyển mã thành dạng có thể nạp |
+| Upload, biểu tượng mũi tên | Gửi chương trình vào Nano |
+| Port hoặc COM | Cổng máy tính đang dùng để nói chuyện với Nano |
+| Library, thư viện | Bộ lệnh có sẵn cho một linh kiện/tính năng |
 
-## 4. Thực hành nhận diện và bài tập
+Bạn chưa cần ghi nhớ mọi từ. Khi gặp lại trong bài cài đặt, hãy quay về bảng này.
 
-1. Tìm tên chip, GND và D13 trên bo/pinout.
-2. Chỉ vị trí board mở rộng, driver, encoder, servo và cảm biến trên xe.
-3. Vẽ luồng cảm biến → Nano → driver → motor, đánh dấu đường nguồn tải riêng.
-4. Giải thích vì sao Verify thành công chưa chứng minh mã đã chạy trên Nano.
+## Khi nào hoàn thành?
 
-**Điều kiện học tiếp:** nhận diện được từng phần và biết sketch sẽ được nạp vào đâu. Nếu không khớp tên bo/phần cứng, xem [chuẩn bị](02-chuan-bi.md) và sơ đồ bàn giao trước khi cấp nguồn.
+- Bạn tìm được Nano, driver, cảm biến và nguồn trên xe.
+- Bạn giải thích được máy tính viết/nạp mã, còn Nano chạy mã.
+- Bạn biết cần driver để điều khiển động cơ.
 
-[Lộ trình](index.md) · [Bài tiếp: Hướng dẫn lập trình xe](bai-giang/02-lap-trinh.md)
+**Bài tập:** chọn một chức năng như dò line hoặc điều khiển điện thoại. Kể tên bộ phận nhận dữ liệu, Nano và bộ phận thực hiện chuyển động.
+
+Nếu máy chưa có công cụ, mở [Chuẩn bị](02-chuan-bi.md) và [Cài Arduino IDE](05-cai-arduino-ide.md). Khi đã nạp thử thành công, chuyển sang [Bài 2: Lập trình đầu tiên](bai-giang/02-lap-trinh.md).
+
+[Lộ trình](index.md) · [Bài tiếp](bai-giang/02-lap-trinh.md)

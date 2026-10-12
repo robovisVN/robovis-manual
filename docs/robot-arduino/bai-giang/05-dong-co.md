@@ -1,128 +1,157 @@
-# Bài 5: Điều khiển động cơ DC với L298N và Arduino Nano
+# Bài 5: Điều khiển động cơ DC với L298N
 
-## Mục tiêu bài học
+**Mục tiêu:** kiểm tra từng bên động cơ, đổi chiều quay và điều chỉnh mức điều khiển. Lượt đầu kê bánh khỏi sàn; bạn chưa cần để xe tự chạy trên mặt đất.
 
-Sau bài này, bạn có thể:
+## Vì sao cần L298N?
 
-- Đảo chiều một nhóm động cơ bằng cầu H.
-- Điều chỉnh mức PWM qua ENA/ENB.
-- Viết lệnh tiến, lùi, rẽ và dừng với đúng chân robot.
+Nano gửi tín hiệu điều khiển nhưng không cấp đủ dòng cho motor bánh xe. **L298N là driver**, tức mạch đứng giữa Nano và động cơ: lấy điện từ nguồn motor, cấp cho động cơ và đổi chiều dòng qua động cơ.
 
-**Trước khi bắt đầu:** Servo và nguồn tải — [mở bài trước](04-servo.md). Mỗi mã chạy thử là một sketch độc lập; Upload sẽ thay chương trình đang chạy. Giữ bản mã robot gốc để nạp lại sau khi học.
+Một module L298N có hai nhóm đầu ra. Trong bài, nhóm A nối phía trái, nhóm B nối phía phải theo bộ mã xe; kiểm tra chiều lắp thực tế trước khi gọi một chuyển động là “tiến”.
 
-## 1. Nguyên lý và kiến thức cần biết
+## Trước khi làm
 
-L298N là driver cầu H kép: bo gửi tín hiệu logic, nguồn tải cung cấp dòng cho motor. IN1/IN2 điều khiển một cầu, IN3/IN4 điều khiển cầu còn lại; ENA/ENB cho phép hoạt động và nhận PWM.
+Đã biết nạp sketch và dùng HIGH/LOW ở [bài LED](03-led.md). Chuẩn bị Nano, driver đúng loại, động cơ và nguồn motor phù hợp bộ xe. Tắt mọi nguồn khi thay dây, kê xe chắc để bánh có thể quay mà không chạm sàn.
 
-| EN | IN thứ nhất | IN thứ hai | Trạng thái |
-| --- | --- | --- | --- |
-| HIGH/PWM | HIGH | LOW | Một chiều |
-| HIGH/PWM | LOW | HIGH | Chiều ngược lại |
-| LOW | Bất kỳ | Bất kỳ | Ngắt cầu, motor dừng theo quán tính |
+Sơ đồ bàn giao có một chú thích L9110s, trong khi mã dùng giao diện L298N. Nếu mạch thực tế không có IN1–IN4 và ENA/ENB như bảng, dừng để đối chiếu [sơ đồ và ghi chú sản phẩm](../08-su-dung-robot.md).
 
-| PWM 8 bit | Tỷ lệ bật gần đúng | Ý nghĩa |
+## Bước 1. Đọc tên chân trước khi nối
+
+| Chân L298N | Chân Nano | Hiểu đơn giản |
 | --- | --- | --- |
-| 0 | 0% | Ngắt EN |
-| 64 | 25% | Mức thấp, có thể chưa đủ thắng ma sát |
-| 128 | 50% | Tỷ lệ bật một nửa, không bảo đảm nửa tốc độ |
-| 255 | 100% | EN bật liên tục, vẫn chịu giới hạn nguồn/tải |
+| IN1 / IN2 | D0 / D1 | Hai tín hiệu chọn chiều cho nhóm A |
+| ENA | D5 | Cho nhóm A chạy và điều chỉnh mức điều khiển |
+| IN3 / IN4 | D4 / D7 | Hai tín hiệu chọn chiều cho nhóm B |
+| ENB | D6 | Cho nhóm B chạy và điều chỉnh mức điều khiển |
+| OUT1 / OUT2 | Hai dây motor nhóm A | Đầu ra cấp điện cho motor |
+| OUT3 / OUT4 | Hai dây motor nhóm B | Đầu ra cấp điện cho motor |
+| GND | GND nguồn motor và GND Nano | Đường chung cho tín hiệu |
 
-Chiều “tiến” phụ thuộc dây và cách lắp motor. PWM 0–255 là tỷ lệ bật, không phải tốc độ m/s; cùng PWM chưa bảo đảm hai bánh bằng tốc độ. Xem [datasheet L298 của ST](https://www.st.com/resource/en/datasheet/l298.pdf).
+**IN** nhận lệnh từ Nano; **OUT** đi tới motor. Không nối hai dây motor vào chân IN. Các số D0/D1 là tên chân in trên Nano, không phải chân thứ nhất/thứ hai đếm từ mép bo.
 
-## 2. Chuẩn bị, bảng chân và đấu nối
+Nguồn motor đi vào đầu nguồn công suất của module, theo điện áp được phép của motor/module. Chân ghi “12V” trên một số module là nhãn đầu nguồn motor, không phải hướng dẫn luôn phải dùng đúng 12 V. Không nối nguồn pin motor vào 5V Nano.
 
-| L298N | Arduino Nano | Chức năng |
-| --- | --- | --- |
-| ENA / ENB | 5 / 6 | PWM nhóm motor trái / phải theo mã |
-| IN1 / IN2 | 0 / 1 | Chiều nhóm motor A |
-| IN3 / IN4 | 4 / 7 | Chiều nhóm motor B |
-| OUT1 / OUT2 | Hai dây motor A | Đầu ra công suất |
-| OUT3 / OUT4 | Hai dây motor B | Đầu ra công suất |
-| GND | GND bo và nguồn motor | Mốc tín hiệu chung |
+## Bước 2. Kiểm tra jumper và trạng thái nạp
 
-Chân số trong bảng là tên D/GPIO, không phải thứ tự đếm chân. Đối chiếu [sơ đồ sản phẩm](../08-su-dung-robot.md) và chiều lắp động cơ.
+**Jumper** là nắp nối nhỏ chụp lên hai chân. Nếu ENA/ENB đang được jumper nối lên HIGH, tháo jumper đó để Nano gửi PWM vào ENA/ENB. Jumper **5V_EN** liên quan nguồn logic, là jumper khác; giữ/tháo theo hướng dẫn đúng module, không tự thay chỉ vì vừa tháo ENA/ENB.
 
-Để dùng PWM ngoài, tháo jumper **ENA/ENB** nếu module đang nối cố định hai chân này lên HIGH. Jumper **5V_EN** là phần nguồn logic khác: kiểm tra hướng dẫn đúng module trước khi giữ/tháo, không nối hai nguồn 5 V đối đầu. Cấp nguồn motor theo thông số motor và board nguồn; nhãn “12V” trên một số module không bắt buộc cấp đúng 12 V. Không cấp motor từ chân GPIO/5V của bo.
+Nano dùng D0/D1 cho giao tiếp USB, còn xe dùng chúng điều khiển motor. Khi nạp, ngắt nguồn motor và ngắt dây D0/D1 tới IN1/IN2 nếu kết nối gây lỗi. Sau nạp, tắt nguồn trước khi nối lại. **Không thêm Serial.begin() vào các sketch motor trong bài này.**
 
-Bộ Drive dùng D0/D1 cho motor: không thêm Serial.begin() vào sketch điều khiển này, ngắt IN1/IN2 khi nạp nếu ảnh hưởng USB rồi nối lại khi đã tắt nguồn. Sơ đồ gốc có chú thích L9110s nhưng mã dùng giao diện L298N; xác nhận module thật có ENA/ENB trước khi làm.
+**Kết quả cần thấy:** đúng IN/OUT, GND chung, nguồn phù hợp, ENA/ENB nhận tín hiệu từ Nano và bánh được kê khỏi sàn.
 
-Kê bánh khỏi sàn, chuẩn bị công tắc nguồn motor. Ví dụ bên dưới chạy ngay sau khi khởi động bo.
+## Bước 3. Thử chỉ nhóm A trong một giây
 
-## 3. Mã chạy thử hoàn chỉnh
-
-Tạo sketch riêng có tên thư mục trùng tên tệp `.ino`, chép toàn bộ mã sau, chọn đúng board/COM rồi Verify và Upload:
+Tạo `NanoMotorA` và thay toàn bộ sketch bằng:
 
 ```cpp
-const int ENA = 5, ENB = 6;
-const int IN1 = 0, IN2 = 1;
-const int IN3 = 4, IN4 = 7;
-
-void motor(int en, int a, int b, int pwm) {
-  pwm = constrain(pwm, -255, 255);
-  digitalWrite(a, pwm > 0 ? HIGH : LOW);
-  digitalWrite(b, pwm < 0 ? HIGH : LOW);
-  analogWrite(en, abs(pwm));
-}
-
-void drive(int left, int right) {
-  motor(ENA, IN1, IN2, left);
-  motor(ENB, IN3, IN4, right);
-}
-
-void setupMotors() {
-  pinMode(ENA, OUTPUT); pinMode(ENB, OUTPUT);
-  pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
-  pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
-  drive(0, 0);
-}
-
-unsigned long batDau;
+const int ENA = 5;
+const int IN1 = 0;
+const int IN2 = 1;
+const int ENB = 6;
+const int IN3 = 4;
+const int IN4 = 7;
 
 void setup() {
-  setupMotors();
-  batDau = millis();
+  pinMode(ENA, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENB, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  analogWrite(ENA, 0);
+  analogWrite(ENB, 0);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  delay(1000);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 120);
+  delay(1000);
+  analogWrite(ENA, 0);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
 }
 
 void loop() {
-  unsigned long t = millis() - batDau;
-  if (t < 1000)      drive(0, 0);
-  else if (t < 1800) drive(120, 120);   // tien
-  else if (t < 2300) drive(0, 0);
-  else if (t < 3100) drive(-120, -120); // lui
-  else if (t < 3600) drive(0, 0);
-  else if (t < 4100) drive(0, 120);     // re trai theo cung
-  else if (t < 4600) drive(0, 0);
-  else if (t < 5100) drive(120, 0);     // re phai theo cung
-  else              drive(0, 0);      // dung, khong lap lai
 }
 ```
 
-## 4. Giải thích chương trình
+Upload khi nguồn motor đã ngắt. Nối lại dây khi tắt nguồn, kiểm tra bánh kê chắc rồi cấp nguồn đúng sơ đồ. Chương trình chỉ thử một lượt khi Nano khởi động; nếu Nano đã chạy hết lượt trước lúc bật nguồn motor, bánh có thể không quay. Với dây đã nối và bánh kê, khởi động lại Nano theo cách cấp nguồn bình thường của xe để chạy lại lượt thử; không reset giữa lúc đang sửa dây.
 
-motor() nhận PWM có dấu: dương tiến theo cấu hình, âm đảo chiều, 0 ngắt EN. drive() đặt hai nhóm motor. Chương trình thử một lượt rồi dừng, có khoảng nghỉ trước đổi hướng. Hàm motor() không có thời gian chờ đổi chiều riêng; khi tự viết chuỗi lệnh, gọi drive(0, 0) và chờ motor dừng trước khi đảo chiều.
+**Kết quả cần thấy:** chờ một giây, nhóm A quay một giây rồi dừng; nhóm B không quay. `loop()` rỗng giúp tránh tự lặp lượt thử liên tục.
 
-`drive(0, 120)` dừng một bên để rẽ theo cung, không xoay tại chỗ. Xoay tại chỗ cần hai bên ngược chiều: `drive(-120, 120)`. Giá trị 120 chỉ là mức khởi đầu; motor có thể không vượt ma sát ở mức này.
+Đọc ba lệnh quan trọng:
 
-## 5. Chạy thử và kết quả mong đợi
-
-Kê bánh khỏi sàn trước khi bật nguồn tải. Sau một giây, xe thử tiến, lùi và rẽ theo bảng thời gian rồi dừng. Nếu một bên quay ngược, ngắt nguồn và kiểm tra dây/hàm chiều trước khi thử trên sàn. Reset chạy lại một lượt; không giữ nguồn nếu driver/motor nóng.
-
-## 6. Lỗi thường gặp
-
-| Hiện tượng | Cách kiểm tra |
+| Lệnh | Tác dụng |
 | --- | --- |
-| Motor không quay | Nguồn tải, GND, EN, jumper và dây OUT |
-| PWM không đổi tốc độ | ENA/ENB có bị jumper giữ HIGH không |
-| Chỉ một chiều | IN, dây và chân trong mã |
-| Xe lệch | Pin, ma sát, PWM từng bên; học encoder/PID sau |
+| IN1 HIGH, IN2 LOW | Chọn một chiều cho nhóm A |
+| analogWrite(ENA, 120) | Đặt mức PWM 120 trên chân D5 |
+| analogWrite(ENA, 0) | Ngắt điều khiển ENA để motor dừng theo quán tính |
 
-## 7. Bài tập thực hành
+## Bước 4. Đảo chiều và thử bên còn lại
 
-1. So sánh PWM 100, 120, 150 khi bánh kê khỏi sàn; ghi kết quả, không gọi đây là tốc độ cố định.
-2. Viết forward(), backward(), stopMotor() dùng drive().
-3. Thêm một bước xoay tại chỗ ngắn, có khoảng dừng trước/sau.
-4. Giải thích vì sao dừng với EN=0 có thể vẫn còn quán tính.
+Để đảo nhóm A, đổi cặp `IN1 HIGH / IN2 LOW` thành `IN1 LOW / IN2 HIGH`. Nạp lại và chạy một lượt khi bánh vẫn kê.
 
-**Điều kiện học tiếp:** thực hiện được mục tiêu của bài và giải thích được kết quả quan sát.
+**Kết quả cần thấy:** nhóm A quay theo chiều ngược lần trước. Nếu không đổi chiều, kiểm tra đúng hai dòng và dây IN1/IN2; chưa sửa đồng thời mức PWM.
+
+Sau đó lưu thành `NanoMotorB`. Giữ nguyên các khai báo chân, sáu lệnh pinMode, phần đặt ENA/ENB về 0 và khoảng chờ đầu. Thay đoạn từ `digitalWrite(IN1, HIGH);` đến trước dấu `}` cuối setup bằng:
+
+```cpp
+digitalWrite(IN3, HIGH);
+digitalWrite(IN4, LOW);
+analogWrite(ENB, 120);
+delay(1000);
+analogWrite(ENB, 0);
+digitalWrite(IN3, LOW);
+digitalWrite(IN4, LOW);
+```
+
+**Kết quả cần thấy:** nhóm B quay một giây rồi dừng, nhóm A giữ tắt. Đây là phần thay trong setup, không chép thành một sketch chỉ có các dòng rời.
+
+Chỉ khi từng bên chạy và dừng đúng mới thử cùng lúc. Làm từng bên giúp biết lỗi nằm ở nhóm nào.
+
+## Bước 5. Hiểu PWM qua một thay đổi nhỏ
+
+**PWM** bật/tắt đầu ra nhanh. Tỷ lệ thời gian bật lớn hơn thường làm motor quay mạnh hơn. `analogWrite()` trên các chân PWM Nano nhận giá trị 0–255; tên hàm không có nghĩa xuất một điện áp analog tùy ý.
+
+| Giá trị thử | Điều bạn nên quan sát |
+| --- | --- |
+| 0 | Motor không được EN cho chạy; bánh có thể còn quán tính |
+| 100 | Mức điều khiển thấp hơn, có thể chưa đủ thắng ma sát |
+| 120 | Mức khởi đầu trong bài |
+| 150 | Mức cao hơn; kiểm tra thay đổi bằng quan sát |
+
+Thử 100 rồi 150 trong cùng lượt chạy một giây. Không gọi 120 là “một tốc độ cố định”: pin, tải, motor và ma sát đều ảnh hưởng. Đo tốc độ thật sẽ học ở bài encoder.
+
+## Bước 6. Ghép thành tiến, lùi và rẽ
+
+Khi dây/chiều của hai bên đã đúng:
+
+| Muốn xe làm gì? | Nhóm trái | Nhóm phải |
+| --- | --- | --- |
+| Tiến | Quay để bánh đẩy xe về trước | Cùng hướng tiến của xe |
+| Lùi | Đảo chiều | Đảo chiều |
+| Rẽ trái theo cung | Dừng hoặc chậm hơn | Tiến |
+| Rẽ phải theo cung | Tiến | Dừng hoặc chậm hơn |
+| Quay tại chỗ | Hai bên ngược chiều nhau | Hai bên ngược chiều nhau |
+
+“Cùng hướng tiến của xe” không nhất thiết nghĩa hai motor có cùng chiều quay khi nhìn từ hai phía. Nếu một bên ngược, tắt nguồn rồi kiểm tra dây/hướng motor trước khi ghép.
+
+Giữa tiến và lùi, đặt cả ENA/ENB về 0 và chờ bánh dừng rồi mới đảo chiều. Xem [datasheet L298](https://www.st.com/resource/en/datasheet/l298.pdf) nếu cần phân biệt dừng thả và hãm điện.
+
+## Nếu motor chưa chạy đúng
+
+| Hiện tượng | Việc kiểm tra đầu tiên |
+| --- | --- |
+| Không quay cả hai bên | Nguồn tải, công tắc, GND chung; USB Nano không thay nguồn motor |
+| Chỉ một bên không quay | Dây OUT, IN và EN của đúng nhóm đó |
+| PWM đổi nhưng motor không khác | EN có đang bị jumper giữ HIGH không? |
+| Không nạp được | D0/D1 có còn nối driver? Chọn đúng Nano/COM chưa? |
+| Driver/motor nóng, cơ cấu kẹt | Tắt nguồn tải, kiểm tra kẹt và thông số nguồn; không tăng PWM |
+
+## Khi nào hoàn thành?
+
+Từng bên motor chạy một lượt rồi dừng, bạn đảo được chiều và biết dòng nào đổi mức điều khiển.
+
+**Bài tập:** thử chỉ nhóm B, sau đó vẽ bảng các lệnh để hai bên cùng tiến một giây, dừng một giây, cùng lùi một giây rồi dừng hẳn. Chạy trên bánh kê trước khi đặt xuống sàn.
 
 [Bài trước](04-servo.md) · [Lộ trình](../index.md) · [Bài tiếp: HC-SR04](06-hc-sr04.md)

@@ -1,50 +1,66 @@
-# Lắp cảm biến khi nhận robot và thực hành đấu nối
+# Lắp lại cảm biến khi nhận robot
 
-**Mục tiêu:** lắp lại phần tháo khi vận chuyển theo tài liệu bàn giao; sau đó có thể học đấu mạch với Nano riêng.
+**Mục tiêu:** lắp những phần tháo khi vận chuyển và kiểm tra gá/dây trước khi cấp điện. Các ảnh dưới lấy từ [hướng dẫn khi nhận hàng của Robovis](https://docs.google.com/document/d/1v15Tzh_bDJ4Tez326MCeS8L-1pQc-sz2sl5fraLJJmo/edit).
 
-## Lắp lại cảm biến robot
+## Trước khi làm
 
-Theo [HD lắp đặt khi nhận hàng](https://docs.google.com/document/d/1v15Tzh_bDJ4Tez326MCeS8L-1pQc-sz2sl5fraLJJmo/edit), cảm biến được tháo để bảo đảm vận chuyển. Tắt nguồn, lắp HC-SR04 và gá servo ở đầu xe, cảm biến dò line phía dưới đầu xe như ảnh gốc:
+Tắt công tắc, rút USB và chưa lắp thêm nguồn ngoài. Đặt xe trên bàn, giữ ốc/gá đi kèm và đọc nhãn các đầu dây. Nếu chưa nhận diện HC-SR04/SG90, xem [bài giới thiệu](01-gioi-thieu.md).
 
-![Vị trí cụm siêu âm và dò line trong tài liệu bàn giao](images/nhan-hang-image3.png){ width="420" }
+## Bước 1. Xác định vị trí cụm siêu âm và dò line
 
-![Góc nhìn bên sau khi lắp cảm biến](images/nhan-hang-image2.png){ width="420" }
+HC-SR04 có hai đầu tròn nhìn về phía trước, gắn trên gá do servo quay. Cụm dò line ở thấp, phía dưới đầu xe, nhìn xuống mặt sàn.
 
-Siết ốc gá siêu âm vừa đủ giữ gá. Không vặn quá sâu vì ốc có thể chạm vỏ servo, khiến servo kẹt khi quay. Kiểm tra khoảng hở như ảnh:
+![Vị trí cụm siêu âm và dò line sau khi lắp theo tài liệu bàn giao](images/nhan-hang-image3.png){ width="420" }
 
-![Hai vị trí ốc cần kiểm tra trên servo SG90](images/nhan-hang-image1.png){ width="420" }
+**Kết quả cần thấy:** cảm biến siêu âm nhìn trước, còn dò line nhìn xuống; không đặt hai cụm nhìn cùng một hướng chỉ vì đều gọi là cảm biến.
 
-Nối lại dây theo [bảng chân robot](08-su-dung-robot.md). Không suy ra chân từ màu dây. Kiểm tra dây không vướng bánh/cụm servo trước khi cấp nguồn.
+## Bước 2. Lắp gá, không siết ốc quá sâu
 
-## Mạch rời với Nano riêng
+Đặt gá như ảnh gốc và bắt ốc giữ gá chắc. Kiểm tra từ bên cạnh:
 
-!!! warning "Không cắm LED/nút vào robot đang đấu sẵn"
-    D4 điều khiển driver, D2 đọc encoder trong bộ mã bàn giao. Mạch dưới chỉ dùng khi đã tháo Nano khỏi board robot và ngắt mọi kết nối robot. Sau bài học, tháo mạch rời và khôi phục sơ đồ sản phẩm.
+![Góc nhìn bên của gá cảm biến và servo](images/nhan-hang-image2.png){ width="420" }
 
-## Đấu LED
+Tài liệu gốc lưu ý đầu ốc gá có thể chạm vỏ servo nếu vặn sâu. Khi đó servo bị kẹt lúc quay. Hai vị trí cần kiểm tra được đánh dấu trong ảnh:
 
-Rút USB và tắt nguồn trước khi đổi dây:
+![Vị trí đầu ốc cần giữ khoảng hở với vỏ SG90](images/nhan-hang-image1.png){ width="420" }
+
+**Kết quả cần thấy:** gá giữ chắc nhưng đầu ốc không ép/chạm vỏ servo. Không dùng lực xoay tay để cưỡng bức servo; kiểm tra khoảng hở và tháo/điều chỉnh cơ cấu khi tắt nguồn nếu cần.
+
+## Bước 3. Nối lại theo tên chân
+
+Đối chiếu [bảng chân sản phẩm](08-su-dung-robot.md): servo Signal A5, siêu âm Trig A0/Echo A1, dò line D8–D12. Cấp nguồn VCC/GND đúng linh kiện và board mở rộng.
+
+Một dây bus thường gom nhiều tín hiệu vào cùng vỏ cắm. Cắm vừa khít chưa chứng minh thứ tự đúng: cần kiểm tra Signal/VCC/GND ở cả hai đầu. Không chỉ dùng màu dây trong ảnh để suy ra chức năng.
+
+**Kết quả cần thấy:** đầu cắm đúng chiều, không lệch một chân, nhãn tín hiệu khớp bảng và dây không căng khi gá quay trong khoảng sử dụng.
+
+## Bước 4. Kiểm tra trước khi bật xe
+
+- Không còn ốc/dây có thể chạm bánh hoặc phần quay.
+- Dây nguồn đúng cực, không cắm nguồn motor vào chân tín hiệu/5V Nano.
+- Cảm biến line nhìn xuống và được cố định.
+- Servo/gá có khoảng trống, đầu ốc không gây kẹt.
+- Bạn biết chương trình nào đang được nạp; chưa đặt bánh chạm sàn khi chưa rõ hành vi khởi động.
+
+Nếu mục tiêu chỉ là dùng xe đã có mã, tiếp tục [hướng dẫn sử dụng robot](08-su-dung-robot.md). Nếu học từng linh kiện, thực hiện đúng trạng thái nguồn/dây trong bài tương ứng.
+
+## Phần bổ trợ: đấu LED và nút trên Nano riêng
+
+Chỉ làm phần này khi muốn học [nút nhấn và millis](04-lap-trinh.md). **Tháo Nano khỏi board robot** trước: D4/D2 trên xe không phải chân trống để gắn thêm linh kiện.
+
+Rút USB, nối LED:
 
 ```text
 Nano D4 → điện trở 330 Ω–1 kΩ → anode LED
 cathode LED → Nano GND
 ```
 
-LED mới thường có chân dài là anode (+), chân ngắn là cathode (−); mép phẳng thường đánh dấu cathode. Nếu chân đã cắt, xem dấu hoặc kiểm tra bằng đồng hồ. Điện trở mắc nối tiếp để hạn dòng; không nối LED trực tiếp từ GPIO xuống GND.
+Anode/cathode là hai cực của LED. LED mới thường có chân dài là anode, chân ngắn hoặc phía mép phẳng là cathode; kiểm tra nếu chân đã cắt. Điện trở nằm nối tiếp để hạn dòng, không bỏ qua.
 
-## Đấu nút nhấn
+Nối hai phía tiếp điểm nút giữa **D2** và **GND**, không nối nút lên 5V vì mã dùng kéo lên nội. Nút bốn chân có hai cặp nối sẵn: phải chọn hai phía chỉ nối với nhau khi nhấn. Có thể kiểm tra bằng sơ đồ nút hoặc đồng hồ đo thông mạch.
 
-Nối hai phía tiếp điểm của nút với **D2** và **GND**. Mã sẽ dùng `INPUT_PULLUP`, không cần nối nút lên 5V.
+Nếu dùng breadboard, tìm đúng nhóm lỗ nối nhau; hai hàng chân Nano không cắm chung một nhóm điện. Đầu tiên kiểm tra không chập 5V/GND, rồi mới cắm USB và chạy bài đọc nút riêng.
 
-Nút bốn chân có hai cặp nối sẵn. Xác định bằng đồng hồ hoặc sơ đồ linh kiện; nếu chọn hai chân cùng cặp, mã luôn thấy nút đang nhấn. Có thể dùng hai dây chạm nhau để kiểm tra trước.
+**Kết quả cần thấy khi hoàn thành mạch:** LED có điện trở và GND, nút chỉ nối D2 về GND khi nhấn. LED chưa sáng khi chưa có lệnh bật là bình thường.
 
-## Kiểm tra trước khi cấp điện
-
-- Hai hàng chân Nano không nằm cùng nhóm nối trên breadboard.
-- LED có điện trở nối tiếp, cathode về GND.
-- D2 chỉ nối với GND khi nhấn nút.
-- 5V không chạm GND, nguồn động cơ vẫn ngắt.
-
-**Kết quả:** mạch sẵn sàng cho bài tiếp. LED chưa sáng khi chưa có mã điều khiển là bình thường.
-
-[Bài trước](06-cai-thu-vien.md) · [Bài tiếp: Lập trình](04-lap-trinh.md)
+[Chuẩn bị nguồn/dây](02-chuan-bi.md) · [Lộ trình](index.md) · [Nút nhấn](04-lap-trinh.md)

@@ -1,73 +1,131 @@
-# Bài 2: Hướng dẫn lập trình xe Arduino Nano
+# Bài 2: Viết và nạp chương trình Arduino đầu tiên
 
-## Mục tiêu bài học
+**Mục tiêu:** tự tạo một sketch và nhìn thấy thông báo do Nano gửi về máy tính. Bài này chưa điều khiển bánh xe, chưa cần học công thức hay thuật toán.
 
-Sau bài này, bạn có thể:
+## Trước khi làm
 
-- Phân biệt Verify và Upload.
-- Tạo sketch độc lập, chọn board/COM và đọc lỗi biên dịch.
-- Hiểu setup(), loop(), biến, điều kiện và thời gian chờ.
+Hoàn thành [cài IDE và nạp thử](../05-cai-arduino-ide.md). Có Nano, cáp USB dữ liệu và máy tính. Để học dễ nhất, dùng Nano riêng, chưa nối các thiết bị của robot.
 
-**Trước khi bắt đầu:** Đọc bài giới thiệu bo và robot — [mở bài trước](../01-gioi-thieu.md). Mỗi mã chạy thử là một sketch độc lập; Upload sẽ thay chương trình đang chạy. Giữ bản mã robot gốc để nạp lại sau khi học.
+Nếu giữ Nano trên xe, tắt nguồn motor và **ngắt dây từ D0/D1 tới IN1/IN2 của driver**. Hai chân này cũng dùng cho giao tiếp USB với máy tính; tắt nguồn motor thôi chưa giải phóng dây tín hiệu. Chụp lại trước khi rút để nối về đúng sau bài học.
 
-## 1. Nguyên lý và kiến thức cần biết
+## Bước 1. Tạo và lưu bài mới
 
-Một sketch là chương trình chạy trên bo. `setup()` khởi tạo một lần; `loop()` được gọi liên tục. `const` đặt hằng số, `if` chọn hành động, `;` kết thúc câu lệnh và `//` ghi chú. Cú pháp phân biệt chữ hoa/thường.
+Thực hiện trên **máy tính**, trong Arduino IDE:
 
-Verify chỉ biên dịch trên máy tính; Upload mới ghi vào bo. Khi lỗi, đọc thông báo lỗi đầu tiên thay vì chỉ dòng “exit status 1”.
+1. Chọn **File → New Sketch**. Một trang mã mới xuất hiện.
+2. Chọn **File → Save As** và đặt tên `NanoThongBao`.
+3. Chọn thư mục học của bạn để lưu, chẳng hạn `Documents/HocRobotNano`.
 
-## 2. Chuẩn bị, bảng chân và đấu nối
+IDE tạo thư mục `NanoThongBao` và tệp `NanoThongBao.ino` bên trong. Một bài học nên có một thư mục riêng để bạn mở lại bản đã chạy đúng.
 
-Chỉ cần bo, cáp USB dữ liệu và máy tính. Ngắt dây robot để học Serial với bo riêng.
+**Kết quả cần thấy:** tên sketch đang mở là NanoThongBao. Chưa cần tự tạo tệp khác trong thư mục này.
 
-| Công cụ | Bài cài đặt |
-| --- | --- |
-| IDE, board và driver | [Mở hướng dẫn](../05-cai-arduino-ide.md) |
-| Thư viện | [Mở hướng dẫn](../06-cai-thu-vien.md) |
+## Bước 2. Hiểu hai phần có sẵn
 
-Chọn Arduino Nano, Processor ATmega328P; Old Bootloader chỉ thử khi phù hợp bo thực tế.
+Sketch mới thường có `setup()` và `loop()`:
 
-## 3. Mã chạy thử hoàn chỉnh
+| Phần | Khi nào chạy? | Ví dụ việc đặt ở đó |
+| --- | --- | --- |
+| setup() | Một lần khi Nano khởi động hoặc reset | Bật giao tiếp với máy tính |
+| loop() | Lặp lại sau khi setup kết thúc | Gửi một thông báo mỗi giây |
 
-Tạo sketch riêng có tên thư mục trùng tên tệp `.ino`, chép toàn bộ mã sau, chọn đúng board/COM rồi Verify và Upload:
+Dấu `{` và `}` bao quanh các lệnh thuộc một phần. Dòng bắt đầu bằng `//` là ghi chú cho người đọc, Nano không thực hiện ghi chú đó. Chưa cần sửa tên setup hoặc loop.
+
+## Bước 3. Chép chương trình nhỏ nhất
+
+Nhấn **Ctrl+A** trong vùng soạn mã để chọn mã cũ, rồi thay bằng toàn bộ đoạn dưới:
 
 ```cpp
-unsigned long soLan = 0;
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("Xin chao tu Nano");
+  delay(1000);
+}
+```
+
+Đọc chương trình theo thứ tự:
+
+1. `Serial.begin(9600);` mở đường gửi thông báo về máy tính. Số 9600 là tốc độ giao tiếp sẽ chọn ở cửa sổ xem.
+2. `Serial.println("Xin chao tu Nano");` gửi câu trong dấu ngoặc kép, rồi xuống dòng.
+3. `delay(1000);` chờ 1000 mili giây, tức một giây.
+4. loop kết thúc rồi chạy lại, nên câu tiếp tục xuất hiện.
+
+Trong mã mẫu, câu thông báo không dấu để dễ nhận ra khi xem log. Dấu `;` ở cuối mỗi lệnh là phần cú pháp; khi chép, giữ nguyên ngoặc kép, ngoặc tròn và dấu chấm phẩy.
+
+## Bước 4. Kiểm tra rồi nạp vào Nano
+
+1. Kiểm tra **Tools → Board → Arduino Nano**, **Processor → ATmega328P** và Port đúng Nano.
+2. Nhấn **Verify**, nút dấu kiểm. Chờ IDE biên dịch xong.
+3. Nếu không có lỗi, nhấn **Upload**, nút mũi tên.
+4. Chờ báo nạp hoàn tất. Đừng rút cáp giữa chừng.
+
+**Kết quả cần thấy:** Upload hoàn tất. Verify thành công chưa có nghĩa Nano đã nhận mã mới; bạn vẫn cần Upload.
+
+## Bước 5. Mở cửa sổ xem thông báo
+
+Chọn **Tools → Serial Monitor**. Đây là cửa sổ hiển thị các dòng Nano gửi qua USB. Tìm ô tốc độ giao tiếp và chọn **9600 baud**.
+
+```text
+Xin chao tu Nano
+Xin chao tu Nano
+Xin chao tu Nano
+```
+
+**Kết quả cần thấy:** mỗi giây thêm một dòng. Không cần nhập gì vào ô gửi của Monitor.
+
+Nếu không thấy dòng mới, kiểm tra theo thứ tự: đã Upload chưa, có chọn đúng Port không, Monitor có đặt 9600 không. Nếu ký tự lạ, đổi Monitor về đúng 9600 trước khi sửa mã.
+
+## Bước 6. Tự sửa một giá trị
+
+Đổi `delay(1000)` thành `delay(500)`, nhấn Upload lại.
+
+**Kết quả cần thấy:** các dòng xuất hiện nhanh hơn, khoảng hai dòng mỗi giây. Tiếp theo đổi câu trong dấu ngoặc kép thành tên của bạn và nạp lại.
+
+Đây là chu trình bạn sẽ dùng trong các bài sau: **sửa → Verify → Upload → quan sát**. Sửa trên màn hình nhưng không Upload thì Nano vẫn chạy mã cũ.
+
+## Thực hành thêm: dùng một biến
+
+Sau khi câu thông báo đã chạy đúng, bạn có thể thay toàn bộ sketch bằng:
+
+```cpp
+int soLan = 0;
 
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
-  Serial.print("So lan lap: ");
   Serial.println(soLan);
-  soLan++;
+  soLan = soLan + 1;
+  if (soLan >= 10) {
+    soLan = 0;
+  }
   delay(1000);
 }
 ```
 
-## 4. Giải thích chương trình
+**Biến** giống một ô nhớ có tên. `int soLan = 0` tạo ô nhớ chứa số nguyên, ban đầu là 0. `soLan = soLan + 1` lấy giá trị cũ, cộng 1 rồi lưu lại. `if` có nghĩa “nếu”; khi số đạt 10, mã đưa về 0.
 
-`unsigned long` lưu số đếm không âm; `++` tăng một đơn vị. `print()` giữ dòng, `println()` xuống dòng. `delay(1000)` làm chương trình chờ một giây; ở bài điều khiển xe nhiều tác vụ sẽ cần dùng millis() thay chờ dài.
+**Kết quả cần thấy:** 0, 1, 2…9 rồi quay về 0. Bạn chưa cần học các kiểu số lớn hơn ở bài này.
 
-## 5. Chạy thử và kết quả mong đợi
+## Khi gặp lỗi cú pháp
 
-Đặt Serial Monitor **9600 baud**. Số đếm tăng mỗi giây; sau khi reset số đếm bắt đầu lại. Đổi chuỗi in, Upload rồi xác nhận log thay đổi.
-
-## 6. Lỗi thường gặp
-
-| Hiện tượng | Cách kiểm tra |
+| Thông báo/hiện tượng | Thao tác đầu tiên |
 | --- | --- |
-| Thiếu dấu ; / ngoặc | Đọc dòng lỗi và dòng ngay phía trước |
-| Ký tự lạ | Baud Monitor trùng Serial.begin |
-| Verify đúng nhưng không có log | Upload, COM, cáp và nguồn |
+| expected ';' | So dòng báo lỗi và dòng phía trên với mã mẫu; tìm dấu ; bị thiếu |
+| expected '}' | Kiểm tra dấu đóng ngoặc của setup/loop |
+| Tên Serial hoặc println bị báo lỗi | Kiểm tra viết hoa/thường đúng như mẫu |
+| Không nạp được | Xem [lỗi cổng và nạp Nano](../07-chay-thu-va-xu-ly-loi.md), chưa sửa phần thuật toán |
 
-## 7. Bài tập thực hành
+## Khi nào hoàn thành?
 
-1. Đổi thời gian in thành 500 ms.
-2. Thêm if để in “Da lap 5 lan” khi soLan bằng 5.
-3. Giải thích vì sao sửa mã nhưng chưa Upload thì bo vẫn chạy chương trình cũ.
+- Bạn tự lưu, Verify và Upload được sketch.
+- Monitor hiện đúng câu/số trong mã.
+- Sửa thời gian và nạp lại làm nhịp thông báo thay đổi.
 
-**Điều kiện học tiếp:** thực hiện được mục tiêu của bài và giải thích được kết quả quan sát.
+**Bài tập:** làm các dòng xuất hiện mỗi hai giây. Giải thích setup và loop khác nhau thế nào bằng chương trình vừa chạy.
 
 [Bài trước](../01-gioi-thieu.md) · [Lộ trình](../index.md) · [Bài tiếp: Điều khiển LED](03-led.md)

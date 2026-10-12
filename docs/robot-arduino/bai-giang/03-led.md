@@ -1,64 +1,99 @@
-# Bài 3: Điều khiển LED với Arduino Nano
+# Bài 3: Điều khiển LED trên Arduino Nano
 
-## Mục tiêu bài học
+**Mục tiêu:** làm đèn trên Nano bật/tắt và thay đổi nhịp nháy. Bạn sẽ thấy tác động của từng lệnh mà chưa cần đấu motor hoặc cảm biến.
 
-Sau bài này, bạn có thể:
+## Trước khi làm
 
-- Cấu hình một chân OUTPUT.
-- Điều khiển HIGH/LOW và thay đổi nhịp nhấp nháy.
-- Giải thích sự khác nhau giữa LED nguồn và LED điều khiển.
+Bạn đã tạo và nạp được sketch ở [bài 2](02-lap-trinh.md). Dùng Nano riêng, cáp USB và IDE. Bài này dùng LED có sẵn trên Nano nên chưa cần mua LED, điện trở hoặc breadboard.
 
-**Trước khi bắt đầu:** Tạo và nạp sketch đầu tiên — [mở bài trước](02-lap-trinh.md). Mỗi mã chạy thử là một sketch độc lập; Upload sẽ thay chương trình đang chạy. Giữ bản mã robot gốc để nạp lại sau khi học.
+## Bước 1. Tìm đúng LED
 
-## 1. Nguyên lý và kiến thức cần biết
+Trên Nano thường có đèn nguồn, đèn RX/TX và đèn **L**. Đèn nguồn sáng cho biết bo có điện. Đèn L mới là đèn bạn điều khiển trong bài này.
 
-LED phát sáng khi có dòng đúng chiều. Điện trở nối tiếp hạn dòng; HIGH/LOW là mức logic, không phải lệnh cấp nguồn cho mọi tải. Đây là bước kiểm tra đầu ra trước khi điều khiển servo và driver.
+Tên `LED_BUILTIN` trong chương trình có nghĩa là chân của LED tích hợp theo board đã chọn. Với Nano classic, LED này gắn với D13. Dùng tên có sẵn giúp bạn chưa cần ghi nhớ con số đó.
 
-## 2. Chuẩn bị, bảng chân và đấu nối
+**Kết quả cần thấy:** bạn xác định được LED L, không dùng trạng thái đèn nguồn để kết luận mã bật/tắt đúng.
 
-Dùng LED **L tích hợp** trên Nano, không cần đấu dây ngoài; LED nguồn sáng liên tục là LED khác. Ngắt nguồn motor và tháo các dây robot khi học. Nếu dùng LED ngoài: D13 → điện trở 330 Ω–1 kΩ → anode, cathode → GND.
+## Bước 2. Bật đèn liên tục
 
-## 3. Mã chạy thử hoàn chỉnh
-
-Tạo sketch riêng có tên thư mục trùng tên tệp `.ino`, chép toàn bộ mã sau, chọn đúng board/COM rồi Verify và Upload:
+Tạo sketch `NanoLED`. Thay toàn bộ mã bằng:
 
 ```cpp
-const int LED = LED_BUILTIN;
-
 void setup() {
-  pinMode(LED, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);
 }
 
 void loop() {
-  digitalWrite(LED, HIGH);
-  delay(500);
-  digitalWrite(LED, LOW);
-  delay(500);
 }
 ```
 
-## 4. Giải thích chương trình
+Nhấn Verify rồi Upload.
 
-`pinMode()` đặt chiều tín hiệu. HIGH bật LED theo cách mắc trên; LOW tắt. Hai lần delay(500) tạo một chu kỳ sáng/tắt dài một giây. Không suy ra LED active-low trên bo khác cũng có cùng hành vi.
-
-## 5. Chạy thử và kết quả mong đợi
-
-LED sáng 0,5 giây và tắt 0,5 giây. Đổi cả hai thời gian thành 200 ms, nạp lại và xác nhận nhịp nhanh hơn.
-
-## 6. Lỗi thường gặp
-
-| Hiện tượng | Cách kiểm tra |
+| Lệnh | Hiểu đơn giản |
 | --- | --- |
-| LED ngoài không sáng | Chiều LED, điện trở, GND, chân trong mã |
-| Chỉ thấy đèn nguồn | Quan sát đúng LED L hoặc LED ngoài |
-| Nhịp không đổi | Đã Upload mã mới và chọn đúng bo/cổng chưa |
+| pinMode(LED_BUILTIN, OUTPUT) | Cho chân đèn làm đầu ra để Nano điều khiển |
+| digitalWrite(LED_BUILTIN, HIGH) | Đưa đầu ra lên mức HIGH, làm đèn L sáng trên Nano |
+| loop rỗng | Không làm thêm gì, đèn giữ trạng thái đã đặt |
 
-## 7. Bài tập thực hành
+**Kết quả cần thấy:** đèn L sáng liên tục. Đổi HIGH thành LOW, nạp lại: đèn L tắt. Đèn nguồn vẫn sáng là bình thường.
 
-1. Cho LED sáng 1 giây, tắt 0,2 giây.
-2. Tạo tín hiệu ba nháy ngắn rồi nghỉ một giây.
-3. Viết lại với millis() để không chờ trong loop; tham khảo [bài lập trình nền tảng](../04-lap-trinh.md).
+HIGH/LOW là hai mức tín hiệu. Với chân logic Nano classic, HIGH gần mức 5 V, LOW gần 0 V. Bạn không dùng chân này để cấp điện cho motor; bài motor sẽ dùng driver riêng.
 
-**Điều kiện học tiếp:** thực hiện được mục tiêu của bài và giải thích được kết quả quan sát.
+## Bước 3. Cho đèn nhấp nháy
 
-[Bài trước](02-lap-trinh.md) · [Lộ trình](../index.md) · [Bài tiếp: Servo](04-servo.md)
+Thay toàn bộ sketch bằng:
+
+```cpp
+void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(1000);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(1000);
+}
+```
+
+Upload và quan sát một chu kỳ:
+
+| Thời điểm | Lệnh đang thực hiện | Đèn |
+| --- | --- | --- |
+| Đầu loop | Xuất HIGH | Bật |
+| Một giây tiếp theo | delay(1000) | Vẫn bật |
+| Sau đó | Xuất LOW | Tắt |
+| Một giây tiếp theo | delay(1000) | Vẫn tắt |
+| Hết loop | Quay lại lệnh HIGH | Bắt đầu chu kỳ mới |
+
+**Kết quả cần thấy:** sáng một giây, tắt một giây. Một chu kỳ hoàn chỉnh dài hai giây vì có hai khoảng chờ.
+
+## Bước 4. Thay đổi nhịp có chủ đích
+
+Chỉ đổi khoảng chờ sau HIGH từ 1000 thành 200; giữ khoảng chờ sau LOW là 1000. Upload lại.
+
+**Kết quả cần thấy:** đèn sáng ngắn, tắt lâu. Nếu đổi cả hai thành 200, đèn sẽ sáng/tắt đều và nhanh hơn. Làm từng thay đổi để biết dòng nào ảnh hưởng phần nào.
+
+Mã Blink có sẵn trong **File → Examples → 01.Basics → Blink** cũng theo nguyên lý này. Xem [bài Blink của Arduino](https://docs.arduino.cc/built-in-examples/basics/Blink/) khi cần mở lại ví dụ chuẩn.
+
+## Nếu muốn thử LED ngoài
+
+Bạn có thể đọc phần [đấu LED/nút trên mạch riêng](../03-lap-rap.md). LED ngoài cần điện trở nối tiếp và đúng cực; LED tích hợp đã có mạch trên bo. Chưa cần làm phần này để hoàn thành bài.
+
+## Khi chưa thấy đúng kết quả
+
+| Hiện tượng | Kiểm tra theo thứ tự |
+| --- | --- |
+| Đèn bạn xem không đổi | Có đang nhìn LED L hay đèn nguồn? |
+| Đèn vẫn nháy theo mã cũ | Verify rồi Upload, kiểm tra đúng Nano/COM |
+| Không có LED L hoạt động | Mở Blink chuẩn và kiểm tra Nano riêng, cáp, thông báo Upload |
+| LED ngoài không sáng | Đúng cực, có điện trở, chung GND và đúng chân trong mã |
+
+## Khi nào hoàn thành?
+
+Bạn bật/tắt được LED và giải thích được vì sao đổi từng delay làm thời gian sáng/tắt thay đổi.
+
+**Bài tập:** tạo hai nháy ngắn, rồi tắt hai giây. Viết thứ tự các lệnh trên giấy trước khi sửa sketch.
+
+[Bài trước](02-lap-trinh.md) · [Lộ trình](../index.md) · [Bài tiếp: Servo SG90](04-servo.md)
