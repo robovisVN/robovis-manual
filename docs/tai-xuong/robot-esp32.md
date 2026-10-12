@@ -1,15 +1,15 @@
 # Tải tài liệu Robot ESP32
 
-Trang tổng quan và cấu trúc nội dung dự kiến. Đây chưa phải bộ hướng dẫn thực hành đầy đủ.
+Lộ trình cho người mới dùng ESP32 CH340 Type-C: nhận diện module, cài IDE và driver, nạp mã, thêm thư viện, thực hành LED/nút nhấn/PWM và xử lý lỗi. Ví dụ GPIO dùng ESP32 classic WROOM-32; bo khác cần đối chiếu pinout.
 
 ## Bộ tài liệu có sẵn
 
 | Thông tin | Nội dung |
 | --- | --- |
 | Định dạng | ZIP, chứa Markdown và hình minh họa nếu có |
-| Bản tài liệu | 2026.09.19 |
-| Ngày cập nhật | 19/09/2026 |
-| Áp dụng | Robot ESP32 |
+| Bản tài liệu | 2026.10.12 |
+| Ngày cập nhật | 12/10/2026 |
+| Áp dụng | ESP32 CH340 Type-C; xác định họ chip theo module |
 
 [Tải bộ tài liệu ZIP](../downloads/robovis-esp32-docs.zip){ .md-button .md-button--primary download="robovis-esp32-docs.zip" }
 [Xem hướng dẫn trực tuyến](../robot-esp32/index.md){ .md-button }

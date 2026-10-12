@@ -1,18 +1,18 @@
 # Tải tài liệu Robot Arduino
 
-Giới thiệu, chuẩn bị linh kiện, lắp ráp và lập trình theo nội dung hiện có.
+Lộ trình cho Nano classic ATmega328P: giới thiệu, cài IDE, chọn bootloader, thêm thư viện, thử servo, LED/nút nhấn và xử lý lỗi.
 
 ## Bộ tài liệu có sẵn
 
 | Thông tin | Nội dung |
 | --- | --- |
 | Định dạng | ZIP, chứa Markdown và hình minh họa nếu có |
-| Bản tài liệu | 2026.09.19 |
-| Ngày cập nhật | 19/09/2026 |
-| Áp dụng | Robot Arduino |
+| Bản tài liệu | 2026.10.12 |
+| Ngày cập nhật | 12/10/2026 |
+| Áp dụng | Robot Arduino dùng Nano classic ATmega328P |
 
 [Tải bộ tài liệu ZIP](../downloads/robovis-arduino-docs.zip){ .md-button .md-button--primary download="robovis-arduino-docs.zip" }
-[Xem hướng dẫn trực tuyến](../robot-arduino/01-gioi-thieu.md){ .md-button }
+[Xem hướng dẫn trực tuyến](../robot-arduino/index.md){ .md-button }
 
 Giải nén và đọc `DOC_TRUOC.md`. Các đoạn mã trong bài là ví dụ hướng dẫn; gói tài liệu không thay thế bộ mã nguồn hoặc firmware của sản phẩm.
 

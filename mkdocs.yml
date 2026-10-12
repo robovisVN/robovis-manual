@@ -47,12 +47,23 @@ nav:
   - Sản phẩm:
       - Tất cả sản phẩm: san-pham/index.md
       - Robot Arduino:
-          - Giới thiệu Robot Arduino: robot-arduino/01-gioi-thieu.md
-          - Chuẩn bị linh kiện: robot-arduino/02-chuan-bi.md
-          - Hướng dẫn lắp ráp: robot-arduino/03-lap-rap.md
-          - Hướng dẫn lập trình: robot-arduino/04-lap-trinh.md
+          - Lộ trình cho người mới: robot-arduino/index.md
+          - 1. Arduino và Nano là gì?: robot-arduino/01-gioi-thieu.md
+          - 2. Chuẩn bị: robot-arduino/02-chuan-bi.md
+          - 3. Cài IDE và nạp Blink: robot-arduino/05-cai-arduino-ide.md
+          - 4. Thêm thư viện và thử servo: robot-arduino/06-cai-thu-vien.md
+          - 5. Đấu LED và nút nhấn: robot-arduino/03-lap-rap.md
+          - 6. Lập trình cơ bản: robot-arduino/04-lap-trinh.md
+          - 7. Chạy thử robot và xử lý lỗi: robot-arduino/07-chay-thu-va-xu-ly-loi.md
       - Robot ESP32:
-          - Tổng quan: robot-esp32/index.md
+          - Lộ trình cho người mới: robot-esp32/index.md
+          - 1. ESP32, CH340 và Type-C: robot-esp32/01-gioi-thieu.md
+          - 2. Chuẩn bị: robot-esp32/02-chuan-bi.md
+          - 3. Cài IDE, CH340 và gói ESP32: robot-esp32/03-cai-arduino-ide.md
+          - 4. Nạp mã và dùng Serial: robot-esp32/04-nap-code-va-serial.md
+          - 5. Thêm thư viện: robot-esp32/05-cai-thu-vien.md
+          - 6. LED, nút nhấn và PWM: robot-esp32/06-lap-trinh-co-ban.md
+          - 7. Chạy thử robot và xử lý lỗi: robot-esp32/07-chay-thu-va-xu-ly-loi.md
       - Robot ESP32 Camera:
         - 1. Bắt đầu:
             - Tổng quan sản phẩm: robot-esp32-camera/01-bat-dau/01-tong-quan.md

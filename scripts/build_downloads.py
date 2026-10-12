@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 BASE_URL = "https://manual.robovis.vn/"
 PACKAGES = [
-    ("robot-arduino", "Robot Arduino", "robovis-arduino-docs.zip", "01-gioi-thieu.md"),
+    ("robot-arduino", "Robot Arduino", "robovis-arduino-docs.zip", "index.md"),
     ("robot-esp32", "Robot ESP32", "robovis-esp32-docs.zip", "index.md"),
     ("robot-esp32-camera", "Robot ESP32 Camera", "robovis-esp32-camera-docs.zip", "01-bat-dau/01-tong-quan.md"),
     ("robot-esp32-lidar", "Robot ESP32 LiDAR", "robovis-esp32-lidar-docs.zip", "index.md"),
@@ -45,8 +45,8 @@ def main():
         if not (folder / start).is_file():
             raise FileNotFoundError(folder / start)
         files = sorted(p for p in folder.rglob("*") if p.is_file())
-        # Two old index pages are placeholders; the real first lessons are above.
-        if product in {"robot-arduino", "robot-esp32-camera"}:
+        # The camera index remains a placeholder; start from its first lesson.
+        if product == "robot-esp32-camera":
             files = [p for p in files if p != folder / "index.md"]
         intro = (
             f"# Bộ tài liệu {title}\n\n"

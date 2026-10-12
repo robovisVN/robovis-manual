@@ -1,6 +1,13 @@
 # Kiến thức nền
 
-Các bài học ở đây giúp bạn làm quen với những thao tác cần dùng khi học robot. Nếu chưa từng dùng Ubuntu hoặc chưa biết cách chạy lệnh, hãy bắt đầu với **Ubuntu cơ bản**.
+Các bài học ở đây giúp bạn làm quen với những thao tác cần dùng khi học robot. Chọn lộ trình theo bo và công cụ bạn đang sử dụng.
+
+## Lập trình vi điều khiển từ đầu
+
+- [Robot Arduino Nano](../robot-arduino/index.md): làm quen Nano, cài IDE, chọn Processor/bootloader, thêm thư viện, thử LED/nút nhấn và servo.
+- [Robot ESP32 CH340 Type-C](../robot-esp32/index.md): nhận diện module, cài driver và gói bo, nạp mã, xem Serial và thử PWM.
+
+Hai lộ trình này dùng Arduino IDE trên máy tính, không yêu cầu Ubuntu hoặc ROS. Bắt đầu với bo riêng và nguồn động cơ ngắt, rồi mới áp dụng vào robot theo sơ đồ thật.
 
 ## Ubuntu cơ bản
 

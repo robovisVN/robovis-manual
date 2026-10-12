@@ -6,13 +6,13 @@ Tải bộ tài liệu theo robot đang sử dụng. Các gói bên dưới ch�
 
 | Bộ tài liệu | Bản tài liệu | Cập nhật | Tệp tải |
 | --- | --- | --- | --- |
-| Robot Arduino | 2026.09.19 | 19/09/2026 | [Tải ZIP](../downloads/robovis-arduino-docs.zip) · [Chi tiết](robot-arduino.md) |
-| Robot ESP32 | 2026.09.19 | 19/09/2026 | [Tải ZIP](../downloads/robovis-esp32-docs.zip) · [Chi tiết](robot-esp32.md) |
+| Robot Arduino | 2026.10.12 | 12/10/2026 | [Tải ZIP](../downloads/robovis-arduino-docs.zip) · [Chi tiết](robot-arduino.md) |
+| Robot ESP32 | 2026.10.12 | 12/10/2026 | [Tải ZIP](../downloads/robovis-esp32-docs.zip) · [Chi tiết](robot-esp32.md) |
 | Robot ESP32 Camera | 2026.09.19 | 19/09/2026 | [Tải ZIP](../downloads/robovis-esp32-camera-docs.zip) · [Chi tiết](robot-esp32-camera.md) |
 | Robot ESP32 LiDAR | 2026.09.19 | 19/09/2026 | [Tải ZIP](../downloads/robovis-esp32-lidar-docs.zip) · [Chi tiết](robot-esp32-lidar.md) |
 | Ubuntu cơ bản | 2026.09.19 | 19/09/2026 | [Tải ZIP](../downloads/robovis-ubuntu-docs.zip) · [Chi tiết](ubuntu-co-ban.md) |
 
-Số phiên bản ở đây là **phiên bản bộ tài liệu**, không phải phiên bản firmware. Gói ESP32 hiện là tài liệu tổng quan; phạm vi từng bộ được ghi trong trang chi tiết.
+Số phiên bản ở đây là **phiên bản bộ tài liệu**, không phải phiên bản firmware. Phạm vi từng bộ được ghi trong trang chi tiết.
 
 ## Đọc tệp sau khi tải
 

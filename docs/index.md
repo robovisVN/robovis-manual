@@ -4,7 +4,7 @@ Bắt đầu với kiến thức nền nếu bạn mới học, hoặc chọn d�
 
 ## Mới bắt đầu?
 
-Chưa biết Ubuntu, Terminal hoặc cách tìm thư mục? Học từng bước trong **Ubuntu cơ bản**, rồi quay lại tài liệu robot khi đã sẵn sàng.
+Mới học lập trình robot? Bắt đầu với [Arduino Nano](robot-arduino/index.md) hoặc [ESP32 CH340 Type-C](robot-esp32/index.md). Nếu cần Ubuntu cho robot ROS 2, học từng bước trong **Ubuntu cơ bản**.
 
 [Khám phá kiến thức nền](kien-thuc-nen/index.md){ .md-button .md-button--primary }
 [Học Ubuntu từ đầu](ubuntu-co-ban/index.md){ .md-button }
@@ -13,17 +13,17 @@ Chưa biết Ubuntu, Terminal hoặc cách tìm thư mục? Học từng bước
 
 <div class="product-grid" markdown>
 
-<a class="product-card" href="robot-arduino/01-gioi-thieu/">
+<a class="product-card" href="robot-arduino/">
   <span class="product-icon">:material-robot-industrial-outline:</span>
   <strong>Robot Arduino</strong>
-  <span>Tổng quan, Arduino IDE, LED, Servo và động cơ DC</span>
+  <span>Nano: Arduino IDE, thư viện, LED, nút nhấn và servo</span>
   <em>Xem hướng dẫn →</em>
 </a>
 
 <a class="product-card" href="robot-esp32/">
   <span class="product-icon">:material-robot-outline:</span>
   <strong>Robot ESP32</strong>
-  <span>Tổng quan, LED, Servo, động cơ DC và cảm biến HC-SR04</span>
+  <span>CH340 Type-C: Arduino IDE, Serial, thư viện, LED và PWM</span>
   <em>Xem hướng dẫn →</em>
 </a>
 
