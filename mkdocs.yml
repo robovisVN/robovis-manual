@@ -65,8 +65,6 @@ nav:
               - Thêm thư viện: robot-arduino/06-cai-thu-vien.md
               - Lắp cảm biến và đấu nối: robot-arduino/03-lap-rap.md
               - Nút nhấn, Serial và millis: robot-arduino/04-lap-trinh.md
-          - Sử dụng robot theo bộ bàn giao: robot-arduino/08-su-dung-robot.md
-          - Chạy thử và xử lý lỗi: robot-arduino/07-chay-thu-va-xu-ly-loi.md
       - Robot ESP32:
           - Lộ trình cho người mới: robot-esp32/index.md
           - Bài giảng từ cơ bản đến điều khiển xe:
