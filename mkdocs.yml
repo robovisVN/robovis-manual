@@ -79,9 +79,7 @@ nav:
           - Cài đặt và thực hành bổ trợ:
               - Chuẩn bị: robot-esp32/02-chuan-bi.md
               - Cài IDE, CH340 và gói ESP32: robot-esp32/03-cai-arduino-ide.md
-              - Nạp mã và dùng Serial: robot-esp32/04-nap-code-va-serial.md
-              - Thêm thư viện: robot-esp32/05-cai-thu-vien.md
-              - Nút nhấn và PWM: robot-esp32/06-lap-trinh-co-ban.md
+              - Thêm thư viện: robot-esp32/04-cai-thu-vien.md
           - Sử dụng robot theo bộ bàn giao: robot-esp32/08-su-dung-robot.md
           - Chạy thử và xử lý lỗi: robot-esp32/07-chay-thu-va-xu-ly-loi.md
       - Robot ESP32 Camera:
