@@ -48,6 +48,10 @@ nav:
       - Tất cả sản phẩm: san-pham/index.md
       - Robot Arduino:
           - Lộ trình cho người mới: robot-arduino/index.md
+          - Cài đặt:
+              - Chuẩn bị: robot-arduino/02-chuan-bi.md
+              - Cài IDE và nạp Blink: robot-arduino/03-cai-arduino-ide.md
+              - Thêm thư viện: robot-arduino/04-cai-thu-vien.md
           - Bài giảng từ cơ bản đến điều khiển xe:
               - Bài 1. Giới thiệu xe Arduino Nano: robot-arduino/01-gioi-thieu.md
               - Bài 2. Viết và nạp chương trình đầu tiên: robot-arduino/bai-giang/02-lap-trinh.md
@@ -59,12 +63,6 @@ nav:
               - Bài 8. Đọc encoder và hiểu tốc độ: robot-arduino/bai-giang/08-encoder.md
               - Bài 9. Bluetooth HM-10 và Dabble: robot-arduino/bai-giang/09-bluetooth.md
               - Bài 10. Làm quen với PID: robot-arduino/bai-giang/10-pid.md
-          - Cài đặt và thực hành bổ trợ:
-              - Chuẩn bị: robot-arduino/02-chuan-bi.md
-              - Cài IDE và nạp Blink: robot-arduino/05-cai-arduino-ide.md
-              - Thêm thư viện: robot-arduino/06-cai-thu-vien.md
-              - Lắp cảm biến và đấu nối: robot-arduino/03-lap-rap.md
-              - Nút nhấn, Serial và millis: robot-arduino/04-lap-trinh.md
       - Robot ESP32:
           - Lộ trình cho người mới: robot-esp32/index.md
           - Bài giảng từ cơ bản đến điều khiển xe:
