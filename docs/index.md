@@ -51,4 +51,4 @@ Mới học lập trình robot? Bắt đầu với [Arduino Nano](robot-arduino/
 
 Các bộ hướng dẫn được chia theo sản phẩm và Ubuntu cơ bản. Xem phạm vi từng gói trước khi tải.
 
-[Mở trung tâm tải xuống](tai-xuong/index.md){ .md-button }
+<!-- [Mở trung tâm tải xuống](tai-xuong/index.md){ .md-button } -->

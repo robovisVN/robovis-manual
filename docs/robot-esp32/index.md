@@ -471,4 +471,6 @@ Sau khi hoàn thành chương trình, bạn sẽ có nền tảng để tiếp t
 
 [Bắt đầu Bài 1: Giới thiệu xe ESP32](01-gioi-thieu.md)
 
-[Hướng dẫn sử dụng robot](08-su-dung-robot.md) · [Xử lý lỗi](07-chay-thu-va-xu-ly-loi.md) · [Tải bộ tài liệu](../tai-xuong/robot-esp32.md)
+[Hướng dẫn sử dụng robot](08-su-dung-robot.md) · [Xử lý lỗi](07-chay-thu-va-xu-ly-loi.md) 
+
+<!-- [Tải bộ tài liệu](../tai-xuong/robot-esp32.md) -->

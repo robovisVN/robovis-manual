@@ -34,4 +34,4 @@ Trước khi vận hành, đọc [an toàn và giới hạn](01-gioi-thieu/04-an
 
 ## Tải tài liệu
 
-[Tải bộ tài liệu Robot ESP32 LiDAR dạng ZIP](../tai-xuong/robot-esp32-lidar.md).
+<!-- [Tải bộ tài liệu Robot ESP32 LiDAR dạng ZIP](../tai-xuong/robot-esp32-lidar.md). -->

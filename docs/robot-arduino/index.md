@@ -347,4 +347,4 @@ Sau khi hoàn thành chương trình, bạn sẽ có nền tảng để tiếp t
 
 [Bắt đầu Bài 1: Giới thiệu xe Arduino Nano](01-gioi-thieu.md)
 
-[Tải tài liệu học Robot Arduino Nano](../tai-xuong/robot-arduino.md)
+<!-- [Tải tài liệu học Robot Arduino Nano](../tai-xuong/robot-arduino.md) -->
