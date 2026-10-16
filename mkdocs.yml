@@ -65,7 +65,7 @@ nav:
               - Bài 10. Làm quen với PID: robot-arduino/bai-giang/10-pid.md
       - Robot ESP32:
           - Lộ trình cho người mới: robot-esp32/index.md
-          - Cài đặt và thực hành bổ trợ:
+          - Cài đặt:
               - Chuẩn bị: robot-esp32/02-chuan-bi.md
               - Cài IDE, CH340 và gói ESP32: robot-esp32/03-cai-arduino-ide.md
               - Thêm thư viện: robot-esp32/04-cai-thu-vien.md
@@ -147,13 +147,13 @@ nav:
         - 7. Tham khảo:
             - Danh sách lệnh: robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh.md
             - Thuật ngữ: robot-esp32-lidar/07-tham-khao/02-thuat-ngu.md
-  - Tải xuống:
-      - Trung tâm tải xuống: tai-xuong/index.md
-      - Robot Arduino: tai-xuong/robot-arduino.md
-      - Robot ESP32: tai-xuong/robot-esp32.md
-      - Robot ESP32 Camera: tai-xuong/robot-esp32-camera.md
-      - Robot ESP32 LiDAR: tai-xuong/robot-esp32-lidar.md
-      - Ubuntu cơ bản: tai-xuong/ubuntu-co-ban.md
+#   - Tải xuống:
+#       - Trung tâm tải xuống: tai-xuong/index.md
+#       - Robot Arduino: tai-xuong/robot-arduino.md
+#       - Robot ESP32: tai-xuong/robot-esp32.md
+#       - Robot ESP32 Camera: tai-xuong/robot-esp32-camera.md
+#       - Robot ESP32 LiDAR: tai-xuong/robot-esp32-lidar.md
+#       - Ubuntu cơ bản: tai-xuong/ubuntu-co-ban.md
 
 plugins:
   - search:
