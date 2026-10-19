@@ -82,6 +82,7 @@ nav:
               - Bài 10. Điều khiển xe với PID: robot-esp32/bai-giang/10-pid.md
 
       - Robot ESP32 Camera:
+        - Lộ trình cho người mới: robot-esp32-camera/index.md
         - 1. Bắt đầu:
             - Tổng quan sản phẩm: robot-esp32-camera/01-bat-dau/01-tong-quan.md
             - Chuẩn bị trước khi sử dụng: robot-esp32-camera/01-bat-dau/02-chuan-bi.md
