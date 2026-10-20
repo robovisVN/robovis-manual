@@ -6,6 +6,7 @@ theme:
   name: material
   custom_dir: overrides
   language: vi
+  logo: assets/robovis-logo.png
   features:
     - navigation.tabs
     #- navigation.sections
@@ -44,8 +45,8 @@ nav:
               - Kết nối máy tính với robot: ubuntu-co-ban/07-ket-noi-robot.md
           - 4. Thực hành tổng hợp:
               - Thực hành và xử lý lỗi: ubuntu-co-ban/08-thuc-hanh-va-loi.md
-  - Sản phẩm:
-      - Tất cả sản phẩm: san-pham/index.md
+  - Tài liệu theo sản phẩm:
+      - Tất cả tài liệu sản phẩm: san-pham/index.md
       - Robot Arduino:
           - Lộ trình cho người mới: robot-arduino/index.md
           - Cài đặt:
@@ -148,6 +149,7 @@ nav:
         - 7. Tham khảo:
             - Danh sách lệnh: robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh.md
             - Thuật ngữ: robot-esp32-lidar/07-tham-khao/02-thuat-ngu.md
+  - Website mua hàng Robovis: https://robovis.vn/
 #   - Tải xuống:
 #       - Trung tâm tải xuống: tai-xuong/index.md
 #       - Robot Arduino: tai-xuong/robot-arduino.md

@@ -12,6 +12,36 @@
   background: linear-gradient(90deg, var(--robovis-navy), #184766);
 }
 
+/* Keep the home link visible beside the menu on mobile as well as desktop. */
+.md-header .md-header__button.md-logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.md-header .md-logo img,
+.md-nav .md-logo img {
+  width: 7rem;
+  height: auto;
+}
+
+.md-header .md-logo:focus-visible,
+.md-nav .md-logo:focus-visible {
+  outline: 2px solid var(--robovis-cyan);
+  outline-offset: 3px;
+  border-radius: .15rem;
+}
+
+@media screen and (max-width: 44.984375em) {
+  .md-header .md-header__button.md-logo {
+    margin: .2rem;
+    padding: .2rem;
+  }
+
+  .md-header .md-logo img {
+    width: 5rem;
+  }
+}
+
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3 {
