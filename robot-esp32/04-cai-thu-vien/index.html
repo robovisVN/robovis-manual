@@ -1,0 +1,5551 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tài liệu sử dụng và lập trình các dòng robot Robovis">
+      
+      
+      
+        <link rel="canonical" href="https://manual.robovis.vn/robot-esp32/04-cai-thu-vien/">
+      
+      
+        <link rel="prev" href="../03-cai-arduino-ide/">
+      
+      
+        <link rel="next" href="../01-gioi-thieu/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Thêm thư viện - Tài liệu hướng dẫn Robovis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bai-5-cai-at-va-quan-ly-thu-vien-esp32" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Tài liệu hướng dẫn Robovis" class="md-header__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tài liệu hướng dẫn Robovis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Thêm thư viện
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+
+<nav class="md-tabs rv-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+          
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+        
+      
+        
+          
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../kien-thuc-nen/" class="md-tabs__link">
+          
+  
+  
+  Kiến thức nền
+
+        </a>
+      </li>
+    
+  
+
+        
+      
+        
+          <li class="md-tabs__item rv-products md-tabs__item--active">
+            <details class="rv-products__disclosure">
+              <summary class="md-tabs__link rv-products__trigger" aria-controls="rv-products-panel">
+                Tài liệu theo sản phẩm <span class="rv-products__chevron" aria-hidden="true">▾</span>
+              </summary>
+              <ul class="rv-products__panel" id="rv-products-panel" aria-label="Chọn tài liệu theo sản phẩm">
+                
+                  <li><a href="../../san-pham/">Tất cả tài liệu sản phẩm</a></li>
+                
+                  <li><a href="../../robot-arduino/">Robot Arduino</a></li>
+                
+                  <li><a href="../" class="rv-products__current">Robot ESP32</a></li>
+                
+                  <li><a href="../../robot-esp32-camera/">Robot ESP32 Camera</a></li>
+                
+                  <li><a href="../../robot-esp32-lidar/">Robot ESP32 LiDAR</a></li>
+                
+              </ul>
+            </details>
+          </li>
+        
+      
+        
+          <li class="md-tabs__item">
+            <a href="https://robovis.vn/" class="md-tabs__link" target="_blank" rel="noopener noreferrer" title="Website mua hàng Robovis (mở trong tab mới)">
+              Website mua hàng Robovis <span aria-hidden="true">↗</span><span class="md-visually-hidden"> (mở trong tab mới)</span>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+  
+
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+  
+
+
+
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted rv-nav--product" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tài liệu hướng dẫn Robovis" class="md-nav__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    Tài liệu hướng dẫn Robovis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+        
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trang chủ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Kiến thức nền
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Kiến thức nền
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu từ đây
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ubuntu cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình học
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu với Ubuntu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu với Ubuntu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/01-ubuntu-la-gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu là gì?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/02-chuan-bi-moi-truong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị môi trường
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Thao tác hằng ngày
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Thao tác hằng ngày
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/03-giao-dien-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giao diện Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/04-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Làm quen với Terminal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/05-thu-muc-va-tep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thư mục, đường dẫn và tệp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Phần mềm và kết nối
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Phần mềm và kết nối
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/06-cai-va-chay-phan-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài và chạy phần mềm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/07-ket-noi-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối máy tính với robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Thực hành tổng hợp
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Thực hành tổng hợp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/08-thuc-hanh-va-loi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thực hành và xử lý lỗi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tài liệu theo sản phẩm
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tài liệu theo sản phẩm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tất cả tài liệu sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot Arduino
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Robot Arduino
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_2" id="__nav_3_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE và nạp Blink
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe Arduino Nano
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Viết và nạp chương trình đầu tiên
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/04-servo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 4. Điều khiển servo SG90
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Đọc cảm biến dò line 5 kênh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder và hiểu tốc độ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/09-bluetooth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Bluetooth HM-10 và Dabble
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Làm quen với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_2" id="__nav_3_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE, CH340 và gói ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-muc-tieu-bai-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mục tiêu bài học
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tim-hieu-ve-thu-vien-arduino" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tìm hiểu về thư viện Arduino
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tìm hiểu về thư viện Arduino">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-thu-vien-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Thư viện là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-phan-biet-board-package-va-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Phân biệt Board Package và Library
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-lam-quen-voi-library-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Làm quen với Library Manager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Làm quen với Library Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-library-manager-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Library Manager là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-mo-library-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Mở Library Manager
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-cai-at-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Cài đặt thư viện
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cac-thu-vien-su-dung-trong-bo-xe-robot-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Các thư viện sử dụng trong bộ xe robot ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Các thư viện sử dụng trong bộ xe robot ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-danh-sach-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Danh sách thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-thu-vien-wifi" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Thư viện WiFi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-thu-vien-asynctcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. Thư viện AsyncTCP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-thu-vien-espasyncwebserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4. Thư viện ESPAsyncWebServer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-thu-vien-esp32servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5. Thư viện ESP32Servo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cai-at-thu-vien-tu-tep-zip" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Cài đặt thư viện từ tệp ZIP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Cài đặt thư viện từ tệp ZIP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-cac-buoc-thuc-hien" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Các bước thực hiện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-kiem-tra-thu-vien-a-cai" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Kiểm tra thư viện đã cài
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-su-dung-thu-vien-trong-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Sử dụng thư viện trong chương trình
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Sử dụng thư viện trong chương trình">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-khai-bao-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Khai báo thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-vi-tri-khai-bao-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Vị trí khai báo thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-thu-vien-va-tep-ma-nguon-trong-du-an" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3. Thư viện và tệp mã nguồn trong dự án
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-thuc-hanh-kiem-tra-thu-vien-wifi" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Thực hành kiểm tra thư viện WiFi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Thực hành kiểm tra thư viện WiFi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-muc-tieu-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Mục tiêu thực hành
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-tao-chuong-trinh-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Tạo chương trình mới
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-bien-dich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5. Biên dịch chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#86-nap-va-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.6. Nạp và kiểm tra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#87-luu-y-khi-thuc-hanh-tren-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.7. Lưu ý khi thực hành trên robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-kiem-tra-thu-vien-cua-chuong-trinh-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Kiểm tra thư viện của chương trình robot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Kiểm tra thư viện của chương trình robot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-chuan-bi-ma-nguon" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Chuẩn bị mã nguồn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-mo-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Mở chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-kiem-tra-cau-hinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3. Kiểm tra cấu hình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-cac-loi-thuong-gap-khi-su-dung-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Các lỗi thường gặp khi sử dụng thư viện
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Các lỗi thường gặp khi sử dụng thư viện">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-loi-no-such-file-or-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1. Lỗi No such file or directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-loi-thieu-wifih" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2. Lỗi thiếu WiFi.h
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-loi-thieu-thu-vien-phu-thuoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3. Lỗi thiếu thư viện phụ thuộc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-loi-thu-vien-khong-ho-tro-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4. Lỗi thư viện không hỗ trợ ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-thong-bao-multiple-libraries-were-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.5. Thông báo Multiple libraries were found
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#106-loi-do-khac-phien-ban-esp32-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.6. Lỗi do khác phiên bản ESP32 core
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-quan-ly-va-cap-nhat-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Quản lý và cập nhật thư viện
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Quản lý và cập nhật thư viện">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-kiem-tra-phien-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1. Kiểm tra phiên bản
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-khi-nao-nen-cap-nhat-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2. Khi nào nên cập nhật thư viện?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-kiem-tra-sau-khi-cap-nhat" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3. Kiểm tra sau khi cập nhật
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bai-tap-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Bài tập thực hành
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Bài tập thực hành">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-1-phan-biet-cac-thanh-phan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 1: Phân biệt các thành phần
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-2-cai-at-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 2: Cài đặt thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-3-kiem-tra-wifi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 3: Kiểm tra WiFi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-4-kiem-tra-ma-nguon-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 4: Kiểm tra mã nguồn robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-truoc-khi-bat-au" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Kiểm tra trước khi bắt đầu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_3" id="__nav_3_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Hướng dẫn lập trình xe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Cảm biến dò line TCRT5000
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/09-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Điều khiển xe qua Wi-Fi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Điều khiển xe với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 Camera
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 Camera
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/01-bat-dau/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/01-bat-dau/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị trước khi sử dụng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/01-bat-dau/03-phan-biet-hai-chuong-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Phân biệt hai chương trình ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Cài đặt Arduino IDE
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Cài đặt Arduino IDE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/02-cai-dat-arduino/01-cai-arduino-va-driver-ch340/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài Arduino IDE và driver CH340
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/02-cai-dat-arduino/02-cai-board-esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài board ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/02-cai-dat-arduino/03-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài các thư viện cần thiết
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_4" id="__nav_3_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Nạp chương trình cho ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Nạp chương trình cho ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/03-nap-code/01-chuan-bi-thu-muc-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị thư mục mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/03-nap-code/02-chon-board-va-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chọn board và nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/03-nap-code/03-xu-ly-loi-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xử lý lỗi khi nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Điều khiển robot bằng trình duyệt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Điều khiển robot bằng trình duyệt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/04-dieu-khien-web/01-ket-noi-va-mo-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối Wi-Fi và mở giao diện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/04-dieu-khien-web/02-su-dung-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng giao diện điều khiển
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_6" id="__nav_3_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. Chạy nhận diện YOLO trên Windows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. Chạy nhận diện YOLO trên Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/05-yolo-windows/01-cai-moi-truong-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài môi trường Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/05-yolo-windows/02-chay-chuong-trinh-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị và chạy chương trình YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/05-yolo-windows/03-su-dung-phan-mem-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng phần mềm YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_7" id="__nav_3_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Khắc phục lỗi và lưu ý
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Khắc phục lỗi và lưu ý
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/06-khac-phuc-loi/01-cac-loi-thuong-gap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các lỗi thường gặp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/06-khac-phuc-loi/02-luu-y-an-toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu ý an toàn và bảo quản mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 LiDAR
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 LiDAR
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu với Robot ESP32 LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_2" id="__nav_3_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Giới thiệu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Giới thiệu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/01-tong-quan-san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/02-kien-truc-he-thong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiến trúc hệ thống
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/03-lidar-va-odometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LiDAR và odometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/04-an-toan-va-gioi-han/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    An toàn và giới hạn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/05-tinh-nang-va-thong-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tính năng và thông số
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3" id="__nav_3_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Chuẩn bị
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Chuẩn bị
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/01-yeu-cau-va-cai-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Yêu cầu hệ thống và cài ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/02-cai-dat-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt workspace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/03-cau-hinh-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cấu hình Wi-Fi robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/04-windows-may-ao-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Windows và máy ảo Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/05-su-dung-wifi-ngoai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng Wi-Fi ngoài
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_4" id="__nav_3_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Bắt đầu sử dụng
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Bắt đầu sử dụng
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Khởi động và kiểm tra dữ liệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chạy thử lần đầu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/03-van-hanh/03-dieu-khien-bang-tay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều khiển robot bằng tay
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_5" id="__nav_3_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. ROS 2 cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. ROS 2 cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/04-ros2-co-ban/01-node-topic-va-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Node, topic và lệnh thường dùng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/04-ros2-co-ban/02-cac-topic-cua-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các topic của robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/04-ros2-co-ban/03-rviz-va-tf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RViz và hệ tọa độ TF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_6" id="__nav_3_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. LiDAR, SLAM và Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/01-kiem-tra-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiểm tra dữ liệu LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tạo bản đồ SLAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/03-luu-va-quan-ly-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu và quản lý bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều hướng tự động bằng Nav2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/05-danh-gia-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Đánh giá chất lượng bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_7" id="__nav_3_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Xử lý sự cố
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Xử lý sự cố
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/06-xu-ly-su-co/01-loi-ket-noi-va-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi kết nối và ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/06-xu-ly-su-co/02-loi-lidar-slam-navigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/06-xu-ly-su-co/03-thong-tin-ho-tro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thông tin cần gửi khi hỗ trợ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_8" id="__nav_3_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    7. Tham khảo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            7. Tham khảo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Danh sách lệnh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/07-tham-khao/02-thuat-ngu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thuật ngữ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        <li class="md-nav__item">
+          <a href="https://robovis.vn/" class="md-nav__link" target="_blank" rel="noopener noreferrer" title="Website mua hàng Robovis (mở trong tab mới)">
+            <span class="md-ellipsis">Website mua hàng Robovis <span aria-hidden="true">↗</span><span class="md-visually-hidden"> (mở trong tab mới)</span></span>
+          </a>
+        </li>
+      
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-muc-tieu-bai-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mục tiêu bài học
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tim-hieu-ve-thu-vien-arduino" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tìm hiểu về thư viện Arduino
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tìm hiểu về thư viện Arduino">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-thu-vien-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Thư viện là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-phan-biet-board-package-va-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Phân biệt Board Package và Library
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-lam-quen-voi-library-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Làm quen với Library Manager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Làm quen với Library Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-library-manager-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Library Manager là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-mo-library-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Mở Library Manager
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-cai-at-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Cài đặt thư viện
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cac-thu-vien-su-dung-trong-bo-xe-robot-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Các thư viện sử dụng trong bộ xe robot ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Các thư viện sử dụng trong bộ xe robot ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-danh-sach-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Danh sách thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-thu-vien-wifi" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Thư viện WiFi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-thu-vien-asynctcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. Thư viện AsyncTCP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-thu-vien-espasyncwebserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4. Thư viện ESPAsyncWebServer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-thu-vien-esp32servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5. Thư viện ESP32Servo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cai-at-thu-vien-tu-tep-zip" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Cài đặt thư viện từ tệp ZIP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Cài đặt thư viện từ tệp ZIP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-cac-buoc-thuc-hien" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Các bước thực hiện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-kiem-tra-thu-vien-a-cai" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Kiểm tra thư viện đã cài
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-su-dung-thu-vien-trong-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Sử dụng thư viện trong chương trình
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Sử dụng thư viện trong chương trình">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-khai-bao-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Khai báo thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-vi-tri-khai-bao-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Vị trí khai báo thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-thu-vien-va-tep-ma-nguon-trong-du-an" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3. Thư viện và tệp mã nguồn trong dự án
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-thuc-hanh-kiem-tra-thu-vien-wifi" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Thực hành kiểm tra thư viện WiFi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Thực hành kiểm tra thư viện WiFi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-muc-tieu-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Mục tiêu thực hành
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-tao-chuong-trinh-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Tạo chương trình mới
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-bien-dich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5. Biên dịch chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#86-nap-va-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.6. Nạp và kiểm tra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#87-luu-y-khi-thuc-hanh-tren-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.7. Lưu ý khi thực hành trên robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-kiem-tra-thu-vien-cua-chuong-trinh-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Kiểm tra thư viện của chương trình robot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Kiểm tra thư viện của chương trình robot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-chuan-bi-ma-nguon" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Chuẩn bị mã nguồn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-mo-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Mở chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-kiem-tra-cau-hinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3. Kiểm tra cấu hình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-cac-loi-thuong-gap-khi-su-dung-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Các lỗi thường gặp khi sử dụng thư viện
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Các lỗi thường gặp khi sử dụng thư viện">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-loi-no-such-file-or-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1. Lỗi No such file or directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-loi-thieu-wifih" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2. Lỗi thiếu WiFi.h
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-loi-thieu-thu-vien-phu-thuoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3. Lỗi thiếu thư viện phụ thuộc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-loi-thu-vien-khong-ho-tro-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4. Lỗi thư viện không hỗ trợ ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-thong-bao-multiple-libraries-were-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.5. Thông báo Multiple libraries were found
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#106-loi-do-khac-phien-ban-esp32-core" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.6. Lỗi do khác phiên bản ESP32 core
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-quan-ly-va-cap-nhat-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Quản lý và cập nhật thư viện
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Quản lý và cập nhật thư viện">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-kiem-tra-phien-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1. Kiểm tra phiên bản
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-khi-nao-nen-cap-nhat-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2. Khi nào nên cập nhật thư viện?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-kiem-tra-sau-khi-cap-nhat" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3. Kiểm tra sau khi cập nhật
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bai-tap-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Bài tập thực hành
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Bài tập thực hành">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-1-phan-biet-cac-thanh-phan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 1: Phân biệt các thành phần
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-2-cai-at-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 2: Cài đặt thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-3-kiem-tra-wifi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 3: Kiểm tra WiFi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-4-kiem-tra-ma-nguon-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 4: Kiểm tra mã nguồn robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-kiem-tra-truoc-khi-bat-au" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Kiểm tra trước khi bắt đầu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+    
+  
+    
+  
+    
+      <nav class="rv-breadcrumb" aria-label="Đường dẫn bài viết">
+        <a href="../../san-pham/">Tài liệu theo sản phẩm</a>
+        
+          
+        
+          
+        
+          
+            <span aria-hidden="true">›</span>
+            <a href="../">Robot ESP32</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">Thêm thư viện</span>
+          
+        
+          
+        
+          
+        
+      </nav>
+    
+  
+    
+  
+  
+                  
+
+
+
+<h1 id="bai-5-cai-at-va-quan-ly-thu-vien-esp32">Bài 5: Cài đặt và quản lý thư viện ESP32</h1>
+<h2 id="1-gioi-thieu">1. Giới thiệu</h2>
+<p>Trong các bài học trước, chúng ta đã cài đặt Arduino IDE, driver CH340, gói hỗ trợ ESP32 và thực hành nạp chương trình vào bo mạch.</p>
+<p>Tuy nhiên, khi lập trình các chức năng phức tạp hơn như điều khiển servo, giao tiếp Wi-Fi hoặc xây dựng giao diện điều khiển robot, chúng ta thường cần sử dụng thêm các <strong>thư viện lập trình</strong>.</p>
+<p>Thư viện cung cấp những hàm và công cụ được xây dựng sẵn, giúp người lập trình sử dụng các chức năng của vi điều khiển mà không phải viết lại toàn bộ chương trình từ đầu.</p>
+<p>Trong bài học này, chúng ta sẽ thực hiện:</p>
+<ul>
+<li>Tìm hiểu thư viện Arduino là gì.</li>
+<li>Phân biệt gói hỗ trợ ESP32 và thư viện lập trình.</li>
+<li>Làm quen với Library Manager.</li>
+<li>Cài đặt các thư viện cần thiết cho bộ xe robot ESP32.</li>
+<li>Tìm hiểu cách sử dụng thư viện trong chương trình.</li>
+<li>Kiểm tra thư viện bằng một chương trình đơn giản.</li>
+<li>Xử lý một số lỗi thường gặp khi sử dụng thư viện.</li>
+</ul>
+<p>Sau khi hoàn thành, bạn sẽ biết cách chuẩn bị các thư viện cần thiết để lập trình cảm biến, động cơ, servo và các chức năng điều khiển robot qua Wi-Fi.</p>
+<h2 id="2-muc-tieu-bai-hoc">2. Mục tiêu bài học</h2>
+<p>Sau bài học này, bạn có thể:</p>
+<ul>
+<li>Hiểu thư viện là gì và vai trò của thư viện trong lập trình ESP32.</li>
+<li>Phân biệt thư viện tích hợp và thư viện cần cài đặt thêm.</li>
+<li>Sử dụng Library Manager để tìm kiếm và cài đặt thư viện.</li>
+<li>Cài đặt thư viện từ tệp ZIP.</li>
+<li>Biết cách khai báo thư viện bằng <code>#include</code>.</li>
+<li>Xác định các thư viện cần thiết cho chương trình robot.</li>
+<li>Kiểm tra và quản lý phiên bản thư viện.</li>
+<li>Nhận biết và xử lý lỗi thiếu thư viện khi biên dịch.</li>
+</ul>
+<hr />
+<h2 id="3-tim-hieu-ve-thu-vien-arduino">3. Tìm hiểu về thư viện Arduino</h2>
+<h3 id="31-thu-vien-la-gi">3.1. Thư viện là gì?</h3>
+<p>Thư viện (<em>Library</em>) là tập hợp các đoạn mã, hàm và lớp đã được xây dựng để thực hiện những chức năng cụ thể.</p>
+<p>Ví dụ, khi muốn kết nối ESP32 với Wi-Fi, chúng ta không cần tự viết toàn bộ chương trình điều khiển phần cứng Wi-Fi.</p>
+<p>Thay vào đó, có thể sử dụng thư viện <code>WiFi.h</code> để thực hiện các thao tác như:</p>
+<ul>
+<li>Khởi tạo Wi-Fi.</li>
+<li>Kết nối đến mạng Wi-Fi.</li>
+<li>Tạo mạng Wi-Fi riêng.</li>
+<li>Kiểm tra trạng thái kết nối.</li>
+<li>Lấy địa chỉ IP.</li>
+</ul>
+<p>Tương tự, khi điều khiển servo, chúng ta có thể sử dụng thư viện ESP32Servo để tạo tín hiệu điều khiển phù hợp.</p>
+<p>Việc sử dụng thư viện giúp:</p>
+<ul>
+<li>Giảm số lượng mã cần viết.</li>
+<li>Đơn giản hóa việc giao tiếp với phần cứng.</li>
+<li>Dễ dàng tái sử dụng chương trình.</li>
+<li>Thuận tiện khi phát triển các chức năng mới.</li>
+<li>Giảm những lỗi do phải tự xây dựng các chức năng cấp thấp.</li>
+</ul>
+<h3 id="32-phan-biet-board-package-va-library">3.2. Phân biệt Board Package và Library</h3>
+<p>Khi lập trình ESP32 bằng Arduino IDE, chúng ta cần phân biệt ba thành phần:</p>
+<table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Ví dụ</th>
+<th>Chức năng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Board Package</td>
+<td>esp32 by Espressif Systems</td>
+<td>Cung cấp công cụ biên dịch, nạp chương trình và hỗ trợ phần cứng ESP32</td>
+</tr>
+<tr>
+<td>Thư viện đi kèm ESP32 core</td>
+<td>WiFi</td>
+<td>Cung cấp các chức năng có sẵn khi cài gói ESP32</td>
+</tr>
+<tr>
+<td>Thư viện bên ngoài</td>
+<td>ESP32Servo, ESPAsyncWebServer</td>
+<td>Bổ sung các chức năng cần thiết cho chương trình</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Board Package</strong> được cài đặt thông qua <strong>Boards Manager</strong>.</p>
+<p><strong>Library</strong> thường được quản lý thông qua <strong>Library Manager</strong>.</p>
+<p>Một số thư viện đã có sẵn khi cài ESP32 core, trong khi những thư viện khác cần được cài đặt bổ sung.</p>
+<p>Ví dụ, <code>WiFi.h</code> được cung cấp cùng Arduino-ESP32 core. Vì vậy, không cần tìm và cài một thư viện WiFi không liên quan để thay thế.</p>
+<p>Nếu Arduino IDE báo không tìm thấy <code>WiFi.h</code>, trước tiên cần kiểm tra đã cài gói ESP32 và chọn đúng bo mạch hay chưa.</p>
+<hr />
+<h2 id="4-lam-quen-voi-library-manager">4. Làm quen với Library Manager</h2>
+<h3 id="41-library-manager-la-gi">4.1. Library Manager là gì?</h3>
+<p>Library Manager là công cụ quản lý thư viện được tích hợp trong Arduino IDE.</p>
+<p>Thông qua Library Manager, chúng ta có thể:</p>
+<ul>
+<li>Tìm kiếm thư viện.</li>
+<li>Cài đặt thư viện.</li>
+<li>Kiểm tra phiên bản đang sử dụng.</li>
+<li>Cập nhật thư viện.</li>
+<li>Cài đặt một phiên bản cụ thể khi cần.</li>
+</ul>
+<p>Đây là phương pháp thuận tiện để cài đặt các thư viện phổ biến.</p>
+<h3 id="42-mo-library-manager">4.2. Mở Library Manager</h3>
+<p>Thực hiện:</p>
+<ol>
+<li>Mở Arduino IDE.</li>
+<li>Chọn biểu tượng <strong>Library Manager</strong> ở thanh công cụ bên trái.</li>
+<li>Nhập tên thư viện vào ô tìm kiếm.</li>
+<li>Quan sát danh sách kết quả.</li>
+</ol>
+<p>Ví dụ, nhập:</p>
+<div class="highlight"><pre><span></span><code>ESP32Servo
+</code></pre></div>
+<p>Arduino IDE sẽ hiển thị những thư viện phù hợp với từ khóa tìm kiếm.</p>
+<h3 id="43-cai-at-thu-vien">4.3. Cài đặt thư viện</h3>
+<p>Sau khi tìm được thư viện:</p>
+<ol>
+<li>Kiểm tra tên thư viện.</li>
+<li>Kiểm tra tác giả hoặc dự án phát triển.</li>
+<li>Kiểm tra thư viện có hỗ trợ ESP32 hay không.</li>
+<li>Chọn phiên bản phù hợp.</li>
+<li>Nhấn <strong>Install</strong>.</li>
+<li>Chờ quá trình cài đặt hoàn tất.</li>
+</ol>
+<p>Nếu Arduino IDE yêu cầu cài đặt thêm các thư viện phụ thuộc (<em>dependencies</em>), cần kiểm tra và cài đặt những thành phần cần thiết.</p>
+<p><strong>Lưu ý:</strong> Có thể tồn tại nhiều thư viện có tên gần giống nhau. Vì vậy, không nên chỉ dựa vào tên tìm kiếm mà cần đối chiếu tác giả và khả năng tương thích.</p>
+<hr />
+<h2 id="5-cac-thu-vien-su-dung-trong-bo-xe-robot-esp32">5. Các thư viện sử dụng trong bộ xe robot ESP32</h2>
+<p>Bộ xe robot ESP32 Robovis sử dụng các thư viện để thực hiện những chức năng như kết nối Wi-Fi, tạo giao diện điều khiển web và điều khiển servo.</p>
+<p>Chương trình nguồn được cung cấp tại:</p>
+<p><a href="https://drive.google.com/drive/folders/1HeAZaW--JOkl67SG3IJOWxS1aPKAO5UB">Bộ mã nguồn robot ESP32 Robovis</a></p>
+<h3 id="51-danh-sach-thu-vien">5.1. Danh sách thư viện</h3>
+<p>Các thư viện cần thiết cho bộ chương trình gồm:</p>
+<table>
+<thead>
+<tr>
+<th>STT</th>
+<th>Thư viện</th>
+<th>Nguồn / tác giả</th>
+<th>Chức năng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>WiFi</td>
+<td>Arduino-ESP32 core</td>
+<td>Kết nối và tạo mạng Wi-Fi</td>
+</tr>
+<tr>
+<td>2</td>
+<td>AsyncTCP</td>
+<td>ESP32Async</td>
+<td>Giao tiếp TCP bất đồng bộ</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ESPAsyncWebServer</td>
+<td>ESP32Async</td>
+<td>Xây dựng web server điều khiển robot</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ESP32Servo</td>
+<td>Kevin Harrington / madhephaestus</td>
+<td>Điều khiển servo trên ESP32</td>
+</tr>
+</tbody>
+</table>
+<p>Trong đó:</p>
+<ul>
+<li><code>WiFi.h</code> có sẵn khi cài gói hỗ trợ ESP32.</li>
+<li><code>AsyncTCP</code> cần được cài đặt thêm.</li>
+<li><code>ESPAsyncWebServer</code> cần được cài đặt thêm.</li>
+<li><code>ESP32Servo</code> cần được cài đặt thêm.</li>
+</ul>
+<p>Ngoài các thư viện trên, chương trình robot còn có thể sử dụng những tệp mã nguồn riêng của sản phẩm, chẳng hạn <code>do_line.h</code>.</p>
+<p>Các tệp mã nguồn của dự án không nhất thiết là thư viện cần tìm trong Library Manager.</p>
+<h3 id="52-thu-vien-wifi">5.2. Thư viện WiFi</h3>
+<p>Thư viện WiFi cho phép ESP32 sử dụng phần cứng Wi-Fi tích hợp.</p>
+<p>Ví dụ, ESP32 có thể tạo một mạng Wi-Fi riêng để điện thoại kết nối trực tiếp.</p>
+<p>Trong chương trình robot, ESP32 tạo mạng Wi-Fi có tên:</p>
+<p><strong>ESP32-Car</strong></p>
+<p>Người dùng kết nối điện thoại hoặc máy tính đến mạng này để sử dụng giao diện điều khiển robot.</p>
+<p>Để sử dụng thư viện WiFi, khai báo:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;WiFi.h&gt;</span>
+</code></pre></div>
+<p>Một số hàm thường gặp:</p>
+<table>
+<thead>
+<tr>
+<th>Hàm</th>
+<th>Chức năng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WiFi.mode()</code></td>
+<td>Cấu hình chế độ hoạt động Wi-Fi</td>
+</tr>
+<tr>
+<td><code>WiFi.begin()</code></td>
+<td>Kết nối đến mạng Wi-Fi có sẵn</td>
+</tr>
+<tr>
+<td><code>WiFi.softAP()</code></td>
+<td>Tạo mạng Wi-Fi Access Point</td>
+</tr>
+<tr>
+<td><code>WiFi.status()</code></td>
+<td>Kiểm tra trạng thái kết nối</td>
+</tr>
+<tr>
+<td><code>WiFi.localIP()</code></td>
+<td>Lấy địa chỉ IP ở chế độ Station</td>
+</tr>
+<tr>
+<td><code>WiFi.softAPIP()</code></td>
+<td>Lấy địa chỉ IP của Access Point</td>
+</tr>
+</tbody>
+</table>
+<p>Thư viện này sẽ được tìm hiểu chi tiết trong bài điều khiển xe qua Wi-Fi.</p>
+<h3 id="53-thu-vien-asynctcp">5.3. Thư viện AsyncTCP</h3>
+<p>AsyncTCP hỗ trợ giao tiếp TCP bất đồng bộ trên ESP32.</p>
+<p>TCP là giao thức truyền dữ liệu qua mạng, được sử dụng trong nhiều ứng dụng kết nối Wi-Fi.</p>
+<p>Thư viện AsyncTCP thường được sử dụng làm thành phần phụ thuộc của ESPAsyncWebServer.</p>
+<p>Để cài đặt:</p>
+<ol>
+<li>Mở Library Manager.</li>
+<li>Tìm kiếm <code>AsyncTCP</code>.</li>
+<li>Chọn thư viện thuộc dự án <strong>ESP32Async</strong>.</li>
+<li>Nhấn Install.</li>
+</ol>
+<p>Dự án tham khảo:</p>
+<p>https://github.com/ESP32Async/AsyncTCP</p>
+<p><strong>Lưu ý:</strong> Không nhầm <code>AsyncTCP</code> dành cho ESP32 với <code>ESPAsyncTCP</code> dành cho ESP8266.</p>
+<p>Trong tài liệu bàn giao có thể xuất hiện tên ESPAsyncTCP, nhưng đối với bộ mã ESP32 sử dụng AsyncTCP, cần cài đúng thư viện dành cho ESP32.</p>
+<h3 id="54-thu-vien-espasyncwebserver">5.4. Thư viện ESPAsyncWebServer</h3>
+<p>ESPAsyncWebServer được sử dụng để xây dựng web server trên ESP32.</p>
+<p>Web server cho phép ESP32 tiếp nhận các yêu cầu từ trình duyệt và gửi dữ liệu phản hồi.</p>
+<p>Trong bộ xe robot, thư viện này được sử dụng để xây dựng giao diện điều khiển qua Wi-Fi.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Hiển thị trang điều khiển trên điện thoại.</li>
+<li>Nhận lệnh điều khiển chuyển động.</li>
+<li>Xử lý yêu cầu từ trình duyệt.</li>
+<li>Trao đổi dữ liệu giữa giao diện và ESP32.</li>
+</ul>
+<p>Để cài đặt:</p>
+<ol>
+<li>Mở Library Manager.</li>
+<li>Tìm kiếm <code>ESPAsyncWebServer</code>.</li>
+<li>Chọn thư viện thuộc dự án <strong>ESP32Async</strong>.</li>
+<li>Nhấn Install.</li>
+<li>Cài đặt các dependency cần thiết nếu Arduino IDE yêu cầu.</li>
+</ol>
+<p>Dự án tham khảo:</p>
+<p>https://github.com/ESP32Async/ESPAsyncWebServer</p>
+<h3 id="55-thu-vien-esp32servo">5.5. Thư viện ESP32Servo</h3>
+<p>ESP32Servo là thư viện hỗ trợ điều khiển động cơ servo bằng ESP32.</p>
+<p>Thư viện cung cấp các chức năng như:</p>
+<ul>
+<li>Khởi tạo servo.</li>
+<li>Gắn servo với chân GPIO.</li>
+<li>Điều khiển vị trí servo.</li>
+<li>Thiết lập tín hiệu điều khiển phù hợp.</li>
+</ul>
+<p>Để cài đặt:</p>
+<ol>
+<li>Mở Library Manager.</li>
+<li>Tìm kiếm <code>ESP32Servo</code>.</li>
+<li>Chọn thư viện thuộc dự án của Kevin Harrington / madhephaestus.</li>
+<li>Nhấn Install.</li>
+</ol>
+<p>Dự án tham khảo:</p>
+<p>https://github.com/madhephaestus/ESP32Servo</p>
+<p>Trong chương trình, thư viện thường được khai báo:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ESP32Servo.h&gt;</span>
+</code></pre></div>
+<p>Ví dụ khởi tạo đối tượng servo:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Servo</span><span class="w"> </span><span class="n">myServo</span><span class="p">;</span>
+</code></pre></div>
+<p>Để sử dụng servo thực tế, cần kết nối đúng chân tín hiệu và nguồn cấp phù hợp.</p>
+<p><strong>Lưu ý:</strong> Bộ mã <code>main.ino</code> của robot có sử dụng <code>ESP32Servo.h</code>. Vì vậy, thư viện ESP32Servo vẫn cần được cài đặt để biên dịch chương trình, kể cả khi phiên bản robot hiện tại chưa lắp cơ cấu gắp.</p>
+<p>Không thay thế thư viện này bằng thư viện Servo dành cho Arduino Nano ATmega328P.</p>
+<hr />
+<h2 id="6-cai-at-thu-vien-tu-tep-zip">6. Cài đặt thư viện từ tệp ZIP</h2>
+<p>Ngoài Library Manager, Arduino IDE còn hỗ trợ cài đặt thư viện từ tệp ZIP.</p>
+<p>Phương pháp này thường được sử dụng khi:</p>
+<ul>
+<li>Nhà sản xuất cung cấp thư viện riêng.</li>
+<li>Thư viện không có trong Library Manager.</li>
+<li>Cần sử dụng một phiên bản thư viện cụ thể.</li>
+<li>Bộ mã nguồn đi kèm thư viện dưới dạng tệp ZIP.</li>
+</ul>
+<h3 id="61-cac-buoc-thuc-hien">6.1. Các bước thực hiện</h3>
+<ol>
+<li>Tải tệp ZIP của thư viện về máy tính.</li>
+<li>Mở Arduino IDE.</li>
+<li>Chọn <strong>Sketch → Include Library → Add .ZIP Library</strong>.</li>
+<li>Chọn tệp ZIP vừa tải.</li>
+<li>Xác nhận để Arduino IDE thực hiện cài đặt.</li>
+</ol>
+<p>Sau khi hoàn thành, Arduino IDE sẽ thông báo kết quả cài đặt.</p>
+<h3 id="62-kiem-tra-thu-vien-a-cai">6.2. Kiểm tra thư viện đã cài</h3>
+<p>Có thể kiểm tra bằng cách:</p>
+<ol>
+<li>Mở Library Manager.</li>
+<li>Tìm tên thư viện.</li>
+<li>Kiểm tra trạng thái và phiên bản nếu thư viện được Library Manager nhận diện.</li>
+</ol>
+<p>Ngoài ra, có thể mở chương trình sử dụng thư viện và nhấn Verify.</p>
+<p>Nếu chương trình biên dịch thành công, các tệp thư viện cần thiết đã được trình biên dịch tìm thấy và sử dụng.</p>
+<p>Tuy nhiên, việc biên dịch thành công chưa đảm bảo phần cứng sẽ hoạt động đúng khi chạy thực tế.</p>
+<p>Hướng dẫn chính thức của Arduino:</p>
+<p>https://support.arduino.cc/hc/en-us/articles/5145457742236-Install-libraries-in-the-Arduino-IDE</p>
+<hr />
+<h2 id="7-su-dung-thu-vien-trong-chuong-trinh">7. Sử dụng thư viện trong chương trình</h2>
+<h3 id="71-khai-bao-thu-vien">7.1. Khai báo thư viện</h3>
+<p>Trong Arduino, thư viện thường được khai báo bằng chỉ thị:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;TenThuVien.h&gt;</span>
+</code></pre></div>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;WiFi.h&gt;</span>
+</code></pre></div>
+<p>Dòng lệnh trên cho phép chương trình sử dụng các khai báo và chức năng do thư viện WiFi cung cấp.</p>
+<p>Tương tự:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ESP32Servo.h&gt;</span>
+</code></pre></div>
+<p>Cho phép sử dụng các thành phần của thư viện ESP32Servo.</p>
+<h3 id="72-vi-tri-khai-bao-thu-vien">7.2. Vị trí khai báo thư viện</h3>
+<p>Các dòng <code>#include</code> thường được đặt ở đầu chương trình.</p>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;WiFi.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;AsyncTCP.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ESPAsyncWebServer.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ESP32Servo.h&gt;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>Đây là ví dụ minh họa cách khai báo thư viện, chưa phải một chương trình điều khiển hoàn chỉnh.</p>
+<p>Khi biên dịch, Arduino IDE cần tìm được các thư viện tương ứng.</p>
+<p>Nếu thiếu một thư viện, quá trình biên dịch có thể thất bại.</p>
+<h3 id="73-thu-vien-va-tep-ma-nguon-trong-du-an">7.3. Thư viện và tệp mã nguồn trong dự án</h3>
+<p>Một chương trình Arduino có thể được chia thành nhiều tệp.</p>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>main/
+├── main.ino
+├── do_line.h
+└── do_line.cpp
+</code></pre></div>
+<p>Đây là ví dụ minh họa cấu trúc dự án có nhiều tệp; các tệp thực tế phải được xác định theo bộ mã nguồn bàn giao.</p>
+<p>Trong đó:</p>
+<ul>
+<li><code>main.ino</code> là tệp chương trình chính.</li>
+<li><code>do_line.h</code> có thể chứa các khai báo phục vụ chức năng dò line.</li>
+<li><code>do_line.cpp</code>, nếu có, có thể chứa phần triển khai các hàm tương ứng.</li>
+</ul>
+<p>Không phải mọi tệp <code>.h</code> đều là thư viện phải cài từ Library Manager.</p>
+<p>Nếu một tệp <code>.h</code> được cung cấp cùng chương trình, cần giữ đúng cấu trúc thư mục của dự án.</p>
+<p>Với bộ mã robot Robovis, cần tải <strong>toàn bộ thư mục <code>main</code></strong>, không chỉ tải riêng tệp <code>main.ino</code>.</p>
+<hr />
+<h2 id="8-thuc-hanh-kiem-tra-thu-vien-wifi">8. Thực hành kiểm tra thư viện WiFi</h2>
+<h3 id="81-muc-tieu-thuc-hanh">8.1. Mục tiêu thực hành</h3>
+<p>Trong phần này, chúng ta sẽ viết một chương trình đơn giản để kiểm tra thư viện WiFi có hoạt động với ESP32 hay không.</p>
+<p>Chương trình sẽ:</p>
+<ol>
+<li>Khởi tạo giao tiếp Serial.</li>
+<li>Thiết lập Wi-Fi ở chế độ Station.</li>
+<li>Gửi thông báo đến Serial Monitor.</li>
+</ol>
+<p>Chúng ta chưa cần kết nối ESP32 với router và chưa cần nhập mật khẩu Wi-Fi.</p>
+<h3 id="82-tao-chuong-trinh-moi">8.2. Tạo chương trình mới</h3>
+<p>Mở Arduino IDE.</p>
+<p>Chọn:</p>
+<p><strong>File → New Sketch</strong></p>
+<p>Lưu chương trình với tên:</p>
+<div class="highlight"><pre><span></span><code>ESP32ThuVien
+</code></pre></div>
+<p>Arduino IDE sẽ tạo tệp:</p>
+<div class="highlight"><pre><span></span><code>ESP32ThuVien.ino
+</code></pre></div>
+<h3 id="83-chuong-trinh-mau">8.3. Chương trình mẫu</h3>
+<p>Nhập chương trình sau:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;WiFi.h&gt;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">WiFi</span><span class="p">.</span><span class="n">mode</span><span class="p">(</span><span class="n">WIFI_STA</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Da khoi tao WiFi o che do Station"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="84-giai-thich-chuong-trinh">8.4. Giải thích chương trình</h3>
+<p><strong>Khai báo thư viện</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;WiFi.h&gt;</span>
+</code></pre></div>
+<p>Cho phép sử dụng các chức năng Wi-Fi của ESP32.</p>
+<p><strong>Khởi tạo Serial</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+</code></pre></div>
+<p>Khởi tạo giao tiếp Serial với tốc độ 115200 baud.</p>
+<p><strong>Thiết lập chế độ Wi-Fi</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">WiFi</span><span class="p">.</span><span class="n">mode</span><span class="p">(</span><span class="n">WIFI_STA</span><span class="p">);</span>
+</code></pre></div>
+<p>Đưa Wi-Fi vào chế độ Station.</p>
+<p>Ở chế độ này, ESP32 có thể kết nối đến một mạng Wi-Fi có sẵn khi chương trình cung cấp thông tin kết nối.</p>
+<p>Trong ví dụ hiện tại, chúng ta chưa thực hiện kết nối đến mạng nào.</p>
+<p><strong>Gửi thông báo</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Da khoi tao WiFi o che do Station"</span><span class="p">);</span>
+</code></pre></div>
+<p>Gửi một dòng thông báo đến Serial Monitor.</p>
+<p><strong>Vòng lặp chính</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Chương trình chờ 1000 ms trong mỗi lần lặp và không thực hiện thêm chức năng nào.</p>
+<h3 id="85-bien-dich-chuong-trinh">8.5. Biên dịch chương trình</h3>
+<p>Trước khi biên dịch:</p>
+<ol>
+<li>Chọn Board là <strong>ESP32 Dev Module</strong>.</li>
+<li>Kiểm tra đã cài ESP32 core.</li>
+<li>Nhấn <strong>Verify</strong>.</li>
+</ol>
+<p>Nếu chương trình biên dịch thành công, Arduino IDE sẽ hiển thị thông báo hoàn tất và thông tin dung lượng chương trình.</p>
+<p>Điều này cho thấy trình biên dịch đã tìm thấy thư viện WiFi cần thiết.</p>
+<h3 id="86-nap-va-kiem-tra">8.6. Nạp và kiểm tra</h3>
+<p>Sau khi Verify thành công:</p>
+<ol>
+<li>Kết nối ESP32 với máy tính.</li>
+<li>Chọn đúng cổng COM.</li>
+<li>Nhấn <strong>Upload</strong>.</li>
+<li>Chờ quá trình nạp hoàn tất.</li>
+<li>Mở Serial Monitor.</li>
+<li>Chọn tốc độ 115200 baud.</li>
+<li>Nhấn nút EN/RESET trên ESP32 để chạy lại chương trình.</li>
+</ol>
+<p>Kết quả mong đợi:</p>
+<div class="highlight"><pre><span></span><code>Da khoi tao WiFi o che do Station
+</code></pre></div>
+<p>Nếu xuất hiện thông báo trên, chương trình đã thực hiện đến lệnh in Serial sau khi gọi hàm thiết lập chế độ Wi-Fi.</p>
+<h3 id="87-luu-y-khi-thuc-hanh-tren-robot">8.7. Lưu ý khi thực hành trên robot</h3>
+<p>Chương trình kiểm tra thư viện là một sketch độc lập.</p>
+<p>Khi Upload, chương trình này sẽ thay thế chương trình ứng dụng robot đang lưu trên ESP32.</p>
+<p>Do đó, sau khi thực hành, robot sẽ không tự động tạo mạng <strong>ESP32-Car</strong> hoặc chạy giao diện điều khiển cũ.</p>
+<p>Để khôi phục chức năng robot, cần nạp lại bộ chương trình <code>main</code> đã được bàn giao.</p>
+<p>Trong chương trình robot, chế độ tạo mạng Wi-Fi riêng được thực hiện thông qua các chức năng như <code>WiFi.softAP()</code>.</p>
+<hr />
+<h2 id="9-kiem-tra-thu-vien-cua-chuong-trinh-robot">9. Kiểm tra thư viện của chương trình robot</h2>
+<p>Sau khi cài đặt các thư viện cần thiết, chúng ta nên kiểm tra khả năng biên dịch của bộ mã robot.</p>
+<h3 id="91-chuan-bi-ma-nguon">9.1. Chuẩn bị mã nguồn</h3>
+<p>Tải bộ mã nguồn từ:</p>
+<p><a href="https://drive.google.com/drive/folders/1HeAZaW--JOkl67SG3IJOWxS1aPKAO5UB">Thư mục chương trình robot ESP32 Robovis</a></p>
+<p>Giữ nguyên toàn bộ các tệp trong thư mục <code>main</code>.</p>
+<p>Không chỉ mở một tệp mã riêng lẻ rồi bỏ qua các tệp còn lại.</p>
+<h3 id="92-mo-chuong-trinh">9.2. Mở chương trình</h3>
+<p>Trong Arduino IDE:</p>
+<ol>
+<li>Chọn <strong>File → Open</strong>.</li>
+<li>Tìm đến thư mục <code>main</code>.</li>
+<li>Mở <code>main.ino</code>.</li>
+<li>Kiểm tra các tệp khác của dự án được giữ đúng vị trí.</li>
+</ol>
+<h3 id="93-kiem-tra-cau-hinh">9.3. Kiểm tra cấu hình</h3>
+<p>Chọn:</p>
+<ul>
+<li>Board: <strong>ESP32 Dev Module</strong>.</li>
+<li>ESP32 core: Phiên bản phù hợp với bộ mã.</li>
+<li>Các thư viện ngoài: Đã cài đầy đủ.</li>
+</ul>
+<p>Sau đó nhấn <strong>Verify</strong>.</p>
+<p>Nếu xuất hiện lỗi, cần đọc thông báo để xác định nguyên nhân.</p>
+<p>Không nên cập nhật đồng loạt tất cả thư viện khi chưa biết thư viện nào gây lỗi.</p>
+<hr />
+<h2 id="10-cac-loi-thuong-gap-khi-su-dung-thu-vien">10. Các lỗi thường gặp khi sử dụng thư viện</h2>
+<h3 id="101-loi-no-such-file-or-directory">10.1. Lỗi No such file or directory</h3>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>fatal error: ESP32Servo.h: No such file or directory
+</code></pre></div>
+<p>Lỗi này cho biết trình biên dịch không tìm thấy tệp header được yêu cầu.</p>
+<p>Nguyên nhân có thể:</p>
+<ul>
+<li>Chưa cài thư viện.</li>
+<li>Cài sai thư viện.</li>
+<li>Tên tệp trong <code>#include</code> không đúng.</li>
+<li>Thư viện được cài sai vị trí.</li>
+<li>Thiếu tệp mã nguồn đi kèm dự án.</li>
+</ul>
+<p><strong>Cách xử lý:</strong></p>
+<ol>
+<li>Kiểm tra tên header trong chương trình.</li>
+<li>Mở Library Manager.</li>
+<li>Tìm đúng thư viện.</li>
+<li>Kiểm tra tác giả và phiên bản.</li>
+<li>Cài đặt thư viện còn thiếu.</li>
+<li>Verify lại chương trình.</li>
+</ol>
+<p>Nếu tệp bị thiếu là <code>do_line.h</code>, cần kiểm tra bộ mã nguồn <code>main</code> thay vì tìm một thư viện bất kỳ có tên tương tự.</p>
+<h3 id="102-loi-thieu-wifih">10.2. Lỗi thiếu WiFi.h</h3>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>fatal error: WiFi.h: No such file or directory
+</code></pre></div>
+<p>Với ESP32, thư viện WiFi thường được cung cấp cùng ESP32 core.</p>
+<p><strong>Cách xử lý:</strong></p>
+<ol>
+<li>Kiểm tra đã cài <code>esp32 by Espressif Systems</code>.</li>
+<li>Kiểm tra Board đang chọn là ESP32 Dev Module.</li>
+<li>Kiểm tra gói ESP32 đã cài đặt hoàn chỉnh.</li>
+<li>Verify lại chương trình.</li>
+</ol>
+<p>Không nên cài một thư viện WiFi ngẫu nhiên để thay thế thư viện của ESP32 core.</p>
+<h3 id="103-loi-thieu-thu-vien-phu-thuoc">10.3. Lỗi thiếu thư viện phụ thuộc</h3>
+<p>Một thư viện có thể cần các thư viện khác để hoạt động.</p>
+<p>Ví dụ, ESPAsyncWebServer sử dụng AsyncTCP trong cấu hình ESP32 tương ứng.</p>
+<p>Nếu thiếu dependency, chương trình có thể báo lỗi không tìm thấy header hoặc các thành phần cần thiết.</p>
+<p><strong>Cách xử lý:</strong></p>
+<ul>
+<li>Kiểm tra tài liệu của thư viện.</li>
+<li>Cài đúng các dependency được yêu cầu.</li>
+<li>Kiểm tra phiên bản tương thích.</li>
+<li>Verify lại chương trình.</li>
+</ul>
+<h3 id="104-loi-thu-vien-khong-ho-tro-esp32">10.4. Lỗi thư viện không hỗ trợ ESP32</h3>
+<p>Một số thư viện được phát triển cho Arduino Uno, Nano hoặc ESP8266 nhưng không hỗ trợ ESP32.</p>
+<p>Khi sử dụng, Arduino IDE có thể hiển thị cảnh báo kiến trúc không tương thích hoặc phát sinh lỗi biên dịch.</p>
+<p><strong>Cách xử lý:</strong></p>
+<ol>
+<li>Kiểm tra thư viện hỗ trợ kiến trúc nào.</li>
+<li>Đối chiếu với dòng ESP32 đang sử dụng.</li>
+<li>Tìm phiên bản hoặc thư viện tương ứng dành cho ESP32.</li>
+<li>Không tự ý thay thế thư viện nếu chương trình phụ thuộc vào API cụ thể.</li>
+</ol>
+<p>Ví dụ, bộ mã robot sử dụng ESP32Servo thay vì thư viện Servo dành cho Arduino Nano classic.</p>
+<h3 id="105-thong-bao-multiple-libraries-were-found">10.5. Thông báo Multiple libraries were found</h3>
+<p>Arduino IDE có thể hiển thị:</p>
+<div class="highlight"><pre><span></span><code>Multiple libraries were found for "WiFi.h"
+</code></pre></div>
+<p>Thông báo này cho biết trình biên dịch tìm thấy nhiều thư viện có thể cung cấp cùng một header.</p>
+<p>Không phải mọi trường hợp đều là lỗi.</p>
+<p>Cần kiểm tra:</p>
+<ul>
+<li>Thư viện nào thực sự được sử dụng.</li>
+<li>Đường dẫn thư viện được chọn.</li>
+<li>Thư viện có phù hợp với ESP32 không.</li>
+<li>Có bản cài đặt trùng lặp không cần thiết hay không.</li>
+</ul>
+<p>Nếu cần loại bỏ thư viện trùng, nên sao lưu trước khi thay đổi.</p>
+<h3 id="106-loi-do-khac-phien-ban-esp32-core">10.6. Lỗi do khác phiên bản ESP32 core</h3>
+<p>Một số chương trình cũ sử dụng các hàm PWM như:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ledcSetup</span><span class="p">();</span>
+<span class="n">ledcAttachPin</span><span class="p">();</span>
+</code></pre></div>
+<p>Các API này đã thay đổi trong Arduino-ESP32 core 3.x.</p>
+<p>Nếu chương trình được viết cho core 2.x nhưng đang biên dịch bằng core 3.x, có thể xuất hiện lỗi không nhận diện được hàm.</p>
+<p>Đây là vấn đề tương thích API, không nhất thiết là lỗi thiếu thư viện.</p>
+<p><strong>Cách xử lý:</strong></p>
+<ul>
+<li>Kiểm tra phiên bản ESP32 core.</li>
+<li>Kiểm tra yêu cầu của bộ mã nguồn.</li>
+<li>Sử dụng phiên bản core tương thích hoặc cập nhật mã theo API mới.</li>
+<li>Không thay đổi các phần khác của chương trình khi chưa cần thiết.</li>
+</ul>
+<hr />
+<h2 id="11-quan-ly-va-cap-nhat-thu-vien">11. Quản lý và cập nhật thư viện</h2>
+<p>Trong quá trình học, chúng ta có thể cần cài đặt thêm hoặc cập nhật thư viện.</p>
+<p>Tuy nhiên, phiên bản mới nhất không phải lúc nào cũng tương thích với chương trình đang sử dụng.</p>
+<h3 id="111-kiem-tra-phien-ban">11.1. Kiểm tra phiên bản</h3>
+<p>Mở Library Manager, tìm thư viện và kiểm tra phiên bản đã cài.</p>
+<p>Đối với những thư viện quan trọng, nên ghi lại:</p>
+<table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Thông tin cần ghi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESP32 core</td>
+<td>Phiên bản đã cài</td>
+</tr>
+<tr>
+<td>AsyncTCP</td>
+<td>Phiên bản đã cài</td>
+</tr>
+<tr>
+<td>ESPAsyncWebServer</td>
+<td>Phiên bản đã cài</td>
+</tr>
+<tr>
+<td>ESP32Servo</td>
+<td>Phiên bản đã cài</td>
+</tr>
+</tbody>
+</table>
+<h3 id="112-khi-nao-nen-cap-nhat-thu-vien">11.2. Khi nào nên cập nhật thư viện?</h3>
+<p>Có thể xem xét cập nhật khi:</p>
+<ul>
+<li>Cần sửa lỗi đã được nhà phát triển khắc phục.</li>
+<li>Cần sử dụng chức năng mới.</li>
+<li>Thư viện cũ không tương thích với môi trường hiện tại.</li>
+<li>Có yêu cầu cập nhật từ dự án.</li>
+</ul>
+<p>Trước khi cập nhật, nên giữ lại phiên bản chương trình và thông tin thư viện đang hoạt động ổn định.</p>
+<h3 id="113-kiem-tra-sau-khi-cap-nhat">11.3. Kiểm tra sau khi cập nhật</h3>
+<p>Sau khi cập nhật thư viện:</p>
+<ol>
+<li>Verify lại chương trình kiểm tra đơn giản.</li>
+<li>Verify bộ mã robot hoàn chỉnh.</li>
+<li>Kiểm tra các thông báo biên dịch.</li>
+<li>Chỉ nạp lên robot sau khi xác nhận cấu hình phù hợp.</li>
+<li>Thử nghiệm các chức năng phần cứng một cách an toàn.</li>
+</ol>
+<p>Không nên thay đổi đồng thời ESP32 core, nhiều thư viện và mã nguồn robot nếu mục đích chỉ là xử lý một lỗi cụ thể.</p>
+<hr />
+<h2 id="12-bai-tap-thuc-hanh">12. Bài tập thực hành</h2>
+<h3 id="bai-tap-1-phan-biet-cac-thanh-phan">Bài tập 1: Phân biệt các thành phần</h3>
+<p>Trả lời:</p>
+<ol>
+<li>Board Package là gì?</li>
+<li>Library là gì?</li>
+<li>ESP32 core được cài đặt ở đâu?</li>
+<li>ESP32Servo được cài đặt bằng công cụ nào?</li>
+<li>Vì sao không cần cài thêm thư viện WiFi ngẫu nhiên cho ESP32?</li>
+</ol>
+<h3 id="bai-tap-2-cai-at-thu-vien">Bài tập 2: Cài đặt thư viện</h3>
+<p>Sử dụng Library Manager để tìm và cài đặt:</p>
+<ol>
+<li>AsyncTCP.</li>
+<li>ESPAsyncWebServer.</li>
+<li>ESP32Servo.</li>
+</ol>
+<p>Với mỗi thư viện, ghi lại tên, tác giả hoặc dự án và phiên bản đã cài.</p>
+<h3 id="bai-tap-3-kiem-tra-wifi">Bài tập 3: Kiểm tra WiFi</h3>
+<p>Thực hiện:</p>
+<ol>
+<li>Tạo sketch <code>ESP32ThuVien</code>.</li>
+<li>Nhập chương trình kiểm tra WiFi.</li>
+<li>Verify chương trình.</li>
+<li>Upload lên ESP32.</li>
+<li>Mở Serial Monitor với tốc độ 115200 baud.</li>
+<li>Kiểm tra thông báo sau khi nhấn EN/RESET.</li>
+</ol>
+<h3 id="bai-tap-4-kiem-tra-ma-nguon-robot">Bài tập 4: Kiểm tra mã nguồn robot</h3>
+<p>Mở toàn bộ dự án <code>main</code> của robot.</p>
+<p>Thực hiện:</p>
+<ol>
+<li>Xác định các dòng <code>#include</code>.</li>
+<li>Phân biệt thư viện đi kèm ESP32 core và thư viện ngoài.</li>
+<li>Xác định các tệp mã nguồn riêng của dự án.</li>
+<li>Verify toàn bộ chương trình.</li>
+<li>Ghi lại lỗi nếu quá trình biên dịch không thành công.</li>
+</ol>
+<hr />
+<h2 id="13-kiem-tra-truoc-khi-bat-au">13. Kiểm tra trước khi bắt đầu</h2>
+<p>Trước khi chuyển sang bài học tiếp theo, hãy đảm bảo:</p>
+<ul>
+<li>[ ] Đã hiểu thư viện là gì.</li>
+<li>[ ] Đã phân biệt Board Package và Library.</li>
+<li>[ ] Đã biết sử dụng Library Manager.</li>
+<li>[ ] Đã cài đặt AsyncTCP.</li>
+<li>[ ] Đã cài đặt ESPAsyncWebServer.</li>
+<li>[ ] Đã cài đặt ESP32Servo.</li>
+<li>[ ] Đã biết <code>WiFi.h</code> đi kèm ESP32 core.</li>
+<li>[ ] Đã biết cách khai báo thư viện bằng <code>#include</code>.</li>
+<li>[ ] Đã Verify thành công chương trình kiểm tra WiFi.</li>
+<li>[ ] Đã ghi lại phiên bản ESP32 core và các thư viện ngoài.</li>
+<li>[ ] Đã biết cách kiểm tra lỗi thiếu thư viện khi biên dịch.</li>
+</ul>
+<hr />
+<h2 id="14-tong-ket">14. Tổng kết</h2>
+<p>Qua bài học này, chúng ta đã tìm hiểu cách cài đặt và quản lý thư viện khi lập trình ESP32.</p>
+<p>Những nội dung quan trọng bao gồm:</p>
+<ul>
+<li>Hiểu vai trò của thư viện trong chương trình.</li>
+<li>Phân biệt gói hỗ trợ ESP32 và thư viện lập trình.</li>
+<li>Cài đặt thư viện bằng Library Manager.</li>
+<li>Cài đặt thư viện từ tệp ZIP.</li>
+<li>Tìm hiểu các thư viện WiFi, AsyncTCP, ESPAsyncWebServer và ESP32Servo.</li>
+<li>Sử dụng <code>#include</code> để khai báo thư viện.</li>
+<li>Kiểm tra thư viện bằng chương trình mẫu.</li>
+<li>Xử lý các lỗi thiếu thư viện và không tương thích phiên bản.</li>
+<li>Quản lý phiên bản thư viện để đảm bảo chương trình hoạt động ổn định.</li>
+</ul>
+<p>Ở bài tiếp theo, chúng ta sẽ bắt đầu <strong>lập trình các chức năng cơ bản trên ESP32, bao gồm điều khiển LED, đọc trạng thái nút nhấn và tìm hiểu tín hiệu PWM</strong>.</p>
+<hr />
+<p><a href="04-nap-code-va-serial.md">Bài trước: Nạp chương trình và sử dụng Serial Monitor</a> · <a href="06-lap-trinh-co-ban.md">Bài tiếp: Lập trình LED, nút nhấn và PWM</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © Robovis — Tài liệu hướng dẫn sản phẩm
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../javascripts/products-dropdown.js"></script>
+      
+    
+  </body>
+</html>

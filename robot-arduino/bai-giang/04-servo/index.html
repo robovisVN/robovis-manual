@@ -1,0 +1,5157 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tài liệu sử dụng và lập trình các dòng robot Robovis">
+      
+      
+      
+        <link rel="canonical" href="https://manual.robovis.vn/robot-arduino/bai-giang/04-servo/">
+      
+      
+        <link rel="prev" href="../03-led/">
+      
+      
+        <link rel="next" href="../05-dong-co/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Bài 4. Điều khiển servo SG90 - Tài liệu hướng dẫn Robovis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bai-4-ieu-khien-ong-co-servo-sg90-bang-arduino-nano" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../../.." title="Tài liệu hướng dẫn Robovis" class="md-header__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tài liệu hướng dẫn Robovis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bài 4. Điều khiển servo SG90
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+
+<nav class="md-tabs rv-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+          
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+        
+      
+        
+          
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../kien-thuc-nen/" class="md-tabs__link">
+          
+  
+  
+  Kiến thức nền
+
+        </a>
+      </li>
+    
+  
+
+        
+      
+        
+          <li class="md-tabs__item rv-products md-tabs__item--active">
+            <details class="rv-products__disclosure">
+              <summary class="md-tabs__link rv-products__trigger" aria-controls="rv-products-panel">
+                Tài liệu theo sản phẩm <span class="rv-products__chevron" aria-hidden="true">▾</span>
+              </summary>
+              <ul class="rv-products__panel" id="rv-products-panel" aria-label="Chọn tài liệu theo sản phẩm">
+                
+                  <li><a href="../../../san-pham/">Tất cả tài liệu sản phẩm</a></li>
+                
+                  <li><a href="../../" class="rv-products__current">Robot Arduino</a></li>
+                
+                  <li><a href="../../../robot-esp32/">Robot ESP32</a></li>
+                
+                  <li><a href="../../../robot-esp32-camera/">Robot ESP32 Camera</a></li>
+                
+                  <li><a href="../../../robot-esp32-lidar/">Robot ESP32 LiDAR</a></li>
+                
+              </ul>
+            </details>
+          </li>
+        
+      
+        
+          <li class="md-tabs__item">
+            <a href="https://robovis.vn/" class="md-tabs__link" target="_blank" rel="noopener noreferrer" title="Website mua hàng Robovis (mở trong tab mới)">
+              Website mua hàng Robovis <span aria-hidden="true">↗</span><span class="md-visually-hidden"> (mở trong tab mới)</span>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+  
+
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+  
+
+
+
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted rv-nav--product" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Tài liệu hướng dẫn Robovis" class="md-nav__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    Tài liệu hướng dẫn Robovis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+        
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trang chủ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Kiến thức nền
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Kiến thức nền
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu từ đây
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ubuntu cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình học
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu với Ubuntu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu với Ubuntu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/01-ubuntu-la-gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu là gì?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/02-chuan-bi-moi-truong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị môi trường
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Thao tác hằng ngày
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Thao tác hằng ngày
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/03-giao-dien-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giao diện Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/04-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Làm quen với Terminal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/05-thu-muc-va-tep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thư mục, đường dẫn và tệp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Phần mềm và kết nối
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Phần mềm và kết nối
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/06-cai-va-chay-phan-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài và chạy phần mềm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/07-ket-noi-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối máy tính với robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Thực hành tổng hợp
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Thực hành tổng hợp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/08-thuc-hanh-va-loi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thực hành và xử lý lỗi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tài liệu theo sản phẩm
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tài liệu theo sản phẩm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tất cả tài liệu sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot Arduino
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Robot Arduino
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_2" id="__nav_3_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE và nạp Blink
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe Arduino Nano
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Viết và nạp chương trình đầu tiên
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Bài 4. Điều khiển servo SG90
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 4. Điều khiển servo SG90
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tim-hieu-ve-ong-co-servo-sg90" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Tìm hiểu về động cơ Servo SG90
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Tìm hiểu về động cơ Servo SG90">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-servo-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Servo là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ong-co-servo-sg90" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Động cơ Servo SG90
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-cau-tao-cua-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Cấu tạo của servo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-nguyen-ly-ieu-khien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Nguyên lý điều khiển Servo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Nguyên lý điều khiển Servo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-tin-hieu-ieu-khien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Tín hiệu điều khiển servo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-su-khac-biet-giua-servo-va-ong-co-dc" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Sự khác biệt giữa servo và động cơ DC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ket-noi-servo-sg90-voi-arduino-nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Kết nối Servo SG90 với Arduino Nano
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Kết nối Servo SG90 với Arduino Nano">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-cac-chan-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Các chân kết nối
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-so-o-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Sơ đồ kết nối
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cai-at-thu-vien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Cài đặt thư viện Servo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Cài đặt thư viện Servo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-kiem-tra-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Kiểm tra thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-khai-bao-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Khai báo thư viện
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-vi-du-1-ieu-khien-servo-en-goc-90" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Ví dụ 1: Điều khiển servo đến góc 90°
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ví dụ 1: Điều khiển servo đến góc 90°">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-nap-va-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3. Nạp và kiểm tra
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-vi-du-2-ieu-khien-servo-quay-giua-hai-goc" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Ví dụ 2: Điều khiển servo quay giữa hai góc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Ví dụ 2: Điều khiển servo quay giữa hai góc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-nguyen-ly-hoat-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3. Nguyên lý hoạt động
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-vi-du-3-ieu-khien-servo-quet-nhieu-goc" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Ví dụ 3: Điều khiển servo quét nhiều góc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Ví dụ 3: Điều khiển servo quét nhiều góc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-vi-du-4-ieu-khien-servo-quay-tung-buoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Ví dụ 4: Điều khiển servo quay từng bước
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Ví dụ 4: Điều khiển servo quay từng bước">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ung-dung-servo-tren-xe-robot-arduino" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Ứng dụng servo trên xe robot Arduino
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-mot-so-luu-y-khi-su-dung-servo-sg90" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Một số lưu ý khi sử dụng Servo SG90
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Một số lưu ý khi sử dụng Servo SG90">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-khong-ep-servo-vuot-gioi-han" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1. Không ép servo vượt giới hạn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-su-dung-nguon-phu-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2. Sử dụng nguồn phù hợp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-luu-y-khi-su-dung-thu-vien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3. Lưu ý khi sử dụng thư viện Servo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-mot-so-loi-thuong-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Một số lỗi thường gặp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-bai-tap-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Bài tập thực hành
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Đọc cảm biến dò line 5 kênh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder và hiểu tốc độ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-bluetooth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Bluetooth HM-10 và Dabble
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Làm quen với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_2" id="__nav_3_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE, CH340 và gói ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_3" id="__nav_3_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Hướng dẫn lập trình xe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Cảm biến dò line TCRT5000
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/09-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Điều khiển xe qua Wi-Fi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Điều khiển xe với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 Camera
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 Camera
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị trước khi sử dụng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/03-phan-biet-hai-chuong-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Phân biệt hai chương trình ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Cài đặt Arduino IDE
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Cài đặt Arduino IDE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/01-cai-arduino-va-driver-ch340/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài Arduino IDE và driver CH340
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/02-cai-board-esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài board ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/03-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài các thư viện cần thiết
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_4" id="__nav_3_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Nạp chương trình cho ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Nạp chương trình cho ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/01-chuan-bi-thu-muc-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị thư mục mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/02-chon-board-va-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chọn board và nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/03-xu-ly-loi-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xử lý lỗi khi nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Điều khiển robot bằng trình duyệt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Điều khiển robot bằng trình duyệt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/04-dieu-khien-web/01-ket-noi-va-mo-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối Wi-Fi và mở giao diện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/04-dieu-khien-web/02-su-dung-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng giao diện điều khiển
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_6" id="__nav_3_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. Chạy nhận diện YOLO trên Windows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. Chạy nhận diện YOLO trên Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/01-cai-moi-truong-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài môi trường Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/02-chay-chuong-trinh-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị và chạy chương trình YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/03-su-dung-phan-mem-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng phần mềm YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_7" id="__nav_3_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Khắc phục lỗi và lưu ý
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Khắc phục lỗi và lưu ý
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/06-khac-phuc-loi/01-cac-loi-thuong-gap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các lỗi thường gặp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/06-khac-phuc-loi/02-luu-y-an-toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu ý an toàn và bảo quản mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 LiDAR
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 LiDAR
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu với Robot ESP32 LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_2" id="__nav_3_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Giới thiệu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Giới thiệu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/01-tong-quan-san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/02-kien-truc-he-thong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiến trúc hệ thống
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/03-lidar-va-odometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LiDAR và odometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/04-an-toan-va-gioi-han/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    An toàn và giới hạn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/05-tinh-nang-va-thong-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tính năng và thông số
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3" id="__nav_3_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Chuẩn bị
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Chuẩn bị
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/01-yeu-cau-va-cai-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Yêu cầu hệ thống và cài ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/02-cai-dat-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt workspace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/03-cau-hinh-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cấu hình Wi-Fi robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/04-windows-may-ao-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Windows và máy ảo Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/05-su-dung-wifi-ngoai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng Wi-Fi ngoài
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_4" id="__nav_3_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Bắt đầu sử dụng
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Bắt đầu sử dụng
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Khởi động và kiểm tra dữ liệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chạy thử lần đầu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/03-dieu-khien-bang-tay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều khiển robot bằng tay
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_5" id="__nav_3_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. ROS 2 cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. ROS 2 cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/04-ros2-co-ban/01-node-topic-va-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Node, topic và lệnh thường dùng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/04-ros2-co-ban/02-cac-topic-cua-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các topic của robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/04-ros2-co-ban/03-rviz-va-tf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RViz và hệ tọa độ TF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_6" id="__nav_3_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. LiDAR, SLAM và Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/01-kiem-tra-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiểm tra dữ liệu LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tạo bản đồ SLAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/03-luu-va-quan-ly-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu và quản lý bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều hướng tự động bằng Nav2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/05-danh-gia-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Đánh giá chất lượng bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_7" id="__nav_3_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Xử lý sự cố
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Xử lý sự cố
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/01-loi-ket-noi-va-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi kết nối và ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/02-loi-lidar-slam-navigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/03-thong-tin-ho-tro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thông tin cần gửi khi hỗ trợ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_8" id="__nav_3_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    7. Tham khảo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            7. Tham khảo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Danh sách lệnh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/07-tham-khao/02-thuat-ngu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thuật ngữ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        <li class="md-nav__item">
+          <a href="https://robovis.vn/" class="md-nav__link" target="_blank" rel="noopener noreferrer" title="Website mua hàng Robovis (mở trong tab mới)">
+            <span class="md-ellipsis">Website mua hàng Robovis <span aria-hidden="true">↗</span><span class="md-visually-hidden"> (mở trong tab mới)</span></span>
+          </a>
+        </li>
+      
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tim-hieu-ve-ong-co-servo-sg90" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Tìm hiểu về động cơ Servo SG90
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Tìm hiểu về động cơ Servo SG90">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-servo-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Servo là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ong-co-servo-sg90" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Động cơ Servo SG90
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-cau-tao-cua-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Cấu tạo của servo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-nguyen-ly-ieu-khien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Nguyên lý điều khiển Servo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Nguyên lý điều khiển Servo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-tin-hieu-ieu-khien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Tín hiệu điều khiển servo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-su-khac-biet-giua-servo-va-ong-co-dc" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Sự khác biệt giữa servo và động cơ DC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ket-noi-servo-sg90-voi-arduino-nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Kết nối Servo SG90 với Arduino Nano
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Kết nối Servo SG90 với Arduino Nano">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-cac-chan-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Các chân kết nối
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-so-o-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Sơ đồ kết nối
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cai-at-thu-vien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Cài đặt thư viện Servo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Cài đặt thư viện Servo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-kiem-tra-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Kiểm tra thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-khai-bao-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Khai báo thư viện
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-vi-du-1-ieu-khien-servo-en-goc-90" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Ví dụ 1: Điều khiển servo đến góc 90°
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ví dụ 1: Điều khiển servo đến góc 90°">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-nap-va-kiem-tra" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3. Nạp và kiểm tra
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-vi-du-2-ieu-khien-servo-quay-giua-hai-goc" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Ví dụ 2: Điều khiển servo quay giữa hai góc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Ví dụ 2: Điều khiển servo quay giữa hai góc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-nguyen-ly-hoat-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3. Nguyên lý hoạt động
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-vi-du-3-ieu-khien-servo-quet-nhieu-goc" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Ví dụ 3: Điều khiển servo quét nhiều góc
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Ví dụ 3: Điều khiển servo quét nhiều góc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-vi-du-4-ieu-khien-servo-quay-tung-buoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Ví dụ 4: Điều khiển servo quay từng bước
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Ví dụ 4: Điều khiển servo quay từng bước">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ung-dung-servo-tren-xe-robot-arduino" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Ứng dụng servo trên xe robot Arduino
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-mot-so-luu-y-khi-su-dung-servo-sg90" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Một số lưu ý khi sử dụng Servo SG90
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Một số lưu ý khi sử dụng Servo SG90">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-khong-ep-servo-vuot-gioi-han" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1. Không ép servo vượt giới hạn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-su-dung-nguon-phu-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2. Sử dụng nguồn phù hợp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-luu-y-khi-su-dung-thu-vien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3. Lưu ý khi sử dụng thư viện Servo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-mot-so-loi-thuong-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Một số lỗi thường gặp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-bai-tap-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Bài tập thực hành
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+    
+  
+    
+  
+    
+      <nav class="rv-breadcrumb" aria-label="Đường dẫn bài viết">
+        <a href="../../../san-pham/">Tài liệu theo sản phẩm</a>
+        
+          
+        
+          
+            <span aria-hidden="true">›</span>
+            <a href="../../">Robot Arduino</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">Bài 4. Điều khiển servo SG90</span>
+          
+        
+          
+        
+          
+        
+          
+        
+      </nav>
+    
+  
+    
+  
+  
+                  
+
+
+
+<h1 id="bai-4-ieu-khien-ong-co-servo-sg90-bang-arduino-nano">Bài 4: Điều khiển động cơ Servo SG90 bằng Arduino Nano</h1>
+<h2 id="1-gioi-thieu">1. Giới thiệu</h2>
+<p>Trong các bài học trước, chúng ta đã làm quen với cách lập trình Arduino Nano và điều khiển các thiết bị đầu ra thông qua tín hiệu Digital.</p>
+<p>Ở bài học này, chúng ta sẽ tìm hiểu và thực hành điều khiển <strong>động cơ Servo SG90</strong>, một loại động cơ có khả năng quay đến vị trí góc xác định.</p>
+<p>Trên xe robot Arduino, servo được sử dụng để xoay cảm biến siêu âm HC-SR04 sang các hướng khác nhau, giúp xe đo khoảng cách và phát hiện vật cản ở phía trước, bên trái và bên phải.</p>
+<p>Thông qua bài học, chúng ta sẽ tìm hiểu:</p>
+<ul>
+<li>Cấu tạo và nguyên lý hoạt động của động cơ servo.</li>
+<li>Sự khác biệt giữa servo và động cơ DC thông thường.</li>
+<li>Cách kết nối servo SG90 với Arduino Nano.</li>
+<li>Cách sử dụng thư viện Servo trong Arduino IDE.</li>
+<li>Cách điều khiển servo đến một góc xác định.</li>
+<li>Cách lập trình servo quay qua lại giữa nhiều vị trí.</li>
+<li>Ứng dụng servo để xoay cảm biến siêu âm trên xe robot.</li>
+</ul>
+<p>Sau khi hoàn thành, bạn sẽ có thể điều khiển servo SG90 bằng Arduino Nano và sử dụng servo trong các ứng dụng điều khiển chuyển động đơn giản.</p>
+<h2 id="2-tim-hieu-ve-ong-co-servo-sg90">2. Tìm hiểu về động cơ Servo SG90</h2>
+<h3 id="21-servo-la-gi">2.1. Servo là gì?</h3>
+<p>Servo là loại động cơ được tích hợp cơ cấu điều khiển vị trí, cho phép điều chỉnh trục quay đến một góc xác định.</p>
+<p>Khác với động cơ DC thông thường có thể quay liên tục, servo vị trí được thiết kế để di chuyển đến một vị trí góc theo tín hiệu điều khiển.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Khi yêu cầu góc 0°, servo di chuyển về một đầu hành trình.</li>
+<li>Khi yêu cầu góc 90°, servo di chuyển về vị trí giữa.</li>
+<li>Khi yêu cầu góc 180°, servo di chuyển về đầu hành trình còn lại, nếu loại servo và cơ cấu lắp đặt cho phép.</li>
+</ul>
+<p>Servo thường được sử dụng trong các ứng dụng:</p>
+<ul>
+<li>Điều khiển cánh tay robot.</li>
+<li>Điều khiển cơ cấu gắp vật.</li>
+<li>Xoay cảm biến.</li>
+<li>Điều khiển các khớp chuyển động.</li>
+<li>Điều khiển góc lái của robot.</li>
+</ul>
+<h3 id="22-ong-co-servo-sg90">2.2. Động cơ Servo SG90</h3>
+<p><AsyncImage query="SG90 9g blue micro servo motor three wire cable servo horn white product photo" aspectRatio="5:3" maxWidth="420px"/></p>
+<p><strong>SG90</strong> là loại servo kích thước nhỏ, thường được sử dụng trong các dự án Arduino và robot học tập.</p>
+<p>Một số thông số cơ bản:</p>
+<table>
+<thead>
+<tr>
+<th>Thông số</th>
+<th>Giá trị</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tên động cơ</td>
+<td>Micro Servo SG90</td>
+</tr>
+<tr>
+<td>Điện áp hoạt động</td>
+<td>Thường 4,8–6V, tùy phiên bản</td>
+</tr>
+<tr>
+<td>Góc quay</td>
+<td>Thường khoảng 0–180°</td>
+</tr>
+<tr>
+<td>Tín hiệu điều khiển</td>
+<td>Xung điều khiển servo</td>
+</tr>
+<tr>
+<td>Số dây kết nối</td>
+<td>3 dây</td>
+</tr>
+<tr>
+<td>Khối lượng</td>
+<td>Khoảng 9g</td>
+</tr>
+</tbody>
+</table>
+<p>Góc quay thực tế có thể khác nhau giữa các phiên bản servo. Không nên ép servo quay vượt quá giới hạn cơ khí của thiết bị.</p>
+<h3 id="23-cau-tao-cua-servo">2.3. Cấu tạo của servo</h3>
+<p>Một servo vị trí thông thường bao gồm các thành phần chính:</p>
+<ul>
+<li><strong>Động cơ DC:</strong> Tạo chuyển động quay.</li>
+<li><strong>Bộ bánh răng giảm tốc:</strong> Giảm tốc độ và tăng mô-men xoắn.</li>
+<li><strong>Cảm biến vị trí:</strong> Xác định vị trí hiện tại của trục quay.</li>
+<li><strong>Mạch điều khiển:</strong> Nhận tín hiệu và điều chỉnh động cơ đến vị trí yêu cầu.</li>
+</ul>
+<p>Khi Arduino gửi lệnh điều khiển, mạch bên trong servo sẽ xác định vị trí cần di chuyển và điều khiển động cơ quay đến vị trí đó.</p>
+<p>Nhờ cơ chế phản hồi vị trí bên trong, servo có thể duy trì góc quay đã được thiết lập trong giới hạn mô-men giữ của nó.</p>
+<h2 id="3-nguyen-ly-ieu-khien-servo">3. Nguyên lý điều khiển Servo</h2>
+<h3 id="31-tin-hieu-ieu-khien-servo">3.1. Tín hiệu điều khiển servo</h3>
+<p>Servo SG90 được điều khiển thông qua các xung tín hiệu có độ rộng thay đổi.</p>
+<p>Với servo thông dụng, tín hiệu thường có chu kỳ khoảng 20 ms, tương đương tần số 50 Hz.</p>
+<p>Độ rộng xung quyết định vị trí góc mà servo cần di chuyển đến.</p>
+<p>Ví dụ, các giá trị tham khảo thường gặp:</p>
+<table>
+<thead>
+<tr>
+<th>Độ rộng xung</th>
+<th>Vị trí góc tham khảo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1,0 ms</td>
+<td>Gần một đầu hành trình</td>
+</tr>
+<tr>
+<td>1,5 ms</td>
+<td>Gần vị trí giữa</td>
+</tr>
+<tr>
+<td>2,0 ms</td>
+<td>Gần đầu hành trình còn lại</td>
+</tr>
+</tbody>
+</table>
+<p>Các giá trị trên chỉ mang tính minh họa. Mối quan hệ giữa độ rộng xung và góc quay thực tế phụ thuộc vào từng servo.</p>
+<p><strong>Minh họa tín hiệu điều khiển Servo</strong></p>
+<div class="highlight"><pre><span></span><code>Xung 1,0 ms:
+HIGH  ┌─┐
+      │ │
+LOW   ┘ └───────────────────────
+
+Xung 1,5 ms:
+HIGH  ┌──┐
+      │  │
+LOW   ┘  └──────────────────────
+
+Xung 2,0 ms:
+HIGH  ┌───┐
+      │   │
+LOW   ┘   └─────────────────────
+</code></pre></div>
+<p>Các tín hiệu trên có chu kỳ tham khảo khoảng 20 ms. Độ rộng xung HIGH thay đổi để yêu cầu servo di chuyển đến những vị trí góc khác nhau.</p>
+<p><em>Hình minh họa không theo đúng tỷ lệ thời gian thực tế.</em></p>
+<p>Trong bài học này, chúng ta không cần tự tạo các xung điều khiển bằng tay.</p>
+<p>Thay vào đó, thư viện <code>Servo.h</code> sẽ hỗ trợ Arduino tạo tín hiệu điều khiển phù hợp.</p>
+<h3 id="32-su-khac-biet-giua-servo-va-ong-co-dc">3.2. Sự khác biệt giữa servo và động cơ DC</h3>
+<table>
+<thead>
+<tr>
+<th>Đặc điểm</th>
+<th>Động cơ DC</th>
+<th>Servo vị trí SG90</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chuyển động</td>
+<td>Quay liên tục</td>
+<td>Quay đến vị trí góc</td>
+</tr>
+<tr>
+<td>Điều khiển chính</td>
+<td>Tốc độ và chiều quay</td>
+<td>Vị trí góc</td>
+</tr>
+<tr>
+<td>Mạch điều khiển</td>
+<td>Thường cần driver</td>
+<td>Tích hợp trong servo</td>
+</tr>
+<tr>
+<td>Phản hồi vị trí</td>
+<td>Cần cảm biến ngoài nếu muốn đo</td>
+<td>Có cơ chế phản hồi bên trong</td>
+</tr>
+<tr>
+<td>Ứng dụng trên xe</td>
+<td>Điều khiển bánh xe</td>
+<td>Xoay cảm biến siêu âm</td>
+</tr>
+</tbody>
+</table>
+<p>Như vậy, động cơ DC phù hợp để tạo chuyển động cho bánh xe, trong khi servo phù hợp với các cơ cấu cần điều khiển vị trí.</p>
+<h2 id="4-ket-noi-servo-sg90-voi-arduino-nano">4. Kết nối Servo SG90 với Arduino Nano</h2>
+<h3 id="41-cac-chan-ket-noi">4.1. Các chân kết nối</h3>
+<p>Servo SG90 có ba dây kết nối:</p>
+<table>
+<thead>
+<tr>
+<th>Dây servo</th>
+<th>Chức năng</th>
+<th>Kết nối</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nâu hoặc đen</td>
+<td>GND</td>
+<td>GND chung</td>
+</tr>
+<tr>
+<td>Đỏ</td>
+<td>VCC</td>
+<td>Nguồn servo phù hợp, thường 5V ổn áp</td>
+</tr>
+<tr>
+<td>Cam, vàng hoặc trắng</td>
+<td>Signal</td>
+<td>Arduino A5</td>
+</tr>
+</tbody>
+</table>
+<p>Trên bộ xe robot của chúng ta, <strong>chân điều khiển servo được kết nối với A5 của Arduino Nano</strong>.</p>
+<p><AsyncImage query="SG90 servo motor three wire connector brown red orange close up" aspectRatio="5:3" maxWidth="360px"/></p>
+<h3 id="42-so-o-ket-noi">4.2. Sơ đồ kết nối</h3>
+<div class="highlight"><pre><span></span><code>Arduino Nano                  Servo SG90
+────────────                  ──────────
+A5  ────────────────────────  Signal
+
+GND ────────────────┐
+                    │
+Nguồn servo GND ────┴───────  GND
+
+Nguồn servo +5V ────────────  VCC
+</code></pre></div>
+<p>Trong sơ đồ này:</p>
+<ul>
+<li>Arduino Nano được cấp nguồn qua USB.</li>
+<li>Servo sử dụng nguồn 5V ổn áp phù hợp với dòng tiêu thụ.</li>
+<li>GND của nguồn servo và GND của Arduino được nối chung.</li>
+<li>Chân A5 của Arduino gửi tín hiệu điều khiển đến servo.</li>
+</ul>
+<p><strong>Lưu ý quan trọng:</strong></p>
+<ul>
+<li>Không cấp trực tiếp điện áp pin của xe vào servo nếu vượt quá giới hạn điện áp cho phép.</li>
+<li>Không cấp nguồn servo từ chân Digital của Arduino.</li>
+<li>Khi sử dụng nguồn servo riêng, cần nối GND chung với Arduino.</li>
+<li>Không nối trực tiếp cực dương của nguồn servo riêng vào chân 5V của Nano đang cấp qua USB trong sơ đồ thực hành này nếu chưa xác minh mạch phân phối nguồn.</li>
+<li>Khi thử nghiệm lần đầu, nên để servo không mang tải hoặc đảm bảo gá cảm biến không bị cản trở.</li>
+</ul>
+<h2 id="5-cai-at-thu-vien-servo">5. Cài đặt thư viện Servo</h2>
+<p>Để điều khiển servo bằng Arduino, chúng ta sử dụng thư viện <strong>Servo</strong>.</p>
+<p>Thư viện này cung cấp các hàm giúp điều khiển góc quay mà không cần lập trình trực tiếp độ rộng xung.</p>
+<h3 id="51-kiem-tra-thu-vien">5.1. Kiểm tra thư viện</h3>
+<p>Mở Arduino IDE, chọn:</p>
+<p><code>Sketch → Include Library → Manage Libraries</code></p>
+<p>Trong ô tìm kiếm, nhập:</p>
+<p><code>Servo</code></p>
+<p>Tìm thư viện <strong>Servo by Arduino</strong>.</p>
+<p>Nếu thư viện chưa được cài đặt, nhấn Install.</p>
+<p>Nếu đã có thư viện, chúng ta có thể sử dụng trực tiếp.</p>
+<h3 id="52-khai-bao-thu-vien">5.2. Khai báo thư viện</h3>
+<p>Để sử dụng thư viện trong chương trình, thêm dòng:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Servo.h&gt;</span>
+</code></pre></div>
+<p>Sau đó tạo một đối tượng servo:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Servo</span><span class="w"> </span><span class="n">myServo</span><span class="p">;</span>
+</code></pre></div>
+<p>Đối tượng <code>myServo</code> sẽ được sử dụng để điều khiển động cơ servo trong chương trình.</p>
+<h2 id="6-vi-du-1-ieu-khien-servo-en-goc-90">6. Ví dụ 1: Điều khiển servo đến góc 90°</h2>
+<p>Trong ví dụ đầu tiên, chúng ta sẽ điều khiển servo quay đến vị trí giữa, tương ứng với góc yêu cầu 90°.</p>
+<h3 id="61-chuong-trinh-mau">6.1. Chương trình mẫu</h3>
+<p>Tạo một chương trình mới trong Arduino IDE và nhập đoạn mã sau:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Servo.h&gt;</span>
+
+<span class="cp">#define SERVO_PIN A5</span>
+
+<span class="n">Servo</span><span class="w"> </span><span class="n">myServo</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">SERVO_PIN</span><span class="p">);</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="62-giai-thich-chuong-trinh">6.2. Giải thích chương trình</h3>
+<p><strong>Khai báo thư viện</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Servo.h&gt;</span>
+</code></pre></div>
+<p>Cho phép chương trình sử dụng các hàm điều khiển servo.</p>
+<p><strong>Khai báo chân kết nối</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define SERVO_PIN A5</span>
+</code></pre></div>
+<p>Định nghĩa chân A5 là chân tín hiệu điều khiển servo.</p>
+<p>Việc sử dụng <code>#define</code> giúp chúng ta dễ dàng thay đổi chân kết nối khi cần thiết.</p>
+<p><strong>Khởi tạo đối tượng servo</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Servo</span><span class="w"> </span><span class="n">myServo</span><span class="p">;</span>
+</code></pre></div>
+<p>Tạo đối tượng có tên <code>myServo</code> để quản lý servo.</p>
+<p><strong>Thiết lập chân điều khiển</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">myServo</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">SERVO_PIN</span><span class="p">);</span>
+</code></pre></div>
+<p>Liên kết đối tượng servo với chân A5.</p>
+<p>Sau khi thực hiện lệnh này, thư viện có thể tạo tín hiệu điều khiển trên chân đã chọn.</p>
+<p><strong>Điều khiển góc quay</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+</code></pre></div>
+<p>Yêu cầu servo di chuyển đến vị trí góc 90°.</p>
+<h3 id="63-nap-va-kiem-tra">6.3. Nạp và kiểm tra</h3>
+<p>Thực hiện các bước:</p>
+<ol>
+<li>Kiểm tra kết nối servo với Arduino Nano.</li>
+<li>Đảm bảo servo có nguồn điện phù hợp.</li>
+<li>Chọn đúng Board và Port trong Arduino IDE.</li>
+<li>Nhấn Verify để kiểm tra chương trình.</li>
+<li>Nhấn Upload để nạp chương trình.</li>
+<li>Quan sát chuyển động của servo.</li>
+</ol>
+<p><strong>Kết quả:</strong> Servo di chuyển đến vị trí gần giữa hành trình và giữ tại vị trí đó.</p>
+<p>Nếu servo đã ở gần góc 90° từ trước, có thể không quan sát thấy chuyển động đáng kể.</p>
+<h2 id="7-vi-du-2-ieu-khien-servo-quay-giua-hai-goc">7. Ví dụ 2: Điều khiển servo quay giữa hai góc</h2>
+<p>Trong ví dụ tiếp theo, chúng ta sẽ lập trình servo tự động quay qua lại giữa hai vị trí.</p>
+<p>Để đảm bảo an toàn khi thử nghiệm, trước tiên chỉ sử dụng khoảng góc nhỏ từ 75° đến 105°.</p>
+<h3 id="71-chuong-trinh-mau">7.1. Chương trình mẫu</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Servo.h&gt;</span>
+
+<span class="cp">#define SERVO_PIN A5</span>
+
+<span class="n">Servo</span><span class="w"> </span><span class="n">myServo</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">SERVO_PIN</span><span class="p">);</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">75</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">105</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="72-giai-thich-chuong-trinh">7.2. Giải thích chương trình</h3>
+<p>Trong hàm <code>setup()</code>, Arduino khởi tạo servo và yêu cầu di chuyển về vị trí giữa.</p>
+<div class="highlight"><pre><span></span><code><span class="n">myServo</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">SERVO_PIN</span><span class="p">);</span>
+<span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+<span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</code></pre></div>
+<p>Sau đó, trong hàm <code>loop()</code>, servo được điều khiển lần lượt đến hai góc.</p>
+<p><strong>Bước 1: Quay đến góc 75°</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">75</span><span class="p">);</span>
+<span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</code></pre></div>
+<p>Servo nhận lệnh di chuyển đến góc 75°.</p>
+<p>Chương trình chờ một giây trước khi thực hiện lệnh tiếp theo.</p>
+<p><strong>Bước 2: Quay đến góc 105°</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">105</span><span class="p">);</span>
+<span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</code></pre></div>
+<p>Servo nhận lệnh di chuyển đến góc 105°.</p>
+<p>Sau một giây, chương trình quay lại đầu hàm <code>loop()</code> và tiếp tục thực hiện.</p>
+<h3 id="73-nguyen-ly-hoat-ong">7.3. Nguyên lý hoạt động</h3>
+<pre class="mermaid"><code>flowchart TD
+    A[Bắt đầu]
+    B[Khởi tạo Servo tại A5]
+    C[Đưa servo về 90 độ]
+    D[Quay đến 75 độ]
+    E[Chờ 1000 ms]
+    F[Quay đến 105 độ]
+    G[Chờ 1000 ms]
+
+    A --&gt; B
+    B --&gt; C
+    C --&gt; D
+    D --&gt; E
+    E --&gt; F
+    F --&gt; G
+    G --&gt; D</code></pre>
+<p><strong>Kết quả:</strong> Servo liên tục di chuyển giữa hai vị trí 75° và 105°.</p>
+<p>Khoảng chênh lệch giữa hai góc yêu cầu là 30°.</p>
+<p>Lưu ý rằng <code>delay(1000)</code> là thời gian chờ giữa các lệnh, không phải lệnh yêu cầu servo hoàn thành chuyển động trong đúng một giây.</p>
+<h2 id="8-vi-du-3-ieu-khien-servo-quet-nhieu-goc">8. Ví dụ 3: Điều khiển servo quét nhiều góc</h2>
+<p>Sau khi đã kiểm tra servo hoạt động bình thường trong khoảng góc nhỏ, chúng ta có thể lập trình để servo di chuyển qua nhiều vị trí.</p>
+<p>Ví dụ, điều khiển servo lần lượt đến các góc 60°, 90° và 120°.</p>
+<p>Chỉ thực hiện khi đã xác nhận gá cảm biến có đủ không gian chuyển động.</p>
+<h3 id="81-chuong-trinh-mau">8.1. Chương trình mẫu</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Servo.h&gt;</span>
+
+<span class="cp">#define SERVO_PIN A5</span>
+
+<span class="n">Servo</span><span class="w"> </span><span class="n">myServo</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">SERVO_PIN</span><span class="p">);</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">120</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="82-giai-thich-chuong-trinh">8.2. Giải thích chương trình</h3>
+<p>Trong chương trình này, servo lần lượt di chuyển qua bốn vị trí:</p>
+<ol>
+<li>Góc 60°.</li>
+<li>Góc 90°.</li>
+<li>Góc 120°.</li>
+<li>Trở về góc 90°.</li>
+</ol>
+<p>Sau đó quá trình được lặp lại liên tục.</p>
+<p><strong>Kết quả:</strong> Servo thực hiện chuyển động quét qua các vị trí khác nhau.</p>
+<p>Đây là nguyên lý cơ bản để xoay cảm biến siêu âm HC-SR04 trên xe robot.</p>
+<h2 id="9-vi-du-4-ieu-khien-servo-quay-tung-buoc">9. Ví dụ 4: Điều khiển servo quay từng bước</h2>
+<p>Trong các ví dụ trước, chúng ta gửi trực tiếp lệnh đến một góc xác định.</p>
+<p>Ở ví dụ này, chúng ta sẽ lập trình để servo thay đổi góc từng bước nhỏ, tạo chuyển động quét liên tục.</p>
+<h3 id="91-chuong-trinh-mau">9.1. Chương trình mẫu</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Servo.h&gt;</span>
+
+<span class="cp">#define SERVO_PIN A5</span>
+
+<span class="n">Servo</span><span class="w"> </span><span class="n">myServo</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">SERVO_PIN</span><span class="p">);</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="c1">// Quay từ 60 đến 120 độ</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">goc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">;</span><span class="w"> </span><span class="n">goc</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">120</span><span class="p">;</span><span class="w"> </span><span class="n">goc</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">goc</span><span class="p">);</span>
+<span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// Quay từ 120 về 60 độ</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">goc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="p">;</span><span class="w"> </span><span class="n">goc</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">60</span><span class="p">;</span><span class="w"> </span><span class="n">goc</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">goc</span><span class="p">);</span>
+<span class="w">    </span><span class="n">delay</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="92-giai-thich-chuong-trinh">9.2. Giải thích chương trình</h3>
+<p>Trong ví dụ này, chúng ta sử dụng vòng lặp <code>for</code>.</p>
+<p><strong>Vòng lặp thứ nhất</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">goc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">;</span><span class="w"> </span><span class="n">goc</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">120</span><span class="p">;</span><span class="w"> </span><span class="n">goc</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">goc</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Trong đó:</p>
+<ul>
+<li><code>int goc = 60</code>: Khởi tạo biến góc bằng 60.</li>
+<li><code>goc &lt;= 120</code>: Tiếp tục lặp khi góc chưa vượt quá 120.</li>
+<li><code>goc++</code>: Tăng giá trị góc thêm 1 sau mỗi lần lặp.</li>
+</ul>
+<p>Mỗi lần lặp, Arduino gửi lệnh thay đổi góc thêm 1° và chờ 20 ms.</p>
+<p><strong>Vòng lặp thứ hai</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">goc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="p">;</span><span class="w"> </span><span class="n">goc</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">60</span><span class="p">;</span><span class="w"> </span><span class="n">goc</span><span class="o">--</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">goc</span><span class="p">);</span>
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Vòng lặp này thực hiện quá trình ngược lại, giảm dần góc từ 120° về 60°.</p>
+<p><strong>Kết quả:</strong> Servo thực hiện chuyển động quét qua lại thay vì chuyển trực tiếp giữa hai góc.</p>
+<p>Các bước thay đổi góc nhỏ giúp chuyển động có xu hướng mượt hơn. Tuy nhiên, tốc độ và độ mượt thực tế vẫn phụ thuộc vào khả năng đáp ứng của servo và tải cơ khí.</p>
+<h2 id="10-ung-dung-servo-tren-xe-robot-arduino">10. Ứng dụng servo trên xe robot Arduino</h2>
+<p>Trên xe robot, servo SG90 được sử dụng để điều khiển hướng của cảm biến siêu âm HC-SR04.</p>
+<p>Khi xe cần phát hiện vật cản, Arduino có thể điều khiển servo để đo khoảng cách ở nhiều hướng.</p>
+<p>Ví dụ:</p>
+<ol>
+<li>Đưa servo về vị trí giữa để đo khoảng cách phía trước.</li>
+<li>Quay servo sang trái để đo khoảng cách bên trái.</li>
+<li>Quay servo sang phải để đo khoảng cách bên phải.</li>
+<li>So sánh các giá trị khoảng cách.</li>
+<li>Lựa chọn hướng di chuyển phù hợp.</li>
+</ol>
+<pre class="mermaid"><code>flowchart TD
+    A[Bắt đầu]
+    B[Servo quay về giữa]
+    C[Đo khoảng cách phía trước]
+    D{Có vật cản?}
+    E[Tiếp tục di chuyển]
+    F[Servo quay sang trái]
+    G[Đo khoảng cách bên trái]
+    H[Servo quay sang phải]
+    I[Đo khoảng cách bên phải]
+    J[So sánh khoảng cách]
+    K[Chọn hướng di chuyển]
+
+    A --&gt; B
+    B --&gt; C
+    C --&gt; D
+    D --&gt;|Không| E
+    D --&gt;|Có| F
+    F --&gt; G
+    G --&gt; H
+    H --&gt; I
+    I --&gt; J
+    J --&gt; K</code></pre>
+<p>Đây là một trong những ứng dụng cơ bản của servo trong robot tự động tránh vật cản.</p>
+<p>Ở bài học về HC-SR04, chúng ta sẽ tìm hiểu cách đo khoảng cách và kết hợp dữ liệu cảm biến với chuyển động của servo.</p>
+<h2 id="11-mot-so-luu-y-khi-su-dung-servo-sg90">11. Một số lưu ý khi sử dụng Servo SG90</h2>
+<h3 id="111-khong-ep-servo-vuot-gioi-han">11.1. Không ép servo vượt giới hạn</h3>
+<p>Servo SG90 có giới hạn góc quay cơ khí.</p>
+<p>Không nên yêu cầu servo quay đến các góc quá lớn khi chưa kiểm tra khả năng chuyển động của cơ cấu.</p>
+<p>Đối với xe robot có gá cảm biến, cần đảm bảo:</p>
+<ul>
+<li>Servo không va chạm với thân xe.</li>
+<li>Dây cảm biến không bị kéo căng.</li>
+<li>Tay đòn không bị cản trở.</li>
+<li>Các vít cố định không chạm vào phần chuyển động.</li>
+</ul>
+<p>Nếu servo phát ra tiếng kêu lớn, rung mạnh hoặc bị kẹt, cần ngắt nguồn và kiểm tra cơ cấu trước khi tiếp tục.</p>
+<h3 id="112-su-dung-nguon-phu-hop">11.2. Sử dụng nguồn phù hợp</h3>
+<p>Servo có thể tiêu thụ dòng điện tương đối lớn khi bắt đầu chuyển động hoặc khi chịu tải.</p>
+<p>Nếu nguồn điện không đủ, có thể xuất hiện các hiện tượng:</p>
+<ul>
+<li>Servo rung hoặc hoạt động không ổn định.</li>
+<li>Arduino tự khởi động lại.</li>
+<li>Servo không quay đến vị trí yêu cầu.</li>
+</ul>
+<p>Vì vậy, khi thực hành với servo, nên sử dụng nguồn 5V ổn áp có khả năng cung cấp đủ dòng điện cho tải.</p>
+<h3 id="113-luu-y-khi-su-dung-thu-vien-servo">11.3. Lưu ý khi sử dụng thư viện Servo</h3>
+<p>Trên Arduino Nano sử dụng ATmega328P, thư viện Servo sử dụng tài nguyên bộ định thời Timer1.</p>
+<p>Khi thư viện Servo hoạt động, chức năng PWM thông thường trên chân D9 và D10 có thể bị ảnh hưởng.</p>
+<p>Trong bộ xe của chúng ta, các chân PWM điều khiển động cơ được sử dụng là D5 và D6, vì vậy không bị ảnh hưởng trực tiếp bởi việc thư viện Servo sử dụng Timer1.</p>
+<p>Tuy nhiên, khi kết hợp nhiều thư viện trong một chương trình, cần chú ý đến việc sử dụng chung tài nguyên phần cứng của Arduino.</p>
+<h2 id="12-mot-so-loi-thuong-gap">12. Một số lỗi thường gặp</h2>
+<table>
+<thead>
+<tr>
+<th>Hiện tượng</th>
+<th>Nguyên nhân và cách xử lý</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Servo không quay</td>
+<td>Kiểm tra chân Signal A5, nguồn và GND chung</td>
+</tr>
+<tr>
+<td>Servo quay sai vị trí</td>
+<td>Kiểm tra góc yêu cầu và vị trí lắp tay đòn</td>
+</tr>
+<tr>
+<td>Servo rung liên tục</td>
+<td>Kiểm tra nguồn điện, tải và cơ cấu gá</td>
+</tr>
+<tr>
+<td>Arduino tự khởi động lại</td>
+<td>Nguồn có thể không đủ dòng khi servo hoạt động</td>
+</tr>
+<tr>
+<td>Servo kêu nhưng không quay</td>
+<td>Kiểm tra cơ cấu có bị kẹt hoặc chạm vật cản</td>
+</tr>
+<tr>
+<td>Báo lỗi <code>Servo.h</code></td>
+<td>Kiểm tra thư viện Servo đã được cài đặt</td>
+</tr>
+<tr>
+<td>Servo không quay hết 180°</td>
+<td>Có thể do giới hạn cơ khí của servo hoặc gá lắp</td>
+</tr>
+</tbody>
+</table>
+<p>Khi gặp lỗi, nên kiểm tra nguồn điện và kết nối trước khi thay đổi chương trình.</p>
+<h2 id="13-bai-tap-thuc-hanh">13. Bài tập thực hành</h2>
+<p>Sau khi hoàn thành các ví dụ, hãy thực hiện những bài tập sau.</p>
+<p><strong>Bài tập 1: Điều khiển vị trí</strong></p>
+<p>Viết chương trình để servo lần lượt di chuyển đến các góc:</p>
+<ul>
+<li>80°.</li>
+<li>90°.</li>
+<li>100°.</li>
+<li>Trở về 90°.</li>
+</ul>
+<p>Mỗi vị trí được giữ trong một giây.</p>
+<p><strong>Bài tập 2: Thay đổi thời gian</strong></p>
+<p>Chỉnh sửa chương trình để servo di chuyển giữa hai góc 75° và 105°, với thời gian chờ hai giây giữa các lệnh.</p>
+<p>Quan sát sự khác biệt so với chương trình ban đầu.</p>
+<p><strong>Bài tập 3: Điều khiển góc bằng biến</strong></p>
+<p>Khai báo hai biến:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">gocTrai</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">70</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">gocPhai</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">110</span><span class="p">;</span>
+</code></pre></div>
+<p>Sử dụng các biến này để điều khiển servo quay qua lại.</p>
+<p>Thay đổi giá trị của biến và quan sát kết quả.</p>
+<p><strong>Bài tập 4: Quét góc tự động</strong></p>
+<p>Sử dụng vòng lặp <code>for</code> để điều khiển servo quét từ 80° đến 100° và quay ngược trở lại.</p>
+<p>Thử thay đổi thời gian chờ giữa các bước để quan sát độ mượt và tốc độ chuyển động.</p>
+<h2 id="14-tong-ket">14. Tổng kết</h2>
+<p>Qua bài học này, chúng ta đã tìm hiểu và thực hành:</p>
+<ul>
+<li>Cấu tạo và nguyên lý hoạt động của servo SG90.</li>
+<li>Sự khác biệt giữa servo và động cơ DC.</li>
+<li>Cách kết nối servo với Arduino Nano.</li>
+<li>Cách sử dụng thư viện <code>Servo.h</code>.</li>
+<li>Điều khiển servo đến một góc xác định bằng <code>write()</code>.</li>
+<li>Điều khiển servo quay qua lại giữa nhiều vị trí.</li>
+<li>Sử dụng vòng lặp <code>for</code> để tạo chuyển động quét.</li>
+<li>Ứng dụng servo trong hệ thống phát hiện và tránh vật cản.</li>
+</ul>
+<p>Servo là một cơ cấu chấp hành quan trọng trong robot, đặc biệt đối với những ứng dụng cần điều khiển vị trí hoặc hướng của thiết bị.</p>
+<p>Ở bài tiếp theo, chúng ta sẽ tìm hiểu <strong>điều khiển động cơ DC bằng module L298N</strong>, qua đó bắt đầu lập trình các chuyển động tiến, lùi và rẽ của xe robot Arduino.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © Robovis — Tài liệu hướng dẫn sản phẩm
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../../javascripts/products-dropdown.js"></script>
+      
+    
+  </body>
+</html>

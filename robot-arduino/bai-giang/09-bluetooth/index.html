@@ -1,0 +1,5442 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tài liệu sử dụng và lập trình các dòng robot Robovis">
+      
+      
+      
+        <link rel="canonical" href="https://manual.robovis.vn/robot-arduino/bai-giang/09-bluetooth/">
+      
+      
+        <link rel="prev" href="../08-encoder/">
+      
+      
+        <link rel="next" href="../10-pid/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Bài 9. Bluetooth HM-10 và Dabble - Tài liệu hướng dẫn Robovis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bai-9-ieu-khien-xe-arduino-nano-bang-bluetooth-hm-10-va-ung-dung-dabble" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../../.." title="Tài liệu hướng dẫn Robovis" class="md-header__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tài liệu hướng dẫn Robovis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bài 9. Bluetooth HM-10 và Dabble
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+
+<nav class="md-tabs rv-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+          
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+        
+      
+        
+          
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../kien-thuc-nen/" class="md-tabs__link">
+          
+  
+  
+  Kiến thức nền
+
+        </a>
+      </li>
+    
+  
+
+        
+      
+        
+          <li class="md-tabs__item rv-products md-tabs__item--active">
+            <details class="rv-products__disclosure">
+              <summary class="md-tabs__link rv-products__trigger" aria-controls="rv-products-panel">
+                Tài liệu theo sản phẩm <span class="rv-products__chevron" aria-hidden="true">▾</span>
+              </summary>
+              <ul class="rv-products__panel" id="rv-products-panel" aria-label="Chọn tài liệu theo sản phẩm">
+                
+                  <li><a href="../../../san-pham/">Tất cả tài liệu sản phẩm</a></li>
+                
+                  <li><a href="../../" class="rv-products__current">Robot Arduino</a></li>
+                
+                  <li><a href="../../../robot-esp32/">Robot ESP32</a></li>
+                
+                  <li><a href="../../../robot-esp32-camera/">Robot ESP32 Camera</a></li>
+                
+                  <li><a href="../../../robot-esp32-lidar/">Robot ESP32 LiDAR</a></li>
+                
+              </ul>
+            </details>
+          </li>
+        
+      
+        
+          <li class="md-tabs__item">
+            <a href="https://robovis.vn/" class="md-tabs__link" target="_blank" rel="noopener noreferrer" title="Website mua hàng Robovis (mở trong tab mới)">
+              Website mua hàng Robovis <span aria-hidden="true">↗</span><span class="md-visually-hidden"> (mở trong tab mới)</span>
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+  
+
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+  
+
+
+
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted rv-nav--product" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Tài liệu hướng dẫn Robovis" class="md-nav__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    Tài liệu hướng dẫn Robovis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+        
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trang chủ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Kiến thức nền
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Kiến thức nền
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu từ đây
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Ubuntu cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình học
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_2" id="__nav_2_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu với Ubuntu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu với Ubuntu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/01-ubuntu-la-gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu là gì?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/02-chuan-bi-moi-truong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị môi trường
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_3" id="__nav_2_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Thao tác hằng ngày
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Thao tác hằng ngày
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/03-giao-dien-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giao diện Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/04-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Làm quen với Terminal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/05-thu-muc-va-tep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thư mục, đường dẫn và tệp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_4" id="__nav_2_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Phần mềm và kết nối
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Phần mềm và kết nối
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/06-cai-va-chay-phan-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài và chạy phần mềm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/07-ket-noi-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối máy tính với robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2_5" id="__nav_2_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Thực hành tổng hợp
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Thực hành tổng hợp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/08-thuc-hanh-va-loi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thực hành và xử lý lỗi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tài liệu theo sản phẩm
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tài liệu theo sản phẩm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tất cả tài liệu sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot Arduino
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Robot Arduino
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_2" id="__nav_3_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE và nạp Blink
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe Arduino Nano
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Viết và nạp chương trình đầu tiên
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-servo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 4. Điều khiển servo SG90
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Đọc cảm biến dò line 5 kênh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder và hiểu tốc độ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Bluetooth HM-10 và Dabble
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Bluetooth HM-10 và Dabble
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tim-hieu-ve-module-bluetooth-hm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Tìm hiểu về module Bluetooth HM-10
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Tìm hiểu về module Bluetooth HM-10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-bluetooth-hm-10-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Bluetooth HM-10 là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-cac-chan-cua-module-hm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Các chân của module HM-10
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-nguyen-ly-giao-tiep-uart" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Nguyên lý giao tiếp UART
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tim-hieu-ve-ung-dung-dabble" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tìm hiểu về ứng dụng Dabble
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tìm hiểu về ứng dụng Dabble">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-dabble-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Dabble là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-cac-nut-ieu-khien-tren-gamepad" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Các nút điều khiển trên GamePad
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-so-o-hoat-ong-cua-he-thong" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Sơ đồ hoạt động của hệ thống
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ket-noi-bluetooth-hm-10-voi-arduino-nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Kết nối Bluetooth HM-10 với Arduino Nano
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Kết nối Bluetooth HM-10 với Arduino Nano">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-so-o-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Sơ đồ kết nối
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-phan-biet-giao-tiep-bluetooth-va-serial-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Phân biệt giao tiếp Bluetooth và Serial Monitor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cai-at-thu-vien-dabble" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Cài đặt thư viện Dabble
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Cài đặt thư viện Dabble">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-cai-at-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Cài đặt thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-khai-bao-thu-vien-trong-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Khai báo thư viện trong chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-vi-du-1-nhan-lenh-gamepad-va-hien-thi-tren-serial-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Ví dụ 1: Nhận lệnh GamePad và hiển thị trên Serial Monitor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ví dụ 1: Nhận lệnh GamePad và hiển thị trên Serial Monitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ket-noi-ien-thoai-voi-hm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Kết nối điện thoại với HM-10
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Kết nối điện thoại với HM-10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Chuẩn bị
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-cac-buoc-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Các bước kết nối
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-kiem-tra-cac-nut-ieu-khien" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3. Kiểm tra các nút điều khiển
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-vi-du-2-ieu-khien-ong-co-bang-gamepad" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Ví dụ 2: Điều khiển động cơ bằng GamePad
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Ví dụ 2: Điều khiển động cơ bằng GamePad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-bang-chan-ieu-khien-ong-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Bảng chân điều khiển động cơ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-quy-trinh-kiem-tra-an-toan" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4. Quy trình kiểm tra an toàn
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-mo-rong-ieu-khien-servo-bang-gamepad" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Mở rộng: Điều khiển servo bằng GamePad
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Mở rộng: Điều khiển servo bằng GamePad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-khai-bao-thu-vien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Khai báo thư viện Servo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-khoi-tao-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Khởi tạo Servo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-kiem-tra-cac-nut-ieu-khien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3. Kiểm tra các nút điều khiển Servo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-mot-so-luu-y-khi-su-dung-bluetooth-hm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Một số lưu ý khi sử dụng Bluetooth HM-10
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Một số lưu ý khi sử dụng Bluetooth HM-10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-phan-biet-bluetooth-ble-va-bluetooth-classic" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1. Phân biệt Bluetooth BLE và Bluetooth Classic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-kiem-tra-toc-o-baud" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2. Kiểm tra tốc độ baud
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-khong-nham-chan-tx-va-rx" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3. Không nhầm chân TX và RX
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-am-bao-nguon-cap-on-inh" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4. Đảm bảo nguồn cấp ổn định
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-xu-ly-mat-ket-noi-bluetooth" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.5. Xử lý mất kết nối Bluetooth
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-mot-so-loi-thuong-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Một số lỗi thường gặp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bai-tap-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Bài tập thực hành
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Làm quen với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_2" id="__nav_3_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE, CH340 và gói ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_3" id="__nav_3_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Hướng dẫn lập trình xe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Cảm biến dò line TCRT5000
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/09-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Điều khiển xe qua Wi-Fi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Điều khiển xe với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 Camera
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 Camera
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị trước khi sử dụng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/03-phan-biet-hai-chuong-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Phân biệt hai chương trình ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Cài đặt Arduino IDE
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Cài đặt Arduino IDE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/01-cai-arduino-va-driver-ch340/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài Arduino IDE và driver CH340
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/02-cai-board-esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài board ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/03-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài các thư viện cần thiết
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_4" id="__nav_3_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Nạp chương trình cho ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Nạp chương trình cho ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/01-chuan-bi-thu-muc-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị thư mục mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/02-chon-board-va-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chọn board và nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/03-xu-ly-loi-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xử lý lỗi khi nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Điều khiển robot bằng trình duyệt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Điều khiển robot bằng trình duyệt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/04-dieu-khien-web/01-ket-noi-va-mo-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối Wi-Fi và mở giao diện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/04-dieu-khien-web/02-su-dung-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng giao diện điều khiển
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_6" id="__nav_3_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. Chạy nhận diện YOLO trên Windows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. Chạy nhận diện YOLO trên Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/01-cai-moi-truong-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài môi trường Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/02-chay-chuong-trinh-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị và chạy chương trình YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/03-su-dung-phan-mem-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng phần mềm YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_7" id="__nav_3_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Khắc phục lỗi và lưu ý
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Khắc phục lỗi và lưu ý
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/06-khac-phuc-loi/01-cac-loi-thuong-gap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các lỗi thường gặp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/06-khac-phuc-loi/02-luu-y-an-toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu ý an toàn và bảo quản mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 LiDAR
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 LiDAR
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu với Robot ESP32 LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_2" id="__nav_3_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Giới thiệu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Giới thiệu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/01-tong-quan-san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/02-kien-truc-he-thong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiến trúc hệ thống
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/03-lidar-va-odometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LiDAR và odometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/04-an-toan-va-gioi-han/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    An toàn và giới hạn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/05-tinh-nang-va-thong-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tính năng và thông số
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3" id="__nav_3_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Chuẩn bị
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Chuẩn bị
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/01-yeu-cau-va-cai-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Yêu cầu hệ thống và cài ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/02-cai-dat-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt workspace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/03-cau-hinh-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cấu hình Wi-Fi robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/04-windows-may-ao-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Windows và máy ảo Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/05-su-dung-wifi-ngoai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng Wi-Fi ngoài
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_4" id="__nav_3_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Bắt đầu sử dụng
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Bắt đầu sử dụng
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Khởi động và kiểm tra dữ liệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chạy thử lần đầu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/03-dieu-khien-bang-tay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều khiển robot bằng tay
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_5" id="__nav_3_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. ROS 2 cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. ROS 2 cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/04-ros2-co-ban/01-node-topic-va-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Node, topic và lệnh thường dùng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/04-ros2-co-ban/02-cac-topic-cua-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các topic của robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/04-ros2-co-ban/03-rviz-va-tf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RViz và hệ tọa độ TF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_6" id="__nav_3_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. LiDAR, SLAM và Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/01-kiem-tra-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiểm tra dữ liệu LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tạo bản đồ SLAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/03-luu-va-quan-ly-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu và quản lý bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều hướng tự động bằng Nav2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/05-danh-gia-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Đánh giá chất lượng bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_7" id="__nav_3_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Xử lý sự cố
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Xử lý sự cố
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/01-loi-ket-noi-va-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi kết nối và ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/02-loi-lidar-slam-navigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/03-thong-tin-ho-tro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thông tin cần gửi khi hỗ trợ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_8" id="__nav_3_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    7. Tham khảo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            7. Tham khảo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Danh sách lệnh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/07-tham-khao/02-thuat-ngu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thuật ngữ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        <li class="md-nav__item">
+          <a href="https://robovis.vn/" class="md-nav__link" target="_blank" rel="noopener noreferrer" title="Website mua hàng Robovis (mở trong tab mới)">
+            <span class="md-ellipsis">Website mua hàng Robovis <span aria-hidden="true">↗</span><span class="md-visually-hidden"> (mở trong tab mới)</span></span>
+          </a>
+        </li>
+      
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-tim-hieu-ve-module-bluetooth-hm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Tìm hiểu về module Bluetooth HM-10
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Tìm hiểu về module Bluetooth HM-10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-bluetooth-hm-10-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Bluetooth HM-10 là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-cac-chan-cua-module-hm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Các chân của module HM-10
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-nguyen-ly-giao-tiep-uart" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Nguyên lý giao tiếp UART
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tim-hieu-ve-ung-dung-dabble" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tìm hiểu về ứng dụng Dabble
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tìm hiểu về ứng dụng Dabble">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-dabble-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Dabble là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-cac-nut-ieu-khien-tren-gamepad" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Các nút điều khiển trên GamePad
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-so-o-hoat-ong-cua-he-thong" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Sơ đồ hoạt động của hệ thống
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ket-noi-bluetooth-hm-10-voi-arduino-nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Kết nối Bluetooth HM-10 với Arduino Nano
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Kết nối Bluetooth HM-10 với Arduino Nano">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-so-o-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Sơ đồ kết nối
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-phan-biet-giao-tiep-bluetooth-va-serial-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Phân biệt giao tiếp Bluetooth và Serial Monitor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cai-at-thu-vien-dabble" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Cài đặt thư viện Dabble
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Cài đặt thư viện Dabble">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-cai-at-thu-vien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Cài đặt thư viện
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-khai-bao-thu-vien-trong-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Khai báo thư viện trong chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-vi-du-1-nhan-lenh-gamepad-va-hien-thi-tren-serial-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Ví dụ 1: Nhận lệnh GamePad và hiển thị trên Serial Monitor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Ví dụ 1: Nhận lệnh GamePad và hiển thị trên Serial Monitor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ket-noi-ien-thoai-voi-hm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Kết nối điện thoại với HM-10
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Kết nối điện thoại với HM-10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Chuẩn bị
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-cac-buoc-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Các bước kết nối
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-kiem-tra-cac-nut-ieu-khien" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3. Kiểm tra các nút điều khiển
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-vi-du-2-ieu-khien-ong-co-bang-gamepad" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Ví dụ 2: Điều khiển động cơ bằng GamePad
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Ví dụ 2: Điều khiển động cơ bằng GamePad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-bang-chan-ieu-khien-ong-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Bảng chân điều khiển động cơ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-chuong-trinh-mau" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Chương trình mẫu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Giải thích chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-quy-trinh-kiem-tra-an-toan" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4. Quy trình kiểm tra an toàn
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-mo-rong-ieu-khien-servo-bang-gamepad" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Mở rộng: Điều khiển servo bằng GamePad
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Mở rộng: Điều khiển servo bằng GamePad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-khai-bao-thu-vien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Khai báo thư viện Servo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-khoi-tao-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Khởi tạo Servo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-kiem-tra-cac-nut-ieu-khien-servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3. Kiểm tra các nút điều khiển Servo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-mot-so-luu-y-khi-su-dung-bluetooth-hm-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Một số lưu ý khi sử dụng Bluetooth HM-10
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Một số lưu ý khi sử dụng Bluetooth HM-10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-phan-biet-bluetooth-ble-va-bluetooth-classic" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1. Phân biệt Bluetooth BLE và Bluetooth Classic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-kiem-tra-toc-o-baud" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2. Kiểm tra tốc độ baud
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-khong-nham-chan-tx-va-rx" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3. Không nhầm chân TX và RX
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-am-bao-nguon-cap-on-inh" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4. Đảm bảo nguồn cấp ổn định
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-xu-ly-mat-ket-noi-bluetooth" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.5. Xử lý mất kết nối Bluetooth
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-mot-so-loi-thuong-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Một số lỗi thường gặp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bai-tap-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Bài tập thực hành
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+    
+  
+    
+  
+    
+      <nav class="rv-breadcrumb" aria-label="Đường dẫn bài viết">
+        <a href="../../../san-pham/">Tài liệu theo sản phẩm</a>
+        
+          
+        
+          
+            <span aria-hidden="true">›</span>
+            <a href="../../">Robot Arduino</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">Bài 9. Bluetooth HM-10 và Dabble</span>
+          
+        
+          
+        
+          
+        
+          
+        
+      </nav>
+    
+  
+    
+  
+  
+                  
+
+
+
+<h1 id="bai-9-ieu-khien-xe-arduino-nano-bang-bluetooth-hm-10-va-ung-dung-dabble">Bài 9: Điều khiển xe Arduino Nano bằng Bluetooth HM-10 và ứng dụng Dabble</h1>
+<h2 id="1-gioi-thieu">1. Giới thiệu</h2>
+<p>Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC, servo và đọc dữ liệu từ các cảm biến trên xe robot Arduino Nano.</p>
+<p>Các chương trình này chủ yếu hoạt động tự động theo những lệnh đã được nạp sẵn vào Arduino.</p>
+<p>Trong bài học này, chúng ta sẽ tìm hiểu cách <strong>điều khiển robot không dây bằng điện thoại thông qua Bluetooth</strong>.</p>
+<p>Bằng cách sử dụng module Bluetooth HM-10 và ứng dụng Dabble, người dùng có thể gửi các lệnh điều khiển từ điện thoại đến Arduino Nano mà không cần kết nối dây trực tiếp.</p>
+<p>Thông qua bài học, chúng ta sẽ tìm hiểu:</p>
+<ul>
+<li>Module Bluetooth HM-10 là gì và nguyên lý hoạt động.</li>
+<li>Cách kết nối HM-10 với Arduino Nano.</li>
+<li>Cách cài đặt thư viện Dabble trong Arduino IDE.</li>
+<li>Cách kết nối điện thoại với module Bluetooth.</li>
+<li>Cách đọc trạng thái các nút trên GamePad.</li>
+<li>Cách sử dụng lệnh Bluetooth để điều khiển động cơ.</li>
+<li>Các lưu ý an toàn khi điều khiển xe robot không dây.</li>
+</ul>
+<p>Sau khi hoàn thành bài học, bạn có thể sử dụng điện thoại để gửi lệnh tiến, lùi, rẽ trái, rẽ phải và dừng xe robot.</p>
+<h2 id="2-tim-hieu-ve-module-bluetooth-hm-10">2. Tìm hiểu về module Bluetooth HM-10</h2>
+<h3 id="21-bluetooth-hm-10-la-gi">2.1. Bluetooth HM-10 là gì?</h3>
+<p>HM-10 là module giao tiếp không dây sử dụng công nghệ <strong>Bluetooth Low Energy (BLE)</strong>.</p>
+<p>BLE là một chuẩn Bluetooth được thiết kế để trao đổi dữ liệu với mức tiêu thụ năng lượng thấp, thường được sử dụng trong các thiết bị IoT, cảm biến và hệ thống điều khiển không dây.</p>
+<p>Module HM-10 cho phép Arduino giao tiếp với điện thoại hoặc các thiết bị Bluetooth tương thích.</p>
+<p><AsyncImage query="HM-10 Bluetooth BLE 4.0 module breakout board six pin Arduino" aspectRatio="5:3" maxWidth="420px"/></p>
+<p>Trong xe robot Arduino Nano, HM-10 đóng vai trò là cầu nối truyền dữ liệu giữa điện thoại và vi điều khiển.</p>
+<p>Ví dụ:</p>
+<ol>
+<li>Người dùng nhấn nút tiến trên điện thoại.</li>
+<li>Ứng dụng Dabble gửi dữ liệu qua Bluetooth.</li>
+<li>Module HM-10 nhận dữ liệu.</li>
+<li>Arduino Nano đọc dữ liệu từ HM-10.</li>
+<li>Arduino xác định lệnh và điều khiển động cơ thông qua L298N.</li>
+</ol>
+<h3 id="22-cac-chan-cua-module-hm-10">2.2. Các chân của module HM-10</h3>
+<p>Module HM-10 thường có các chân giao tiếp cơ bản sau:</p>
+<table>
+<thead>
+<tr>
+<th>Chân</th>
+<th>Chức năng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>Cấp nguồn cho module</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Chân nối đất</td>
+</tr>
+<tr>
+<td>TXD</td>
+<td>Truyền dữ liệu từ HM-10 đến Arduino</td>
+</tr>
+<tr>
+<td>RXD</td>
+<td>Nhận dữ liệu từ Arduino</td>
+</tr>
+</tbody>
+</table>
+<p>Một số phiên bản module có thêm các chân như STATE hoặc EN/BRK tùy thiết kế.</p>
+<p><strong>Lưu ý về nguồn điện:</strong> Chip HM-10 sử dụng logic 3,3 V. Một số bo mạch mở rộng có bộ ổn áp cho phép cấp nguồn 5 V, nhưng không phải tất cả đều hỗ trợ. Cần kiểm tra đúng phiên bản module trước khi cấp nguồn.</p>
+<h3 id="23-nguyen-ly-giao-tiep-uart">2.3. Nguyên lý giao tiếp UART</h3>
+<p>HM-10 trao đổi dữ liệu với Arduino thông qua giao tiếp nối tiếp UART.</p>
+<p>UART sử dụng hai đường tín hiệu chính:</p>
+<ul>
+<li><strong>TX (Transmit):</strong> Chân truyền dữ liệu.</li>
+<li><strong>RX (Receive):</strong> Chân nhận dữ liệu.</li>
+</ul>
+<p>Khi kết nối hai thiết bị, chân TX của thiết bị này phải nối với chân RX của thiết bị kia.</p>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>Arduino Nano                 Bluetooth HM-10
+────────────                 ───────────────
+
+TX  ───────────────────────► RX
+
+RX  ◄─────────────────────── TX
+
+GND ──────────────────────── GND
+</code></pre></div>
+<p>Hai thiết bị phải sử dụng tốc độ truyền dữ liệu tương thích, thường được gọi là <strong>baud rate</strong>.</p>
+<p>Trong các ví dụ của bài học, chúng ta sử dụng tốc độ 9600 baud. Cần đảm bảo module HM-10 thực tế cũng được cấu hình ở tốc độ này.</p>
+<h2 id="3-tim-hieu-ve-ung-dung-dabble">3. Tìm hiểu về ứng dụng Dabble</h2>
+<h3 id="31-dabble-la-gi">3.1. Dabble là gì?</h3>
+<p>Dabble là ứng dụng cho phép điện thoại giao tiếp với các bo mạch lập trình thông qua những module kết nối được hỗ trợ.</p>
+<p>Ứng dụng cung cấp nhiều giao diện điều khiển, giúp người dùng thực hiện các bài thực hành robot mà không cần tự xây dựng ứng dụng điện thoại.</p>
+<p><AsyncImage query="STEMpedia Dabble app GamePad module digital controls smartphone screenshot" aspectRatio="4:3" maxWidth="420px"/></p>
+<p>Trong bài học này, chúng ta sử dụng chức năng <strong>GamePad</strong> để điều khiển xe robot.</p>
+<p>GamePad cung cấp các nút điều hướng và nút chức năng để gửi lệnh đến Arduino.</p>
+<h3 id="32-cac-nut-ieu-khien-tren-gamepad">3.2. Các nút điều khiển trên GamePad</h3>
+<p>Các nút thường được sử dụng gồm:</p>
+<table>
+<thead>
+<tr>
+<th>Nút</th>
+<th>Chức năng dự kiến</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Up</td>
+<td>Điều khiển xe tiến</td>
+</tr>
+<tr>
+<td>Down</td>
+<td>Điều khiển xe lùi</td>
+</tr>
+<tr>
+<td>Left</td>
+<td>Điều khiển xe rẽ trái</td>
+</tr>
+<tr>
+<td>Right</td>
+<td>Điều khiển xe rẽ phải</td>
+</tr>
+<tr>
+<td>Start</td>
+<td>Có thể sử dụng cho một chức năng bổ sung</td>
+</tr>
+<tr>
+<td>Cross</td>
+<td>Có thể sử dụng để điều khiển servo</td>
+</tr>
+<tr>
+<td>Triangle</td>
+<td>Có thể sử dụng để điều khiển servo</td>
+</tr>
+</tbody>
+</table>
+<p>Chức năng thực tế của từng nút phụ thuộc vào chương trình được nạp trên Arduino.</p>
+<p>Ví dụ, cùng một nút Cross có thể được lập trình để tăng góc servo hoặc thực hiện một chức năng khác.</p>
+<h3 id="33-so-o-hoat-ong-cua-he-thong">3.3. Sơ đồ hoạt động của hệ thống</h3>
+<pre class="mermaid"><code>flowchart TD
+    A[Người dùng nhấn nút GamePad]
+    B[Ứng dụng Dabble]
+    C[Bluetooth BLE]
+    D[Module HM-10]
+    E[Arduino Nano]
+    F[Driver L298N]
+    G[Động cơ DC]
+
+    A --&gt; B
+    B --&gt; C
+    C --&gt; D
+    D --&gt;|UART| E
+    E --&gt;|Tín hiệu điều khiển| F
+    F --&gt; G</code></pre>
+<p>Arduino không nhận trực tiếp thao tác chạm trên điện thoại. Dữ liệu được truyền qua HM-10, sau đó chương trình sử dụng thư viện Dabble để xác định nút đang được nhấn.</p>
+<h2 id="4-ket-noi-bluetooth-hm-10-voi-arduino-nano">4. Kết nối Bluetooth HM-10 với Arduino Nano</h2>
+<h3 id="41-so-o-ket-noi">4.1. Sơ đồ kết nối</h3>
+<p>Theo cấu hình sử dụng trong bài học, module HM-10 được kết nối với Arduino Nano như sau:</p>
+<table>
+<thead>
+<tr>
+<th>Chân HM-10</th>
+<th>Chân Arduino Nano</th>
+<th>Chức năng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TXD</td>
+<td>A3</td>
+<td>Arduino nhận dữ liệu Bluetooth</td>
+</tr>
+<tr>
+<td>RXD</td>
+<td>A2</td>
+<td>Arduino gửi dữ liệu đến Bluetooth</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+<td>Nối đất chung</td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>Nguồn phù hợp module</td>
+<td>Cấp nguồn cho HM-10</td>
+</tr>
+</tbody>
+</table>
+<p>Hai chân A2 và A3 được sử dụng làm đường giao tiếp nối tiếp bằng phần mềm.</p>
+<p>Trong đó:</p>
+<ul>
+<li>A3 là chân RX của Arduino.</li>
+<li>A2 là chân TX của Arduino.</li>
+</ul>
+<p>Cần lưu ý rằng Arduino Nano classic sử dụng mức logic 5 V, trong khi đầu vào RX của chip HM-10 thường sử dụng mức logic 3,3 V.</p>
+<p>Nếu module không có sẵn mạch chuyển mức, cần sử dụng bộ chuyển mức logic hoặc mạch chia áp phù hợp trên đường Nano TX → HM-10 RX.</p>
+<p>Ví dụ, có thể sử dụng cầu chia áp gồm điện trở 1 kΩ nối tiếp từ A2 đến HM-10 RX và điện trở 2 kΩ từ HM-10 RX xuống GND. Cách này tạo mức xấp xỉ 3,3 V từ tín hiệu HIGH 5 V.</p>
+<h3 id="42-phan-biet-giao-tiep-bluetooth-va-serial-monitor">4.2. Phân biệt giao tiếp Bluetooth và Serial Monitor</h3>
+<p>Arduino Nano có hai chân UART phần cứng:</p>
+<ul>
+<li>D0: RX.</li>
+<li>D1: TX.</li>
+</ul>
+<p>Tuy nhiên, trên bộ xe robot, D0 và D1 được sử dụng để điều khiển driver L298N.</p>
+<p>Vì vậy, trong bài học này, HM-10 sử dụng A3 và A2 để tránh xung đột với các chân điều khiển động cơ.</p>
+<p>Khi kiểm tra Bluetooth bằng Serial Monitor, Arduino sử dụng hai đường giao tiếp khác nhau:</p>
+<table>
+<thead>
+<tr>
+<th>Giao tiếp</th>
+<th>Chân Arduino</th>
+<th>Mục đích</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Serial phần cứng</td>
+<td>D0/D1</td>
+<td>Gửi thông báo đến máy tính qua USB</td>
+</tr>
+<tr>
+<td>Serial phần mềm</td>
+<td>A3/A2</td>
+<td>Trao đổi dữ liệu với HM-10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lưu ý:</strong> Khi dùng Serial Monitor, cần ngắt dây điều khiển L298N khỏi D0/D1 để tránh xung đột tín hiệu.</p>
+<p>Sau khi hoàn thành bước kiểm tra, chương trình điều khiển xe có thể sử dụng lại D0/D1 cho động cơ và không dùng Serial Monitor trong lúc vận hành.</p>
+<h2 id="5-cai-at-thu-vien-dabble">5. Cài đặt thư viện Dabble</h2>
+<p>Để Arduino có thể xử lý dữ liệu từ ứng dụng Dabble, chúng ta cần sử dụng thư viện Dabble của STEMpedia.</p>
+<h3 id="51-cai-at-thu-vien">5.1. Cài đặt thư viện</h3>
+<p>Mở Arduino IDE và thực hiện:</p>
+<ol>
+<li>Chọn <strong>Sketch → Include Library → Manage Libraries</strong>.</li>
+<li>Nhập từ khóa <code>Dabble</code> vào ô tìm kiếm.</li>
+<li>Tìm thư viện Dabble của STEMpedia.</li>
+<li>Chọn Install để cài đặt.</li>
+<li>Chờ Arduino IDE hoàn tất quá trình cài đặt.</li>
+</ol>
+<p>Nếu thư viện đã được cài đặt, có thể bỏ qua bước này.</p>
+<h3 id="52-khai-bao-thu-vien-trong-chuong-trinh">5.2. Khai báo thư viện trong chương trình</h3>
+<p>Để sử dụng GamePad, thêm các dòng sau vào đầu chương trình:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define CUSTOM_SETTINGS</span>
+<span class="cp">#define INCLUDE_GAMEPAD_MODULE</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Dabble.h&gt;</span>
+</code></pre></div>
+<p>Trong đó:</p>
+<ul>
+<li><code>CUSTOM_SETTINGS</code>: Cho phép lựa chọn các module chức năng cần sử dụng.</li>
+<li><code>INCLUDE_GAMEPAD_MODULE</code>: Kích hoạt phần xử lý GamePad.</li>
+<li><code>#include &lt;Dabble.h&gt;</code>: Khai báo thư viện Dabble.</li>
+</ul>
+<p>Hai dòng <code>#define</code> phải được đặt trước dòng <code>#include &lt;Dabble.h&gt;</code>.</p>
+<p><strong>Lưu ý:</strong> Các ví dụ tiếp theo sử dụng biến thể thư viện Dabble hỗ trợ cú pháp <code>Dabble.begin(9600, A3, A2)</code> trên Arduino Nano. Cần kiểm tra phiên bản thư viện đang cài có hỗ trợ cú pháp này; không sử dụng thư viện Dabble dành riêng cho ESP32 để biên dịch chương trình Nano.</p>
+<h2 id="6-vi-du-1-nhan-lenh-gamepad-va-hien-thi-tren-serial-monitor">6. Ví dụ 1: Nhận lệnh GamePad và hiển thị trên Serial Monitor</h2>
+<p>Trước khi điều khiển động cơ, chúng ta cần kiểm tra Arduino có nhận đúng lệnh từ điện thoại hay không.</p>
+<p>Trong ví dụ này, Arduino chỉ hiển thị tên lệnh lên Serial Monitor, chưa điều khiển bánh xe.</p>
+<h3 id="61-chuong-trinh-mau">6.1. Chương trình mẫu</h3>
+<p>Tạo sketch mới với tên <code>NanoBluetoothDocLenh</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define CUSTOM_SETTINGS</span>
+<span class="cp">#define INCLUDE_GAMEPAD_MODULE</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Dabble.h&gt;</span>
+
+<span class="c1">// ================= BLUETOOTH =================</span>
+<span class="cp">#define BT_RX A3</span>
+<span class="cp">#define BT_TX A2</span>
+
+<span class="c1">// ================= SETUP =================</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">Dabble</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">,</span><span class="w"> </span><span class="n">BT_RX</span><span class="p">,</span><span class="w"> </span><span class="n">BT_TX</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ================= LOOP =================</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Dabble</span><span class="p">.</span><span class="n">processInput</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isUpPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Tien"</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isDownPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Lui"</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isLeftPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Trai"</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isRightPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Phai"</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Dung"</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="62-giai-thich-chuong-trinh">6.2. Giải thích chương trình</h3>
+<p><strong>Khai báo chân Bluetooth</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define BT_RX A3</span>
+<span class="cp">#define BT_TX A2</span>
+</code></pre></div>
+<p>Hai chân A3 và A2 được sử dụng để giao tiếp với module HM-10.</p>
+<p><strong>Khởi tạo giao tiếp</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
+
+<span class="n">Dabble</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">,</span><span class="w"> </span><span class="n">BT_RX</span><span class="p">,</span><span class="w"> </span><span class="n">BT_TX</span><span class="p">);</span>
+</code></pre></div>
+<p>Trong đó:</p>
+<ul>
+<li><code>Serial.begin(9600)</code>: Khởi tạo giao tiếp Serial với máy tính.</li>
+<li><code>Dabble.begin(...)</code>: Khởi tạo giao tiếp giữa Arduino và HM-10.</li>
+</ul>
+<p><strong>Cập nhật dữ liệu từ Dabble</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Dabble</span><span class="p">.</span><span class="n">processInput</span><span class="p">();</span>
+</code></pre></div>
+<p>Hàm này xử lý dữ liệu nhận được từ ứng dụng Dabble để cập nhật trạng thái các nút điều khiển.</p>
+<p>Cần gọi hàm thường xuyên trong <code>loop()</code>.</p>
+<p><strong>Kiểm tra nút tiến</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isUpPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Tien"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Nếu nút Up đang được nhấn, Arduino gửi thông báo <code>Tien</code> đến Serial Monitor.</p>
+<p>Các nút Down, Left và Right được xử lý tương tự.</p>
+<p><strong>Xử lý khi không có nút hướng nào được nhấn</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Dung"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Nếu không có nút hướng nào được phát hiện, chương trình hiển thị <code>Dung</code>.</p>
+<p>Thông báo này chỉ phản ánh trạng thái nút mà chương trình đang đọc. Nó không tự chứng minh rằng điện thoại đang kết nối Bluetooth.</p>
+<h2 id="7-ket-noi-ien-thoai-voi-hm-10">7. Kết nối điện thoại với HM-10</h2>
+<h3 id="71-chuan-bi">7.1. Chuẩn bị</h3>
+<p>Trước khi kết nối, cần đảm bảo:</p>
+<ul>
+<li>Arduino Nano đã được nạp chương trình.</li>
+<li>HM-10 được cấp nguồn đúng.</li>
+<li>Điện thoại đã cài ứng dụng Dabble.</li>
+<li>Bluetooth trên điện thoại đã được bật.</li>
+<li>Ứng dụng được cấp các quyền kết nối cần thiết.</li>
+</ul>
+<h3 id="72-cac-buoc-ket-noi">7.2. Các bước kết nối</h3>
+<p>Thực hiện:</p>
+<ol>
+<li>Mở ứng dụng Dabble trên điện thoại.</li>
+<li>Chọn chức năng kết nối thiết bị.</li>
+<li>Tìm module Bluetooth HM-10.</li>
+<li>Chọn đúng module của xe robot.</li>
+<li>Chờ ứng dụng thông báo kết nối thành công.</li>
+<li>Mở chức năng <strong>GamePad</strong>.</li>
+<li>Chọn chế độ điều khiển bằng các nút hướng.</li>
+</ol>
+<p>Tên thiết bị hiển thị có thể khác nhau tùy cấu hình module.</p>
+<p>Không mặc định HM-10 có cùng tên hoặc mật khẩu với các module Bluetooth Classic như HC-05.</p>
+<h3 id="73-kiem-tra-cac-nut-ieu-khien">7.3. Kiểm tra các nút điều khiển</h3>
+<p>Sau khi kết nối, mở Serial Monitor trong Arduino IDE và chọn 9600 baud.</p>
+<p>Lần lượt nhấn các nút trên GamePad.</p>
+<table>
+<thead>
+<tr>
+<th>Nút nhấn</th>
+<th>Thông báo trên Serial Monitor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Up</td>
+<td>Tien</td>
+</tr>
+<tr>
+<td>Down</td>
+<td>Lui</td>
+</tr>
+<tr>
+<td>Left</td>
+<td>Trai</td>
+</tr>
+<tr>
+<td>Right</td>
+<td>Phai</td>
+</tr>
+<tr>
+<td>Không nhấn nút hướng</td>
+<td>Dung</td>
+</tr>
+</tbody>
+</table>
+<p>Ví dụ khi nhấn nút Up:</p>
+<div class="highlight"><pre><span></span><code>Tien
+Tien
+Tien
+Tien
+</code></pre></div>
+<p>Khi thả nút:</p>
+<div class="highlight"><pre><span></span><code>Dung
+Dung
+Dung
+</code></pre></div>
+<p><strong>Kết quả mong đợi:</strong> Thông báo trên Serial Monitor thay đổi tương ứng với nút đang được nhấn trên điện thoại.</p>
+<p>Nếu chương trình chỉ liên tục hiển thị <code>Dung</code>, cần kiểm tra kết nối Bluetooth, chân TX/RX, tốc độ baud và chế độ GamePad.</p>
+<h2 id="8-vi-du-2-ieu-khien-ong-co-bang-gamepad">8. Ví dụ 2: Điều khiển động cơ bằng GamePad</h2>
+<p>Sau khi đã kiểm tra Arduino nhận đúng các nút điều khiển, chúng ta có thể sử dụng dữ liệu Bluetooth để điều khiển động cơ DC.</p>
+<p>Trong ví dụ này, Arduino nhận lệnh từ Dabble và gửi tín hiệu điều khiển đến L298N.</p>
+<h3 id="81-bang-chan-ieu-khien-ong-co">8.1. Bảng chân điều khiển động cơ</h3>
+<p>Theo cấu hình của bộ xe:</p>
+<table>
+<thead>
+<tr>
+<th>Chức năng</th>
+<th>Chân Arduino Nano</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ENA – PWM động cơ trái</td>
+<td>D5</td>
+</tr>
+<tr>
+<td>IN1 – Chiều động cơ trái</td>
+<td>D0</td>
+</tr>
+<tr>
+<td>IN2 – Chiều động cơ trái</td>
+<td>D1</td>
+</tr>
+<tr>
+<td>ENB – PWM động cơ phải</td>
+<td>D6</td>
+</tr>
+<tr>
+<td>IN3 – Chiều động cơ phải</td>
+<td>D4</td>
+</tr>
+<tr>
+<td>IN4 – Chiều động cơ phải</td>
+<td>D7</td>
+</tr>
+<tr>
+<td>Bluetooth RX</td>
+<td>A3</td>
+</tr>
+<tr>
+<td>Bluetooth TX</td>
+<td>A2</td>
+</tr>
+</tbody>
+</table>
+<p>Do D0 và D1 đang được sử dụng cho L298N, chương trình điều khiển xe không sử dụng <code>Serial.begin()</code> để in thông báo qua USB.</p>
+<h3 id="82-chuong-trinh-mau">8.2. Chương trình mẫu</h3>
+<p>Tạo sketch mới với tên <code>NanoBluetoothMotor</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define CUSTOM_SETTINGS</span>
+<span class="cp">#define INCLUDE_GAMEPAD_MODULE</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Dabble.h&gt;</span>
+
+<span class="c1">// ================= BLUETOOTH =================</span>
+<span class="cp">#define BT_RX A3</span>
+<span class="cp">#define BT_TX A2</span>
+
+<span class="c1">// ================= L298N =================</span>
+<span class="cp">#define ENA 5</span>
+<span class="cp">#define IN1 0</span>
+<span class="cp">#define IN2 1</span>
+
+<span class="cp">#define ENB 6</span>
+<span class="cp">#define IN3 4</span>
+<span class="cp">#define IN4 7</span>
+
+<span class="c1">// ================= SPEED =================</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">tocDo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">140</span><span class="p">;</span>
+
+<span class="c1">// ================= MOTOR CONTROL =================</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">dungXe</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">tien</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">lui</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">reTrai</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">rePhai</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ================= SETUP =================</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+<span class="w">  </span><span class="n">pinMode</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">dungXe</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">Dabble</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">,</span><span class="w"> </span><span class="n">BT_RX</span><span class="p">,</span><span class="w"> </span><span class="n">BT_TX</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ================= LOOP =================</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Dabble</span><span class="p">.</span><span class="n">processInput</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isUpPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">tien</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isDownPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">lui</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isLeftPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">reTrai</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isRightPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">rePhai</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">dungXe</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="83-giai-thich-chuong-trinh">8.3. Giải thích chương trình</h3>
+<p><strong>Khai báo tốc độ động cơ</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">tocDo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">140</span><span class="p">;</span>
+</code></pre></div>
+<p>Biến <code>tocDo</code> lưu giá trị PWM điều khiển động cơ.</p>
+<p>Trên Arduino Nano, giá trị PWM thường nằm trong khoảng 0 đến 255.</p>
+<p>Trong bài này, giá trị 140 được sử dụng làm mức thử ban đầu. Có thể điều chỉnh tùy đặc tính động cơ và nguồn cấp.</p>
+<p><strong>Hàm điều khiển xe tiến</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">tien</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Hàm này điều khiển hai nhóm động cơ quay theo chiều đã quy ước là tiến.</p>
+<p><strong>Lưu ý:</strong> Chiều quay thực tế còn phụ thuộc vào cách đấu dây động cơ. Cần kiểm tra từng bánh theo bài điều khiển L298N trước khi chạy xe trên mặt đất.</p>
+<p><strong>Hàm điều khiển xe lùi</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">lui</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Hai nhóm động cơ được đảo chiều so với lệnh tiến.</p>
+<p><strong>Hàm rẽ trái</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">reTrai</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="n">tocDo</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Động cơ trái được dừng điều khiển, trong khi động cơ phải tiếp tục quay tiến.</p>
+<p>Xe sẽ có xu hướng rẽ sang trái.</p>
+<p><strong>Hàm dừng xe</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">dungXe</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENA</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="n">analogWrite</span><span class="p">(</span><span class="n">ENB</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN1</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN2</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN3</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="w">  </span><span class="n">digitalWrite</span><span class="p">(</span><span class="n">IN4</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Hàm này ngừng cấp PWM và đặt các chân điều khiển chiều về LOW.</p>
+<p>Bánh xe có thể tiếp tục quay trong thời gian ngắn do quán tính.</p>
+<h3 id="84-quy-trinh-kiem-tra-an-toan">8.4. Quy trình kiểm tra an toàn</h3>
+<p>Trước khi thử điều khiển xe:</p>
+<ol>
+<li>Ngắt nguồn động cơ.</li>
+<li>Kiểm tra dây kết nối L298N.</li>
+<li>Nạp chương trình vào Arduino Nano.</li>
+<li>Kê xe để hai bánh không chạm mặt đất.</li>
+<li>Kết nối điện thoại với HM-10.</li>
+<li>Cấp nguồn động cơ.</li>
+<li>Thử từng nút điều khiển trong thời gian ngắn.</li>
+<li>Kiểm tra chiều quay của từng bánh.</li>
+<li>Ngắt nguồn nếu bánh quay sai hướng hoặc xe không dừng như mong đợi.</li>
+</ol>
+<p>Chỉ đặt xe xuống mặt đất khi đã xác nhận đúng các chức năng tiến, lùi, rẽ và dừng.</p>
+<p><strong>Giới hạn của chương trình mẫu:</strong> Chương trình điều khiển theo trạng thái nút do Dabble cung cấp, nhưng chưa có cơ chế watchdog độc lập để đảm bảo dừng motor khi mất kết nối hoặc dữ liệu Bluetooth ngừng cập nhật. Vì vậy, không sử dụng chương trình này như một giải pháp dừng an toàn khi mất sóng. Khi thử nghiệm cần có cách ngắt nguồn motor trực tiếp.</p>
+<p>Ngoài ra, chương trình chưa bổ sung khoảng dừng bảo vệ khi chuyển trực tiếp giữa tiến và lùi. Khi thử nghiệm, cần thả nút và chờ bánh dừng trước khi đảo chiều.</p>
+<h2 id="9-mo-rong-ieu-khien-servo-bang-gamepad">9. Mở rộng: Điều khiển servo bằng GamePad</h2>
+<p>Ngoài điều khiển động cơ, GamePad còn có thể được sử dụng để điều khiển servo SG90.</p>
+<p>Trong bộ xe, servo được kết nối với chân A5 của Arduino Nano.</p>
+<p>Ví dụ, có thể quy định:</p>
+<ul>
+<li>Nút Cross: Tăng góc servo.</li>
+<li>Nút Triangle: Giảm góc servo.</li>
+<li>Nút Start: Đưa servo về vị trí giữa 90°.</li>
+</ul>
+<h3 id="91-khai-bao-thu-vien-servo">9.1. Khai báo thư viện Servo</h3>
+<p>Thêm vào đầu chương trình:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Servo.h&gt;</span>
+</code></pre></div>
+<p>Khai báo đối tượng Servo:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Servo</span><span class="w"> </span><span class="n">myServo</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">servoAngle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="92-khoi-tao-servo">9.2. Khởi tạo Servo</h3>
+<p>Trong <code>setup()</code>, thêm:</p>
+<div class="highlight"><pre><span></span><code><span class="n">myServo</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="n">A5</span><span class="p">);</span>
+<span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">90</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="93-kiem-tra-cac-nut-ieu-khien-servo">9.3. Kiểm tra các nút điều khiển Servo</h3>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isCrossPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">servoAngle</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">servoAngle</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">180</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">servoAngle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">180</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">servoAngle</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isTrianglePressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">servoAngle</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">servoAngle</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">servoAngle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">servoAngle</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">GamePad</span><span class="p">.</span><span class="n">isStartPressed</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">servoAngle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span><span class="p">;</span>
+<span class="w">  </span><span class="n">myServo</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">servoAngle</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Trong ví dụ này, mỗi lần chương trình phát hiện nút đang được giữ, góc servo thay đổi 5°.</p>
+<p>Nếu giữ nút liên tục, chương trình có thể tăng hoặc giảm góc nhiều lần. Khi xây dựng chương trình hoàn chỉnh, có thể bổ sung giới hạn tốc độ cập nhật để servo di chuyển phù hợp hơn.</p>
+<p>Các giới hạn 0° và 180° chỉ là giới hạn giá trị lệnh của ví dụ. Khi lắp trên robot, cần sử dụng khoảng góc an toàn theo cơ cấu gá thực tế, tránh làm servo hoặc dây cảm biến bị kẹt.</p>
+<h2 id="10-mot-so-luu-y-khi-su-dung-bluetooth-hm-10">10. Một số lưu ý khi sử dụng Bluetooth HM-10</h2>
+<h3 id="101-phan-biet-bluetooth-ble-va-bluetooth-classic">10.1. Phân biệt Bluetooth BLE và Bluetooth Classic</h3>
+<p>HM-10 sử dụng Bluetooth Low Energy.</p>
+<p>Trong khi đó, các module như HC-05 thường sử dụng Bluetooth Classic.</p>
+<p>Hai loại này không hoàn toàn tương đương về cách kết nối và giao thức sử dụng.</p>
+<p>Vì vậy, cần chọn đúng loại thiết bị trong ứng dụng Dabble và đảm bảo điện thoại hỗ trợ kết nối tương ứng.</p>
+<h3 id="102-kiem-tra-toc-o-baud">10.2. Kiểm tra tốc độ baud</h3>
+<p>Trong chương trình:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Dabble</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">,</span><span class="w"> </span><span class="n">BT_RX</span><span class="p">,</span><span class="w"> </span><span class="n">BT_TX</span><span class="p">);</span>
+</code></pre></div>
+<p>Giá trị 9600 là tốc độ giao tiếp UART giữa Arduino và HM-10.</p>
+<p>Nếu module đang được cấu hình ở tốc độ khác, Arduino có thể không nhận được dữ liệu chính xác.</p>
+<p>Khi gặp lỗi, cần kiểm tra cấu hình UART của module thay vì chỉ thay đổi tốc độ Serial Monitor.</p>
+<h3 id="103-khong-nham-chan-tx-va-rx">10.3. Không nhầm chân TX và RX</h3>
+<p>Nguyên tắc kết nối:</p>
+<ul>
+<li>HM-10 TX → Arduino RX.</li>
+<li>Arduino TX → HM-10 RX.</li>
+</ul>
+<p>Nếu nối TX với TX hoặc RX với RX, dữ liệu thường sẽ không được truyền đúng.</p>
+<h3 id="104-am-bao-nguon-cap-on-inh">10.4. Đảm bảo nguồn cấp ổn định</h3>
+<p>Khi động cơ hoạt động, dòng điện tiêu thụ có thể thay đổi lớn.</p>
+<p>Nếu nguồn cấp không ổn định, Arduino hoặc module Bluetooth có thể bị reset, mất kết nối hoặc hoạt động không ổn định.</p>
+<p>Cần sử dụng nguồn phù hợp và bố trí đường GND chung đúng cách.</p>
+<h3 id="105-xu-ly-mat-ket-noi-bluetooth">10.5. Xử lý mất kết nối Bluetooth</h3>
+<p>Trong hệ thống điều khiển robot thực tế, cần có cơ chế dừng động cơ khi không nhận được lệnh hợp lệ trong một khoảng thời gian nhất định.</p>
+<p>Cơ chế này thường được gọi là <strong>communication timeout</strong> hoặc <strong>watchdog giao tiếp</strong>.</p>
+<p>Ví dụ, chương trình có thể yêu cầu nhận được dữ liệu điều khiển mới trong một khoảng thời gian xác định. Nếu hết thời gian mà không có dữ liệu hợp lệ, robot phải chuyển về trạng thái dừng.</p>
+<p>Để triển khai chính xác, cần sử dụng thông tin về thời điểm nhận gói dữ liệu hoặc trạng thái kết nối thực tế của thư viện/module. Chỉ kiểm tra <code>GamePad.isUpPressed()</code> hay các trạng thái nút khác là chưa đủ để phát hiện mọi trường hợp mất kết nối.</p>
+<h2 id="11-mot-so-loi-thuong-gap">11. Một số lỗi thường gặp</h2>
+<table>
+<thead>
+<tr>
+<th>Hiện tượng</th>
+<th>Nguyên nhân và cách xử lý</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arduino báo thiếu <code>Dabble.h</code></td>
+<td>Kiểm tra và cài đặt đúng thư viện Dabble</td>
+</tr>
+<tr>
+<td>Không tìm thấy HM-10</td>
+<td>Kiểm tra nguồn module, Bluetooth và quyền ứng dụng</td>
+</tr>
+<tr>
+<td>Điện thoại kết nối nhưng Arduino không nhận lệnh</td>
+<td>Kiểm tra chân A3/A2, TX/RX và tốc độ baud</td>
+</tr>
+<tr>
+<td>Serial Monitor chỉ hiển thị <code>Dung</code></td>
+<td>Kiểm tra chế độ GamePad và dữ liệu Bluetooth</td>
+</tr>
+<tr>
+<td>Serial Monitor hiển thị ký tự lạ</td>
+<td>Kiểm tra tốc độ baud của Serial Monitor</td>
+</tr>
+<tr>
+<td>Xe không chạy dù đã nhận lệnh</td>
+<td>Kiểm tra nguồn motor, L298N và dây điều khiển</td>
+</tr>
+<tr>
+<td>Xe chạy sai hướng</td>
+<td>Kiểm tra chiều quay thực tế của hai động cơ</td>
+</tr>
+<tr>
+<td>Xe không dừng khi mất kết nối</td>
+<td>Chương trình chưa có watchdog giao tiếp; cần ngắt nguồn motor và bổ sung cơ chế bảo vệ</td>
+</tr>
+<tr>
+<td>Arduino reset khi động cơ hoạt động</td>
+<td>Kiểm tra nguồn điện và khả năng cấp dòng</td>
+</tr>
+</tbody>
+</table>
+<p>Khi gặp lỗi, nên kiểm tra từng phần theo thứ tự:</p>
+<ol>
+<li>Kết nối điện thoại với HM-10.</li>
+<li>Kiểm tra Arduino nhận đúng lệnh bằng Serial Monitor.</li>
+<li>Kiểm tra từng động cơ bằng chương trình L298N.</li>
+<li>Ghép điều khiển Bluetooth với động cơ.</li>
+</ol>
+<p>Không nên sửa đồng thời nhiều phần khi chưa xác định được nguyên nhân.</p>
+<h2 id="12-bai-tap-thuc-hanh">12. Bài tập thực hành</h2>
+<p><strong>Bài tập 1: Kiểm tra kết nối Bluetooth</strong></p>
+<p>Viết chương trình nhận dữ liệu từ GamePad và hiển thị các lệnh tiến, lùi, trái, phải trên Serial Monitor.</p>
+<p><strong>Bài tập 2: Điều khiển một động cơ</strong></p>
+<p>Sử dụng nút Up để quay động cơ trái theo một chiều và nút Down để quay theo chiều ngược lại.</p>
+<p>Thả nút để dừng động cơ.</p>
+<p><strong>Bài tập 3: Điều khiển hai động cơ</strong></p>
+<p>Sử dụng bốn nút hướng để điều khiển xe tiến, lùi, rẽ trái và rẽ phải.</p>
+<p>Kiểm tra hoạt động khi bánh xe được kê khỏi mặt đất.</p>
+<p><strong>Bài tập 4: Thay đổi tốc độ động cơ</strong></p>
+<p>Thay đổi giá trị PWM từ 140 xuống 110 và tăng lên 160.</p>
+<p>Quan sát sự thay đổi tốc độ quay của bánh xe.</p>
+<p><strong>Bài tập 5: Điều khiển servo</strong></p>
+<p>Sử dụng các nút Cross, Triangle và Start để thay đổi góc servo và đưa servo về vị trí giữa.</p>
+<p>Chỉ thử trong khoảng góc an toàn của cơ cấu gá.</p>
+<h2 id="13-tong-ket">13. Tổng kết</h2>
+<p>Qua bài học này, chúng ta đã tìm hiểu và thực hành:</p>
+<ul>
+<li>Nguyên lý hoạt động của module Bluetooth HM-10.</li>
+<li>Giao tiếp UART giữa HM-10 và Arduino Nano.</li>
+<li>Cách sử dụng ứng dụng Dabble.</li>
+<li>Cách kết nối điện thoại với Arduino qua Bluetooth.</li>
+<li>Cách đọc trạng thái các nút GamePad.</li>
+<li>Cách điều khiển động cơ DC thông qua L298N.</li>
+<li>Cách mở rộng điều khiển servo bằng điện thoại.</li>
+<li>Các lưu ý về nguồn điện, tín hiệu và mất kết nối.</li>
+</ul>
+<p>Bluetooth HM-10 và ứng dụng Dabble giúp người dùng điều khiển robot Arduino Nano từ điện thoại mà không cần xây dựng giao diện điều khiển riêng.</p>
+<p>Đây là cơ sở để phát triển các chức năng điều khiển từ xa và kết hợp điều khiển thủ công với các chế độ tự động của robot.</p>
+<p>Ở bài tiếp theo, chúng ta sẽ tìm hiểu <strong>nguyên lý điều khiển PID</strong>, một phương pháp giúp robot sử dụng dữ liệu phản hồi từ Encoder để điều chỉnh tốc độ động cơ chính xác hơn.</p>
+<hr />
+<p><a href="../08-encoder/">Bài trước</a> · <a href="../../">Lộ trình</a> · <a href="../10-pid/">Bài tiếp: Làm quen PID</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © Robovis — Tài liệu hướng dẫn sản phẩm
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../../javascripts/products-dropdown.js"></script>
+      
+    
+  </body>
+</html>
