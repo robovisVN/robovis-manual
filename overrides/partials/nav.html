@@ -1,7 +1,7 @@
 {% import "partials/nav-item.html" as item with context %}
 {% set scope = namespace(product=false) %}
 {% for root in nav.items %}
-  {% if root.title == "Sản phẩm" and root.active %}
+  {% if root.title == "Tài liệu theo sản phẩm" and root.active %}
     {% for child in root.children %}
       {% if child.children and child.active %}{% set scope.product = true %}{% endif %}
     {% endfor %}
@@ -21,7 +21,15 @@
   {% if config.repo_url %}<div class="md-nav__source">{% include "partials/source.html" %}</div>{% endif %}
   <ul class="md-nav__list" data-md-scrollfix>
     {% for nav_item in nav.items %}
-      {{ item.render(nav_item, "__nav_" ~ loop.index, 1) }}
+      {% if nav_item.url == "https://robovis.vn/" %}
+        <li class="md-nav__item">
+          <a href="{{ nav_item.url }}" class="md-nav__link" target="_blank" rel="noopener noreferrer" title="{{ nav_item.title }} (mở trong tab mới)">
+            <span class="md-ellipsis">{{ nav_item.title }} <span aria-hidden="true">↗</span><span class="md-visually-hidden"> (mở trong tab mới)</span></span>
+          </a>
+        </li>
+      {% else %}
+        {{ item.render(nav_item, "__nav_" ~ loop.index, 1) }}
+      {% endif %}
     {% endfor %}
   </ul>
 </nav>

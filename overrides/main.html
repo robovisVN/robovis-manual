@@ -5,9 +5,9 @@
 {%- endmacro %}
 {% block content %}
   {% for root in nav.items %}
-    {% if root.title == "Sản phẩm" and root.active %}
+    {% if root.title == "Tài liệu theo sản phẩm" and root.active %}
       <nav class="rv-breadcrumb" aria-label="Đường dẫn bài viết">
-        <a href="{{ 'san-pham/' | url }}">Sản phẩm</a>
+        <a href="{{ 'san-pham/' | url }}">{{ root.title }}</a>
         {% for product in root.children %}
           {% if product.children and product.active %}
             <span aria-hidden="true">›</span>
