@@ -1,0 +1,6233 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tài liệu sử dụng và lập trình các dòng robot Robovis">
+      
+      
+      
+        <link rel="canonical" href="https://manual.robovis.vn/robot-esp32/01-gioi-thieu/">
+      
+      
+        <link rel="prev" href="../04-cai-thu-vien/">
+      
+      
+        <link rel="next" href="../bai-giang/02-lap-trinh/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Bài 1. Giới thiệu xe ESP32 - Tài liệu hướng dẫn Robovis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bai-1-gioi-thieu-xe-robot-esp32-30p-ch340-type-c" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../.." title="Tài liệu hướng dẫn Robovis" class="md-header__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tài liệu hướng dẫn Robovis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bài 1. Giới thiệu xe ESP32
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+
+<nav class="md-tabs rv-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+          
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+        
+      
+        
+          
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../kien-thuc-nen/" class="md-tabs__link">
+          
+  
+  
+  Kiến thức nền
+
+        </a>
+      </li>
+    
+  
+
+        
+      
+        
+          
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../goc-ky-thuat/" class="md-tabs__link">
+          
+  
+  
+  Góc kỹ thuật
+
+        </a>
+      </li>
+    
+  
+
+        
+      
+        
+          <li class="md-tabs__item rv-products md-tabs__item--active">
+            <details class="rv-products__disclosure">
+              <summary class="md-tabs__link rv-products__trigger" aria-controls="rv-products-panel">
+                Tài liệu theo sản phẩm <span class="rv-products__chevron" aria-hidden="true">▾</span>
+              </summary>
+              <ul class="rv-products__panel" id="rv-products-panel" aria-label="Chọn tài liệu theo sản phẩm">
+                
+                  <li><a href="../../san-pham/">Tất cả tài liệu sản phẩm</a></li>
+                
+                  <li><a href="../../robot-arduino/">Robot Arduino</a></li>
+                
+                  <li><a href="../" class="rv-products__current">Robot ESP32</a></li>
+                
+                  <li><a href="../../robot-esp32-camera/">Robot ESP32 Camera</a></li>
+                
+                  <li><a href="../../robot-esp32-lidar/">Robot ESP32 LiDAR</a></li>
+                
+              </ul>
+            </details>
+          </li>
+        
+      
+        
+          <li class="md-tabs__item">
+            <a href="https://robovis.vn/" class="md-tabs__link" target="_blank" rel="noopener noreferrer">
+              Website mua hàng Robovis
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+  
+
+
+
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted rv-nav--product" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tài liệu hướng dẫn Robovis" class="md-nav__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    Tài liệu hướng dẫn Robovis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+        
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trang chủ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Kiến thức nền
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Kiến thức nền
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu từ đây
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Điện – điện tử cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Điện – điện tử cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/dien-dien-tu/01-dien-ap-dong-dien-cong-suat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điện áp, dòng điện và công suất
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/dien-dien-tu/02-gnd-va-noi-chung-mass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GND và nối chung mass
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/dien-dien-tu/03-tin-hieu-3v3-va-5v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tín hiệu 3,3 V và 5 V
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lập trình cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Lập trình cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/lap-trinh/01-bien-kieu-du-lieu-toan-tu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Biến, kiểu dữ liệu và toán tử
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/lap-trinh/02-cau-lenh-dieu-kien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Câu lệnh điều kiện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/lap-trinh/03-vong-lap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vòng lặp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/lap-trinh/04-ham-va-chia-chuong-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hàm và cách chia chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/lap-trinh/05-delay-va-millis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    delay() và millis()
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Vi điều khiển và ngoại vi
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Vi điều khiển và ngoại vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/vi-dieu-khien/01-gpio-va-dien-tro-keo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPIO, HIGH/LOW và điện trở kéo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/vi-dieu-khien/02-digital-adc-pwm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Digital, ADC và PWM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu và công cụ
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Ubuntu và công cụ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình học
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu với Ubuntu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu với Ubuntu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/01-ubuntu-la-gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu là gì?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/02-chuan-bi-moi-truong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị môi trường
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Thao tác hằng ngày
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Thao tác hằng ngày
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/03-giao-dien-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giao diện Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/04-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Làm quen với Terminal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/05-thu-muc-va-tep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thư mục, đường dẫn và tệp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Phần mềm và kết nối
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Phần mềm và kết nối
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/06-cai-va-chay-phan-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài và chạy phần mềm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/07-ket-noi-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối máy tính với robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_5" id="__nav_2_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Thực hành tổng hợp
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Thực hành tổng hợp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu-co-ban/08-thuc-hanh-va-loi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thực hành và xử lý lỗi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot và ROS 2 cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Robot và ROS 2 cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/robot-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình nhập môn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kien-thuc-nen/robot-ros2/he-toa-do-va-tf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hệ tọa độ và TF từ đầu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Góc kỹ thuật
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Góc kỹ thuật
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../goc-ky-thuat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot tự hành
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Robot tự hành
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../goc-ky-thuat/robot-tu-hanh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giới thiệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Vi điều khiển & lập trình
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Vi điều khiển & lập trình
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../goc-ky-thuat/vi-dieu-khien-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giới thiệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cảm biến và điều khiển
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Cảm biến và điều khiển
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../goc-ky-thuat/cam-bien-va-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giới thiệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tài liệu theo sản phẩm
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tài liệu theo sản phẩm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tất cả tài liệu sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot Arduino
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Robot Arduino
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE và nạp Blink
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_3" id="__nav_4_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe Arduino Nano
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Viết và nạp chương trình đầu tiên
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/04-servo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 4. Điều khiển servo SG90
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Đọc cảm biến dò line 5 kênh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder và hiểu tốc độ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/09-bluetooth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Bluetooth HM-10 và Dabble
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-arduino/bai-giang/10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Làm quen với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE, CH340 và gói ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_3" id="__nav_4_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe ESP32
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe ESP32
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-muc-tieu-bai-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mục tiêu bài học
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tim-hieu-ve-vi-ieu-khien-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tìm hiểu về vi điều khiển ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tìm hiểu về vi điều khiển ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-esp32-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. ESP32 là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-vai-tro-cua-esp32-trong-xe-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Vai trò của ESP32 trong xe robot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-nguyen-ly-hoat-ong-tong-quat" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Nguyên lý hoạt động tổng quát
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tim-hieu-bo-mach-esp32-30p-ch340-type-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Tìm hiểu bo mạch ESP32 30P CH340 Type-C
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Tìm hiểu bo mạch ESP32 30P CH340 Type-C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-cau-tao-bo-mach" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Cấu tạo bo mạch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-phan-biet-esp32-va-esp32-wroom-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Phân biệt ESP32 và ESP32-WROOM-32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-chip-ch340-co-chuc-nang-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Chip CH340 có chức năng gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-cong-usb-type-c-co-chuc-nang-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4. Cổng USB Type-C có chức năng gì?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tim-hieu-cac-chan-gpio-cua-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Tìm hiểu các chân GPIO của ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Tìm hiểu các chân GPIO của ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-gpio-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. GPIO là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-tin-hieu-digital" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Tín hiệu Digital
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-tin-hieu-pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. Tín hiệu PWM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-mot-so-luu-y-ve-gpio" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4. Một số lưu ý về GPIO
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-gioi-thieu-cac-thanh-phan-cua-xe-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Giới thiệu các thành phần của xe robot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Giới thiệu các thành phần của xe robot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-driver-ieu-khien-ong-co-l298n" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Driver điều khiển động cơ L298N
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-cam-bien-khoang-cach-hc-sr04" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Cảm biến khoảng cách HC-SR04
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-cam-bien-do-line-tcrt5000" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3. Cảm biến dò line TCRT5000
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-cam-bien-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4. Cảm biến Encoder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-nguon-ien-cua-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5. Nguồn điện của robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-so-sanh-esp32-va-arduino-nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. So sánh ESP32 và Arduino Nano
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. So sánh ESP32 và Arduino Nano">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-uu-iem-cua-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Ưu điểm của ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-nhung-iem-can-chu-y-khi-chuyen-tu-nano-sang-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Những điểm cần chú ý khi chuyển từ Nano sang ESP32
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-ket-noi-va-ieu-khien-robot-qua-wi-fi" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Kết nối và điều khiển robot qua Wi-Fi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Kết nối và điều khiển robot qua Wi-Fi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-wi-fi-tren-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Wi-Fi trên ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-nguyen-ly-ieu-khien-qua-wi-fi" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Nguyên lý điều khiển qua Wi-Fi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-cac-che-o-ieu-khien" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Các chế độ điều khiển
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-lap-trinh-esp32-bang-arduino-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Lập trình ESP32 bằng Arduino IDE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Lập trình ESP32 bằng Arduino IDE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-arduino-ide-co-lap-trinh-uoc-esp32-khong" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Arduino IDE có lập trình được ESP32 không?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-lua-chon-bo-mach" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Lựa chọn bo mạch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-quy-trinh-nap-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3. Quy trình nạp chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-thuc-hanh-nhan-dien-phan-cung" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Thực hành nhận diện phần cứng
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Thực hành nhận diện phần cứng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-muc-tieu-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1. Mục tiêu thực hành
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-thuc-hanh-1-nhan-dien-bo-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2. Thực hành 1: Nhận diện bo ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-thuc-hanh-2-nhan-dien-cac-linh-kien-tren-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3. Thực hành 2: Nhận diện các linh kiện trên robot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-thuc-hanh-3-phan-loai-tin-hieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4. Thực hành 3: Phân loại tín hiệu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-thuc-hanh-4-giai-thich-qua-trinh-ieu-khien-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.5. Thực hành 4: Giải thích quá trình điều khiển robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-mot-so-luu-y-khi-su-dung-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Một số lưu ý khi sử dụng ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Một số lưu ý khi sử dụng ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-khong-nham-muc-nguon-va-muc-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1. Không nhầm mức nguồn và mức logic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-khong-su-dung-tuy-y-cac-chan-gpio" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2. Không sử dụng tùy ý các chân GPIO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-khong-nham-chip-ch340-voi-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3. Không nhầm chip CH340 với ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-khong-nham-cong-type-c-voi-loai-bo-mach" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.4. Không nhầm cổng Type-C với loại bo mạch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-am-bao-an-toan-khi-thu-ong-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.5. Đảm bảo an toàn khi thử động cơ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bai-tap-on-tap" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Bài tập ôn tập
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Hướng dẫn lập trình xe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Cảm biến dò line TCRT5000
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/09-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Điều khiển xe qua Wi-Fi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bai-giang/10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Điều khiển xe với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 Camera
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 Camera
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_2" id="__nav_4_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/01-bat-dau/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/01-bat-dau/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị trước khi sử dụng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/01-bat-dau/03-phan-biet-hai-chuong-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Phân biệt hai chương trình ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_3" id="__nav_4_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Cài đặt Arduino IDE
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Cài đặt Arduino IDE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/02-cai-dat-arduino/01-cai-arduino-va-driver-ch340/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài Arduino IDE và driver CH340
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/02-cai-dat-arduino/02-cai-board-esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài board ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/02-cai-dat-arduino/03-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài các thư viện cần thiết
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Nạp chương trình cho ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Nạp chương trình cho ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/03-nap-code/01-chuan-bi-thu-muc-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị thư mục mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/03-nap-code/02-chon-board-va-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chọn board và nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/03-nap-code/03-xu-ly-loi-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xử lý lỗi khi nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_5" id="__nav_4_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Điều khiển robot bằng trình duyệt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Điều khiển robot bằng trình duyệt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/04-dieu-khien-web/01-ket-noi-va-mo-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối Wi-Fi và mở giao diện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/04-dieu-khien-web/02-su-dung-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng giao diện điều khiển
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_6" id="__nav_4_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. Chạy nhận diện YOLO trên Windows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. Chạy nhận diện YOLO trên Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/05-yolo-windows/01-cai-moi-truong-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài môi trường Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/05-yolo-windows/02-chay-chuong-trinh-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị và chạy chương trình YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/05-yolo-windows/03-su-dung-phan-mem-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng phần mềm YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_7" id="__nav_4_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Khắc phục lỗi và lưu ý
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Khắc phục lỗi và lưu ý
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/06-khac-phuc-loi/01-cac-loi-thuong-gap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các lỗi thường gặp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-camera/06-khac-phuc-loi/02-luu-y-an-toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu ý an toàn và bảo quản mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 LiDAR
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 LiDAR
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu với Robot ESP32 LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_2" id="__nav_4_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Giới thiệu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Giới thiệu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/01-tong-quan-san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/02-kien-truc-he-thong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiến trúc hệ thống
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/03-lidar-va-odometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LiDAR và odometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/04-an-toan-va-gioi-han/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    An toàn và giới hạn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/01-gioi-thieu/05-tinh-nang-va-thong-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tính năng và thông số
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_3" id="__nav_4_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Chuẩn bị
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Chuẩn bị
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/01-yeu-cau-va-cai-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Yêu cầu hệ thống và cài ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/02-cai-dat-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt workspace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/03-cau-hinh-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cấu hình Wi-Fi robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/04-windows-may-ao-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Windows và máy ảo Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/02-chuan-bi/05-su-dung-wifi-ngoai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng Wi-Fi ngoài
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_4" id="__nav_4_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Bắt đầu sử dụng
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Bắt đầu sử dụng
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Khởi động và kiểm tra dữ liệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chạy thử lần đầu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/03-van-hanh/03-dieu-khien-bang-tay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều khiển robot bằng tay
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_5" id="__nav_4_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. ROS 2 cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. ROS 2 cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/04-ros2-co-ban/01-node-topic-va-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Node, topic và lệnh thường dùng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/04-ros2-co-ban/02-cac-topic-cua-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các topic của robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/04-ros2-co-ban/03-rviz-va-tf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RViz và hệ tọa độ TF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_6" id="__nav_4_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. LiDAR, SLAM và Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/01-kiem-tra-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiểm tra dữ liệu LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tạo bản đồ SLAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/03-luu-va-quan-ly-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu và quản lý bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều hướng tự động bằng Nav2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/05-lidar-slam-navigation/05-danh-gia-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Đánh giá chất lượng bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_7" id="__nav_4_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Xử lý sự cố
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Xử lý sự cố
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/06-xu-ly-su-co/01-loi-ket-noi-va-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi kết nối và ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/06-xu-ly-su-co/02-loi-lidar-slam-navigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/06-xu-ly-su-co/03-thong-tin-ho-tro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thông tin cần gửi khi hỗ trợ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_8" id="__nav_4_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    7. Tham khảo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            7. Tham khảo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Danh sách lệnh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot-esp32-lidar/07-tham-khao/02-thuat-ngu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thuật ngữ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        <li class="md-nav__item">
+          <a href="https://robovis.vn/" class="md-nav__link" target="_blank" rel="noopener noreferrer">
+            <span class="md-ellipsis">Website mua hàng Robovis</span>
+          </a>
+        </li>
+      
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-muc-tieu-bai-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mục tiêu bài học
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tim-hieu-ve-vi-ieu-khien-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tìm hiểu về vi điều khiển ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tìm hiểu về vi điều khiển ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-esp32-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. ESP32 là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-vai-tro-cua-esp32-trong-xe-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Vai trò của ESP32 trong xe robot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-nguyen-ly-hoat-ong-tong-quat" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Nguyên lý hoạt động tổng quát
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tim-hieu-bo-mach-esp32-30p-ch340-type-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Tìm hiểu bo mạch ESP32 30P CH340 Type-C
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Tìm hiểu bo mạch ESP32 30P CH340 Type-C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-cau-tao-bo-mach" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Cấu tạo bo mạch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-phan-biet-esp32-va-esp32-wroom-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Phân biệt ESP32 và ESP32-WROOM-32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-chip-ch340-co-chuc-nang-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Chip CH340 có chức năng gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-cong-usb-type-c-co-chuc-nang-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4. Cổng USB Type-C có chức năng gì?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tim-hieu-cac-chan-gpio-cua-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Tìm hiểu các chân GPIO của ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Tìm hiểu các chân GPIO của ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-gpio-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. GPIO là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-tin-hieu-digital" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Tín hiệu Digital
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-tin-hieu-pwm" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. Tín hiệu PWM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-mot-so-luu-y-ve-gpio" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4. Một số lưu ý về GPIO
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-gioi-thieu-cac-thanh-phan-cua-xe-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Giới thiệu các thành phần của xe robot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Giới thiệu các thành phần của xe robot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-driver-ieu-khien-ong-co-l298n" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Driver điều khiển động cơ L298N
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-cam-bien-khoang-cach-hc-sr04" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Cảm biến khoảng cách HC-SR04
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-cam-bien-do-line-tcrt5000" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3. Cảm biến dò line TCRT5000
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-cam-bien-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4. Cảm biến Encoder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-nguon-ien-cua-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5. Nguồn điện của robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-so-sanh-esp32-va-arduino-nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. So sánh ESP32 và Arduino Nano
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. So sánh ESP32 và Arduino Nano">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-uu-iem-cua-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Ưu điểm của ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-nhung-iem-can-chu-y-khi-chuyen-tu-nano-sang-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Những điểm cần chú ý khi chuyển từ Nano sang ESP32
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-ket-noi-va-ieu-khien-robot-qua-wi-fi" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Kết nối và điều khiển robot qua Wi-Fi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Kết nối và điều khiển robot qua Wi-Fi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-wi-fi-tren-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Wi-Fi trên ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-nguyen-ly-ieu-khien-qua-wi-fi" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Nguyên lý điều khiển qua Wi-Fi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-cac-che-o-ieu-khien" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Các chế độ điều khiển
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-lap-trinh-esp32-bang-arduino-ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Lập trình ESP32 bằng Arduino IDE
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Lập trình ESP32 bằng Arduino IDE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-arduino-ide-co-lap-trinh-uoc-esp32-khong" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Arduino IDE có lập trình được ESP32 không?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-lua-chon-bo-mach" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Lựa chọn bo mạch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-quy-trinh-nap-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3. Quy trình nạp chương trình
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-thuc-hanh-nhan-dien-phan-cung" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Thực hành nhận diện phần cứng
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Thực hành nhận diện phần cứng">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-muc-tieu-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1. Mục tiêu thực hành
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-thuc-hanh-1-nhan-dien-bo-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2. Thực hành 1: Nhận diện bo ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-thuc-hanh-2-nhan-dien-cac-linh-kien-tren-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3. Thực hành 2: Nhận diện các linh kiện trên robot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-thuc-hanh-3-phan-loai-tin-hieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4. Thực hành 3: Phân loại tín hiệu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-thuc-hanh-4-giai-thich-qua-trinh-ieu-khien-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.5. Thực hành 4: Giải thích quá trình điều khiển robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-mot-so-luu-y-khi-su-dung-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Một số lưu ý khi sử dụng ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Một số lưu ý khi sử dụng ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-khong-nham-muc-nguon-va-muc-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1. Không nhầm mức nguồn và mức logic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-khong-su-dung-tuy-y-cac-chan-gpio" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2. Không sử dụng tùy ý các chân GPIO
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-khong-nham-chip-ch340-voi-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3. Không nhầm chip CH340 với ESP32
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-khong-nham-cong-type-c-voi-loai-bo-mach" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.4. Không nhầm cổng Type-C với loại bo mạch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115-am-bao-an-toan-khi-thu-ong-co" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.5. Đảm bảo an toàn khi thử động cơ
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-bai-tap-on-tap" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Bài tập ôn tập
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+    
+  
+    
+  
+    
+  
+    
+      <nav class="rv-breadcrumb" aria-label="Đường dẫn bài viết">
+        <a href="../../san-pham/">Tài liệu theo sản phẩm</a>
+        
+          
+        
+          
+        
+          
+            <span aria-hidden="true">›</span>
+            <a href="../">Robot ESP32</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">Bài 1. Giới thiệu xe ESP32</span>
+          
+        
+          
+        
+          
+        
+      </nav>
+    
+  
+    
+  
+  
+                  
+
+
+
+<h1 id="bai-1-gioi-thieu-xe-robot-esp32-30p-ch340-type-c">Bài 1: Giới thiệu xe Robot ESP32 30P CH340 Type-C</h1>
+<h2 id="1-gioi-thieu">1. Giới thiệu</h2>
+<p>Trong các hệ thống robot, vi điều khiển đóng vai trò trung tâm, thực hiện việc thu thập dữ liệu từ cảm biến, xử lý thông tin và điều khiển các thiết bị như động cơ, servo hoặc module giao tiếp.</p>
+<p>Ở bộ xe robot này, chúng ta sử dụng <strong>ESP32 DevKit 30 chân (30P), cổng USB Type-C và chip giao tiếp CH340</strong>.</p>
+<p>ESP32 là dòng vi điều khiển có khả năng xử lý mạnh, tích hợp kết nối không dây và hỗ trợ nhiều giao tiếp ngoại vi. Nhờ đó, ESP32 được sử dụng rộng rãi trong các ứng dụng IoT, điều khiển thiết bị thông minh và robot.</p>
+<p>Khác với Arduino Nano ATmega328P, ESP32 có thể kết nối Wi-Fi trực tiếp mà không cần bổ sung module Wi-Fi bên ngoài.</p>
+<p>Trong bộ robot Robovis, ESP32 được sử dụng để:</p>
+<ul>
+<li>Điều khiển chuyển động của xe thông qua driver L298N.</li>
+<li>Đọc tín hiệu cảm biến dò line.</li>
+<li>Đọc xung Encoder từ bánh xe.</li>
+<li>Đo khoảng cách bằng cảm biến HC-SR04.</li>
+<li>Kết nối Wi-Fi để nhận lệnh điều khiển từ điện thoại hoặc máy tính.</li>
+<li>Thực hiện các thuật toán điều khiển và xử lý dữ liệu cảm biến.</li>
+</ul>
+<p>Tài liệu và chương trình của sản phẩm được cung cấp tại <a href="https://drive.google.com/drive/folders/12f-LH2PU0DGoAqXQk_d91QdnKpCADnDt">bộ tài liệu Robot ESP32 Robovis</a>.</p>
+<h2 id="2-muc-tieu-bai-hoc">2. Mục tiêu bài học</h2>
+<p>Sau khi hoàn thành bài học, bạn có thể:</p>
+<ul>
+<li>Hiểu ESP32 là gì và vai trò của ESP32 trong hệ thống robot.</li>
+<li>Nhận biết bo mạch ESP32 30P CH340 Type-C.</li>
+<li>Phân biệt vi điều khiển ESP32, module ESP32-WROOM-32, chip CH340 và cổng USB Type-C.</li>
+<li>Nhận diện các thành phần phần cứng của xe robot.</li>
+<li>Hiểu nguyên lý kết nối và điều khiển động cơ thông qua L298N.</li>
+<li>Hiểu cách ESP32 đọc dữ liệu từ các cảm biến.</li>
+<li>Nắm được nguyên lý giao tiếp Wi-Fi để điều khiển xe.</li>
+<li>Phân biệt những đặc điểm cơ bản giữa ESP32 và Arduino Nano.</li>
+<li>Nhận biết các lưu ý quan trọng về nguồn điện và mức logic GPIO.</li>
+</ul>
+<hr />
+<h2 id="3-tim-hieu-ve-vi-ieu-khien-esp32">3. Tìm hiểu về vi điều khiển ESP32</h2>
+<h3 id="31-esp32-la-gi">3.1. ESP32 là gì?</h3>
+<p>ESP32 là họ vi điều khiển do Espressif Systems phát triển, được thiết kế cho các ứng dụng nhúng, điều khiển và kết nối không dây.</p>
+<p>Đối với dòng ESP32 classic được sử dụng trong bộ xe, vi điều khiển có những đặc điểm nổi bật:</p>
+<ul>
+<li>Bộ xử lý 32-bit.</li>
+<li>Hỗ trợ kết nối Wi-Fi.</li>
+<li>Hỗ trợ Bluetooth.</li>
+<li>Có nhiều chân GPIO để kết nối thiết bị ngoại vi.</li>
+<li>Hỗ trợ tín hiệu PWM để điều khiển động cơ.</li>
+<li>Có các bộ chuyển đổi tín hiệu Analog sang Digital (ADC).</li>
+<li>Hỗ trợ các giao tiếp như UART, I2C và SPI.</li>
+<li>Hỗ trợ ngắt để xử lý tín hiệu từ Encoder và cảm biến.</li>
+</ul>
+<p>ESP32 có thể được lập trình bằng nhiều môi trường phát triển khác nhau. Trong bộ tài liệu này, chúng ta sử dụng <strong>Arduino IDE</strong> để viết và nạp chương trình.</p>
+<h3 id="32-vai-tro-cua-esp32-trong-xe-robot">3.2. Vai trò của ESP32 trong xe robot</h3>
+<p>ESP32 đóng vai trò bộ điều khiển trung tâm, thực hiện ba nhóm nhiệm vụ chính.</p>
+<p><strong>Thu thập dữ liệu</strong></p>
+<p>ESP32 nhận tín hiệu từ các cảm biến:</p>
+<ul>
+<li>HC-SR04 cung cấp thông tin khoảng cách.</li>
+<li>TCRT5000 cung cấp trạng thái của các mắt dò line.</li>
+<li>Encoder cung cấp xung theo chuyển động của bánh xe.</li>
+</ul>
+<p><strong>Xử lý dữ liệu</strong></p>
+<p>Chương trình trên ESP32 xử lý các tín hiệu nhận được để xác định trạng thái và đưa ra quyết định điều khiển.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Phát hiện vật cản ở phía trước.</li>
+<li>Xác định vạch nằm bên trái hay bên phải xe.</li>
+<li>Tính tốc độ quay của bánh xe.</li>
+<li>Xác định lệnh tiến, lùi hoặc rẽ từ người điều khiển.</li>
+</ul>
+<p><strong>Điều khiển thiết bị</strong></p>
+<p>Sau khi xử lý dữ liệu, ESP32 tạo tín hiệu điều khiển gửi đến các thiết bị ngoại vi.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Gửi tín hiệu PWM đến L298N để điều chỉnh tốc độ động cơ.</li>
+<li>Thay đổi trạng thái các chân điều khiển để đảo chiều động cơ.</li>
+<li>Gửi tín hiệu điều khiển servo.</li>
+<li>Trả dữ liệu trạng thái về giao diện điều khiển qua Wi-Fi.</li>
+</ul>
+<h3 id="33-nguyen-ly-hoat-ong-tong-quat">3.3. Nguyên lý hoạt động tổng quát</h3>
+<div class="highlight"><pre><span></span><code>      Cảm biến HC-SR04
+              |
+      Cảm biến dò line
+              |
+           Encoder
+              |
+              v
+        +-----------+
+        |   ESP32   |
+        +-----------+
+              |
+       Xử lý chương trình
+              |
+      +-------+--------+
+      |                |
+      v                v
+    L298N            Wi-Fi
+      |                |
+      v                v
+  Động cơ DC      Điện thoại /
+                  Trình duyệt
+</code></pre></div>
+<p>Trong quá trình hoạt động, ESP32 liên tục thực hiện chương trình đã được nạp, đọc dữ liệu đầu vào và cập nhật tín hiệu điều khiển đầu ra.</p>
+<hr />
+<h2 id="4-tim-hieu-bo-mach-esp32-30p-ch340-type-c">4. Tìm hiểu bo mạch ESP32 30P CH340 Type-C</h2>
+<h3 id="41-cau-tao-bo-mach">4.1. Cấu tạo bo mạch</h3>
+<p>Bo mạch ESP32 30P CH340 Type-C là một bo phát triển giúp người dùng dễ dàng cấp nguồn, lập trình và kết nối ESP32 với các thiết bị ngoại vi.</p>
+<p>&lt;AsyncImageGroup query={["ESP32 DevKit 30 pin USB Type C CH340 development board top view","ESP32 WROOM 32 30 pin CH340 type C development board pinout"]} aspectRatio="5:4" layout="carousel"/&gt;</p>
+<p>Các thành phần chính bao gồm:</p>
+<table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Chức năng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Module ESP32-WROOM-32</td>
+<td>Chứa vi điều khiển ESP32 và các thành phần liên quan</td>
+</tr>
+<tr>
+<td>Chip CH340</td>
+<td>Chuyển đổi giao tiếp USB sang UART</td>
+</tr>
+<tr>
+<td>Cổng USB Type-C</td>
+<td>Kết nối với máy tính và cấp nguồn USB</td>
+</tr>
+<tr>
+<td>Chân GPIO</td>
+<td>Kết nối cảm biến, driver và các thiết bị ngoại vi</td>
+</tr>
+<tr>
+<td>Chân 3V3</td>
+<td>Đường nguồn 3,3 V của bo</td>
+</tr>
+<tr>
+<td>Chân GND</td>
+<td>Điểm tham chiếu điện áp chung</td>
+</tr>
+<tr>
+<td>Nút EN/RESET</td>
+<td>Khởi động lại ESP32</td>
+</tr>
+<tr>
+<td>Nút BOOT</td>
+<td>Hỗ trợ đưa ESP32 vào chế độ nạp khi cần</td>
+</tr>
+<tr>
+<td>Mạch ổn áp</td>
+<td>Tạo nguồn hoạt động phù hợp cho ESP32</td>
+</tr>
+</tbody>
+</table>
+<p>Vị trí và cách ghi nhãn các thành phần có thể khác nhau giữa những phiên bản bo ESP32 30 chân.</p>
+<h3 id="42-phan-biet-esp32-va-esp32-wroom-32">4.2. Phân biệt ESP32 và ESP32-WROOM-32</h3>
+<p>Hai tên gọi này thường xuất hiện cùng nhau nhưng không hoàn toàn giống nhau.</p>
+<p><strong>ESP32</strong> là tên dòng vi điều khiển.</p>
+<p><strong>ESP32-WROOM-32</strong> là tên một module tích hợp chip ESP32 cùng những thành phần cần thiết để sử dụng trong thiết kế phần cứng, chẳng hạn bộ nhớ Flash và mạch RF.</p>
+<p>Module ESP32-WROOM-32 thường được nhận biết bằng phần vỏ kim loại trên bo mạch.</p>
+<p>Bo phát triển ESP32 là bảng mạch lớn hơn, trên đó gắn module ESP32-WROOM-32, chip USB–UART, mạch nguồn, các nút điều khiển và hàng chân kết nối.</p>
+<h3 id="43-chip-ch340-co-chuc-nang-gi">4.3. Chip CH340 có chức năng gì?</h3>
+<p>CH340 là chip chuyển đổi giao tiếp USB sang UART.</p>
+<p>Máy tính sử dụng giao tiếp USB, trong khi ESP32 có thể sử dụng UART để nhận dữ liệu và thực hiện quá trình nạp chương trình.</p>
+<p>CH340 đóng vai trò trung gian giữa hai giao tiếp này.</p>
+<p>Quá trình nạp chương trình có thể mô tả:</p>
+<div class="highlight"><pre><span></span><code>Arduino IDE
+    |
+    | USB
+    v
+Cổng USB Type-C
+    |
+    v
+Chip CH340
+    |
+    | UART
+    v
+ESP32
+    |
+    v
+Bộ nhớ Flash
+    |
+    v
+Thực thi chương trình
+</code></pre></div>
+<p>Khi kết nối ESP32 với máy tính, Windows có thể nhận diện chip CH340 dưới dạng một cổng COM.</p>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>USB-SERIAL CH340 (COM5)
+</code></pre></div>
+<p>Số cổng COM có thể khác nhau trên từng máy tính.</p>
+<p><strong>Lưu ý:</strong> CH340 không phải là vi điều khiển thực thi chương trình robot. Chương trình được xử lý bởi ESP32.</p>
+<h3 id="44-cong-usb-type-c-co-chuc-nang-gi">4.4. Cổng USB Type-C có chức năng gì?</h3>
+<p>Cổng USB Type-C trên bo được sử dụng để:</p>
+<ul>
+<li>Cấp nguồn cho bo mạch trong quá trình lập trình.</li>
+<li>Kết nối bo mạch với máy tính.</li>
+<li>Truyền chương trình từ Arduino IDE đến ESP32 thông qua chip USB–UART.</li>
+<li>Trao đổi dữ liệu Serial phục vụ kiểm tra và gỡ lỗi.</li>
+</ul>
+<p>USB Type-C chỉ mô tả kiểu đầu nối USB, không quyết định loại vi điều khiển.</p>
+<p>Hai bo mạch cùng sử dụng USB Type-C có thể dùng những chip hoàn toàn khác nhau.</p>
+<p>Khi kết nối máy tính, cần sử dụng cáp USB Type-C <strong>có hỗ trợ truyền dữ liệu</strong>, không chỉ có chức năng sạc.</p>
+<hr />
+<h2 id="5-tim-hieu-cac-chan-gpio-cua-esp32">5. Tìm hiểu các chân GPIO của ESP32</h2>
+<h3 id="51-gpio-la-gi">5.1. GPIO là gì?</h3>
+<p>GPIO là viết tắt của <em>General Purpose Input/Output</em>, nghĩa là chân vào/ra đa mục đích.</p>
+<p>Các chân GPIO cho phép ESP32 giao tiếp với thiết bị ngoại vi thông qua tín hiệu điện.</p>
+<p>Một chân GPIO có thể được cấu hình làm đầu vào hoặc đầu ra tùy theo khả năng của chân đó.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Đọc trạng thái cảm biến dò line.</li>
+<li>Nhận tín hiệu xung Encoder.</li>
+<li>Tạo tín hiệu Trigger cho HC-SR04.</li>
+<li>Điều khiển chiều quay động cơ.</li>
+<li>Tạo PWM để điều chỉnh tốc độ động cơ.</li>
+</ul>
+<h3 id="52-tin-hieu-digital">5.2. Tín hiệu Digital</h3>
+<p>Tín hiệu Digital có hai trạng thái logic cơ bản:</p>
+<ul>
+<li><code>HIGH</code>: Mức logic cao.</li>
+<li><code>LOW</code>: Mức logic thấp.</li>
+</ul>
+<p>Đối với ESP32, mức logic GPIO danh định là 3,3 V.</p>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+</code></pre></div>
+<p>Lệnh này yêu cầu GPIO23 xuất mức logic cao khi chân đã được cấu hình làm đầu ra.</p>
+<p>Tương tự:</p>
+<div class="highlight"><pre><span></span><code><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+</code></pre></div>
+<p>Lệnh này yêu cầu GPIO23 xuất mức logic thấp.</p>
+<p>Các lệnh trên chỉ minh họa cú pháp. Trong robot, cần sử dụng đúng GPIO được quy định trong sơ đồ chân sản phẩm.</p>
+<h3 id="53-tin-hieu-pwm">5.3. Tín hiệu PWM</h3>
+<p>PWM (<em>Pulse Width Modulation</em>) là phương pháp điều khiển công suất trung bình bằng cách thay đổi tỷ lệ thời gian tín hiệu ở mức cao trong một chu kỳ.</p>
+<p>Trong xe robot, PWM được sử dụng để điều chỉnh tốc độ động cơ thông qua driver L298N.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Duty cycle thấp: động cơ thường nhận mức điều khiển nhỏ hơn.</li>
+<li>Duty cycle cao: động cơ thường nhận mức điều khiển lớn hơn.</li>
+</ul>
+<p>Tốc độ thực tế còn phụ thuộc vào nguồn điện, tải, đặc tính động cơ và tổn hao trên driver.</p>
+<h3 id="54-mot-so-luu-y-ve-gpio">5.4. Một số lưu ý về GPIO</h3>
+<p>Không phải mọi chân GPIO của ESP32 đều có chức năng giống nhau.</p>
+<p>Đối với ESP32 classic:</p>
+<ul>
+<li>GPIO34–GPIO39 chỉ hỗ trợ đầu vào.</li>
+<li>Một số chân ảnh hưởng đến chế độ khởi động của ESP32.</li>
+<li>Một số chân được sử dụng cho giao tiếp UART.</li>
+<li>Những chân kết nối với bộ nhớ Flash trên module không được sử dụng tùy tiện.</li>
+<li>Các chân GPIO hoạt động với mức logic 3,3 V.</li>
+</ul>
+<p><strong>Đặc biệt quan trọng:</strong> GPIO ESP32 không được xem là chân chịu được tín hiệu 5 V. Cần sử dụng mạch chuyển mức hoặc chia áp phù hợp khi kết nối với thiết bị xuất tín hiệu 5 V.</p>
+<p>Ví dụ, chân Echo của nhiều module HC-SR04 thông dụng có thể xuất xung mức 5 V. Không nên nối trực tiếp tín hiệu này vào GPIO ESP32 nếu chưa có giải pháp hạ mức điện áp.</p>
+<hr />
+<h2 id="6-gioi-thieu-cac-thanh-phan-cua-xe-robot">6. Giới thiệu các thành phần của xe robot</h2>
+<h3 id="61-driver-ieu-khien-ong-co-l298n">6.1. Driver điều khiển động cơ L298N</h3>
+<p>L298N là mạch driver được sử dụng để điều khiển động cơ DC.</p>
+<p>ESP32 không thể cấp trực tiếp dòng điện lớn để vận hành động cơ. Vì vậy, cần sử dụng driver làm tầng công suất trung gian.</p>
+<p><AsyncImage query="L298N dual H bridge motor driver module red board heatsink" aspectRatio="5:3"/></p>
+<p>Driver L298N cho phép:</p>
+<ul>
+<li>Điều khiển hai kênh động cơ DC.</li>
+<li>Thay đổi chiều quay.</li>
+<li>Điều chỉnh mức điều khiển bằng PWM.</li>
+<li>Dừng động cơ.</li>
+</ul>
+<p>Trong bộ xe, ESP32 gửi các tín hiệu điều khiển đến L298N. Driver sử dụng nguồn động cơ để cấp công suất cho các động cơ.</p>
+<p>Nguyên lý:</p>
+<div class="highlight"><pre><span></span><code>ESP32
+  |
+  | Tín hiệu điều khiển
+  v
+L298N
+  |
+  | Công suất động cơ
+  v
+Động cơ DC
+  |
+  v
+Bánh xe chuyển động
+</code></pre></div>
+<p>L298N sẽ được tìm hiểu chi tiết trong <a href="../bai-giang/05-dong-co/">Bài 5: Điều khiển động cơ DC</a>.</p>
+<h3 id="62-cam-bien-khoang-cach-hc-sr04">6.2. Cảm biến khoảng cách HC-SR04</h3>
+<p>HC-SR04 là cảm biến sử dụng sóng siêu âm để đo khoảng cách đến vật thể.</p>
+<p><AsyncImage query="HC-SR04 ultrasonic distance sensor module front view" aspectRatio="5:3"/></p>
+<p>Cảm biến có bốn chân thông dụng:</p>
+<table>
+<thead>
+<tr>
+<th>Chân</th>
+<th>Chức năng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VCC</td>
+<td>Cấp nguồn</td>
+</tr>
+<tr>
+<td>TRIG</td>
+<td>Nhận xung kích hoạt phép đo</td>
+</tr>
+<tr>
+<td>ECHO</td>
+<td>Xuất xung phản hồi</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>Mass</td>
+</tr>
+</tbody>
+</table>
+<p>Nguyên lý hoạt động:</p>
+<ol>
+<li>ESP32 gửi xung kích hoạt đến chân TRIG.</li>
+<li>Cảm biến phát sóng siêu âm.</li>
+<li>Sóng gặp vật cản và phản xạ trở lại.</li>
+<li>Cảm biến tạo xung tại chân ECHO.</li>
+<li>ESP32 đo thời gian xung để tính khoảng cách.</li>
+</ol>
+<p>Cảm biến thường được sử dụng trong chức năng phát hiện và tránh vật cản.</p>
+<p>Xem <a href="../bai-giang/06-hc-sr04/">Bài 6: Cảm biến HC-SR04</a>.</p>
+<h3 id="63-cam-bien-do-line-tcrt5000">6.3. Cảm biến dò line TCRT5000</h3>
+<p>Bộ robot sử dụng cảm biến dò line gồm năm kênh.</p>
+<p><AsyncImage query="five channel TCRT5000 infrared line tracking sensor array module" aspectRatio="5:3"/></p>
+<p>Cảm biến sử dụng nguyên lý phản xạ ánh sáng hồng ngoại để phân biệt các bề mặt có đặc tính phản xạ khác nhau.</p>
+<p>Mỗi mắt cảm biến tạo ra một tín hiệu để ESP32 đọc và xử lý.</p>
+<p>Từ trạng thái của năm mắt cảm biến, chương trình có thể xác định tương đối vị trí của vạch so với robot.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Vạch nằm gần giữa robot.</li>
+<li>Vạch lệch sang trái.</li>
+<li>Vạch lệch sang phải.</li>
+<li>Không phát hiện được vạch.</li>
+</ul>
+<p>Dựa trên dữ liệu này, ESP32 có thể điều chỉnh tốc độ hai bên động cơ để robot bám theo đường.</p>
+<p>Xem <a href="../bai-giang/07-do-line/">Bài 7: Cảm biến dò line TCRT5000</a>.</p>
+<h3 id="64-cam-bien-encoder">6.4. Cảm biến Encoder</h3>
+<p>Encoder được sử dụng để tạo tín hiệu xung tương ứng với chuyển động quay của bánh xe hoặc trục động cơ.</p>
+<p><AsyncImage query="DC geared motor wheel encoder disk sensor robotics encoder module" aspectRatio="5:3"/></p>
+<p>ESP32 có thể đếm số xung Encoder trong một khoảng thời gian để tính tốc độ quay.</p>
+<p>Ví dụ, nếu biết số xung tương ứng với một vòng quay, chương trình có thể tính:</p>
+<ul>
+<li>Số vòng quay của bánh xe.</li>
+<li>Tốc độ quay theo RPM.</li>
+<li>Vận tốc tuyến tính của bánh xe.</li>
+<li>Quãng đường ước tính từ chuyển động quay.</li>
+</ul>
+<p>Dữ liệu Encoder đặc biệt quan trọng trong các hệ thống điều khiển tốc độ có phản hồi.</p>
+<p>Xem <a href="../bai-giang/08-encoder/">Bài 8: Đọc tín hiệu Encoder</a>.</p>
+<h3 id="65-nguon-ien-cua-robot">6.5. Nguồn điện của robot</h3>
+<p>Robot cần nguồn điện để cung cấp năng lượng cho các thành phần điện tử và động cơ.</p>
+<p>Các nhóm tải có yêu cầu nguồn khác nhau:</p>
+<ul>
+<li>ESP32 cần nguồn phù hợp với mạch nguồn trên bo.</li>
+<li>Động cơ DC sử dụng nguồn động cơ thông qua L298N.</li>
+<li>Cảm biến cần được cấp điện áp đúng thông số.</li>
+<li>Servo cần nguồn có khả năng cung cấp dòng điện phù hợp khi chuyển động.</li>
+</ul>
+<p>Cần phân biệt <strong>điện áp cấp nguồn</strong> và <strong>mức điện áp tín hiệu GPIO</strong>.</p>
+<p>Ví dụ, bo ESP32 có thể nhận nguồn 5 V từ cổng USB, nhưng chân GPIO vẫn hoạt động với mức logic 3,3 V.</p>
+<p>Khi sử dụng nhiều nguồn, cần xác định cách nối GND chung phù hợp để các tín hiệu điều khiển có cùng mức tham chiếu.</p>
+<hr />
+<h2 id="7-so-sanh-esp32-va-arduino-nano">7. So sánh ESP32 và Arduino Nano</h2>
+<p>Arduino Nano và ESP32 đều có thể được sử dụng để xây dựng robot, nhưng có những khác biệt về phần cứng và khả năng xử lý.</p>
+<table>
+<thead>
+<tr>
+<th>Đặc điểm</th>
+<th>Arduino Nano classic</th>
+<th>ESP32 classic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vi điều khiển</td>
+<td>ATmega328P</td>
+<td>ESP32</td>
+</tr>
+<tr>
+<td>Kiến trúc</td>
+<td>8-bit</td>
+<td>32-bit</td>
+</tr>
+<tr>
+<td>Mức logic GPIO</td>
+<td>5 V</td>
+<td>3,3 V</td>
+</tr>
+<tr>
+<td>Wi-Fi tích hợp</td>
+<td>Không</td>
+<td>Có</td>
+</tr>
+<tr>
+<td>Bluetooth tích hợp</td>
+<td>Không</td>
+<td>Có</td>
+</tr>
+<tr>
+<td>PWM</td>
+<td>Có</td>
+<td>Có</td>
+</tr>
+<tr>
+<td>ADC</td>
+<td>Có</td>
+<td>Có</td>
+</tr>
+<tr>
+<td>Ngắt ngoài</td>
+<td>Có</td>
+<td>Có</td>
+</tr>
+<tr>
+<td>Gói hỗ trợ Arduino IDE</td>
+<td>Arduino AVR Boards</td>
+<td>esp32 by Espressif Systems</td>
+</tr>
+<tr>
+<td>Lựa chọn bo trong tài liệu</td>
+<td>Arduino Nano</td>
+<td>ESP32 Dev Module</td>
+</tr>
+</tbody>
+</table>
+<h3 id="71-uu-iem-cua-esp32">7.1. Ưu điểm của ESP32</h3>
+<p>ESP32 phù hợp với những ứng dụng cần:</p>
+<ul>
+<li>Xử lý dữ liệu từ nhiều cảm biến.</li>
+<li>Điều khiển nhiều chức năng đồng thời.</li>
+<li>Giao tiếp Wi-Fi.</li>
+<li>Xây dựng giao diện điều khiển qua mạng.</li>
+<li>Thực hiện thuật toán điều khiển có phản hồi.</li>
+</ul>
+<h3 id="72-nhung-iem-can-chu-y-khi-chuyen-tu-nano-sang-esp32">7.2. Những điểm cần chú ý khi chuyển từ Nano sang ESP32</h3>
+<p>Nếu đã học Arduino Nano, bạn có thể tiếp tục sử dụng nhiều kiến thức lập trình tương tự trên ESP32.</p>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code><span class="n">pinMode</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="n">OUTPUT</span><span class="p">);</span>
+<span class="n">digitalWrite</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="n">HIGH</span><span class="p">);</span>
+</code></pre></div>
+<p>Tuy nhiên, cần chú ý:</p>
+<ul>
+<li>Không giữ nguyên sơ đồ chân của Nano khi chuyển sang ESP32.</li>
+<li>Không đưa tín hiệu 5 V trực tiếp vào GPIO ESP32.</li>
+<li>Phải chọn đúng gói hỗ trợ và loại bo mạch trong Arduino IDE.</li>
+<li>Cách sử dụng PWM và một số thư viện có thể khác nhau.</li>
+<li>Cần kiểm tra các chân ảnh hưởng đến quá trình khởi động.</li>
+</ul>
+<hr />
+<h2 id="8-ket-noi-va-ieu-khien-robot-qua-wi-fi">8. Kết nối và điều khiển robot qua Wi-Fi</h2>
+<h3 id="81-wi-fi-tren-esp32">8.1. Wi-Fi trên ESP32</h3>
+<p>Một trong những ưu điểm của ESP32 là khả năng kết nối Wi-Fi tích hợp.</p>
+<p>ESP32 có thể hoạt động theo các chế độ kết nối khác nhau, trong đó có:</p>
+<p><strong>Station (STA)</strong></p>
+<p>ESP32 kết nối đến một mạng Wi-Fi có sẵn, chẳng hạn mạng từ router.</p>
+<p><strong>Access Point (AP)</strong></p>
+<p>ESP32 tạo một mạng Wi-Fi để điện thoại hoặc máy tính kết nối trực tiếp.</p>
+<p>Trong bộ chương trình robot được bàn giao, ESP32 tạo mạng Wi-Fi có tên:</p>
+<p><strong>ESP32-Car</strong></p>
+<p>Điện thoại hoặc máy tính có thể kết nối đến mạng này để sử dụng giao diện điều khiển robot.</p>
+<h3 id="82-nguyen-ly-ieu-khien-qua-wi-fi">8.2. Nguyên lý điều khiển qua Wi-Fi</h3>
+<div class="highlight"><pre><span></span><code>Điện thoại / Máy tính
+          |
+          | Kết nối Wi-Fi
+          v
+      ESP32-Car
+          |
+          v
+      Web Server
+       trên ESP32
+          |
+          v
+   Xử lý lệnh điều khiển
+          |
+          v
+        L298N
+          |
+          v
+       Động cơ
+</code></pre></div>
+<p>Quá trình điều khiển có thể được mô tả:</p>
+<ol>
+<li>ESP32 khởi tạo mạng Wi-Fi.</li>
+<li>Điện thoại kết nối đến mạng ESP32-Car.</li>
+<li>Người dùng mở giao diện điều khiển trên trình duyệt.</li>
+<li>Người dùng lựa chọn chế độ hoặc gửi lệnh.</li>
+<li>ESP32 nhận và xử lý lệnh.</li>
+<li>ESP32 điều khiển động cơ theo chương trình.</li>
+</ol>
+<h3 id="83-cac-che-o-ieu-khien">8.3. Các chế độ điều khiển</h3>
+<p>Chương trình robot được bàn giao có giao diện web với hai chế độ chính.</p>
+<p><strong>Manual</strong></p>
+<p>Chế độ điều khiển thủ công.</p>
+<p>Người dùng gửi lệnh điều khiển từ giao diện web, chẳng hạn:</p>
+<ul>
+<li>Tiến.</li>
+<li>Lùi.</li>
+<li>Rẽ trái.</li>
+<li>Rẽ phải.</li>
+<li>Dừng.</li>
+</ul>
+<p>ESP32 nhận lệnh và điều khiển L298N để tạo chuyển động tương ứng.</p>
+<p><strong>Line follow</strong></p>
+<p>Chế độ dò line.</p>
+<p>ESP32 đọc dữ liệu từ cảm biến dò line và tự động điều chỉnh chuyển động của xe theo thuật toán đã lập trình.</p>
+<p>Ở chế độ này, dữ liệu cảm biến được sử dụng trực tiếp để xác định hướng di chuyển.</p>
+<p>Để tìm hiểu chi tiết cách kết nối và điều khiển xe, xem <a href="../bai-giang/09-wifi/">Bài 9: Điều khiển robot qua Wi-Fi</a>.</p>
+<hr />
+<h2 id="9-lap-trinh-esp32-bang-arduino-ide">9. Lập trình ESP32 bằng Arduino IDE</h2>
+<h3 id="91-arduino-ide-co-lap-trinh-uoc-esp32-khong">9.1. Arduino IDE có lập trình được ESP32 không?</h3>
+<p>Có.</p>
+<p>Arduino IDE có thể lập trình ESP32 sau khi cài đặt gói hỗ trợ bo mạch tương ứng.</p>
+<p>Gói hỗ trợ được sử dụng là:</p>
+<p><strong>esp32 by Espressif Systems</strong></p>
+<p>Gói này cung cấp các thành phần cần thiết để biên dịch và nạp chương trình cho những bo ESP32 được hỗ trợ.</p>
+<h3 id="92-lua-chon-bo-mach">9.2. Lựa chọn bo mạch</h3>
+<p>Đối với bộ xe trong tài liệu bàn giao, cấu hình lựa chọn là:</p>
+<p><strong>Tools → Board → esp32 → ESP32 Dev Module</strong></p>
+<p>Tuy nhiên, cần kiểm tra đúng loại vi điều khiển trên bo.</p>
+<p>Nếu sử dụng ESP32-S3, ESP32-C3 hoặc một dòng ESP32 khác, cần lựa chọn bo mạch và sơ đồ chân tương ứng.</p>
+<h3 id="93-quy-trinh-nap-chuong-trinh">9.3. Quy trình nạp chương trình</h3>
+<p>Quy trình lập trình cơ bản:</p>
+<ol>
+<li>Kết nối ESP32 với máy tính bằng USB Type-C.</li>
+<li>Mở Arduino IDE.</li>
+<li>Chọn đúng bo mạch.</li>
+<li>Chọn cổng COM tương ứng.</li>
+<li>Mở chương trình cần nạp.</li>
+<li>Nhấn Verify để biên dịch.</li>
+<li>Nhấn Upload để nạp chương trình.</li>
+<li>Quan sát kết quả hoạt động.</li>
+</ol>
+<p>Nếu bo không tự động vào chế độ nạp, có thể cần thao tác với nút BOOT theo hướng dẫn của bo mạch.</p>
+<p>Chi tiết được trình bày trong <a href="../03-cai-arduino-ide/">hướng dẫn cài đặt Arduino IDE</a> và <a href="04-nap-code-va-serial.md">hướng dẫn nạp chương trình</a>.</p>
+<hr />
+<h2 id="10-thuc-hanh-nhan-dien-phan-cung">10. Thực hành nhận diện phần cứng</h2>
+<h3 id="101-muc-tieu-thuc-hanh">10.1. Mục tiêu thực hành</h3>
+<p>Sau phần thực hành này, bạn cần nhận diện được các thành phần chính của robot và hiểu chức năng cơ bản của từng thành phần.</p>
+<h3 id="102-thuc-hanh-1-nhan-dien-bo-esp32">10.2. Thực hành 1: Nhận diện bo ESP32</h3>
+<p>Quan sát bo mạch và xác định:</p>
+<ol>
+<li>Module ESP32-WROOM-32.</li>
+<li>Chip CH340.</li>
+<li>Cổng USB Type-C.</li>
+<li>Nút EN/RESET.</li>
+<li>Nút BOOT.</li>
+<li>Các chân GPIO.</li>
+<li>Chân 3V3.</li>
+<li>Chân GND.</li>
+</ol>
+<p><strong>Kết quả mong đợi:</strong> Phân biệt được vi điều khiển ESP32, chip CH340 và cổng USB Type-C.</p>
+<h3 id="103-thuc-hanh-2-nhan-dien-cac-linh-kien-tren-robot">10.3. Thực hành 2: Nhận diện các linh kiện trên robot</h3>
+<p>Quan sát robot và xác định:</p>
+<ol>
+<li>Driver L298N.</li>
+<li>Các động cơ DC.</li>
+<li>Cảm biến HC-SR04.</li>
+<li>Cảm biến dò line năm kênh.</li>
+<li>Encoder.</li>
+<li>Bộ nguồn và dây cấp nguồn.</li>
+</ol>
+<p>Với mỗi linh kiện, hãy giải thích chức năng của nó trong quá trình robot hoạt động.</p>
+<h3 id="104-thuc-hanh-3-phan-loai-tin-hieu">10.4. Thực hành 3: Phân loại tín hiệu</h3>
+<p>Hãy xác định loại tín hiệu thường được sử dụng cho từng chức năng.</p>
+<table>
+<thead>
+<tr>
+<th>Chức năng</th>
+<th>Loại tín hiệu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Điều khiển chiều quay động cơ</td>
+<td>Digital</td>
+</tr>
+<tr>
+<td>Điều chỉnh tốc độ động cơ</td>
+<td>PWM</td>
+</tr>
+<tr>
+<td>Đọc cảm biến dò line Digital</td>
+<td>Digital Input</td>
+</tr>
+<tr>
+<td>Đọc xung Encoder</td>
+<td>Digital Input / Interrupt</td>
+</tr>
+<tr>
+<td>Kích hoạt HC-SR04</td>
+<td>Digital Output</td>
+</tr>
+<tr>
+<td>Đo thời gian Echo</td>
+<td>Digital Input</td>
+</tr>
+<tr>
+<td>Nhận lệnh từ điện thoại</td>
+<td>Wi-Fi</td>
+</tr>
+</tbody>
+</table>
+<h3 id="105-thuc-hanh-4-giai-thich-qua-trinh-ieu-khien-robot">10.5. Thực hành 4: Giải thích quá trình điều khiển robot</h3>
+<p>Hãy mô tả quá trình hoạt động khi người dùng nhấn nút tiến trên giao diện web.</p>
+<p>Gợi ý:</p>
+<div class="highlight"><pre><span></span><code>Người dùng nhấn Tiến
+          |
+          v
+Giao diện web gửi lệnh
+          |
+          v
+ESP32 nhận lệnh qua Wi-Fi
+          |
+          v
+Chương trình xử lý lệnh
+          |
+          v
+ESP32 gửi tín hiệu đến L298N
+          |
+          v
+Động cơ quay
+          |
+          v
+Robot di chuyển
+</code></pre></div>
+<hr />
+<h2 id="11-mot-so-luu-y-khi-su-dung-esp32">11. Một số lưu ý khi sử dụng ESP32</h2>
+<h3 id="111-khong-nham-muc-nguon-va-muc-logic">11.1. Không nhầm mức nguồn và mức logic</h3>
+<p>ESP32 có thể được cấp nguồn thông qua USB 5 V, nhưng GPIO hoạt động ở mức logic 3,3 V.</p>
+<p>Không được kết luận rằng chân GPIO chịu được 5 V chỉ vì bo có chân nguồn 5 V.</p>
+<h3 id="112-khong-su-dung-tuy-y-cac-chan-gpio">11.2. Không sử dụng tùy ý các chân GPIO</h3>
+<p>Một số GPIO có chức năng đặc biệt hoặc ảnh hưởng đến quá trình khởi động.</p>
+<p>Cần sử dụng đúng cấu hình chân trong tài liệu sản phẩm.</p>
+<h3 id="113-khong-nham-chip-ch340-voi-esp32">11.3. Không nhầm chip CH340 với ESP32</h3>
+<p>CH340 chỉ đảm nhiệm việc chuyển đổi USB–UART.</p>
+<p>ESP32 mới là thành phần thực thi chương trình và điều khiển robot.</p>
+<h3 id="114-khong-nham-cong-type-c-voi-loai-bo-mach">11.4. Không nhầm cổng Type-C với loại bo mạch</h3>
+<p>USB Type-C là kiểu đầu nối.</p>
+<p>Khi lựa chọn Board trong Arduino IDE, cần dựa vào vi điều khiển và cấu hình phần cứng thực tế.</p>
+<h3 id="115-am-bao-an-toan-khi-thu-ong-co">11.5. Đảm bảo an toàn khi thử động cơ</h3>
+<p>Khi chạy thử chương trình điều khiển động cơ:</p>
+<ul>
+<li>Kê xe để bánh không tiếp xúc với mặt đất.</li>
+<li>Kiểm tra nguồn cấp.</li>
+<li>Bắt đầu với tốc độ thấp.</li>
+<li>Kiểm tra chiều quay.</li>
+<li>Ngắt nguồn trước khi thay đổi dây kết nối.</li>
+</ul>
+<hr />
+<h2 id="12-bai-tap-on-tap">12. Bài tập ôn tập</h2>
+<p><strong>Bài tập 1: Kiến thức ESP32</strong></p>
+<p>Trả lời các câu hỏi:</p>
+<ol>
+<li>ESP32 có vai trò gì trong hệ thống robot?</li>
+<li>ESP32-WROOM-32 là gì?</li>
+<li>Chip CH340 có chức năng gì?</li>
+<li>USB Type-C có quyết định loại vi điều khiển không?</li>
+<li>Vì sao ESP32 có thể điều khiển robot qua Wi-Fi mà không cần module Wi-Fi ngoài?</li>
+</ol>
+<p><strong>Bài tập 2: Tìm hiểu phần cứng</strong></p>
+<p>Hãy giải thích chức năng của:</p>
+<ol>
+<li>Driver L298N.</li>
+<li>Cảm biến HC-SR04.</li>
+<li>Cảm biến dò line TCRT5000.</li>
+<li>Encoder.</li>
+<li>Bộ nguồn của robot.</li>
+</ol>
+<p><strong>Bài tập 3: So sánh Arduino Nano và ESP32</strong></p>
+<p>Hãy nêu ít nhất ba điểm khác biệt giữa Arduino Nano ATmega328P và ESP32 classic.</p>
+<p>Giải thích vì sao không thể chuyển toàn bộ dây tín hiệu từ một robot Arduino Nano sang ESP32 mà không kiểm tra lại mức điện áp và sơ đồ chân.</p>
+<p><strong>Bài tập 4: Điều khiển Wi-Fi</strong></p>
+<p>Trả lời:</p>
+<ol>
+<li>Chế độ Access Point là gì?</li>
+<li>ESP32-Car có vai trò gì trong chương trình robot?</li>
+<li>Chế độ Manual và Line follow khác nhau như thế nào?</li>
+<li>Khi xe chạy theo line, dữ liệu cảm biến được sử dụng để làm gì?</li>
+</ol>
+<hr />
+<h2 id="13-tong-ket">13. Tổng kết</h2>
+<p>Qua bài học này, chúng ta đã tìm hiểu:</p>
+<ul>
+<li>Khái niệm và vai trò của ESP32 trong hệ thống robot.</li>
+<li>Cấu tạo bo mạch ESP32 30P CH340 Type-C.</li>
+<li>Sự khác biệt giữa ESP32, ESP32-WROOM-32, CH340 và USB Type-C.</li>
+<li>Chức năng của GPIO, Digital, PWM và các giao tiếp ngoại vi.</li>
+<li>Vai trò của L298N, HC-SR04, TCRT5000 và Encoder.</li>
+<li>Những khác biệt cơ bản giữa Arduino Nano và ESP32.</li>
+<li>Nguyên lý kết nối và điều khiển robot qua Wi-Fi.</li>
+<li>Cách ESP32 nhận lệnh từ giao diện web.</li>
+<li>Các lưu ý về nguồn điện, mức logic và an toàn phần cứng.</li>
+</ul>
+<p>Sau khi hoàn thành bài học, bạn cần đạt được ba kết quả:</p>
+<ol>
+<li><strong>Nhận diện đúng các thành phần chính của xe robot ESP32.</strong></li>
+<li><strong>Hiểu cách ESP32 đọc cảm biến và điều khiển động cơ.</strong></li>
+<li><strong>Giải thích được quá trình nạp chương trình và điều khiển xe qua Wi-Fi.</strong></li>
+</ol>
+<p>Đây là nền tảng để tiếp tục tìm hiểu cách viết chương trình, sử dụng GPIO và xây dựng các chức năng điều khiển robot trong những bài tiếp theo.</p>
+<hr />
+<p><a href="../">Lộ trình học</a> · <a href="../bai-giang/02-lap-trinh/">Bài tiếp: Hướng dẫn lập trình ESP32</a> · <a href="08-su-dung-robot.md">Hướng dẫn sử dụng robot</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © Robovis — Tài liệu hướng dẫn sản phẩm
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../javascripts/products-dropdown.js"></script>
+      
+    
+  </body>
+</html>

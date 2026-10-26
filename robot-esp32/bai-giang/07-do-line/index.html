@@ -1,0 +1,7454 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tài liệu sử dụng và lập trình các dòng robot Robovis">
+      
+      
+      
+        <link rel="canonical" href="https://manual.robovis.vn/robot-esp32/bai-giang/07-do-line/">
+      
+      
+        <link rel="prev" href="../06-hc-sr04/">
+      
+      
+        <link rel="next" href="../08-encoder/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Bài 7. Cảm biến dò line TCRT5000 - Tài liệu hướng dẫn Robovis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bai-7-oc-tin-hieu-cam-bien-do-line-tcrt5000-bang-esp32" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../../.." title="Tài liệu hướng dẫn Robovis" class="md-header__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tài liệu hướng dẫn Robovis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bài 7. Cảm biến dò line TCRT5000
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+
+<nav class="md-tabs rv-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+          
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+        
+      
+        
+          
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../kien-thuc-nen/" class="md-tabs__link">
+          
+  
+  
+  Kiến thức nền
+
+        </a>
+      </li>
+    
+  
+
+        
+      
+        
+          
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../goc-ky-thuat/" class="md-tabs__link">
+          
+  
+  
+  Góc kỹ thuật
+
+        </a>
+      </li>
+    
+  
+
+        
+      
+        
+          <li class="md-tabs__item rv-products md-tabs__item--active">
+            <details class="rv-products__disclosure">
+              <summary class="md-tabs__link rv-products__trigger" aria-controls="rv-products-panel">
+                Tài liệu theo sản phẩm <span class="rv-products__chevron" aria-hidden="true">▾</span>
+              </summary>
+              <ul class="rv-products__panel" id="rv-products-panel" aria-label="Chọn tài liệu theo sản phẩm">
+                
+                  <li><a href="../../../san-pham/">Tất cả tài liệu sản phẩm</a></li>
+                
+                  <li><a href="../../../robot-arduino/">Robot Arduino</a></li>
+                
+                  <li><a href="../../" class="rv-products__current">Robot ESP32</a></li>
+                
+                  <li><a href="../../../robot-esp32-camera/">Robot ESP32 Camera</a></li>
+                
+                  <li><a href="../../../robot-esp32-lidar/">Robot ESP32 LiDAR</a></li>
+                
+              </ul>
+            </details>
+          </li>
+        
+      
+        
+          <li class="md-tabs__item">
+            <a href="https://robovis.vn/" class="md-tabs__link" target="_blank" rel="noopener noreferrer">
+              Website mua hàng Robovis
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+  
+
+
+
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted rv-nav--product" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Tài liệu hướng dẫn Robovis" class="md-nav__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    Tài liệu hướng dẫn Robovis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+        
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trang chủ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Kiến thức nền
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Kiến thức nền
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu từ đây
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Điện – điện tử cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Điện – điện tử cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/dien-dien-tu/01-dien-ap-dong-dien-cong-suat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điện áp, dòng điện và công suất
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/dien-dien-tu/02-gnd-va-noi-chung-mass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GND và nối chung mass
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/dien-dien-tu/03-tin-hieu-3v3-va-5v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tín hiệu 3,3 V và 5 V
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lập trình cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Lập trình cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/01-bien-kieu-du-lieu-toan-tu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Biến, kiểu dữ liệu và toán tử
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/02-cau-lenh-dieu-kien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Câu lệnh điều kiện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/03-vong-lap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vòng lặp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/04-ham-va-chia-chuong-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hàm và cách chia chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/05-delay-va-millis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    delay() và millis()
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Vi điều khiển và ngoại vi
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Vi điều khiển và ngoại vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/vi-dieu-khien/01-gpio-va-dien-tro-keo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPIO, HIGH/LOW và điện trở kéo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/vi-dieu-khien/02-digital-adc-pwm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Digital, ADC và PWM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu và công cụ
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Ubuntu và công cụ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình học
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu với Ubuntu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu với Ubuntu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/01-ubuntu-la-gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu là gì?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/02-chuan-bi-moi-truong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị môi trường
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Thao tác hằng ngày
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Thao tác hằng ngày
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/03-giao-dien-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giao diện Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/04-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Làm quen với Terminal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/05-thu-muc-va-tep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thư mục, đường dẫn và tệp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Phần mềm và kết nối
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Phần mềm và kết nối
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/06-cai-va-chay-phan-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài và chạy phần mềm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/07-ket-noi-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối máy tính với robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_5" id="__nav_2_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Thực hành tổng hợp
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Thực hành tổng hợp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/08-thuc-hanh-va-loi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thực hành và xử lý lỗi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot và ROS 2 cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Robot và ROS 2 cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình nhập môn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/he-toa-do-va-tf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hệ tọa độ và TF từ đầu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Góc kỹ thuật
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Góc kỹ thuật
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../goc-ky-thuat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot tự hành
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Robot tự hành
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../goc-ky-thuat/robot-tu-hanh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giới thiệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Vi điều khiển & lập trình
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Vi điều khiển & lập trình
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../goc-ky-thuat/vi-dieu-khien-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giới thiệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cảm biến và điều khiển
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Cảm biến và điều khiển
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../goc-ky-thuat/cam-bien-va-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giới thiệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tài liệu theo sản phẩm
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tài liệu theo sản phẩm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tất cả tài liệu sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot Arduino
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Robot Arduino
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE và nạp Blink
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_3" id="__nav_4_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe Arduino Nano
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Viết và nạp chương trình đầu tiên
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/04-servo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 4. Điều khiển servo SG90
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Đọc cảm biến dò line 5 kênh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder và hiểu tốc độ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/09-bluetooth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Bluetooth HM-10 và Dabble
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Làm quen với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE, CH340 và gói ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_3" id="__nav_4_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Hướng dẫn lập trình xe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Cảm biến dò line TCRT5000
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Cảm biến dò line TCRT5000
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-muc-tieu-bai-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mục tiêu bài học
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tim-hieu-cam-bien-do-line-tcrt5000" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tìm hiểu cảm biến dò line TCRT5000
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tìm hiểu cảm biến dò line TCRT5000">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-cam-bien-tcrt5000-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Cảm biến TCRT5000 là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-nguyen-ly-hoat-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Nguyên lý hoạt động
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-phan-biet-cam-bien-tcrt5000-va-module-do-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Phân biệt cảm biến TCRT5000 và module dò line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-module-do-line-5-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Module dò line 5 mắt
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Module dò line 5 mắt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-cau-tao" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Cấu tạo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-y-nghia-cua-5-mat-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Ý nghĩa của 5 mắt cảm biến
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tin-hieu-digital-cua-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Tín hiệu Digital của cảm biến
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Tín hiệu Digital của cảm biến">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-tin-hieu-high-va-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Tín hiệu HIGH và LOW
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-quy-uoc-tren-bo-robot-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Quy ước trên bộ robot thực hành
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-phan-biet-tin-hieu-gpio-va-trang-thai-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. Phân biệt tín hiệu GPIO và trạng thái phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-chuan-bi-thiet-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Chuẩn bị thiết bị
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Chuẩn bị thiết bị">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-thiet-bi-can-thiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Thiết bị cần thiết
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-chuan-bi-be-mat-thu-nghiem" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Chuẩn bị bề mặt thử nghiệm
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ket-noi-module-do-line-voi-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Kết nối module dò line với ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Kết nối module dò line với ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-bang-chan-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Bảng chân kết nối
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-luu-y-ve-nguon-cap-va-muc-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Lưu ý về nguồn cấp và mức logic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-luu-y-oi-voi-gpio34" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3. Lưu ý đối với GPIO34
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-kiem-tra-truoc-khi-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4. Kiểm tra trước khi thực hành
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-oc-tin-hieu-digital-bang-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Đọc tín hiệu Digital bằng ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Đọc tín hiệu Digital bằng ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-ham-digitalread" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Hàm digitalRead()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-cau-hinh-chan-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Cấu hình chân INPUT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-su-dung-mang-e-quan-ly-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Sử dụng mảng để quản lý cảm biến
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-thuc-hanh-oc-trang-thai-5-mat-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Thực hành đọc trạng thái 5 mắt cảm biến
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Thực hành đọc trạng thái 5 mắt cảm biến">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-muc-tieu-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Mục tiêu thực hành
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-tao-chuong-trinh-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Tạo chương trình mới
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-chuong-trinh-hoan-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3. Chương trình hoàn chỉnh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-ket-qua-mong-oi" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4. Kết quả mong đợi
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-xac-inh-vi-tri-line-bang-phuong-phap-trong-so" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Xác định vị trí line bằng phương pháp trọng số
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Xác định vị trí line bằng phương pháp trọng số">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-vi-sao-can-xac-inh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1. Vì sao cần xác định vị trí line?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-gan-trong-so-cho-tung-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2. Gán trọng số cho từng mắt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-cong-thuc-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3. Công thức tính vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-vi-du-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4. Ví dụ tính vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-thuc-hanh-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Thực hành tính vị trí line
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Thực hành tính vị trí line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1. Mục tiêu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-chuong-trinh-hoan-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2. Chương trình hoàn chỉnh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-ket-qua-mong-oi" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3. Kết quả mong đợi
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Giải thích chương trình
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Giải thích chương trình">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-khai-bao-mang-chan-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1. Khai báo mảng chân cảm biến
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-khai-bao-trong-so" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.2. Khai báo trọng số
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-oc-trang-thai-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.3. Đọc trạng thái cảm biến
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-tinh-tong-trong-so" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.4. Tính tổng trọng số
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.5. Tính vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126-xu-ly-mat-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.6. Xử lý mất line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127-xu-ly-ca-5-mat-cung-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.7. Xử lý cả 5 mắt cùng phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-phan-tich-cac-trang-thai-line-thuong-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Phân tích các trạng thái line thường gặp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Phân tích các trạng thái line thường gặp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-bang-trang-thai-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1. Bảng trạng thái cơ bản
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-cac-trang-thai-nhieu-mat-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2. Các trạng thái nhiều mắt phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-cac-trang-thai-bat-thuong" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3. Các trạng thái bất thường
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-nguyen-tac-ieu-khien-robot-theo-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Nguyên tắc điều khiển robot theo vị trí line
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Nguyên tắc điều khiển robot theo vị trí line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-khi-line-nam-giua" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.1. Khi line nằm giữa
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-khi-line-lech-trai" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.2. Khi line lệch trái
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-khi-line-lech-phai" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.3. Khi line lệch phải
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-khi-mat-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.4. Khi mất line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145-khi-tat-ca-mat-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.5. Khi tất cả mắt phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-bien-dich-va-chay-thu" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Biên dịch và chạy thử
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Biên dịch và chạy thử">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-kiem-tra-truoc-khi-nap" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.1. Kiểm tra trước khi nạp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-bien-dich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.2. Biên dịch chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-nap-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.3. Nạp chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-quan-sat-tren-serial-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.4. Quan sát trên Serial Monitor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cac-yeu-to-anh-huong-en-ket-qua-do-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Các yếu tố ảnh hưởng đến kết quả dò line
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Các yếu tố ảnh hưởng đến kết quả dò line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-khoang-cach-tu-cam-bien-en-mat-san" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.1. Khoảng cách từ cảm biến đến mặt sàn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-mau-sac-va-vat-lieu-be-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.2. Màu sắc và vật liệu bề mặt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163-anh-sang-moi-truong" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.3. Ánh sáng môi trường
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164-nguong-so-sanh-cua-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.4. Ngưỡng so sánh của module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#165-rung-ong-khi-robot-di-chuyen" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.5. Rung động khi robot di chuyển
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-cac-loi-thuong-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Các lỗi thường gặp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17. Các lỗi thường gặp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-cam-bien-luon-bao-co-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.1. Cảm biến luôn báo có line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-cam-bien-khong-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.2. Cảm biến không phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-thu-tu-traiphai-bi-ao" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.3. Thứ tự trái/phải bị đảo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#174-ket-qua-oc-dao-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.4. Kết quả đọc dao động
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#175-esp32-hoat-ong-khong-on-inh" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.5. ESP32 hoạt động không ổn định
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-bai-tap-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Bài tập thực hành
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18. Bài tập thực hành">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-1-oc-trang-thai-tung-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 1: Đọc trạng thái từng mắt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-2-kiem-tra-muc-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 2: Kiểm tra mức logic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-3-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 3: Tính vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-4-phan-loai-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 4: Phân loại vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-5-xu-ly-cac-trang-thai-ac-biet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 5: Xử lý các trạng thái đặc biệt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-6-e-xuat-logic-ieu-khien-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 6: Đề xuất logic điều khiển robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-kiem-tra-truoc-khi-bat-au-bai-tiep-theo" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Kiểm tra trước khi bắt đầu bài tiếp theo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Điều khiển xe qua Wi-Fi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Điều khiển xe với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 Camera
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 Camera
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_2" id="__nav_4_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị trước khi sử dụng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/03-phan-biet-hai-chuong-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Phân biệt hai chương trình ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_3" id="__nav_4_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Cài đặt Arduino IDE
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Cài đặt Arduino IDE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/01-cai-arduino-va-driver-ch340/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài Arduino IDE và driver CH340
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/02-cai-board-esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài board ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/03-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài các thư viện cần thiết
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Nạp chương trình cho ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Nạp chương trình cho ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/01-chuan-bi-thu-muc-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị thư mục mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/02-chon-board-va-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chọn board và nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/03-xu-ly-loi-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xử lý lỗi khi nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_5" id="__nav_4_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Điều khiển robot bằng trình duyệt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Điều khiển robot bằng trình duyệt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/04-dieu-khien-web/01-ket-noi-va-mo-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối Wi-Fi và mở giao diện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/04-dieu-khien-web/02-su-dung-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng giao diện điều khiển
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_6" id="__nav_4_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. Chạy nhận diện YOLO trên Windows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. Chạy nhận diện YOLO trên Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/01-cai-moi-truong-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài môi trường Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/02-chay-chuong-trinh-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị và chạy chương trình YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/03-su-dung-phan-mem-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng phần mềm YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_7" id="__nav_4_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Khắc phục lỗi và lưu ý
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Khắc phục lỗi và lưu ý
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/06-khac-phuc-loi/01-cac-loi-thuong-gap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các lỗi thường gặp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/06-khac-phuc-loi/02-luu-y-an-toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu ý an toàn và bảo quản mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 LiDAR
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 LiDAR
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu với Robot ESP32 LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_2" id="__nav_4_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Giới thiệu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Giới thiệu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/01-tong-quan-san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/02-kien-truc-he-thong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiến trúc hệ thống
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/03-lidar-va-odometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LiDAR và odometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/04-an-toan-va-gioi-han/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    An toàn và giới hạn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/05-tinh-nang-va-thong-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tính năng và thông số
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_3" id="__nav_4_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Chuẩn bị
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Chuẩn bị
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/01-yeu-cau-va-cai-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Yêu cầu hệ thống và cài ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/02-cai-dat-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt workspace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/03-cau-hinh-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cấu hình Wi-Fi robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/04-windows-may-ao-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Windows và máy ảo Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/05-su-dung-wifi-ngoai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng Wi-Fi ngoài
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_4" id="__nav_4_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Bắt đầu sử dụng
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Bắt đầu sử dụng
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Khởi động và kiểm tra dữ liệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chạy thử lần đầu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/03-dieu-khien-bang-tay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều khiển robot bằng tay
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_5" id="__nav_4_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. ROS 2 cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. ROS 2 cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/04-ros2-co-ban/01-node-topic-va-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Node, topic và lệnh thường dùng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/04-ros2-co-ban/02-cac-topic-cua-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các topic của robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/04-ros2-co-ban/03-rviz-va-tf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RViz và hệ tọa độ TF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_6" id="__nav_4_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. LiDAR, SLAM và Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/01-kiem-tra-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiểm tra dữ liệu LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tạo bản đồ SLAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/03-luu-va-quan-ly-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu và quản lý bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều hướng tự động bằng Nav2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/05-danh-gia-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Đánh giá chất lượng bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_7" id="__nav_4_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Xử lý sự cố
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Xử lý sự cố
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/01-loi-ket-noi-va-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi kết nối và ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/02-loi-lidar-slam-navigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/03-thong-tin-ho-tro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thông tin cần gửi khi hỗ trợ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_8" id="__nav_4_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    7. Tham khảo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            7. Tham khảo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Danh sách lệnh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/07-tham-khao/02-thuat-ngu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thuật ngữ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        <li class="md-nav__item">
+          <a href="https://robovis.vn/" class="md-nav__link" target="_blank" rel="noopener noreferrer">
+            <span class="md-ellipsis">Website mua hàng Robovis</span>
+          </a>
+        </li>
+      
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-gioi-thieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Giới thiệu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-muc-tieu-bai-hoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Mục tiêu bài học
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-tim-hieu-cam-bien-do-line-tcrt5000" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Tìm hiểu cảm biến dò line TCRT5000
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Tìm hiểu cảm biến dò line TCRT5000">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-cam-bien-tcrt5000-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Cảm biến TCRT5000 là gì?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-nguyen-ly-hoat-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Nguyên lý hoạt động
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-phan-biet-cam-bien-tcrt5000-va-module-do-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Phân biệt cảm biến TCRT5000 và module dò line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-module-do-line-5-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Module dò line 5 mắt
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Module dò line 5 mắt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-cau-tao" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Cấu tạo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-y-nghia-cua-5-mat-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Ý nghĩa của 5 mắt cảm biến
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tin-hieu-digital-cua-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Tín hiệu Digital của cảm biến
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Tín hiệu Digital của cảm biến">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-tin-hieu-high-va-low" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. Tín hiệu HIGH và LOW
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-quy-uoc-tren-bo-robot-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. Quy ước trên bộ robot thực hành
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-phan-biet-tin-hieu-gpio-va-trang-thai-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. Phân biệt tín hiệu GPIO và trạng thái phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-chuan-bi-thiet-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Chuẩn bị thiết bị
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Chuẩn bị thiết bị">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-thiet-bi-can-thiet" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. Thiết bị cần thiết
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-chuan-bi-be-mat-thu-nghiem" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. Chuẩn bị bề mặt thử nghiệm
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ket-noi-module-do-line-voi-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Kết nối module dò line với ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Kết nối module dò line với ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-bang-chan-ket-noi" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1. Bảng chân kết nối
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-luu-y-ve-nguon-cap-va-muc-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2. Lưu ý về nguồn cấp và mức logic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-luu-y-oi-voi-gpio34" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3. Lưu ý đối với GPIO34
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-kiem-tra-truoc-khi-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4. Kiểm tra trước khi thực hành
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-oc-tin-hieu-digital-bang-esp32" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Đọc tín hiệu Digital bằng ESP32
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Đọc tín hiệu Digital bằng ESP32">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-ham-digitalread" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1. Hàm digitalRead()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-cau-hinh-chan-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2. Cấu hình chân INPUT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-su-dung-mang-e-quan-ly-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3. Sử dụng mảng để quản lý cảm biến
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-thuc-hanh-oc-trang-thai-5-mat-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Thực hành đọc trạng thái 5 mắt cảm biến
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Thực hành đọc trạng thái 5 mắt cảm biến">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-muc-tieu-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1. Mục tiêu thực hành
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-tao-chuong-trinh-moi" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2. Tạo chương trình mới
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-chuong-trinh-hoan-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3. Chương trình hoàn chỉnh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-ket-qua-mong-oi" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4. Kết quả mong đợi
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-xac-inh-vi-tri-line-bang-phuong-phap-trong-so" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Xác định vị trí line bằng phương pháp trọng số
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Xác định vị trí line bằng phương pháp trọng số">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-vi-sao-can-xac-inh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1. Vì sao cần xác định vị trí line?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-gan-trong-so-cho-tung-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2. Gán trọng số cho từng mắt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-cong-thuc-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3. Công thức tính vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-vi-du-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4. Ví dụ tính vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-thuc-hanh-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Thực hành tính vị trí line
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Thực hành tính vị trí line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-muc-tieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1. Mục tiêu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-chuong-trinh-hoan-chinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2. Chương trình hoàn chỉnh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-ket-qua-mong-oi" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3. Kết quả mong đợi
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-giai-thich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Giải thích chương trình
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Giải thích chương trình">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-khai-bao-mang-chan-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1. Khai báo mảng chân cảm biến
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-khai-bao-trong-so" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.2. Khai báo trọng số
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-oc-trang-thai-cam-bien" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.3. Đọc trạng thái cảm biến
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-tinh-tong-trong-so" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.4. Tính tổng trọng số
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.5. Tính vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126-xu-ly-mat-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.6. Xử lý mất line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127-xu-ly-ca-5-mat-cung-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.7. Xử lý cả 5 mắt cùng phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-phan-tich-cac-trang-thai-line-thuong-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Phân tích các trạng thái line thường gặp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Phân tích các trạng thái line thường gặp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-bang-trang-thai-co-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1. Bảng trạng thái cơ bản
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-cac-trang-thai-nhieu-mat-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2. Các trạng thái nhiều mắt phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-cac-trang-thai-bat-thuong" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3. Các trạng thái bất thường
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-nguyen-tac-ieu-khien-robot-theo-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Nguyên tắc điều khiển robot theo vị trí line
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Nguyên tắc điều khiển robot theo vị trí line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-khi-line-nam-giua" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.1. Khi line nằm giữa
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-khi-line-lech-trai" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.2. Khi line lệch trái
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-khi-line-lech-phai" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.3. Khi line lệch phải
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-khi-mat-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.4. Khi mất line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145-khi-tat-ca-mat-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.5. Khi tất cả mắt phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-bien-dich-va-chay-thu" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Biên dịch và chạy thử
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Biên dịch và chạy thử">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-kiem-tra-truoc-khi-nap" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.1. Kiểm tra trước khi nạp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-bien-dich-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.2. Biên dịch chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-nap-chuong-trinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.3. Nạp chương trình
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-quan-sat-tren-serial-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.4. Quan sát trên Serial Monitor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-cac-yeu-to-anh-huong-en-ket-qua-do-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Các yếu tố ảnh hưởng đến kết quả dò line
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Các yếu tố ảnh hưởng đến kết quả dò line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-khoang-cach-tu-cam-bien-en-mat-san" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.1. Khoảng cách từ cảm biến đến mặt sàn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-mau-sac-va-vat-lieu-be-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.2. Màu sắc và vật liệu bề mặt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163-anh-sang-moi-truong" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.3. Ánh sáng môi trường
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164-nguong-so-sanh-cua-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.4. Ngưỡng so sánh của module
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#165-rung-ong-khi-robot-di-chuyen" class="md-nav__link">
+    <span class="md-ellipsis">
+      16.5. Rung động khi robot di chuyển
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-cac-loi-thuong-gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Các lỗi thường gặp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17. Các lỗi thường gặp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-cam-bien-luon-bao-co-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.1. Cảm biến luôn báo có line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-cam-bien-khong-phat-hien-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.2. Cảm biến không phát hiện line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-thu-tu-traiphai-bi-ao" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.3. Thứ tự trái/phải bị đảo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#174-ket-qua-oc-dao-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.4. Kết quả đọc dao động
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#175-esp32-hoat-ong-khong-on-inh" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.5. ESP32 hoạt động không ổn định
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-bai-tap-thuc-hanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Bài tập thực hành
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18. Bài tập thực hành">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-1-oc-trang-thai-tung-mat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 1: Đọc trạng thái từng mắt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-2-kiem-tra-muc-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 2: Kiểm tra mức logic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-3-tinh-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 3: Tính vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-4-phan-loai-vi-tri-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 4: Phân loại vị trí line
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-5-xu-ly-cac-trang-thai-ac-biet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 5: Xử lý các trạng thái đặc biệt
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bai-tap-6-e-xuat-logic-ieu-khien-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bài tập 6: Đề xuất logic điều khiển robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-kiem-tra-truoc-khi-bat-au-bai-tiep-theo" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. Kiểm tra trước khi bắt đầu bài tiếp theo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+    
+  
+    
+  
+    
+  
+    
+      <nav class="rv-breadcrumb" aria-label="Đường dẫn bài viết">
+        <a href="../../../san-pham/">Tài liệu theo sản phẩm</a>
+        
+          
+        
+          
+        
+          
+            <span aria-hidden="true">›</span>
+            <a href="../../">Robot ESP32</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">Bài 7. Cảm biến dò line TCRT5000</span>
+          
+        
+          
+        
+          
+        
+      </nav>
+    
+  
+    
+  
+  
+                  
+
+
+
+<h1 id="bai-7-oc-tin-hieu-cam-bien-do-line-tcrt5000-bang-esp32">Bài 7: Đọc tín hiệu cảm biến dò line TCRT5000 bằng ESP32</h1>
+<h2 id="1-gioi-thieu">1. Giới thiệu</h2>
+<p>Trong bài học trước, chúng ta đã tìm hiểu cách sử dụng cảm biến siêu âm HC-SR04 để đo khoảng cách và phát hiện vật cản phía trước robot.</p>
+<p>Ở bài học này, chúng ta sẽ tìm hiểu <strong>cảm biến dò line TCRT5000</strong>, một loại cảm biến thường được sử dụng trong các robot di chuyển theo vạch kẻ trên mặt sàn.</p>
+<p>Cảm biến dò line giúp robot nhận biết sự khác biệt giữa vạch line và nền đường dựa trên khả năng phản xạ ánh sáng hồng ngoại.</p>
+<p>Trong bộ xe robot ESP32, chúng ta sử dụng <strong>module dò line gồm 5 mắt cảm biến</strong>, cho phép xác định vị trí tương đối của vạch line so với robot.</p>
+<p>Thông qua dữ liệu từ 5 mắt cảm biến, ESP32 có thể nhận biết:</p>
+<ul>
+<li>Line nằm ở giữa robot.</li>
+<li>Line lệch về bên trái.</li>
+<li>Line lệch về bên phải.</li>
+<li>Robot không còn phát hiện được line.</li>
+<li>Nhiều mắt cảm biến cùng phát hiện line, chẳng hạn khi đi qua vạch rộng hoặc giao lộ.</li>
+</ul>
+<p>Đây là kiến thức nền tảng để xây dựng chức năng robot tự động di chuyển theo đường line.</p>
+<p>Trong bài học này, chúng ta chỉ tập trung <strong>đọc và xử lý tín hiệu cảm biến</strong>, chưa kết hợp điều khiển động cơ.</p>
+<h2 id="2-muc-tieu-bai-hoc">2. Mục tiêu bài học</h2>
+<p>Sau bài học này, bạn có thể:</p>
+<ul>
+<li>Hiểu nguyên lý hoạt động của cảm biến phản xạ hồng ngoại TCRT5000.</li>
+<li>Phân biệt cảm biến TCRT5000 riêng lẻ và module dò line 5 mắt.</li>
+<li>Nhận biết các chân tín hiệu của module dò line.</li>
+<li>Kết nối module dò line với board mở rộng ESP32.</li>
+<li>Sử dụng <code>digitalRead()</code> để đọc tín hiệu Digital.</li>
+<li>Phân biệt mức HIGH và LOW khi cảm biến gặp line hoặc nền.</li>
+<li>Đọc đồng thời trạng thái của 5 mắt cảm biến.</li>
+<li>Xác định vị trí tương đối của line.</li>
+<li>Tính toán vị trí line bằng phương pháp trọng số.</li>
+<li>Phát hiện trường hợp mất line hoặc nhiều cảm biến cùng phát hiện line.</li>
+<li>Hiểu nguyên tắc sử dụng dữ liệu cảm biến để điều khiển robot trong các bài học tiếp theo.</li>
+</ul>
+<hr />
+<h2 id="3-tim-hieu-cam-bien-do-line-tcrt5000">3. Tìm hiểu cảm biến dò line TCRT5000</h2>
+<h3 id="31-cam-bien-tcrt5000-la-gi">3.1. Cảm biến TCRT5000 là gì?</h3>
+<p>TCRT5000 là cảm biến quang phản xạ sử dụng ánh sáng hồng ngoại để phát hiện vật thể hoặc phân biệt các bề mặt có khả năng phản xạ ánh sáng khác nhau.</p>
+<p>Một cảm biến TCRT5000 gồm hai thành phần chính:</p>
+<ul>
+<li><strong>LED phát hồng ngoại:</strong> Phát ánh sáng hồng ngoại xuống bề mặt cần kiểm tra.</li>
+<li><strong>Phần tử thu quang:</strong> Nhận ánh sáng hồng ngoại phản xạ trở lại.</li>
+</ul>
+<p>Khi đặt cảm biến gần bề mặt, lượng ánh sáng phản xạ nhận được sẽ thay đổi tùy theo màu sắc, vật liệu và khoảng cách.</p>
+<p>Ví dụ, với line màu đen trên nền trắng:</p>
+<ul>
+<li>Nền trắng thường phản xạ ánh sáng hồng ngoại mạnh hơn.</li>
+<li>Vạch đen thường hấp thụ nhiều ánh sáng hơn, làm tín hiệu phản xạ yếu đi.</li>
+</ul>
+<p>Sự khác biệt này được sử dụng để xác định vị trí vạch line.</p>
+<h3 id="32-nguyen-ly-hoat-ong">3.2. Nguyên lý hoạt động</h3>
+<p>Quá trình phát hiện line diễn ra như sau:</p>
+<ol>
+<li>LED hồng ngoại phát ánh sáng xuống mặt sàn.</li>
+<li>Ánh sáng gặp bề mặt và bị phản xạ.</li>
+<li>Phần tử thu nhận ánh sáng phản xạ.</li>
+<li>Mạch xử lý trên module xác định trạng thái bề mặt.</li>
+<li>ESP32 đọc tín hiệu đầu ra để biết cảm biến có phát hiện line hay không.</li>
+</ol>
+<p>Sơ đồ nguyên lý:</p>
+<div class="highlight"><pre><span></span><code>       Cảm biến TCRT5000
+       ┌───────────────┐
+       │ Phát      Thu │
+       └───┬────────▲──┘
+           │        │
+           ▼        │
+        Ánh sáng    │
+        hồng ngoại  │
+           │        │
+           ▼        │
+     ─────────────────────
+          Mặt sàn
+        Ánh sáng phản xạ
+</code></pre></div>
+<p>Cường độ ánh sáng phản xạ phụ thuộc vào:</p>
+<ul>
+<li>Màu sắc bề mặt.</li>
+<li>Vật liệu bề mặt.</li>
+<li>Khoảng cách giữa cảm biến và mặt sàn.</li>
+<li>Góc đặt cảm biến.</li>
+<li>Ánh sáng môi trường.</li>
+</ul>
+<p>Vì vậy, cần kiểm tra và hiệu chỉnh cảm biến theo điều kiện sử dụng thực tế.</p>
+<h3 id="33-phan-biet-cam-bien-tcrt5000-va-module-do-line">3.3. Phân biệt cảm biến TCRT5000 và module dò line</h3>
+<p>TCRT5000 là linh kiện cảm biến quang phản xạ.</p>
+<p>Trong khi đó, module dò line thường tích hợp thêm các thành phần điện tử như:</p>
+<ul>
+<li>Mạch xử lý tín hiệu.</li>
+<li>Mạch so sánh ngưỡng.</li>
+<li>LED hiển thị trạng thái.</li>
+<li>Các chân xuất tín hiệu Digital.</li>
+</ul>
+<p>Trong bộ xe robot ESP32, chúng ta sử dụng module dò line gồm 5 mắt cảm biến.</p>
+<p>Module cung cấp 5 tín hiệu Digital độc lập, tương ứng với vị trí của từng mắt.</p>
+<p>Tài liệu tham khảo: <a href="https://www.vishay.com/docs/83760/tcrt5000.pdf">Datasheet TCRT5000 – Vishay</a>.</p>
+<hr />
+<h2 id="4-module-do-line-5-mat">4. Module dò line 5 mắt</h2>
+<h3 id="41-cau-tao">4.1. Cấu tạo</h3>
+<p>Module dò line 5 mắt gồm 5 cảm biến được bố trí thành một hàng ngang.</p>
+<p>Mỗi mắt cảm biến có nhiệm vụ kiểm tra bề mặt ngay phía dưới vị trí của nó.</p>
+<p>Trong bài học, chúng ta quy ước thứ tự cảm biến từ trái sang phải theo hướng tiến của robot:</p>
+<div class="highlight"><pre><span></span><code>                  PHÍA TRƯỚC ROBOT
+
+    Trái ngoài  Trái trong   Giữa   Phải trong  Phải ngoài
+        L2          L1        M         R1          R2
+        │           │         │         │           │
+        ▼           ▼         ▼         ▼           ▼
+       [1]         [2]       [3]       [4]         [5]
+
+                  PHÍA SAU ROBOT
+</code></pre></div>
+<p>Các tên L2, L1, M, R1 và R2 được sử dụng để thuận tiện trong việc đọc và xử lý tín hiệu.</p>
+<h3 id="42-y-nghia-cua-5-mat-cam-bien">4.2. Ý nghĩa của 5 mắt cảm biến</h3>
+<table>
+<thead>
+<tr>
+<th>Cảm biến</th>
+<th>Vị trí</th>
+<th>Chức năng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L2</td>
+<td>Trái ngoài</td>
+<td>Phát hiện line lệch nhiều về bên trái</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Trái trong</td>
+<td>Phát hiện line lệch về bên trái</td>
+</tr>
+<tr>
+<td>M</td>
+<td>Giữa</td>
+<td>Phát hiện line gần trung tâm robot</td>
+</tr>
+<tr>
+<td>R1</td>
+<td>Phải trong</td>
+<td>Phát hiện line lệch về bên phải</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>Phải ngoài</td>
+<td>Phát hiện line lệch nhiều về bên phải</td>
+</tr>
+</tbody>
+</table>
+<p>Khi robot di chuyển, trạng thái của các mắt sẽ thay đổi theo vị trí của vạch line.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Chỉ M phát hiện line: Line đang ở giữa.</li>
+<li>Chỉ L1 phát hiện line: Line lệch về bên trái.</li>
+<li>Chỉ R1 phát hiện line: Line lệch về bên phải.</li>
+<li>Chỉ L2 phát hiện line: Line lệch nhiều về bên trái.</li>
+<li>Chỉ R2 phát hiện line: Line lệch nhiều về bên phải.</li>
+</ul>
+<p>Trong thực tế, nhiều mắt cảm biến có thể cùng phát hiện line tại một thời điểm.</p>
+<hr />
+<h2 id="5-tin-hieu-digital-cua-cam-bien">5. Tín hiệu Digital của cảm biến</h2>
+<h3 id="51-tin-hieu-high-va-low">5.1. Tín hiệu HIGH và LOW</h3>
+<p>Module dò line xuất tín hiệu Digital với hai trạng thái:</p>
+<ul>
+<li>HIGH: Mức logic cao.</li>
+<li>LOW: Mức logic thấp.</li>
+</ul>
+<p>Tuy nhiên, ý nghĩa HIGH và LOW phụ thuộc vào thiết kế mạch của module.</p>
+<p>Một số module xuất LOW khi phát hiện line, trong khi những module khác có thể có quy ước ngược lại.</p>
+<p>Vì vậy, không nên mặc định tất cả cảm biến TCRT5000 đều có cùng mức logic.</p>
+<h3 id="52-quy-uoc-tren-bo-robot-thuc-hanh">5.2. Quy ước trên bộ robot thực hành</h3>
+<p>Trong chương trình robot ESP32 đang sử dụng, chúng ta quy ước:</p>
+<table>
+<thead>
+<tr>
+<th>Tín hiệu đọc được</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LOW (0)</td>
+<td>Cảm biến phát hiện line</td>
+</tr>
+<tr>
+<td>HIGH (1)</td>
+<td>Cảm biến không phát hiện line</td>
+</tr>
+</tbody>
+</table>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">34</span><span class="p">);</span>
+</code></pre></div>
+<p>Nếu <code>value == LOW</code>, chương trình xác định cảm biến đang phát hiện line.</p>
+<p>Quy ước này cần được kiểm tra trên module thực tế trước khi sử dụng.</p>
+<h3 id="53-phan-biet-tin-hieu-gpio-va-trang-thai-phat-hien-line">5.3. Phân biệt tín hiệu GPIO và trạng thái phát hiện line</h3>
+<p>Để thuận tiện cho việc xử lý, chúng ta sẽ chuyển tín hiệu Digital thành trạng thái phát hiện line.</p>
+<p>Quy ước trong chương trình:</p>
+<ul>
+<li><code>1</code>: Có phát hiện line.</li>
+<li><code>0</code>: Không phát hiện line.</li>
+</ul>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">thayLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">34</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+</code></pre></div>
+<p>Khi GPIO34 đọc được LOW:</p>
+<div class="highlight"><pre><span></span><code>Tín hiệu GPIO = 0
+Trạng thái phát hiện line = 1
+</code></pre></div>
+<p>Khi GPIO34 đọc được HIGH:</p>
+<div class="highlight"><pre><span></span><code>Tín hiệu GPIO = 1
+Trạng thái phát hiện line = 0
+</code></pre></div>
+<p>Cần phân biệt hai giá trị này để tránh nhầm lẫn khi phân tích kết quả.</p>
+<hr />
+<h2 id="6-chuan-bi-thiet-bi">6. Chuẩn bị thiết bị</h2>
+<h3 id="61-thiet-bi-can-thiet">6.1. Thiết bị cần thiết</h3>
+<table>
+<thead>
+<tr>
+<th>STT</th>
+<th>Thiết bị</th>
+<th>Số lượng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>ESP32 30P CH340 Type-C</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Board mở rộng ESP32 30P</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Module dò line TCRT5000 5 mắt</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Dây kết nối</td>
+<td>Theo nhu cầu</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Máy tính đã cài Arduino IDE</td>
+<td>1</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Cáp USB Type-C có truyền dữ liệu</td>
+<td>1</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Mẫu vạch line đen trên nền trắng</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Trong bài thực hành, chúng ta sử dụng module dò line được lắp trên bộ xe robot.</p>
+<p>Không cần sử dụng breadboard hoặc đấu thêm các cảm biến riêng lẻ.</p>
+<h3 id="62-chuan-bi-be-mat-thu-nghiem">6.2. Chuẩn bị bề mặt thử nghiệm</h3>
+<p>Để kiểm tra cảm biến, cần chuẩn bị:</p>
+<ul>
+<li>Một bề mặt sáng màu, tương đối phẳng.</li>
+<li>Một vạch line màu đen.</li>
+<li>Vạch có chiều rộng phù hợp với khoảng cách giữa các mắt cảm biến.</li>
+</ul>
+<p>Có thể sử dụng băng dính đen trên nền trắng hoặc một bản in đường line.</p>
+<p>Để kết quả dễ quan sát, nên thử nghiệm trong điều kiện ánh sáng ổn định.</p>
+<hr />
+<h2 id="7-ket-noi-module-do-line-voi-esp32">7. Kết nối module dò line với ESP32</h2>
+<h3 id="71-bang-chan-ket-noi">7.1. Bảng chân kết nối</h3>
+<p>Trong cấu hình robot ESP32 đang sử dụng, 5 mắt cảm biến được kết nối như sau:</p>
+<table>
+<thead>
+<tr>
+<th>Tín hiệu module</th>
+<th>GPIO ESP32</th>
+<th>Vị trí</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OUT1</td>
+<td>GPIO34</td>
+<td>Trái ngoài – L2</td>
+</tr>
+<tr>
+<td>OUT2</td>
+<td>GPIO32</td>
+<td>Trái trong – L1</td>
+</tr>
+<tr>
+<td>OUT3</td>
+<td>GPIO33</td>
+<td>Giữa – M</td>
+</tr>
+<tr>
+<td>OUT4</td>
+<td>GPIO25</td>
+<td>Phải trong – R1</td>
+</tr>
+<tr>
+<td>OUT5</td>
+<td>GPIO27</td>
+<td>Phải ngoài – R2</td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>Nguồn phù hợp từ board mở rộng</td>
+<td>Cấp nguồn cảm biến</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+<td>Mass chung</td>
+</tr>
+</tbody>
+</table>
+<p>Sơ đồ tín hiệu:</p>
+<div class="highlight"><pre><span></span><code>MODULE DÒ LINE 5 MẮT          ESP32
+
+OUT1 (L2) ------------------ GPIO34
+OUT2 (L1) ------------------ GPIO32
+OUT3 (M)  ------------------ GPIO33
+OUT4 (R1) ------------------ GPIO25
+OUT5 (R2) ------------------ GPIO27
+
+VCC ------------------------ Nguồn phù hợp
+GND ------------------------ GND
+</code></pre></div>
+<p><strong>Lưu ý:</strong> Thứ tự trái/phải được xác định theo hướng tiến của robot. Nếu module được lắp ngược, cần kiểm tra lại vị trí các mắt và dây tín hiệu.</p>
+<h3 id="72-luu-y-ve-nguon-cap-va-muc-logic">7.2. Lưu ý về nguồn cấp và mức logic</h3>
+<p>ESP32 sử dụng mức logic 3,3 V.</p>
+<p>Vì vậy, các tín hiệu Digital đưa vào GPIO của ESP32 phải nằm trong giới hạn điện áp cho phép.</p>
+<p>Trong bộ robot thực hành, cần kiểm tra điện áp cấp cho module dò line và mức HIGH thực tế của các chân OUT.</p>
+<p>Nếu module được cấp nguồn 3,3 V và hoạt động ổn định, tín hiệu đầu ra có thể được kết nối trực tiếp với GPIO khi đã xác nhận mức điện áp phù hợp.</p>
+<p>Nếu module sử dụng nguồn 5 V, không được mặc định các chân OUT đều an toàn cho ESP32. Cần kiểm tra đặc tính đầu ra và sử dụng mạch chuyển mức khi cần thiết.</p>
+<h3 id="73-luu-y-oi-voi-gpio34">7.3. Lưu ý đối với GPIO34</h3>
+<p>GPIO34 là chân chỉ hỗ trợ đầu vào.</p>
+<p>Vì vậy, chân này phù hợp để đọc tín hiệu Digital từ cảm biến.</p>
+<p>Tuy nhiên, GPIO34 không có điện trở kéo lên hoặc kéo xuống nội có thể kích hoạt bằng phần mềm.</p>
+<p>Nếu đầu ra module là loại open-collector hoặc open-drain và cần điện trở kéo lên, phải có điện trở kéo lên phù hợp ở phần cứng.</p>
+<p>Trong bài học, các chân cảm biến được cấu hình <code>INPUT</code>.</p>
+<h3 id="74-kiem-tra-truoc-khi-thuc-hanh">7.4. Kiểm tra trước khi thực hành</h3>
+<p>Trước khi nạp chương trình:</p>
+<ol>
+<li>Kiểm tra nguồn cấp cho module dò line.</li>
+<li>Kiểm tra GND chung.</li>
+<li>Kiểm tra đúng các chân GPIO34, 32, 33, 25 và 27.</li>
+<li>Kiểm tra mức điện áp đầu ra của module.</li>
+<li>Đảm bảo module được lắp đúng hướng.</li>
+<li>Ngắt nguồn động cơ để robot không tự di chuyển khi hiệu chỉnh cảm biến.</li>
+</ol>
+<hr />
+<h2 id="8-oc-tin-hieu-digital-bang-esp32">8. Đọc tín hiệu Digital bằng ESP32</h2>
+<h3 id="81-ham-digitalread">8.1. Hàm digitalRead()</h3>
+<p>Hàm <code>digitalRead()</code> được sử dụng để đọc trạng thái logic tại một chân GPIO.</p>
+<p>Cú pháp:</p>
+<div class="highlight"><pre><span></span><code><span class="n">digitalRead</span><span class="p">(</span><span class="n">pin</span><span class="p">);</span>
+</code></pre></div>
+<p>Trong đó <code>pin</code> là chân GPIO cần đọc.</p>
+<p>Giá trị trả về:</p>
+<ul>
+<li>HIGH.</li>
+<li>LOW.</li>
+</ul>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">34</span><span class="p">);</span>
+</code></pre></div>
+<p>Lệnh trên đọc trạng thái GPIO34.</p>
+<h3 id="82-cau-hinh-chan-input">8.2. Cấu hình chân INPUT</h3>
+<p>Trước khi đọc tín hiệu, cần cấu hình GPIO ở chế độ đầu vào.</p>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code><span class="n">pinMode</span><span class="p">(</span><span class="mi">34</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT</span><span class="p">);</span>
+</code></pre></div>
+<p>Đối với module dò line 5 mắt, chúng ta cần cấu hình cả 5 GPIO ở chế độ INPUT.</p>
+<h3 id="83-su-dung-mang-e-quan-ly-cam-bien">8.3. Sử dụng mảng để quản lý cảm biến</h3>
+<p>Thay vì khai báo riêng từng cảm biến, chúng ta có thể sử dụng mảng:</p>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">SENSOR_PIN</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">34</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">};</span>
+</code></pre></div>
+<p>Trong đó:</p>
+<table>
+<thead>
+<tr>
+<th>Phần tử</th>
+<th>GPIO</th>
+<th>Vị trí</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SENSOR_PIN[0]</code></td>
+<td>34</td>
+<td>L2</td>
+</tr>
+<tr>
+<td><code>SENSOR_PIN[1]</code></td>
+<td>32</td>
+<td>L1</td>
+</tr>
+<tr>
+<td><code>SENSOR_PIN[2]</code></td>
+<td>33</td>
+<td>M</td>
+</tr>
+<tr>
+<td><code>SENSOR_PIN[3]</code></td>
+<td>25</td>
+<td>R1</td>
+</tr>
+<tr>
+<td><code>SENSOR_PIN[4]</code></td>
+<td>27</td>
+<td>R2</td>
+</tr>
+</tbody>
+</table>
+<p>Sử dụng mảng giúp chương trình dễ mở rộng và xử lý các cảm biến bằng vòng lặp.</p>
+<hr />
+<h2 id="9-thuc-hanh-oc-trang-thai-5-mat-cam-bien">9. Thực hành đọc trạng thái 5 mắt cảm biến</h2>
+<h3 id="91-muc-tieu-thuc-hanh">9.1. Mục tiêu thực hành</h3>
+<p>Chúng ta sẽ viết chương trình để:</p>
+<ol>
+<li>Khởi tạo 5 chân cảm biến.</li>
+<li>Đọc tín hiệu Digital của từng mắt.</li>
+<li>Chuyển tín hiệu LOW thành trạng thái phát hiện line.</li>
+<li>Hiển thị trạng thái của cả 5 mắt trên Serial Monitor.</li>
+<li>Quan sát sự thay đổi khi di chuyển vạch line qua từng mắt.</li>
+</ol>
+<h3 id="92-tao-chuong-trinh-moi">9.2. Tạo chương trình mới</h3>
+<p>Mở Arduino IDE.</p>
+<p>Chọn <strong>File → New Sketch</strong>.</p>
+<p>Lưu chương trình với tên:</p>
+<div class="highlight"><pre><span></span><code>ESP32_LineSensor
+</code></pre></div>
+<p>Cấu trúc thư mục:</p>
+<div class="highlight"><pre><span></span><code>ESP32_LineSensor/
+└── ESP32_LineSensor.ino
+</code></pre></div>
+<h3 id="93-chuong-trinh-hoan-chinh">9.3. Chương trình hoàn chỉnh</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// ================= LINE SENSOR =================</span>
+
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">SENSOR_PIN</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">34</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">};</span>
+
+<span class="c1">// ================= SETUP =================</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pinMode</span><span class="p">(</span><span class="n">SENSOR_PIN</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">INPUT</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Bat dau doc cam bien do line"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ================= LOOP =================</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"Line: "</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">digitalRead</span><span class="p">(</span><span class="n">SENSOR_PIN</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+<span class="w">    </span><span class="c1">// LOW = phat hien line</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">thayLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">thayLine</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">" "</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Chương trình không cần cài thêm thư viện ngoài.</p>
+<h3 id="94-ket-qua-mong-oi">9.4. Kết quả mong đợi</h3>
+<p>Mở Serial Monitor ở tốc độ:</p>
+<div class="highlight"><pre><span></span><code>115200 baud
+</code></pre></div>
+<p>Khi không có mắt nào phát hiện line:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 0 0 0
+</code></pre></div>
+<p>Khi mắt giữa phát hiện line:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 1 0 0
+</code></pre></div>
+<p>Khi mắt trái trong phát hiện line:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 1 0 0 0
+</code></pre></div>
+<p>Khi mắt phải ngoài phát hiện line:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 0 0 1
+</code></pre></div>
+<p>Khi cả 5 mắt đều phát hiện line:</p>
+<div class="highlight"><pre><span></span><code>Line: 1 1 1 1 1
+</code></pre></div>
+<p><strong>Lưu ý:</strong> Các giá trị hiển thị đã được chuyển đổi theo quy ước <code>1 = phát hiện line</code>, <code>0 = không phát hiện line</code>. Đây không phải giá trị HIGH/LOW gốc đọc trực tiếp từ GPIO.</p>
+<hr />
+<h2 id="10-xac-inh-vi-tri-line-bang-phuong-phap-trong-so">10. Xác định vị trí line bằng phương pháp trọng số</h2>
+<h3 id="101-vi-sao-can-xac-inh-vi-tri-line">10.1. Vì sao cần xác định vị trí line?</h3>
+<p>Việc biết mắt nào phát hiện line mới chỉ cung cấp trạng thái riêng lẻ của từng cảm biến.</p>
+<p>Để điều khiển robot di chuyển theo line, chúng ta cần biết line đang lệch về phía nào so với tâm robot.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Line nằm giữa: Robot có thể tiếp tục đi thẳng.</li>
+<li>Line lệch trái: Robot cần điều chỉnh hướng về bên trái.</li>
+<li>Line lệch phải: Robot cần điều chỉnh hướng về bên phải.</li>
+</ul>
+<p>Để biểu diễn vị trí line bằng một giá trị số, chúng ta có thể sử dụng phương pháp trọng số.</p>
+<h3 id="102-gan-trong-so-cho-tung-mat">10.2. Gán trọng số cho từng mắt</h3>
+<p>Gán các trọng số từ trái sang phải:</p>
+<table>
+<thead>
+<tr>
+<th>Cảm biến</th>
+<th>Vị trí</th>
+<th>Trọng số</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L2</td>
+<td>Trái ngoài</td>
+<td>-2</td>
+</tr>
+<tr>
+<td>L1</td>
+<td>Trái trong</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>M</td>
+<td>Giữa</td>
+<td>0</td>
+</tr>
+<tr>
+<td>R1</td>
+<td>Phải trong</td>
+<td>+1</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>Phải ngoài</td>
+<td>+2</td>
+</tr>
+</tbody>
+</table>
+<p>Sơ đồ:</p>
+<div class="highlight"><pre><span></span><code>          L2      L1      M      R1      R2
+          │       │       │       │       │
+         -2      -1       0      +1      +2
+
+       Lệch trái       Giữa       Lệch phải
+</code></pre></div>
+<p>Theo quy ước này:</p>
+<ul>
+<li>Vị trí âm: Line lệch về bên trái.</li>
+<li>Vị trí bằng 0: Line nằm gần trung tâm.</li>
+<li>Vị trí dương: Line lệch về bên phải.</li>
+</ul>
+<h3 id="103-cong-thuc-tinh-vi-tri-line">10.3. Công thức tính vị trí line</h3>
+<p>Gọi:</p>
+<ul>
+<li>(S_i): Trạng thái phát hiện line của cảm biến thứ (i), bằng 0 hoặc 1.</li>
+<li>(W_i): Trọng số tương ứng với cảm biến thứ (i).</li>
+</ul>
+<p>Vị trí line được tính bằng:</p>
+<p>[
+P = \frac{\sum_{i=1}^{5} S_i W_i}{\sum_{i=1}^{5} S_i}
+]</p>
+<p>Trong đó:</p>
+<ul>
+<li>(P): Vị trí line tương đối.</li>
+<li>Tử số: Tổng trọng số của các mắt đang phát hiện line.</li>
+<li>Mẫu số: Số mắt đang phát hiện line.</li>
+</ul>
+<p>Công thức chỉ được sử dụng khi có ít nhất một mắt phát hiện line.</p>
+<p>Nếu không có mắt nào phát hiện line, mẫu số bằng 0 nên không thể tính vị trí bằng công thức này.</p>
+<h3 id="104-vi-du-tinh-vi-tri-line">10.4. Ví dụ tính vị trí line</h3>
+<p><strong>Ví dụ 1: Line ở giữa</strong></p>
+<div class="highlight"><pre><span></span><code>L2 L1 M R1 R2
+ 0  0 1  0  0
+</code></pre></div>
+<p>Chỉ cảm biến M phát hiện line.</p>
+<p>[
+P = \frac{0}{1}=0
+]</p>
+<p>Kết quả: Line ở giữa.</p>
+<p><strong>Ví dụ 2: Line lệch trái</strong></p>
+<div class="highlight"><pre><span></span><code>L2 L1 M R1 R2
+ 0  1 0  0  0
+</code></pre></div>
+<p>Chỉ cảm biến L1 phát hiện line.</p>
+<p>[
+P = \frac{-1}{1}=-1
+]</p>
+<p>Kết quả: Line lệch về bên trái.</p>
+<p><strong>Ví dụ 3: Line lệch phải</strong></p>
+<div class="highlight"><pre><span></span><code>L2 L1 M R1 R2
+ 0  0 0  1  0
+</code></pre></div>
+<p>Chỉ cảm biến R1 phát hiện line.</p>
+<p>[
+P = \frac{1}{1}=1
+]</p>
+<p>Kết quả: Line lệch về bên phải.</p>
+<p><strong>Ví dụ 4: Hai mắt cùng phát hiện line</strong></p>
+<div class="highlight"><pre><span></span><code>L2 L1 M R1 R2
+ 0  1 1  0  0
+</code></pre></div>
+<p>Hai cảm biến L1 và M cùng phát hiện line.</p>
+<p>[
+P = \frac{-1+0}{2}=-0{,}5
+]</p>
+<p>Kết quả: Line nằm giữa L1 và M, hơi lệch về bên trái.</p>
+<p><strong>Ví dụ 5: Line lệch nhiều về bên phải</strong></p>
+<div class="highlight"><pre><span></span><code>L2 L1 M R1 R2
+ 0  0 0  0  1
+</code></pre></div>
+<p>Chỉ cảm biến R2 phát hiện line.</p>
+<p>[
+P = \frac{2}{1}=2
+]</p>
+<p>Kết quả: Line lệch nhiều về bên phải.</p>
+<hr />
+<h2 id="11-thuc-hanh-tinh-vi-tri-line">11. Thực hành tính vị trí line</h2>
+<h3 id="111-muc-tieu">11.1. Mục tiêu</h3>
+<p>Chúng ta sẽ mở rộng chương trình đọc 5 mắt để:</p>
+<ul>
+<li>Hiển thị trạng thái từng mắt.</li>
+<li>Tính vị trí line theo trọng số.</li>
+<li>Phát hiện trường hợp mất line.</li>
+<li>Phát hiện trường hợp cả 5 mắt cùng thấy line.</li>
+</ul>
+<h3 id="112-chuong-trinh-hoan-chinh">11.2. Chương trình hoàn chỉnh</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// ================= LINE SENSOR =================</span>
+
+<span class="c1">// Chan ket noi 5 mat cam bien</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">SENSOR_PIN</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">34</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">};</span>
+
+<span class="c1">// Trong so tu trai sang phai</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">WEIGHT</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span>
+
+<span class="c1">// ================= SETUP =================</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pinMode</span><span class="p">(</span><span class="n">SENSOR_PIN</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">INPUT</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Bat dau do vi tri line"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// ================= LOOP =================</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">tongTrongSo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">soMatThayLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"Line: "</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// Doc 5 mat cam bien</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">thayLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">SENSOR_PIN</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">thayLine</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">" "</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">thayLine</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">tongTrongSo</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">WEIGHT</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">      </span><span class="n">soMatThayLine</span><span class="o">++</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// Xu ly trang thai line</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">soMatThayLine</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"| Mat line"</span><span class="p">);</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">soMatThayLine</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"| Tat ca cam bien thay line"</span><span class="p">);</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">viTriLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">tongTrongSo</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">soMatThayLine</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"| Vi tri line: "</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">viTriLine</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="113-ket-qua-mong-oi">11.3. Kết quả mong đợi</h3>
+<p>Khi line nằm ở giữa:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 1 0 0 | Vi tri line: 0.00
+</code></pre></div>
+<p>Khi line lệch về bên trái:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 1 0 0 0 | Vi tri line: -1.00
+</code></pre></div>
+<p>Khi line lệch về bên phải:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 0 1 0 | Vi tri line: 1.00
+</code></pre></div>
+<p>Khi line nằm giữa hai mắt L1 và M:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 1 1 0 0 | Vi tri line: -0.50
+</code></pre></div>
+<p>Khi không có mắt nào phát hiện line:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 0 0 0 | Mat line
+</code></pre></div>
+<p>Khi cả 5 mắt cùng phát hiện line:</p>
+<div class="highlight"><pre><span></span><code>Line: 1 1 1 1 1 | Tat ca cam bien thay line
+</code></pre></div>
+<hr />
+<h2 id="12-giai-thich-chuong-trinh">12. Giải thích chương trình</h2>
+<h3 id="121-khai-bao-mang-chan-cam-bien">12.1. Khai báo mảng chân cảm biến</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">SENSOR_PIN</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">34</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">};</span>
+</code></pre></div>
+<p>Mảng <code>SENSOR_PIN</code> chứa 5 chân GPIO kết nối với module dò line.</p>
+<p>Thứ tự trong mảng tương ứng với thứ tự cảm biến từ trái sang phải.</p>
+<h3 id="122-khai-bao-trong-so">12.2. Khai báo trọng số</h3>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">WEIGHT</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">-2</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span>
+</code></pre></div>
+<p>Mảng <code>WEIGHT</code> chứa trọng số vị trí của từng mắt.</p>
+<p>Trọng số âm biểu diễn phía trái, trọng số dương biểu diễn phía phải.</p>
+<h3 id="123-oc-trang-thai-cam-bien">12.3. Đọc trạng thái cảm biến</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">bool</span><span class="w"> </span><span class="n">thayLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">digitalRead</span><span class="p">(</span><span class="n">SENSOR_PIN</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">LOW</span><span class="p">);</span>
+</code></pre></div>
+<p>Câu lệnh trên đọc tín hiệu Digital và kiểm tra xem cảm biến có phát hiện line hay không.</p>
+<p>Trong cấu hình robot:</p>
+<ul>
+<li>LOW: Có line.</li>
+<li>HIGH: Không có line.</li>
+</ul>
+<p>Kết quả được lưu trong biến <code>thayLine</code>.</p>
+<h3 id="124-tinh-tong-trong-so">12.4. Tính tổng trọng số</h3>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">thayLine</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">tongTrongSo</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">WEIGHT</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">  </span><span class="n">soMatThayLine</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Nếu cảm biến phát hiện line:</p>
+<ol>
+<li>Cộng trọng số của mắt đó vào tổng.</li>
+<li>Tăng số lượng mắt phát hiện line.</li>
+</ol>
+<p>Ví dụ, nếu L1 và M cùng phát hiện line:</p>
+<div class="highlight"><pre><span></span><code>tongTrongSo = -1 + 0 = -1
+soMatThayLine = 2
+</code></pre></div>
+<h3 id="125-tinh-vi-tri-line">12.5. Tính vị trí line</h3>
+<div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="n">viTriLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">tongTrongSo</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">soMatThayLine</span><span class="p">;</span>
+</code></pre></div>
+<p>Lệnh trên tính trung bình trọng số của các mắt đang phát hiện line.</p>
+<p>Kết quả là một giá trị tương đối nằm trong khoảng từ -2 đến +2 đối với các trường hợp được tính.</p>
+<p>Giá trị này không phải khoảng cách thực tế tính bằng centimet.</p>
+<p>Nó chỉ biểu diễn vị trí tương đối của line so với dãy cảm biến.</p>
+<h3 id="126-xu-ly-mat-line">12.6. Xử lý mất line</h3>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">soMatThayLine</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"| Mat line"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Khi không có mắt nào phát hiện line, chương trình thông báo mất line.</p>
+<p>Trong trường hợp này, không thể tính vị trí line bằng công thức trung bình trọng số.</p>
+<p>Khi kết hợp điều khiển động cơ, cần có phương án xử lý riêng, chẳng hạn dừng robot hoặc tìm lại line theo một chiến lược được thiết kế trước.</p>
+<h3 id="127-xu-ly-ca-5-mat-cung-phat-hien-line">12.7. Xử lý cả 5 mắt cùng phát hiện line</h3>
+<div class="highlight"><pre><span></span><code><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">soMatThayLine</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"| Tat ca cam bien thay line"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Khi cả 5 mắt đều phát hiện line, robot có thể đang đi qua:</p>
+<ul>
+<li>Vạch line rất rộng.</li>
+<li>Giao lộ.</li>
+<li>Vạch ngang.</li>
+<li>Vùng tối có độ phản xạ tương tự line.</li>
+</ul>
+<p>Không nên mặc định đây là trạng thái line nằm giữa và cho robot tiếp tục đi thẳng.</p>
+<p>Trong các bài điều khiển nâng cao, trạng thái này cần được xử lý theo yêu cầu của đường chạy.</p>
+<hr />
+<h2 id="13-phan-tich-cac-trang-thai-line-thuong-gap">13. Phân tích các trạng thái line thường gặp</h2>
+<h3 id="131-bang-trang-thai-co-ban">13.1. Bảng trạng thái cơ bản</h3>
+<p>Quy ước:</p>
+<ul>
+<li><code>1</code>: Cảm biến phát hiện line.</li>
+<li><code>0</code>: Cảm biến không phát hiện line.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>L2 L1 M R1 R2</th>
+<th>Vị trí tính được</th>
+<th>Nhận xét</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 0 1 0 0</td>
+<td>0</td>
+<td>Line ở giữa</td>
+</tr>
+<tr>
+<td>0 1 0 0 0</td>
+<td>-1</td>
+<td>Line lệch trái</td>
+</tr>
+<tr>
+<td>1 0 0 0 0</td>
+<td>-2</td>
+<td>Line lệch nhiều về trái</td>
+</tr>
+<tr>
+<td>0 0 0 1 0</td>
+<td>+1</td>
+<td>Line lệch phải</td>
+</tr>
+<tr>
+<td>0 0 0 0 1</td>
+<td>+2</td>
+<td>Line lệch nhiều về phải</td>
+</tr>
+<tr>
+<td>0 1 1 0 0</td>
+<td>-0,5</td>
+<td>Line giữa L1 và M</td>
+</tr>
+<tr>
+<td>0 0 1 1 0</td>
+<td>+0,5</td>
+<td>Line giữa M và R1</td>
+</tr>
+<tr>
+<td>1 1 0 0 0</td>
+<td>-1,5</td>
+<td>Hai mắt trái phát hiện line</td>
+</tr>
+<tr>
+<td>0 0 0 1 1</td>
+<td>+1,5</td>
+<td>Hai mắt phải phát hiện line</td>
+</tr>
+<tr>
+<td>0 0 0 0 0</td>
+<td>Không xác định</td>
+<td>Mất line</td>
+</tr>
+<tr>
+<td>1 1 1 1 1</td>
+<td>Xử lý riêng</td>
+<td>Tất cả mắt phát hiện line</td>
+</tr>
+</tbody>
+</table>
+<h3 id="132-cac-trang-thai-nhieu-mat-phat-hien-line">13.2. Các trạng thái nhiều mắt phát hiện line</h3>
+<p>Trong thực tế, vạch line có thể rộng hơn khoảng cách giữa các mắt cảm biến.</p>
+<p>Khi đó, nhiều mắt có thể cùng phát hiện line.</p>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>1 1 1 0 0
+</code></pre></div>
+<p>Ba mắt bên trái phát hiện line.</p>
+<p>Điều này cho thấy vùng line đang tập trung về phía trái.</p>
+<p>Tương tự:</p>
+<div class="highlight"><pre><span></span><code>0 0 1 1 1
+</code></pre></div>
+<p>Ba mắt bên phải phát hiện line.</p>
+<p>Trong các trường hợp này, phương pháp trọng số vẫn có thể cung cấp một giá trị vị trí tương đối.</p>
+<p>Tuy nhiên, không phải mọi tổ hợp nhiều mắt đều biểu diễn một vạch line liên tục.</p>
+<h3 id="133-cac-trang-thai-bat-thuong">13.3. Các trạng thái bất thường</h3>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>1 0 0 0 1
+</code></pre></div>
+<p>Hai mắt ngoài cùng cùng phát hiện line, trong khi ba mắt giữa không phát hiện.</p>
+<p>Nếu tính trung bình trọng số:</p>
+<p>[
+P = \frac{-2+2}{2}=0
+]</p>
+<p>Kết quả bằng 0, nhưng điều đó không có nghĩa robot đang nằm chính giữa một vạch line đơn.</p>
+<p>Trạng thái này có thể xuất hiện khi:</p>
+<ul>
+<li>Có hai vạch line riêng biệt.</li>
+<li>Robot đi qua một khu vực có nhiều đường kẻ.</li>
+<li>Có nhiễu tín hiệu.</li>
+<li>Một hoặc nhiều cảm biến hoạt động không chính xác.</li>
+</ul>
+<p>Do đó, <strong>giá trị trung bình trọng số chỉ là một cách ước lượng vị trí, không thể thay thế hoàn toàn việc phân tích tổ hợp trạng thái của 5 mắt cảm biến</strong>.</p>
+<p>Đối với robot dò line thực tế, cần kết hợp cả giá trị vị trí và bảng logic trạng thái để xử lý chính xác hơn.</p>
+<hr />
+<h2 id="14-nguyen-tac-ieu-khien-robot-theo-vi-tri-line">14. Nguyên tắc điều khiển robot theo vị trí line</h2>
+<p>Trong bài học này, chúng ta chưa điều khiển động cơ. Tuy nhiên, cần hiểu nguyên tắc sử dụng vị trí line để điều chỉnh hướng robot.</p>
+<h3 id="141-khi-line-nam-giua">14.1. Khi line nằm giữa</h3>
+<p>Nếu vị trí line gần bằng 0:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 1 0 0
+</code></pre></div>
+<p>Robot đang ở vị trí tương đối phù hợp với vạch line.</p>
+<p>Hướng điều khiển dự kiến: tiếp tục đi thẳng.</p>
+<h3 id="142-khi-line-lech-trai">14.2. Khi line lệch trái</h3>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 1 0 0 0
+Vi tri: -1
+</code></pre></div>
+<p>Line đang nằm về phía trái của robot.</p>
+<p>Robot cần điều chỉnh hướng sang trái để đưa line trở lại vùng giữa.</p>
+<h3 id="143-khi-line-lech-phai">14.3. Khi line lệch phải</h3>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 0 1 0
+Vi tri: +1
+</code></pre></div>
+<p>Line đang nằm về phía phải của robot.</p>
+<p>Robot cần điều chỉnh hướng sang phải.</p>
+<h3 id="144-khi-mat-line">14.4. Khi mất line</h3>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 0 0 0
+</code></pre></div>
+<p>Robot không còn xác định được vị trí line.</p>
+<p>Trong trường hợp này, không nên tiếp tục sử dụng giá trị vị trí cũ như một phép đo hiện tại.</p>
+<p>Cần có chiến lược xử lý riêng, chẳng hạn:</p>
+<ul>
+<li>Dừng robot.</li>
+<li>Tìm lại line theo hướng đã ghi nhận trước đó.</li>
+<li>Giới hạn thời gian tìm line.</li>
+<li>Chuyển sang trạng thái lỗi nếu không tìm lại được line.</li>
+</ul>
+<h3 id="145-khi-tat-ca-mat-phat-hien-line">14.5. Khi tất cả mắt phát hiện line</h3>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>Line: 1 1 1 1 1
+</code></pre></div>
+<p>Trạng thái này có thể tương ứng với giao lộ hoặc vùng line rộng.</p>
+<p>Robot cần có quy tắc xử lý phù hợp với đường chạy.</p>
+<p>Không nên mặc định tất cả mắt cùng phát hiện line là robot đang đi đúng giữa đường.</p>
+<hr />
+<h2 id="15-bien-dich-va-chay-thu">15. Biên dịch và chạy thử</h2>
+<h3 id="151-kiem-tra-truoc-khi-nap">15.1. Kiểm tra trước khi nạp</h3>
+<ol>
+<li>Kiểm tra module dò line đã được kết nối đúng.</li>
+<li>Kiểm tra nguồn cấp cho cảm biến.</li>
+<li>Kiểm tra mức điện áp đầu ra phù hợp với ESP32.</li>
+<li>Kiểm tra đúng thứ tự trái/phải.</li>
+<li>Ngắt nguồn động cơ.</li>
+<li>Kết nối ESP32 với máy tính.</li>
+</ol>
+<h3 id="152-bien-dich-chuong-trinh">15.2. Biên dịch chương trình</h3>
+<p>Trong Arduino IDE:</p>
+<ol>
+<li>Chọn <strong>ESP32 Dev Module</strong>.</li>
+<li>Chọn đúng cổng COM.</li>
+<li>Nhấn <strong>Verify</strong>.</li>
+<li>Kiểm tra thông báo biên dịch.</li>
+</ol>
+<h3 id="153-nap-chuong-trinh">15.3. Nạp chương trình</h3>
+<p>Nhấn <strong>Upload</strong>.</p>
+<p>Chờ Arduino IDE hoàn tất quá trình nạp.</p>
+<p>Sau khi nạp thành công, ESP32 sẽ chạy chương trình mới.</p>
+<h3 id="154-quan-sat-tren-serial-monitor">15.4. Quan sát trên Serial Monitor</h3>
+<p>Mở Serial Monitor và chọn:</p>
+<div class="highlight"><pre><span></span><code>115200 baud
+</code></pre></div>
+<p>Di chuyển vạch line qua từng mắt cảm biến.</p>
+<p>Quan sát sự thay đổi của các giá trị từ trái sang phải.</p>
+<p>Kiểm tra:</p>
+<ul>
+<li>L2 có tương ứng với mắt ngoài cùng bên trái không?</li>
+<li>L1 có tương ứng với mắt trái trong không?</li>
+<li>M có tương ứng với mắt giữa không?</li>
+<li>R1 có tương ứng với mắt phải trong không?</li>
+<li>R2 có tương ứng với mắt ngoài cùng bên phải không?</li>
+</ul>
+<p>Nếu kết quả ngược với vị trí thực tế, cần kiểm tra hướng lắp module và thứ tự dây kết nối.</p>
+<hr />
+<h2 id="16-cac-yeu-to-anh-huong-en-ket-qua-do-line">16. Các yếu tố ảnh hưởng đến kết quả dò line</h2>
+<h3 id="161-khoang-cach-tu-cam-bien-en-mat-san">16.1. Khoảng cách từ cảm biến đến mặt sàn</h3>
+<p>TCRT5000 là cảm biến phản xạ ở khoảng cách gần.</p>
+<p>Nếu đặt cảm biến quá cao so với mặt sàn, tín hiệu phản xạ có thể yếu.</p>
+<p>Nếu đặt quá sát, khả năng phân biệt line và nền cũng có thể bị ảnh hưởng.</p>
+<p>Cần điều chỉnh độ cao theo đặc tính của module và kiểm tra thực tế.</p>
+<h3 id="162-mau-sac-va-vat-lieu-be-mat">16.2. Màu sắc và vật liệu bề mặt</h3>
+<p>Cảm biến hoạt động dựa trên khả năng phản xạ ánh sáng hồng ngoại, không trực tiếp nhận biết màu sắc như camera.</p>
+<p>Vì vậy, hai bề mặt có màu nhìn bằng mắt khác nhau vẫn có thể phản xạ hồng ngoại tương tự nhau.</p>
+<p>Một số bề mặt bóng cũng có thể làm thay đổi tín hiệu phản xạ theo góc đặt.</p>
+<h3 id="163-anh-sang-moi-truong">16.3. Ánh sáng môi trường</h3>
+<p>Ánh sáng mạnh, đặc biệt các nguồn có thành phần hồng ngoại, có thể ảnh hưởng đến kết quả đọc cảm biến.</p>
+<p>Cần hạn chế thay đổi đột ngột điều kiện chiếu sáng trong quá trình hiệu chỉnh.</p>
+<h3 id="164-nguong-so-sanh-cua-module">16.4. Ngưỡng so sánh của module</h3>
+<p>Một số module dò line có biến trở hoặc cơ chế điều chỉnh ngưỡng phát hiện.</p>
+<p>Nếu ngưỡng không phù hợp, cảm biến có thể:</p>
+<ul>
+<li>Luôn báo phát hiện line.</li>
+<li>Không phát hiện line.</li>
+<li>Chuyển trạng thái không ổn định.</li>
+</ul>
+<p>Cần kiểm tra tín hiệu trên nền và line thực tế để xác định ngưỡng phù hợp.</p>
+<h3 id="165-rung-ong-khi-robot-di-chuyen">16.5. Rung động khi robot di chuyển</h3>
+<p>Khi robot di chuyển, khoảng cách từ cảm biến đến mặt sàn có thể thay đổi do rung động.</p>
+<p>Điều này có thể làm tín hiệu Digital dao động.</p>
+<p>Trong chương trình điều khiển nâng cao, cần xem xét cơ chế lọc tín hiệu và xử lý trạng thái ổn định.</p>
+<hr />
+<h2 id="17-cac-loi-thuong-gap">17. Các lỗi thường gặp</h2>
+<h3 id="171-cam-bien-luon-bao-co-line">17.1. Cảm biến luôn báo có line</h3>
+<p><strong>Hiện tượng:</strong></p>
+<div class="highlight"><pre><span></span><code>Line: 1 1 1 1 1
+</code></pre></div>
+<p>Ngay cả khi module được đặt trên nền trắng.</p>
+<p><strong>Nguyên nhân có thể:</strong></p>
+<ul>
+<li>Ngưỡng so sánh chưa phù hợp.</li>
+<li>Cảm biến đặt quá gần hoặc quá xa mặt sàn.</li>
+<li>Nguồn cấp không ổn định.</li>
+<li>Mức logic phát hiện line bị quy ước ngược.</li>
+<li>Module hoặc một số kênh bị lỗi.</li>
+</ul>
+<p><strong>Cách xử lý:</strong></p>
+<ol>
+<li>Kiểm tra mức HIGH/LOW thực tế.</li>
+<li>Kiểm tra nguồn cấp.</li>
+<li>Kiểm tra độ cao cảm biến.</li>
+<li>Điều chỉnh ngưỡng nếu module hỗ trợ.</li>
+<li>Thử riêng từng mắt trên nền và line.</li>
+</ol>
+<h3 id="172-cam-bien-khong-phat-hien-line">17.2. Cảm biến không phát hiện line</h3>
+<p><strong>Hiện tượng:</strong></p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 0 0 0
+</code></pre></div>
+<p>Ngay cả khi đặt line dưới các mắt cảm biến.</p>
+<p><strong>Nguyên nhân có thể:</strong></p>
+<ul>
+<li>Module chưa được cấp nguồn.</li>
+<li>Dây tín hiệu bị lỏng.</li>
+<li>Khoảng cách cảm biến đến mặt sàn không phù hợp.</li>
+<li>Ngưỡng so sánh chưa đúng.</li>
+<li>Quy ước LOW/HIGH không phù hợp với module.</li>
+</ul>
+<p><strong>Cách xử lý:</strong></p>
+<ul>
+<li>Kiểm tra nguồn.</li>
+<li>Kiểm tra dây kết nối.</li>
+<li>Kiểm tra từng mắt cảm biến.</li>
+<li>Thử thay đổi độ cao.</li>
+<li>Xác nhận lại mức logic khi gặp line.</li>
+</ul>
+<h3 id="173-thu-tu-traiphai-bi-ao">17.3. Thứ tự trái/phải bị đảo</h3>
+<p>Nếu đặt line dưới mắt ngoài cùng bên trái nhưng Serial Monitor hiển thị:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 0 0 1
+</code></pre></div>
+<p>Có thể thứ tự dây hoặc hướng lắp module đang bị đảo.</p>
+<p>Cần đối chiếu vị trí vật lý của cảm biến với các chân GPIO trong chương trình.</p>
+<h3 id="174-ket-qua-oc-dao-ong">17.4. Kết quả đọc dao động</h3>
+<p>Ví dụ:</p>
+<div class="highlight"><pre><span></span><code>Line: 0 0 1 0 0
+Line: 0 1 1 0 0
+Line: 0 0 1 0 0
+</code></pre></div>
+<p>Nguyên nhân có thể:</p>
+<ul>
+<li>Line nằm gần ranh giới phát hiện giữa hai mắt.</li>
+<li>Module bị rung.</li>
+<li>Ngưỡng so sánh quá nhạy.</li>
+<li>Ánh sáng môi trường thay đổi.</li>
+<li>Nguồn cấp không ổn định.</li>
+</ul>
+<p>Cần kiểm tra điều kiện đo trước khi bổ sung bộ lọc bằng phần mềm.</p>
+<h3 id="175-esp32-hoat-ong-khong-on-inh">17.5. ESP32 hoạt động không ổn định</h3>
+<p>Cần kiểm tra:</p>
+<ul>
+<li>Mức điện áp HIGH của module.</li>
+<li>Nguồn cấp.</li>
+<li>GND chung.</li>
+<li>Dây tín hiệu.</li>
+<li>Xung đột GPIO với thiết bị khác.</li>
+</ul>
+<p>Đặc biệt, không đưa tín hiệu 5 V trực tiếp vào GPIO của ESP32.</p>
+<hr />
+<h2 id="18-bai-tap-thuc-hanh">18. Bài tập thực hành</h2>
+<h3 id="bai-tap-1-oc-trang-thai-tung-mat">Bài tập 1: Đọc trạng thái từng mắt</h3>
+<p>Đặt vạch line lần lượt dưới:</p>
+<ul>
+<li>L2.</li>
+<li>L1.</li>
+<li>M.</li>
+<li>R1.</li>
+<li>R2.</li>
+</ul>
+<p>Ghi lại trạng thái 5 mắt tương ứng.</p>
+<h3 id="bai-tap-2-kiem-tra-muc-logic">Bài tập 2: Kiểm tra mức logic</h3>
+<p>Viết chương trình in trực tiếp giá trị <code>digitalRead()</code> của từng mắt.</p>
+<p>So sánh kết quả khi đặt cảm biến trên:</p>
+<ul>
+<li>Nền trắng.</li>
+<li>Line đen.</li>
+</ul>
+<p>Xác nhận module đang sử dụng có đúng quy ước LOW là phát hiện line hay không.</p>
+<h3 id="bai-tap-3-tinh-vi-tri-line">Bài tập 3: Tính vị trí line</h3>
+<p>Tính thủ công vị trí line cho các trạng thái sau:</p>
+<div class="highlight"><pre><span></span><code>0 1 0 0 0
+0 1 1 0 0
+0 0 1 1 0
+0 0 0 1 1
+1 1 0 0 0
+</code></pre></div>
+<p>So sánh kết quả với giá trị chương trình hiển thị.</p>
+<h3 id="bai-tap-4-phan-loai-vi-tri-line">Bài tập 4: Phân loại vị trí line</h3>
+<p>Viết chương trình phân loại:</p>
+<ul>
+<li>Vị trí âm: <code>Line lech trai</code>.</li>
+<li>Vị trí dương: <code>Line lech phai</code>.</li>
+<li>Vị trí bằng 0 với mẫu hợp lệ: <code>Line o giua</code>.</li>
+<li>Không có mắt phát hiện: <code>Mat line</code>.</li>
+<li>Cả 5 mắt phát hiện: <code>Vung line rong</code>.</li>
+</ul>
+<p>Lưu ý: Với các mẫu không liên tục hoặc bất thường, giá trị vị trí bằng 0 chưa đủ để kết luận line nằm giữa.</p>
+<h3 id="bai-tap-5-xu-ly-cac-trang-thai-ac-biet">Bài tập 5: Xử lý các trạng thái đặc biệt</h3>
+<p>Phân tích các trạng thái:</p>
+<div class="highlight"><pre><span></span><code>0 0 0 0 0
+1 1 1 1 1
+1 0 0 0 1
+1 1 1 0 0
+0 0 1 1 1
+</code></pre></div>
+<p>Trả lời:</p>
+<ol>
+<li>Trạng thái nào không thể tính vị trí bằng công thức trung bình?</li>
+<li>Trạng thái nào có thể là giao lộ hoặc vùng line rộng?</li>
+<li>Trạng thái nào có nhiều vùng phát hiện không liên tục?</li>
+<li>Vì sao không nên sử dụng duy nhất giá trị trung bình trọng số để quyết định hướng di chuyển?</li>
+</ol>
+<h3 id="bai-tap-6-e-xuat-logic-ieu-khien-robot">Bài tập 6: Đề xuất logic điều khiển robot</h3>
+<p>Giả sử robot sử dụng hai động cơ DC điều khiển qua L298N.</p>
+<p>Hãy đề xuất nguyên tắc điều khiển:</p>
+<ul>
+<li>Line ở giữa: Robot đi thẳng.</li>
+<li>Line lệch trái: Robot điều chỉnh hướng sang trái.</li>
+<li>Line lệch phải: Robot điều chỉnh hướng sang phải.</li>
+<li>Mất line: Robot chuyển sang trạng thái xử lý mất line.</li>
+<li>Nhiều mắt cùng phát hiện: Phân tích tổ hợp cảm biến trước khi quyết định.</li>
+</ul>
+<p>Trong bài này, chỉ cần mô tả logic, chưa cấp nguồn cho động cơ.</p>
+<hr />
+<h2 id="19-kiem-tra-truoc-khi-bat-au-bai-tiep-theo">19. Kiểm tra trước khi bắt đầu bài tiếp theo</h2>
+<p>Trước khi chuyển sang bài học tiếp theo, hãy đảm bảo:</p>
+<ul>
+<li>[ ] Đã hiểu nguyên lý hoạt động của TCRT5000.</li>
+<li>[ ] Đã phân biệt cảm biến TCRT5000 và module dò line 5 mắt.</li>
+<li>[ ] Đã biết chức năng của 5 mắt cảm biến.</li>
+<li>[ ] Đã biết cách kết nối module với ESP32.</li>
+<li>[ ] Đã kiểm tra mức điện áp tín hiệu phù hợp với ESP32.</li>
+<li>[ ] Đã biết sử dụng <code>digitalRead()</code>.</li>
+<li>[ ] Đã xác nhận mức logic khi cảm biến gặp line.</li>
+<li>[ ] Đã đọc được trạng thái của cả 5 mắt.</li>
+<li>[ ] Đã hiểu phương pháp tính vị trí line bằng trọng số.</li>
+<li>[ ] Đã phân biệt vị trí line âm, dương và bằng 0.</li>
+<li>[ ] Đã biết xử lý trường hợp mất line.</li>
+<li>[ ] Đã hiểu vì sao trạng thái nhiều mắt phát hiện line cần được phân tích riêng.</li>
+<li>[ ] Đã biết nguyên tắc sử dụng vị trí line để điều chỉnh hướng robot.</li>
+</ul>
+<hr />
+<h2 id="20-tong-ket">20. Tổng kết</h2>
+<p>Qua bài học này, chúng ta đã tìm hiểu cách sử dụng module cảm biến dò line TCRT5000 gồm 5 mắt với ESP32.</p>
+<p>Những nội dung quan trọng bao gồm:</p>
+<ul>
+<li>Hiểu nguyên lý phản xạ ánh sáng hồng ngoại.</li>
+<li>Tìm hiểu chức năng của module dò line 5 mắt.</li>
+<li>Kết nối cảm biến với ESP32 theo sơ đồ chân của robot.</li>
+<li>Sử dụng <code>digitalRead()</code> để đọc tín hiệu Digital.</li>
+<li>Chuyển đổi mức logic thành trạng thái phát hiện line.</li>
+<li>Hiển thị trạng thái 5 mắt trên Serial Monitor.</li>
+<li>Sử dụng trọng số để tính vị trí tương đối của line.</li>
+<li>Xác định line lệch trái, lệch phải hoặc nằm giữa.</li>
+<li>Phát hiện trường hợp mất line và vùng line rộng.</li>
+<li>Hiểu giới hạn của phương pháp trung bình trọng số.</li>
+<li>Nắm được nguyên tắc sử dụng dữ liệu cảm biến để điều khiển robot dò line.</li>
+</ul>
+<p>Đây là kiến thức nền tảng để phát triển chức năng robot di chuyển theo vạch line.</p>
+<p>Ở bài tiếp theo, chúng ta sẽ tìm hiểu <strong>cảm biến Encoder</strong>, cách đọc xung từ bánh xe và sử dụng dữ liệu Encoder để xác định tốc độ quay của động cơ.</p>
+<hr />
+<p><a href="../06-hc-sr04/">Bài trước: Cảm biến siêu âm HC-SR04</a> · <a href="../../">Lộ trình bài học</a> · <a href="../08-encoder/">Bài tiếp: Đọc Encoder</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © Robovis — Tài liệu hướng dẫn sản phẩm
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../../javascripts/products-dropdown.js"></script>
+      
+    
+  </body>
+</html>
