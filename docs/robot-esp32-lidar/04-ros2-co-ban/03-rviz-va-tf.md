@@ -1,5 +1,8 @@
 # RViz và hệ tọa độ TF
 
+!!! tip "Kiến thức cần biết trước"
+    Đọc [Hệ tọa độ và TF từ đầu](../../kien-thuc-nen/robot-ros2/he-toa-do-va-tf.md) nếu chưa phân biệt topic, frame và transform. Các bước RViz dưới đây áp dụng khi đã [khởi động và kiểm tra dữ liệu Robot ESP32 LiDAR](../03-van-hanh/02-khoi-dong-va-kiem-tra.md).
+
 ## RViz dùng để làm gì?
 
 RViz là công cụ hiển thị dữ liệu ROS 2. Với Robot ESP32 LiDAR, RViz có thể hiển thị:
@@ -45,8 +48,10 @@ Tên frame thực tế phụ thuộc workspace được cung cấp.
 
 ```bash
 ros2 topic echo /tf --once
-ros2 topic echo /tf_static --once
+ros2 topic echo /tf_static --qos-durability transient_local --once
 ```
+
+Với `/tf_static`, tùy chọn durability `transient_local` yêu cầu nhận cả dữ liệu tĩnh đã được publisher lưu lại cho bên nhận đến sau. Nếu chỉ chờ bản tin mới, lệnh có thể chờ dù transform tĩnh đã được công bố. Khái niệm này thuộc QoS (chính sách truyền nhận dữ liệu) của ROS 2: [tài liệu QoS Humble](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Quality-of-Service-Settings.html).
 
 Hoặc trong RViz:
 
@@ -63,3 +68,5 @@ Hoặc trong RViz:
 5. Quan sát điểm quét có khớp tường và vật thật hay không.
 
 Nếu LaserScan có dữ liệu nhưng RViz không hiển thị, thường cần kiểm tra `Fixed Frame`, `header.frame_id` hoặc TF từ thân robot tới LiDAR.
+
+[← Hệ tọa độ và TF từ đầu](../../kien-thuc-nen/robot-ros2/he-toa-do-va-tf.md) · [Tiếp: Lộ trình thực hành LiDAR →](../index.md)

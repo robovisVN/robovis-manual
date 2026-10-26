@@ -1,5 +1,8 @@
 # Bài 2: Viết và nạp chương trình Arduino đầu tiên
 
+!!! tip "Học kiến thức lập trình dùng chung"
+    Nếu chưa quen kiểu dữ liệu, điều kiện, vòng lặp và hàm, xem [lộ trình lập trình cơ bản](../../kien-thuc-nen/index.md#lo-trinh-a). Bài này tập trung quy trình viết, nạp và quan sát chương trình trên Nano; các bài nền giải thích từng khái niệm bằng ví dụ nhỏ.
+
 ## 1. Giới thiệu
 
 Trong bài học trước, chúng ta đã tìm hiểu các thành phần của xe robot Arduino Nano và chuẩn bị những thiết bị cần thiết để bắt đầu lập trình.
@@ -26,7 +29,7 @@ Trước khi bắt đầu, chúng ta cần chuẩn bị:
 - Cáp USB có khả năng truyền dữ liệu.
 - Driver USB phù hợp nếu máy tính chưa nhận Arduino.
 
-Nếu chưa cài đặt phần mềm, hãy thực hiện theo bài [Cài đặt Arduino IDE](../05-cai-arduino-ide.md).
+Nếu chưa cài đặt phần mềm, hãy thực hiện theo bài [Cài đặt Arduino IDE](../03-cai-arduino-ide.md).
 
 **Lưu ý:** Trong bài học này, chúng ta chỉ sử dụng Arduino Nano để giao tiếp với máy tính, chưa cần kết nối với các cảm biến hoặc động cơ.
 

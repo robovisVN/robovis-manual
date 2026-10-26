@@ -1,8 +1,11 @@
 # Node, topic và lệnh thường dùng
 
+!!! tip "Mới bắt đầu với ROS 2?"
+    Xem [lộ trình nhập môn ROS 2](../../kien-thuc-nen/robot-ros2/index.md) để thực hành truyền nhận trên máy tính trước. Phần dưới dùng topic, IP và bringup (khởi động phần mềm robot) của Robot ESP32 LiDAR; cần chuẩn bị và [khởi động robot](../03-van-hanh/02-khoi-dong-va-kiem-tra.md) trước khi kiểm tra dữ liệu cảm biến.
+
 ## Node là gì?
 
-Node là một chương trình đang chạy trong hệ thống ROS 2. Mỗi node thường đảm nhiệm một nhiệm vụ, ví dụ nhận dữ liệu robot, xuất odometry, chạy SLAM hoặc điều hướng.
+Node là một thành phần tính toán trong hệ thống ROS 2. Một chương trình có thể chứa một hoặc nhiều node. Mỗi node thường đảm nhiệm một nhiệm vụ, ví dụ nhận dữ liệu robot, xuất odometry, chạy SLAM hoặc điều hướng.
 
 Liệt kê node:
 
@@ -78,3 +81,5 @@ Kiểm tra theo thứ tự:
 3. `ping -c 4 192.168.4.1` có thành công không.
 4. Topic có namespace hoặc tên khác không.
 5. Nếu có dùng `ROS_DOMAIN_ID`, giá trị giữa các Terminal chạy ROS 2 có giống nhau không? Xem bằng `printenv ROS_DOMAIN_ID`. Bộ tài liệu bàn giao không quy định phải đặt bằng `10`.
+
+[← Lộ trình nhập môn ROS 2](../../kien-thuc-nen/robot-ros2/index.md) · [Tiếp: Các topic của robot →](02-cac-topic-cua-robot.md)

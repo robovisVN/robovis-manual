@@ -31,7 +31,20 @@ nav:
   - Trang chủ: index.md
   - Kiến thức nền:
       - Bắt đầu từ đây: kien-thuc-nen/index.md
-      - Ubuntu cơ bản:
+      - Điện – điện tử cơ bản:
+          - Điện áp, dòng điện và công suất: kien-thuc-nen/dien-dien-tu/01-dien-ap-dong-dien-cong-suat.md
+          - GND và nối chung mass: kien-thuc-nen/dien-dien-tu/02-gnd-va-noi-chung-mass.md
+          - Tín hiệu 3,3 V và 5 V: kien-thuc-nen/dien-dien-tu/03-tin-hieu-3v3-va-5v.md
+      - Lập trình cơ bản:
+          - Biến, kiểu dữ liệu và toán tử: kien-thuc-nen/lap-trinh/01-bien-kieu-du-lieu-toan-tu.md
+          - Câu lệnh điều kiện: kien-thuc-nen/lap-trinh/02-cau-lenh-dieu-kien.md
+          - Vòng lặp: kien-thuc-nen/lap-trinh/03-vong-lap.md
+          - Hàm và cách chia chương trình: kien-thuc-nen/lap-trinh/04-ham-va-chia-chuong-trinh.md
+          - delay() và millis(): kien-thuc-nen/lap-trinh/05-delay-va-millis.md
+      - Vi điều khiển và ngoại vi:
+          - GPIO, HIGH/LOW và điện trở kéo: kien-thuc-nen/vi-dieu-khien/01-gpio-va-dien-tro-keo.md
+          - Digital, ADC và PWM: kien-thuc-nen/vi-dieu-khien/02-digital-adc-pwm.md
+      - Ubuntu và công cụ:
           - Lộ trình học: ubuntu-co-ban/index.md
           - 1. Bắt đầu với Ubuntu:
               - Ubuntu là gì?: ubuntu-co-ban/01-ubuntu-la-gi.md
@@ -45,6 +58,17 @@ nav:
               - Kết nối máy tính với robot: ubuntu-co-ban/07-ket-noi-robot.md
           - 4. Thực hành tổng hợp:
               - Thực hành và xử lý lỗi: ubuntu-co-ban/08-thuc-hanh-va-loi.md
+      - Robot và ROS 2 cơ bản:
+          - Lộ trình nhập môn: kien-thuc-nen/robot-ros2/index.md
+          - Hệ tọa độ và TF từ đầu: kien-thuc-nen/robot-ros2/he-toa-do-va-tf.md
+  - Góc kỹ thuật:
+      - Tổng quan: goc-ky-thuat/index.md
+      - Robot tự hành:
+          - Giới thiệu: goc-ky-thuat/robot-tu-hanh/index.md
+      - Vi điều khiển & lập trình:
+          - Giới thiệu: goc-ky-thuat/vi-dieu-khien-lap-trinh/index.md
+      - Cảm biến và điều khiển:
+          - Giới thiệu: goc-ky-thuat/cam-bien-va-dieu-khien/index.md
   - Tài liệu theo sản phẩm:
       - Tất cả tài liệu sản phẩm: san-pham/index.md
       - Robot Arduino:
@@ -181,5 +205,8 @@ markdown_extensions:
 
 extra_css:
   - stylesheets/extra.css
+
+extra:
+  generator: false
 
 copyright: © Robovis — Tài liệu hướng dẫn sản phẩm

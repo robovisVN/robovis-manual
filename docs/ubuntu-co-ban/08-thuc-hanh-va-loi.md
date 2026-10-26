@@ -164,6 +164,8 @@ Trong Terminal, bôi chọn nội dung rồi **Ctrl + Shift + C** để sao ché
 
 ## 6. Bạn đã sẵn sàng học phần robot chưa?
 
+Nếu mục tiêu là hiểu phần mềm trước khi vận hành robot, học tiếp [Robot và ROS 2 cơ bản](../kien-thuc-nen/robot-ros2/index.md): bài truyền nhận mẫu không cần robot. Nếu muốn sử dụng robot ngay, làm theo các bước sản phẩm bên dưới.
+
 | Việc cần làm | Tự kiểm tra |
 | --- | --- |
 | Mở đúng Terminal Ubuntu | Tôi không nhập nhầm vào PowerShell |

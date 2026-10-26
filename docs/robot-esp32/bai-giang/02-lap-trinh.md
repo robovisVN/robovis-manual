@@ -1,5 +1,8 @@
 # Bài 2: Hướng dẫn lập trình xe ESP32 CH340 Type-C
 
+!!! tip "Cần ôn kiến thức lập trình?"
+    Xem [Biến, kiểu dữ liệu và toán tử](../../kien-thuc-nen/lap-trinh/01-bien-kieu-du-lieu-toan-tu.md), rồi học theo liên kết bài tiếp đến điều kiện, vòng lặp, hàm và millis(). Các ví dụ chỉ dùng Serial có nhánh áp dụng cho ESP32; các ví dụ đấu mạch Nano 5 V không áp dụng trực tiếp cho ESP32 3,3 V.
+
 ## 1. Giới thiệu
 
 Trong các bài học trước, chúng ta đã tìm hiểu về bo mạch ESP32, chuẩn bị phần cứng và cài đặt môi trường lập trình Arduino IDE.

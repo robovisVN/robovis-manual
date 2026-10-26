@@ -23,8 +23,8 @@
     {% for nav_item in nav.items %}
       {% if nav_item.url == "https://robovis.vn/" %}
         <li class="md-nav__item">
-          <a href="{{ nav_item.url }}" class="md-nav__link" target="_blank" rel="noopener noreferrer" title="{{ nav_item.title }} (mở trong tab mới)">
-            <span class="md-ellipsis">{{ nav_item.title }} <span aria-hidden="true">↗</span><span class="md-visually-hidden"> (mở trong tab mới)</span></span>
+          <a href="{{ nav_item.url }}" class="md-nav__link" target="_blank" rel="noopener noreferrer">
+            <span class="md-ellipsis">{{ nav_item.title }}</span>
           </a>
         </li>
       {% else %}

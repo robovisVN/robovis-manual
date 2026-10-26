@@ -72,3 +72,5 @@ ros2 topic hz /robot_1/scan
 ```
 
 Không tự đổi tên topic trong launch file chỉ để khớp tài liệu; hãy xác nhận phiên bản workspace trước.
+
+[← Node, topic và lệnh](01-node-topic-va-lenh.md) · [Tiếp: Hệ tọa độ và TF từ đầu →](../../kien-thuc-nen/robot-ros2/he-toa-do-va-tf.md)

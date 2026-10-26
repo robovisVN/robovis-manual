@@ -4,6 +4,8 @@ Bạn chưa từng dùng Ubuntu? Hãy bắt đầu từ đây. Bạn sẽ tập 
 
 **Không cần biết lập trình để học series này.** Các bài thực hành đầu tiên chỉ thao tác trên máy tính; chưa cần bật robot.
 
+Series này nằm trong nhóm **Ubuntu và công cụ** của Kiến thức nền. Nếu chưa biết có cần học Ubuntu không, chọn [lộ trình phù hợp tại Bắt đầu từ đây](../kien-thuc-nen/index.md). Người học Arduino/ESP32 thuần chưa cần Ubuntu; người chuẩn bị học ROS 2 nên đọc bài 1–6 trước. Bài 7 dành cho lúc đã có robot, có thể quay lại sau.
+
 ## Bạn sẽ học những gì?
 
 | Bài | Nội dung | Kết quả sau bài học |
@@ -53,3 +55,5 @@ Nếu dùng Windows, bạn thực hành trong **máy ảo Ubuntu của ROBOVIS c
 ## Tải tài liệu
 
 [Tải bộ tài liệu Ubuntu cơ bản dạng ZIP](../tai-xuong/ubuntu-co-ban.md).
+
+[← Chọn lại lộ trình](../kien-thuc-nen/index.md) · [Tiếp sau Ubuntu: Robot và ROS 2 cơ bản →](../kien-thuc-nen/robot-ros2/index.md)
