@@ -99,7 +99,7 @@ nav:
               - Bài 2. Hướng dẫn lập trình xe: robot-esp32/bai-giang/02-lap-trinh.md
               - Bài 3. Điều khiển LED: robot-esp32/bai-giang/03-led.md
               #- Bài 4. Điều khiển servo SG90: robot-esp32/bai-giang/04-servo.md
-              - Bài 5. Động cơ DC và L298N: robot-esp32/bai-giang/05-dong-co.md
+              - Bài 5. Động cơ DC và TB6612FNG: robot-esp32/bai-giang/05-dong-co.md
               - Bài 6. Đọc tín hiệu HC-SR04: robot-esp32/bai-giang/06-hc-sr04.md
               - Bài 7. Cảm biến dò line TCRT5000: robot-esp32/bai-giang/07-do-line.md
               - Bài 8. Đọc encoder: robot-esp32/bai-giang/08-encoder.md

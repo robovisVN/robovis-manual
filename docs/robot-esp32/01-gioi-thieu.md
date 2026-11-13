@@ -12,7 +12,7 @@ Khác với Arduino Nano ATmega328P, ESP32 có thể kết nối Wi-Fi trực ti
 
 Trong bộ robot Robovis, ESP32 được sử dụng để:
 
-- Điều khiển chuyển động của xe thông qua driver L298N.
+- Điều khiển chuyển động của xe thông qua driver TB6612FNG.
 - Đọc tín hiệu cảm biến dò line.
 - Đọc xung Encoder từ bánh xe.
 - Đo khoảng cách bằng cảm biến HC-SR04.
@@ -29,7 +29,7 @@ Sau khi hoàn thành bài học, bạn có thể:
 - Nhận biết bo mạch ESP32 30P CH340 Type-C.
 - Phân biệt vi điều khiển ESP32, module ESP32-WROOM-32, chip CH340 và cổng USB Type-C.
 - Nhận diện các thành phần phần cứng của xe robot.
-- Hiểu nguyên lý kết nối và điều khiển động cơ thông qua L298N.
+- Hiểu nguyên lý kết nối và điều khiển động cơ thông qua TB6612FNG.
 - Hiểu cách ESP32 đọc dữ liệu từ các cảm biến.
 - Nắm được nguyên lý giao tiếp Wi-Fi để điều khiển xe.
 - Phân biệt những đặc điểm cơ bản giữa ESP32 và Arduino Nano.
@@ -85,7 +85,7 @@ Sau khi xử lý dữ liệu, ESP32 tạo tín hiệu điều khiển gửi đ�
 
 Ví dụ:
 
-- Gửi tín hiệu PWM đến L298N để điều chỉnh tốc độ động cơ.
+- Gửi tín hiệu PWM đến TB6612FNG để điều chỉnh tốc độ động cơ.
 - Thay đổi trạng thái các chân điều khiển để đảo chiều động cơ.
 - Gửi tín hiệu điều khiển servo.
 - Trả dữ liệu trạng thái về giao diện điều khiển qua Wi-Fi.
@@ -109,7 +109,7 @@ Ví dụ:
       +-------+--------+
       |                |
       v                v
-    L298N            Wi-Fi
+    TB6612FNG            Wi-Fi
       |                |
       v                v
   Động cơ DC      Điện thoại /
@@ -265,7 +265,7 @@ Các lệnh trên chỉ minh họa cú pháp. Trong robot, cần sử dụng đ�
 
 PWM (*Pulse Width Modulation*) là phương pháp điều khiển công suất trung bình bằng cách thay đổi tỷ lệ thời gian tín hiệu ở mức cao trong một chu kỳ.
 
-Trong xe robot, PWM được sử dụng để điều chỉnh tốc độ động cơ thông qua driver L298N.
+Trong xe robot, PWM được sử dụng để điều chỉnh tốc độ động cơ thông qua driver TB6612FNG.
 
 Ví dụ:
 
@@ -294,22 +294,22 @@ Ví dụ, chân Echo của nhiều module HC-SR04 thông dụng có thể xuất
 
 ## 6. Giới thiệu các thành phần của xe robot
 
-### 6.1. Driver điều khiển động cơ L298N
+### 6.1. Driver điều khiển động cơ TB6612FNG
 
-L298N là mạch driver được sử dụng để điều khiển động cơ DC.
+TB6612FNG là mạch driver được sử dụng để điều khiển động cơ DC.
 
 ESP32 không thể cấp trực tiếp dòng điện lớn để vận hành động cơ. Vì vậy, cần sử dụng driver làm tầng công suất trung gian.
 
-<AsyncImage query="L298N dual H bridge motor driver module red board heatsink" aspectRatio="5:3"/>
+<AsyncImage query="TB6612FNG dual H bridge motor driver breakout module" aspectRatio="5:3"/>
 
-Driver L298N cho phép:
+Driver TB6612FNG cho phép:
 
 - Điều khiển hai kênh động cơ DC.
 - Thay đổi chiều quay.
 - Điều chỉnh mức điều khiển bằng PWM.
 - Dừng động cơ.
 
-Trong bộ xe, ESP32 gửi các tín hiệu điều khiển đến L298N. Driver sử dụng nguồn động cơ để cấp công suất cho các động cơ.
+Trong bộ xe, ESP32 gửi các tín hiệu điều khiển đến TB6612FNG. Driver sử dụng nguồn động cơ để cấp công suất cho các động cơ.
 
 Nguyên lý:
 
@@ -318,7 +318,7 @@ ESP32
   |
   | Tín hiệu điều khiển
   v
-L298N
+TB6612FNG
   |
   | Công suất động cơ
   v
@@ -328,7 +328,7 @@ L298N
 Bánh xe chuyển động
 ```
 
-L298N sẽ được tìm hiểu chi tiết trong [Bài 5: Điều khiển động cơ DC](bai-giang/05-dong-co.md).
+TB6612FNG sẽ được tìm hiểu chi tiết trong [Bài 5: Điều khiển động cơ DC](bai-giang/05-dong-co.md).
 
 ### 6.2. Cảm biến khoảng cách HC-SR04
 
@@ -406,7 +406,7 @@ Robot cần nguồn điện để cung cấp năng lượng cho các thành ph�
 Các nhóm tải có yêu cầu nguồn khác nhau:
 
 - ESP32 cần nguồn phù hợp với mạch nguồn trên bo.
-- Động cơ DC sử dụng nguồn động cơ thông qua L298N.
+- Động cơ DC sử dụng nguồn động cơ thông qua TB6612FNG.
 - Cảm biến cần được cấp điện áp đúng thông số.
 - Servo cần nguồn có khả năng cung cấp dòng điện phù hợp khi chuyển động.
 
@@ -505,7 +505,7 @@ Trong bộ chương trình robot được bàn giao, ESP32 tạo mạng Wi-Fi c�
    Xử lý lệnh điều khiển
           |
           v
-        L298N
+        TB6612FNG
           |
           v
        Động cơ
@@ -536,7 +536,7 @@ Người dùng gửi lệnh điều khiển từ giao diện web, chẳng hạn:
 - Rẽ phải.
 - Dừng.
 
-ESP32 nhận lệnh và điều khiển L298N để tạo chuyển động tương ứng.
+ESP32 nhận lệnh và điều khiển TB6612FNG để tạo chuyển động tương ứng.
 
 **Line follow**
 
@@ -618,7 +618,7 @@ Quan sát bo mạch và xác định:
 
 Quan sát robot và xác định:
 
-1. Driver L298N.
+1. Driver TB6612FNG.
 2. Các động cơ DC.
 3. Cảm biến HC-SR04.
 4. Cảm biến dò line năm kênh.
@@ -660,7 +660,7 @@ ESP32 nhận lệnh qua Wi-Fi
 Chương trình xử lý lệnh
           |
           v
-ESP32 gửi tín hiệu đến L298N
+ESP32 gửi tín hiệu đến TB6612FNG
           |
           v
 Động cơ quay
@@ -725,7 +725,7 @@ Trả lời các câu hỏi:
 
 Hãy giải thích chức năng của:
 
-1. Driver L298N.
+1. Driver TB6612FNG.
 2. Cảm biến HC-SR04.
 3. Cảm biến dò line TCRT5000.
 4. Encoder.
@@ -756,7 +756,7 @@ Qua bài học này, chúng ta đã tìm hiểu:
 - Cấu tạo bo mạch ESP32 30P CH340 Type-C.
 - Sự khác biệt giữa ESP32, ESP32-WROOM-32, CH340 và USB Type-C.
 - Chức năng của GPIO, Digital, PWM và các giao tiếp ngoại vi.
-- Vai trò của L298N, HC-SR04, TCRT5000 và Encoder.
+- Vai trò của TB6612FNG, HC-SR04, TCRT5000 và Encoder.
 - Những khác biệt cơ bản giữa Arduino Nano và ESP32.
 - Nguyên lý kết nối và điều khiển robot qua Wi-Fi.
 - Cách ESP32 nhận lệnh từ giao diện web.

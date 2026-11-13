@@ -817,7 +817,7 @@ Sơ đồ tổng quát:
       Chương trình xử lý
               │
               ▼
-       Driver L298N
+       Driver TB6612FNG
               │
         ┌─────┴─────┐
         ▼           ▼
@@ -929,7 +929,7 @@ Các lệnh có thể gồm:
 - Rẽ phải.
 - Dừng.
 
-Chương trình ESP32 tiếp nhận lệnh và điều khiển hai động cơ thông qua L298N.
+Chương trình ESP32 tiếp nhận lệnh và điều khiển hai động cơ thông qua TB6612FNG.
 
 Người dùng có thể điều chỉnh tốc độ theo chức năng được cung cấp trên giao diện.
 
@@ -957,7 +957,7 @@ Sơ đồ:
         Tốc độ hai bánh
                │
                ▼
-          Driver L298N
+          Driver TB6612FNG
                │
                ▼
           Robot di chuyển
@@ -1035,20 +1035,20 @@ Cần xác định:
 
 ### 13.3. Phần điều khiển động cơ
 
-Khi nhận được lệnh di chuyển, chương trình sẽ sử dụng các chân điều khiển L298N.
+Khi nhận được lệnh di chuyển, chương trình sẽ sử dụng các chân điều khiển TB6612FNG.
 
 Trong cấu hình robot:
 
 | Chân | GPIO |
 |---|---|
-| ENA | 13 |
-| IN1 | 12 |
-| IN2 | 14 |
-| ENB | 15 |
-| IN3 | 4 |
-| IN4 | 2 |
+| PWMA | 13 |
+| AIN1 | 14 |
+| AIN2 | 12 |
+| PWMB | 15 |
+| BIN1 | 4 |
+| BIN2 | 2 |
 
-Các chân ENA và ENB dùng để điều chỉnh PWM, còn các chân IN dùng để xác định chiều quay của động cơ.
+Các chân PWMA và PWMB dùng để điều chỉnh PWM, còn AIN1, AIN2, BIN1 và BIN2 dùng để xác định chiều quay của động cơ. STBY được giữ HIGH bằng phần cứng bằng cách nối lên VCC 3,3 V; chương trình không sử dụng GPIO cho chân này.
 
 Cần đối chiếu lại với chương trình và dây kết nối của robot thực tế.
 
@@ -1323,7 +1323,7 @@ Thông qua bài thực hành LED, chúng ta đã nắm được luồng điều 
 
 Đối với robot, luồng điều khiển được mở rộng thành:
 
-**Trình duyệt → Wi-Fi → ESP32 → Thuật toán điều khiển → L298N → Động cơ.**
+**Trình duyệt → Wi-Fi → ESP32 → Thuật toán điều khiển → TB6612FNG → Động cơ.**
 
 Ở bài học tiếp theo, chúng ta sẽ tìm hiểu **thuật toán PID**, cách sử dụng dữ liệu cảm biến và Encoder để điều chỉnh tốc độ hai bánh, giúp robot di chuyển ổn định và bám đường line tốt hơn.
 

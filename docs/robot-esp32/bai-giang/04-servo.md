@@ -75,4 +75,4 @@ Servo đứng gần giữa, sau đó qua lại trong khoảng nhỏ. Dừng ngay
 
 **Điều kiện học tiếp:** thực hiện được mục tiêu của bài và giải thích được kết quả quan sát.
 
-[Bài trước](03-led.md) · [Lộ trình](../index.md) · [Bài tiếp: Motor DC và L298N](05-dong-co.md)
+[Bài trước](03-led.md) · [Lộ trình](../index.md) · [Bài tiếp: Motor DC và TB6612FNG](05-dong-co.md)

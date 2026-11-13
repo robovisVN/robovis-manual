@@ -1318,7 +1318,7 @@ Trả lời:
 
 ### Bài tập 6: Đề xuất logic điều khiển robot
 
-Giả sử robot sử dụng hai động cơ DC điều khiển qua L298N.
+Giả sử robot sử dụng hai động cơ DC điều khiển qua TB6612FNG.
 
 Hãy đề xuất nguyên tắc điều khiển:
 

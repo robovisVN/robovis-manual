@@ -31,7 +31,7 @@ Sau khi hoàn thành chương trình, bạn có thể:
 - Viết, biên dịch và nạp chương trình vào ESP32.
 - Sử dụng các chân GPIO, tín hiệu Digital và PWM.
 - Điều khiển LED, servo SG90 và động cơ DC.
-- Điều khiển tốc độ và chiều quay động cơ thông qua L298N.
+- Điều khiển tốc độ và chiều quay động cơ thông qua TB6612FNG.
 - Đọc dữ liệu từ cảm biến siêu âm HC-SR04.
 - Xác định vị trí vạch bằng cảm biến dò line TCRT5000.
 - Đọc xung Encoder để tính tốc độ quay và vận tốc bánh xe.
@@ -85,7 +85,7 @@ Chip CH340 thực hiện chức năng chuyển đổi giao tiếp USB sang UART 
 | Thành phần | Chức năng |
 |---|---|
 | ESP32 30P CH340 Type-C | Bộ điều khiển trung tâm |
-| Driver L298N | Điều khiển chiều quay và tốc độ động cơ |
+| Driver TB6612FNG | Điều khiển chiều quay và tốc độ động cơ |
 | Động cơ DC | Tạo chuyển động cho xe |
 | Servo SG90 | Điều chỉnh góc quay của cơ cấu hoặc cảm biến |
 | Cảm biến HC-SR04 | Đo khoảng cách đến vật cản |
@@ -110,14 +110,14 @@ Chương trình phân tích dữ liệu, xác định trạng thái robot và t�
 
 **Điều khiển thiết bị**
 
-ESP32 gửi tín hiệu đến L298N, servo hoặc các thiết bị ngoại vi để thực hiện chuyển động mong muốn.
+ESP32 gửi tín hiệu đến TB6612FNG, servo hoặc các thiết bị ngoại vi để thực hiện chuyển động mong muốn.
 
 Quá trình hoạt động có thể mô tả như sau:
 
 ```text
 Cảm biến HC-SR04 ────┐
                      |
-Cảm biến dò line ────┼──> ESP32 ───> L298N ───> Động cơ DC
+Cảm biến dò line ────┼──> ESP32 ───> TB6612FNG ───> Động cơ DC
                      |       |
 Encoder ─────────────┘       +─────> Servo SG90
                              |
@@ -128,7 +128,7 @@ Encoder ─────────────┘       +─────> Servo
 
 Ví dụ, trong chức năng điều khiển tốc độ có phản hồi:
 
-1. ESP32 gửi tín hiệu PWM đến L298N để điều khiển động cơ.
+1. ESP32 gửi tín hiệu PWM đến TB6612FNG để điều khiển động cơ.
 2. Encoder tạo xung khi bánh xe quay.
 3. ESP32 đọc số xung và tính tốc độ thực tế.
 4. Chương trình so sánh tốc độ thực tế với tốc độ mong muốn.
@@ -157,9 +157,9 @@ Sau giai đoạn này, bạn sẽ biết cách sử dụng Arduino IDE để l�
 | Bài học | Nội dung | Kết quả thực hành |
 |---|---|---|
 | [Bài 4: Điều khiển Servo SG90](bai-giang/04-servo.md) | Tín hiệu điều khiển, nguồn và góc quay | Đưa servo về vị trí giữa và thay đổi góc |
-| [Bài 5: Điều khiển động cơ DC bằng L298N](bai-giang/05-dong-co.md) | Điều khiển chiều quay và PWM | Điều khiển xe tiến, lùi, rẽ và dừng |
+| [Bài 5: Điều khiển động cơ DC bằng TB6612FNG](bai-giang/05-dong-co.md) | Điều khiển chiều quay và PWM | Điều khiển xe tiến, lùi, rẽ và dừng |
 
-Sau giai đoạn này, bạn sẽ hiểu cách ESP32 tạo tín hiệu điều khiển và sử dụng L298N để điều khiển chuyển động của xe.
+Sau giai đoạn này, bạn sẽ hiểu cách ESP32 tạo tín hiệu điều khiển và sử dụng TB6612FNG để điều khiển chuyển động của xe.
 
 ### Giai đoạn 3: Đọc và xử lý dữ liệu cảm biến
 
@@ -258,7 +258,7 @@ Mỗi bài học được xây dựng theo cấu trúc thống nhất để ngư
 
 Đọc mục tiêu bài học để biết chức năng cần thực hiện và kết quả mong đợi.
 
-Ví dụ, trong bài điều khiển động cơ DC, mục tiêu là điều khiển được chiều quay và tốc độ của động cơ thông qua L298N.
+Ví dụ, trong bài điều khiển động cơ DC, mục tiêu là điều khiển được chiều quay và tốc độ của động cơ thông qua TB6612FNG.
 
 ### Bước 2: Tìm hiểu nguyên lý
 
@@ -421,7 +421,7 @@ Tùy theo kinh nghiệm và mục đích sử dụng, bạn có thể lựa ch�
 | Chưa cài Arduino IDE hoặc driver CH340 | [Cài đặt Arduino IDE](03-cai-arduino-ide.md) |
 | Muốn học lập trình ESP32 từ đầu | [Bài 2: Lập trình ESP32](bai-giang/02-lap-trinh.md) |
 | Muốn học GPIO và PWM | [Lập trình cơ bản](06-lap-trinh-co-ban.md) |
-| Muốn điều khiển động cơ | [Bài 5: Động cơ DC và L298N](bai-giang/05-dong-co.md) |
+| Muốn điều khiển động cơ | [Bài 5: Động cơ DC và TB6612FNG](bai-giang/05-dong-co.md) |
 | Muốn đọc cảm biến | [Bài 6: HC-SR04](bai-giang/06-hc-sr04.md) |
 | Muốn điều khiển xe bằng điện thoại | [Bài 9: Điều khiển qua Wi-Fi](bai-giang/09-wifi.md) |
 | Muốn điều khiển tốc độ có phản hồi | [Bài 10: PID](bai-giang/10-pid.md) |

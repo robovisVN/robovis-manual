@@ -1,30 +1,30 @@
-# Bài 5: Điều khiển động cơ DC bằng L298N và ESP32
+# Bài 5: Điều khiển động cơ DC bằng TB6612FNG và ESP32
 
 ## 1. Giới thiệu
 
 Trong các bài học trước, chúng ta đã tìm hiểu cách lập trình ESP32, điều khiển LED và động cơ servo.
 
-Ở bài học này, chúng ta sẽ tìm hiểu cách sử dụng **ESP32 kết hợp với module L298N để điều khiển hai động cơ DC của xe robot**.
+Ở bài học này, chúng ta sẽ tìm hiểu cách sử dụng **ESP32 kết hợp với module TB6612FNG để điều khiển hai động cơ DC của xe robot**.
 
 Động cơ DC là bộ phận tạo chuyển động cho robot. Tuy nhiên, các chân GPIO của ESP32 chỉ cung cấp tín hiệu điều khiển với mức logic 3,3 V và không thể cấp trực tiếp dòng điện lớn cho động cơ.
 
 Vì vậy, chúng ta cần sử dụng một mạch điều khiển công suất, gọi là **driver động cơ**.
 
-Trong bộ xe robot ESP32, module L298N được sử dụng để điều khiển chiều quay và tốc độ của hai động cơ DC.
+Trong bộ xe robot ESP32, module TB6612FNG được sử dụng để điều khiển chiều quay và tốc độ của hai động cơ DC.
 
 Trong bài học này, chúng ta sẽ thực hiện:
 
 - Tìm hiểu nguyên lý hoạt động của động cơ DC.
-- Tìm hiểu chức năng của module L298N.
+- Tìm hiểu chức năng của module TB6612FNG.
 - Làm quen với nguyên lý cầu H.
-- Tìm hiểu các chân điều khiển IN1, IN2, IN3, IN4, ENA và ENB.
-- Kết nối L298N với ESP32 thông qua board mở rộng.
+- Tìm hiểu các chân điều khiển AIN1, AIN2, BIN1, BIN2, PWMA, PWMB và STBY.
+- Kết nối TB6612FNG với ESP32 thông qua board mở rộng.
 - Điều khiển động cơ quay thuận và quay ngược.
 - Sử dụng PWM để thay đổi tốc độ động cơ.
 - Lập trình xe tiến, lùi, rẽ trái, rẽ phải và dừng.
 - Kiểm tra các lỗi thường gặp khi điều khiển động cơ.
 
-Sau khi hoàn thành, bạn sẽ hiểu cách ESP32 điều khiển chuyển động của robot thông qua driver L298N.
+Sau khi hoàn thành, bạn sẽ hiểu cách ESP32 điều khiển chuyển động của robot thông qua driver TB6612FNG.
 
 ## 2. Mục tiêu bài học
 
@@ -33,7 +33,7 @@ Sau bài học này, bạn có thể:
 - Hiểu nguyên lý hoạt động cơ bản của động cơ DC.
 - Giải thích vì sao ESP32 cần driver để điều khiển động cơ.
 - Hiểu nguyên lý cầu H và cách đảo chiều động cơ.
-- Phân biệt các chân điều khiển và chân nguồn của L298N.
+- Phân biệt các chân điều khiển và chân nguồn của TB6612FNG.
 - Sử dụng GPIO để điều khiển chiều quay động cơ.
 - Sử dụng PWM để điều chỉnh mức công suất cấp cho động cơ.
 - Viết các hàm điều khiển robot tiến, lùi, rẽ và dừng.
@@ -92,23 +92,23 @@ Nếu nối động cơ trực tiếp vào GPIO, có thể gây:
 - ESP32 hoạt động không ổn định.
 - Hư hỏng vi điều khiển.
 
-Vì vậy, ESP32 chỉ gửi tín hiệu điều khiển đến L298N.
+Vì vậy, ESP32 chỉ gửi tín hiệu điều khiển đến TB6612FNG.
 
 Nguồn điện riêng của động cơ sẽ cung cấp năng lượng cho quá trình quay.
 
 ---
 
-## 4. Tìm hiểu module L298N
+## 4. Tìm hiểu module TB6612FNG
 
-### 4.1. Module L298N là gì?
+### 4.1. Module TB6612FNG là gì?
 
-L298N là driver điều khiển động cơ sử dụng hai mạch cầu H.
+TB6612FNG là driver điều khiển động cơ sử dụng hai mạch cầu H.
 
 Module có thể điều khiển độc lập hai động cơ DC hoặc hai nhóm tải phù hợp với khả năng của driver.
 
-<AsyncImage query="L298N dual H bridge motor driver module red board ENA IN1 IN2 IN3 IN4 ENB OUT1 OUT2 OUT3 OUT4" aspectRatio="5:3"/>
+<AsyncImage query="TB6612FNG dual H bridge motor driver breakout module PWMA AIN1 AIN2 BIN1 BIN2 PWMB STBY VM VCC" aspectRatio="5:3"/>
 
-Trong bộ xe robot, L298N được sử dụng để:
+Trong bộ xe robot, TB6612FNG được sử dụng để:
 
 - Điều khiển động cơ bên trái.
 - Điều khiển động cơ bên phải.
@@ -116,70 +116,74 @@ Trong bộ xe robot, L298N được sử dụng để:
 - Điều chỉnh tốc độ thông qua PWM.
 - Dừng một hoặc cả hai động cơ.
 
-### 4.2. Các chân kết nối của L298N
+### 4.2. Các chân kết nối của TB6612FNG
 
-Module L298N thường có các nhóm chân sau:
+Module TB6612FNG thường có các nhóm chân sau:
 
 | Chân | Chức năng |
 |---|---|
-| IN1 | Điều khiển chiều quay động cơ A |
-| IN2 | Điều khiển chiều quay động cơ A |
-| ENA | Cho phép hoạt động và điều khiển PWM động cơ A |
-| IN3 | Điều khiển chiều quay động cơ B |
-| IN4 | Điều khiển chiều quay động cơ B |
-| ENB | Cho phép hoạt động và điều khiển PWM động cơ B |
-| OUT1, OUT2 | Kết nối hai đầu động cơ A |
-| OUT3, OUT4 | Kết nối hai đầu động cơ B |
+| AIN1 | Điều khiển chiều quay động cơ A |
+| AIN2 | Điều khiển chiều quay động cơ A |
+| PWMA | Điều khiển PWM động cơ A |
+| BIN1 | Điều khiển chiều quay động cơ B |
+| BIN2 | Điều khiển chiều quay động cơ B |
+| PWMB | Điều khiển PWM động cơ B |
+| AO1, AO2 | Kết nối hai đầu động cơ A |
+| BO1, BO2 | Kết nối hai đầu động cơ B |
 | GND | Cực âm nguồn và điểm tham chiếu tín hiệu |
-| Chân nguồn động cơ | Cấp nguồn công suất cho động cơ |
-| Chân 5V | Đường nguồn logic, chức năng phụ thuộc cấu hình module |
+| VM | Cấp nguồn công suất cho động cơ |
+| VCC | Cấp nguồn logic cho driver |
+| STBY | Cho phép driver hoạt động khi ở mức HIGH |
 
-Trên một số module L298N, chân nguồn động cơ có thể được in nhãn `12V` hoặc `+12V`.
+VM và VCC là hai đường nguồn có chức năng khác nhau.
 
-Đây là tên thường thấy trên module, không có nghĩa mọi động cơ đều phải sử dụng nguồn 12 V.
+Trong bài thực hành với ESP32, VCC được nối với nguồn 3,3 V để phù hợp mức logic điều khiển. VM được nối với nguồn động cơ phù hợp với động cơ và module.
 
-Điện áp cấp cần phù hợp với động cơ và thông số của module.
+Không nối điện áp bộ pin vào VCC.
 
 ### 4.3. Nguyên lý cầu H
 
 Cầu H là mạch điện cho phép thay đổi chiều dòng điện đi qua động cơ.
 
-Đối với một kênh L298N, hai chân IN được sử dụng để lựa chọn chiều quay.
+Đối với một kênh TB6612FNG, hai chân IN được sử dụng để lựa chọn chiều quay.
 
 Ví dụ:
 
-| EN | IN1 | IN2 | Trạng thái |
-|---|---|---|---|
-| HIGH | HIGH | LOW | Quay chiều thứ nhất |
-| HIGH | LOW | HIGH | Quay chiều ngược lại |
-| HIGH | LOW | LOW | Dừng theo quán tính |
-| HIGH | HIGH | HIGH | Phanh điện |
-| LOW | Bất kỳ | Bất kỳ | Ngắt đầu ra, động cơ quay theo quán tính |
+| STBY | PWM | AIN1 | AIN2 | Trạng thái kênh A |
+|---|---|---|---|---|
+| HIGH | HIGH | HIGH | LOW | Quay chiều thứ nhất |
+| HIGH | HIGH | LOW | HIGH | Quay chiều ngược lại |
+| HIGH | HIGH | LOW | LOW | Ngắt đầu ra, động cơ quay theo quán tính |
+| HIGH | Bất kỳ | HIGH | HIGH | Phanh điện |
+| HIGH | LOW | HIGH | LOW | Phanh điện |
+| HIGH | LOW | LOW | HIGH | Phanh điện |
+| LOW | Bất kỳ | Bất kỳ | Bất kỳ | Chế độ chờ, ngắt đầu ra cả hai kênh |
 
 Trong đó:
 
 - HIGH: Mức logic cao.
 - LOW: Mức logic thấp.
-- EN: Chân cho phép hoạt động của kênh động cơ.
+- PWM: Tín hiệu tại PWMA. Kênh B sử dụng PWMB, BIN1 và BIN2 tương tự.
+- STBY: Chân cho phép hoạt động chung của cả hai kênh.
 
-Khi EN ở mức LOW, đầu ra cầu H bị vô hiệu hóa. Động cơ không còn được chủ động cấp điện để quay nhưng vẫn có thể tiếp tục chuyển động do quán tính.
+Khi ngắt đầu ra, động cơ không còn được chủ động cấp điện để quay nhưng vẫn có thể tiếp tục chuyển động do quán tính.
 
-Khi cả hai đầu động cơ được đưa về cùng một mức thông qua cầu H đang hoạt động, động cơ có thể chịu tác dụng phanh điện.
+Khi phanh điện, hai đầu động cơ được nối về cùng mức LOW bên trong driver để tạo tác dụng hãm. Động cơ vẫn cần thời gian để giảm tốc và dừng.
 
-### 4.4. Chân ENA và ENB
+### 4.4. Chân PWMA, PWMB và STBY
 
-Hai chân ENA và ENB quyết định trạng thái hoạt động của từng kênh động cơ.
+Hai chân PWMA và PWMB nhận tín hiệu PWM để điều chỉnh công suất cấp cho từng động cơ.
 
-- ENA điều khiển kênh động cơ A.
-- ENB điều khiển kênh động cơ B.
+- PWMA điều khiển kênh động cơ A.
+- PWMB điều khiển kênh động cơ B.
 
-Khi EN được giữ HIGH, kênh tương ứng hoạt động theo trạng thái các chân IN.
+Khi STBY ở mức HIGH, driver hoạt động theo trạng thái các chân điều khiển.
 
-Khi EN được đưa LOW, kênh tương ứng bị ngắt.
+Khi STBY ở mức LOW, cả hai kênh chuyển sang chế độ chờ và ngắt đầu ra.
 
-Ngoài hai trạng thái HIGH và LOW, chúng ta có thể đưa tín hiệu PWM vào ENA và ENB để điều chỉnh mức công suất trung bình cấp cho động cơ.
+Trong bộ mã nguồn robot đang sử dụng, STBY được giữ HIGH bằng phần cứng, không được điều khiển bằng GPIO.
 
-**Lưu ý:** Một số module L298N có jumper nối ENA và ENB lên mức HIGH. Muốn điều khiển PWM từ ESP32, cần tháo các jumper ENA/ENB này.
+**Lưu ý:** Cần kiểm tra STBY đã được nối lên VCC 3,3 V trước khi chạy chương trình. Không để chân này thả nổi.
 
 ---
 
@@ -200,7 +204,7 @@ Ví dụ:
 - Duty Cycle 50%: Tín hiệu HIGH trong 50% chu kỳ.
 - Duty Cycle 100%: Tín hiệu luôn HIGH.
 
-Khi đưa PWM vào ENA hoặc ENB, L298N sẽ đóng/ngắt đầu ra theo tín hiệu này, làm thay đổi điện áp trung bình đặt lên động cơ.
+Khi đưa PWM vào PWMA hoặc PWMB, TB6612FNG sẽ chuyển giữa trạng thái dẫn động và phanh điện khi hai chân chiều đang khác mức, làm thay đổi điện áp trung bình đặt lên động cơ.
 
 ### 5.2. Giá trị PWM trên ESP32
 
@@ -210,7 +214,7 @@ Giá trị điều khiển nằm trong khoảng từ 0 đến 255.
 
 | Giá trị PWM | Duty Cycle gần đúng | Ý nghĩa |
 |---|---|---|
-| 0 | 0% | Ngắt kênh động cơ |
+| 0 | 0% | Phanh điện trong cấu hình điều khiển của bài |
 | 64 | 25% | Mức điều khiển thấp |
 | 128 | 50% | Mức điều khiển trung bình |
 | 192 | 75% | Mức điều khiển cao |
@@ -236,7 +240,7 @@ Tốc độ còn phụ thuộc:
 - Tải trọng của robot.
 - Ma sát bánh xe.
 - Đặc tính từng động cơ.
-- Sụt áp trên driver L298N.
+- Sụt áp trên driver TB6612FNG.
 - Trạng thái bộ pin.
 
 Hai động cơ nhận cùng một giá trị PWM cũng không đảm bảo quay với tốc độ bằng nhau.
@@ -251,7 +255,7 @@ Hai động cơ nhận cùng một giá trị PWM cũng không đảm bảo quay
 |---|---|---|
 | 1 | ESP32 30P CH340 Type-C | 1 |
 | 2 | Board mở rộng ESP32 30P | 1 |
-| 3 | Module L298N | 1 |
+| 3 | Module TB6612FNG | 1 |
 | 4 | Động cơ giảm tốc DC | 2 |
 | 5 | Bộ pin và công tắc nguồn | 1 bộ |
 | 6 | Dây kết nối | Theo nhu cầu |
@@ -262,31 +266,34 @@ Nếu đã có bộ xe robot hoàn chỉnh, chúng ta có thể sử dụng các
 
 ### 6.2. Sơ đồ chân điều khiển
 
-Trong cấu hình chương trình robot ESP32 đang sử dụng, các chân kết nối giữa ESP32 và L298N như sau:
+Trong cấu hình chương trình robot ESP32 đang sử dụng, các chân kết nối giữa ESP32 và TB6612FNG như sau:
 
-| L298N | ESP32 GPIO | Chức năng |
+| TB6612FNG | ESP32 GPIO | Chức năng |
 |---|---|---|
-| ENA | GPIO13 | PWM động cơ bên trái |
-| IN1 | GPIO12 | Điều khiển chiều động cơ trái |
-| IN2 | GPIO14 | Điều khiển chiều động cơ trái |
-| ENB | GPIO15 | PWM động cơ bên phải |
-| IN3 | GPIO4 | Điều khiển chiều động cơ phải |
-| IN4 | GPIO2 | Điều khiển chiều động cơ phải |
+| PWMA | GPIO13 | PWM động cơ bên trái |
+| AIN1 | GPIO14 | Điều khiển chiều động cơ trái |
+| AIN2 | GPIO12 | Điều khiển chiều động cơ trái |
+| PWMB | GPIO15 | PWM động cơ bên phải |
+| BIN1 | GPIO4 | Điều khiển chiều động cơ phải |
+| BIN2 | GPIO2 | Điều khiển chiều động cơ phải |
+| STBY | VCC 3,3 V | Giữ HIGH bằng phần cứng, không dùng GPIO |
 
 Các chân GPIO trên được sử dụng trong chương trình thực hành của bài này.
 
 **Lưu ý:** Số GPIO là số hiệu chân tín hiệu của ESP32, không phải vị trí chân tính từ đầu hàng chân cắm.
 
-Tham khảo [sơ đồ chân robot ESP32](../08-su-dung-robot.md) để đối chiếu với phần cứng thực tế.
+Tham khảo bảng chân trong [bộ mã nguồn TB6612FNG](https://drive.google.com/drive/folders/1k5zKdA2ZAdiqGVfENn3dRdBK9R6ugAer) để đối chiếu với phần cứng thực tế.
 
-### 6.3. Kết nối động cơ với L298N
+![Sơ đồ chân điều khiển TB6612FNG với ESP32](../images/so-do-chan-tb6612fng.svg)
 
-Hai động cơ DC được kết nối với các đầu ra công suất của L298N.
+### 6.3. Kết nối động cơ với TB6612FNG
 
-| Đầu ra L298N | Thiết bị |
+Hai động cơ DC được kết nối với các đầu ra công suất của TB6612FNG.
+
+| Đầu ra TB6612FNG | Thiết bị |
 |---|---|
-| OUT1, OUT2 | Động cơ bên trái |
-| OUT3, OUT4 | Động cơ bên phải |
+| AO1, AO2 | Động cơ bên trái |
+| BO1, BO2 | Động cơ bên phải |
 
 Nếu động cơ quay ngược chiều mong muốn, cần kiểm tra cách đấu dây và chiều lắp đặt.
 
@@ -294,29 +301,33 @@ Không thay đổi dây khi hệ thống đang được cấp nguồn.
 
 ### 6.4. Kết nối nguồn điện
 
-Nguồn động cơ được cấp vào các chân nguồn công suất của L298N theo thông số của module.
+Nguồn động cơ được cấp vào VM của TB6612FNG. VCC được cấp nguồn logic 3,3 V từ ESP32, còn STBY được nối lên VCC.
 
-Đồng thời, ESP32 và L298N cần có điểm GND chung để các tín hiệu điều khiển được nhận diện đúng trong cấu hình không cách ly.
+Điện áp VM cần phù hợp với động cơ và nằm trong dải hoạt động 2,5–13,5 V của IC. Cần kiểm tra thêm giới hạn điện áp, dòng điện và khả năng tản nhiệt của module thực tế.
+
+Tham khảo [datasheet TB6612FNG của Toshiba](https://toshiba.semicon-storage.com/info/TB6612FNG_datasheet_en_20141001.pdf?did=10660&prodName=TB6612FNG) khi kiểm tra nguồn và trạng thái điều khiển.
+
+Đồng thời, ESP32 và TB6612FNG cần có điểm GND chung để các tín hiệu điều khiển được nhận diện đúng trong cấu hình không cách ly.
 
 Nguyên tắc kết nối:
 
-- ESP32 xuất tín hiệu điều khiển đến L298N.
-- Nguồn động cơ cấp năng lượng cho động cơ thông qua L298N.
-- GND ESP32 và GND L298N được nối chung.
+- ESP32 xuất tín hiệu điều khiển đến TB6612FNG.
+- Nguồn động cơ cấp năng lượng cho động cơ thông qua TB6612FNG.
+- GND ESP32 và GND TB6612FNG được nối chung.
 - Không cấp nguồn động cơ từ GPIO của ESP32.
 - Không đưa điện áp bộ pin trực tiếp vào chân 3V3 hoặc 5V của ESP32 khi chưa xác định sơ đồ cấp nguồn.
 
-### 6.5. Kiểm tra jumper trên L298N
+### 6.5. Kiểm tra chân STBY và nguồn logic
 
-Trước khi chạy chương trình PWM, cần kiểm tra jumper ENA và ENB.
+Trước khi chạy chương trình PWM, cần kiểm tra:
 
-Nếu jumper ENA/ENB đang nối cố định chân EN lên HIGH, cần tháo jumper tương ứng để ESP32 có thể điều khiển PWM.
+- VCC đã được cấp nguồn logic 3,3 V.
+- STBY đã được giữ HIGH bằng cách nối lên VCC.
+- PWMA và PWMB được nối đúng GPIO13 và GPIO15.
+- VM được cấp nguồn động cơ phù hợp.
+- ESP32 và driver đã nối GND chung.
 
-Một số module còn có jumper `5V_EN`.
-
-Jumper này liên quan đến mạch nguồn logic của module, không phải jumper điều khiển tốc độ động cơ.
-
-Không tự ý tháo hoặc cắm jumper `5V_EN` khi chưa kiểm tra sơ đồ và điện áp nguồn thực tế.
+STBY ở mức LOW sẽ làm cả hai động cơ không hoạt động dù ESP32 vẫn xuất PWM.
 
 **Lưu ý an toàn:** Trước khi nạp và chạy chương trình điều khiển động cơ, cần kê bánh xe khỏi mặt đất. Chương trình có thể làm động cơ quay ngay sau khi ESP32 khởi động.
 
@@ -331,15 +342,15 @@ Trước khi điều khiển cả xe, chúng ta cần hiểu cách điều khi�
 Ví dụ với động cơ bên trái:
 
 ```cpp
-digitalWrite(12, HIGH);
-digitalWrite(14, LOW);
+digitalWrite(14, HIGH);
+digitalWrite(12, LOW);
 analogWrite(13, 150);
 ```
 
 Trong đó:
 
-- GPIO12 được đưa HIGH.
-- GPIO14 được đưa LOW.
+- GPIO14 được đưa HIGH.
+- GPIO12 được đưa LOW.
 - GPIO13 tạo tín hiệu PWM với giá trị 150.
 
 Động cơ sẽ quay theo một chiều xác định bởi cách đấu dây.
@@ -349,8 +360,8 @@ Trong đó:
 Để đảo chiều quay, chúng ta đổi trạng thái hai chân điều khiển:
 
 ```cpp
-digitalWrite(12, LOW);
-digitalWrite(14, HIGH);
+digitalWrite(14, LOW);
+digitalWrite(12, HIGH);
 analogWrite(13, 150);
 ```
 
@@ -358,17 +369,27 @@ analogWrite(13, 150);
 
 ### 7.3. Dừng động cơ
 
-Để ngắt kênh điều khiển động cơ:
+Để phanh động cơ bên trái như lệnh dừng trong chương trình chính:
 
 ```cpp
+digitalWrite(14, HIGH);
+digitalWrite(12, HIGH);
 analogWrite(13, 0);
 ```
 
-Khi PWM bằng 0, chân EN không còn cho phép kênh động cơ hoạt động.
+Khi hai chân AIN1 và AIN2 cùng HIGH, driver thực hiện phanh điện. PWM được đưa về 0 để không tiếp tục dẫn động.
 
-Động cơ sẽ giảm tốc và dừng do ma sát và các lực cản.
+Động cơ sẽ giảm tốc và dừng, nhưng không nhất thiết dừng ngay lập tức vì còn quán tính.
 
-Tuy nhiên, động cơ không nhất thiết dừng ngay lập tức vì còn quán tính.
+Nếu muốn động cơ quay theo quán tính, có thể đặt AIN1 và AIN2 cùng LOW, đồng thời giữ PWMA ở HIGH:
+
+```cpp
+digitalWrite(14, LOW);
+digitalWrite(12, LOW);
+analogWrite(13, 255);
+```
+
+Các ví dụ trên giả định STBY đang được giữ HIGH. Đưa STBY xuống LOW cũng ngắt đầu ra, nhưng tác động đồng thời đến cả hai động cơ và cần thay đổi kết nối phần cứng nếu muốn điều khiển bằng GPIO.
 
 ---
 
@@ -399,14 +420,14 @@ Chọn **File → New Sketch**.
 Lưu chương trình với tên:
 
 ```text
-ESP32L298N
+ESP32TB6612FNG
 ```
 
 Cấu trúc thư mục:
 
 ```text
-ESP32L298N/
-└── ESP32L298N.ino
+ESP32TB6612FNG/
+└── ESP32TB6612FNG.ino
 ```
 
 ### 8.3. Chương trình hoàn chỉnh
@@ -415,14 +436,14 @@ ESP32L298N/
 // ================= MOTOR PINS =================
 
 // Motor trai
-const int ENA = 13;
-const int IN1 = 12;
-const int IN2 = 14;
+const int PWMA = 13;
+const int AIN1 = 14;
+const int AIN2 = 12;
 
 // Motor phai
-const int ENB = 15;
-const int IN3 = 4;
-const int IN4 = 2;
+const int PWMB = 15;
+const int BIN1 = 4;
+const int BIN2 = 2;
 
 // ================= PARAMETERS =================
 
@@ -432,7 +453,7 @@ unsigned long batDau = 0;
 
 // ================= MOTOR CONTROL =================
 
-void motor(int en, int a, int b, int pwm) {
+void motor(int pwmPin, int a, int b, int pwm) {
 
   pwm = constrain(pwm, -255, 255);
 
@@ -445,31 +466,31 @@ void motor(int en, int a, int b, int pwm) {
     digitalWrite(b, HIGH);
   }
   else {
-    digitalWrite(a, LOW);
-    digitalWrite(b, LOW);
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
   }
 
-  analogWrite(en, abs(pwm));
+  analogWrite(pwmPin, abs(pwm));
 }
 
 // ================= ROBOT CONTROL =================
 
 void drive(int left, int right) {
-  motor(ENA, IN1, IN2, left);
-  motor(ENB, IN3, IN4, right);
+  motor(PWMA, AIN1, AIN2, left);
+  motor(PWMB, BIN1, BIN2, right);
 }
 
 // ================= SETUP =================
 
 void setup() {
 
-  pinMode(ENA, OUTPUT);
-  pinMode(ENB, OUTPUT);
+  pinMode(PWMA, OUTPUT);
+  pinMode(PWMB, OUTPUT);
 
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  pinMode(IN3, OUTPUT);
-  pinMode(IN4, OUTPUT);
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
 
   drive(0, 0);
 
@@ -523,16 +544,16 @@ Chương trình sử dụng `analogWrite()` theo Arduino-ESP32 core 3.x và khô
 ### 9.1. Khai báo các chân động cơ
 
 ```cpp
-const int ENA = 13;
-const int IN1 = 12;
-const int IN2 = 14;
+const int PWMA = 13;
+const int AIN1 = 14;
+const int AIN2 = 12;
 
-const int ENB = 15;
-const int IN3 = 4;
-const int IN4 = 2;
+const int PWMB = 15;
+const int BIN1 = 4;
+const int BIN2 = 2;
 ```
 
-Các hằng số trên xác định chân ESP32 được sử dụng để điều khiển L298N.
+Các hằng số trên xác định chân ESP32 được sử dụng để điều khiển TB6612FNG.
 
 Việc khai báo bằng tên giúp chương trình dễ đọc và thuận tiện khi cần đối chiếu sơ đồ kết nối.
 
@@ -553,14 +574,14 @@ Nếu động cơ không quay ở PWM 120, có thể cần điều chỉnh lên 
 ### 9.3. Hàm điều khiển một động cơ
 
 ```cpp
-void motor(int en, int a, int b, int pwm)
+void motor(int pwmPin, int a, int b, int pwm)
 ```
 
 Hàm `motor()` nhận bốn tham số:
 
 | Tham số | Chức năng |
 |---|---|
-| `en` | Chân PWM |
+| `pwmPin` | Chân PWM |
 | `a` | Chân điều khiển chiều thứ nhất |
 | `b` | Chân điều khiển chiều thứ hai |
 | `pwm` | Giá trị điều khiển có dấu |
@@ -569,27 +590,27 @@ Trong chương trình, giá trị `pwm` được quy ước:
 
 - PWM dương: Quay theo chiều tiến.
 - PWM âm: Quay theo chiều lùi.
-- PWM bằng 0: Ngắt kênh động cơ.
+- PWM bằng 0: Phanh điện để dừng động cơ.
 
 Ví dụ:
 
 ```cpp
-motor(ENA, IN1, IN2, 150);
+motor(PWMA, AIN1, AIN2, 150);
 ```
 
 Điều khiển động cơ trái quay theo chiều tiến với mức PWM 150.
 
 ```cpp
-motor(ENA, IN1, IN2, -150);
+motor(PWMA, AIN1, AIN2, -150);
 ```
 
 Điều khiển động cơ trái quay theo chiều ngược lại.
 
 ```cpp
-motor(ENA, IN1, IN2, 0);
+motor(PWMA, AIN1, AIN2, 0);
 ```
 
-Ngắt kênh điều khiển động cơ trái.
+Phanh điện để dừng động cơ trái.
 
 ### 9.4. Giới hạn giá trị PWM
 
@@ -614,8 +635,8 @@ Ví dụ:
 
 ```cpp
 void drive(int left, int right) {
-  motor(ENA, IN1, IN2, left);
-  motor(ENB, IN3, IN4, right);
+  motor(PWMA, AIN1, AIN2, left);
+  motor(PWMB, BIN1, BIN2, right);
 }
 ```
 
@@ -644,7 +665,7 @@ Hai động cơ quay theo chiều lùi.
 drive(0, 0);
 ```
 
-Dừng cấp lực dẫn động cho cả hai động cơ.
+Phanh điện để dừng cả hai động cơ.
 
 ### 9.6. Các lệnh điều khiển chuyển động
 
@@ -656,7 +677,7 @@ Dừng cấp lực dẫn động cho cả hai động cơ.
 | `drive(120, 0)` | Rẽ phải theo cung |
 | `drive(-120, 120)` | Xoay trái tại chỗ |
 | `drive(120, -120)` | Xoay phải tại chỗ |
-| `drive(0, 0)` | Dừng cấp lực dẫn động |
+| `drive(0, 0)` | Phanh điện để dừng |
 
 Các chuyển động trên giả định hai động cơ đã được cấu hình đúng chiều tiến của robot.
 
@@ -711,7 +732,7 @@ else if (t < 3100) {
 Trong ví dụ trên:
 
 - Robot tiến đến mốc 1800 ms.
-- Ngắt lực dẫn động trong 500 ms.
+- Phanh điện trong khoảng dừng 500 ms.
 - Sau đó bắt đầu lùi.
 
 Khoảng dừng giúp giảm nguy cơ đảo chiều quá đột ngột, nhưng không bảo đảm động cơ đã dừng hoàn toàn trong mọi điều kiện.
@@ -728,9 +749,9 @@ Trước khi nạp và chạy chương trình:
 
 1. Kê hai bánh chủ động khỏi mặt đất.
 2. Kiểm tra dây động cơ.
-3. Kiểm tra kết nối ESP32 với L298N.
+3. Kiểm tra kết nối ESP32 với TB6612FNG.
 4. Kiểm tra nguồn động cơ.
-5. Kiểm tra jumper ENA và ENB.
+5. Kiểm tra VCC 3,3 V và STBY ở mức HIGH.
 6. Đảm bảo có thể ngắt nguồn động cơ khi cần.
 
 Không đặt robot trên sàn ngay trong lần thử đầu tiên.
@@ -798,10 +819,11 @@ Không nên đưa robot xuống sàn khi chưa xác nhận đúng chiều quay c
 
 **Nguyên nhân có thể:**
 
-- Chưa cấp nguồn cho L298N.
+- Chưa cấp nguồn VM hoặc VCC cho TB6612FNG.
+- STBY chưa được giữ HIGH.
 - Nguồn động cơ không đủ điện áp hoặc dòng điện.
 - Chưa nối GND chung.
-- Chân ENA hoặc ENB không nhận được tín hiệu điều khiển.
+- Chân PWMA hoặc PWMB không nhận được tín hiệu điều khiển.
 - Dây động cơ bị lỏng.
 - Kết nối GPIO không đúng.
 
@@ -809,8 +831,8 @@ Không nên đưa robot xuống sàn khi chưa xác nhận đúng chiều quay c
 
 1. Kiểm tra nguồn động cơ.
 2. Kiểm tra GND chung.
-3. Kiểm tra jumper ENA và ENB.
-4. Kiểm tra dây nối OUT1–OUT4.
+3. Kiểm tra VCC và STBY ở mức HIGH.
+4. Kiểm tra dây nối AO1, AO2, BO1 và BO2.
 5. Đối chiếu chân GPIO với chương trình.
 
 ### 11.2. Động cơ chỉ quay một chiều
@@ -824,7 +846,7 @@ Không nên đưa robot xuống sàn khi chưa xác nhận đúng chiều quay c
 
 **Cách xử lý:**
 
-1. Kiểm tra IN1, IN2 hoặc IN3, IN4.
+1. Kiểm tra AIN1, AIN2 hoặc BIN1, BIN2.
 2. Kiểm tra mức logic điều khiển.
 3. Thử riêng từng chiều quay.
 4. Kiểm tra dây và đầu ra driver.
@@ -833,14 +855,14 @@ Không nên đưa robot xuống sàn khi chưa xác nhận đúng chiều quay c
 
 **Nguyên nhân có thể:**
 
-- Jumper ENA/ENB vẫn đang giữ mức HIGH.
+- PWMA hoặc PWMB bị nối cố định lên nguồn logic.
 - PWM chưa được đưa đúng chân.
 - Giá trị PWM thay đổi quá nhỏ để quan sát.
 - Động cơ đang ở vùng tốc độ thấp hoặc gần bão hòa.
 
 **Cách xử lý:**
 
-1. Kiểm tra jumper ENA/ENB.
+1. Kiểm tra dây tín hiệu PWMA/PWMB từ ESP32.
 2. Kiểm tra GPIO13 và GPIO15.
 3. Thử các mức PWM khác nhau.
 4. Kiểm tra nguồn điện và tải động cơ.
@@ -850,16 +872,16 @@ Không nên đưa robot xuống sàn khi chưa xác nhận đúng chiều quay c
 **Nguyên nhân có thể:**
 
 - Một động cơ không được cấp nguồn.
-- Một kênh L298N không hoạt động.
+- Một kênh TB6612FNG không hoạt động.
 - Dây kết nối động cơ bị lỗi.
-- Chân điều khiển hoặc chân EN không đúng.
+- Chân điều khiển hoặc chân PWM không đúng.
 - Động cơ bị kẹt cơ khí.
 
 **Cách xử lý:**
 
 1. Kiểm tra từng động cơ.
-2. Kiểm tra đầu ra OUT1–OUT4.
-3. Kiểm tra ENA và ENB.
+2. Kiểm tra đầu ra AO1, AO2, BO1 và BO2.
+3. Kiểm tra PWMA và PWMB.
 4. Kiểm tra các chân điều khiển IN.
 5. Kiểm tra khả năng quay tự do của bánh xe.
 
@@ -980,8 +1002,8 @@ Giải thích vì sao khi hai bánh quay với tốc độ khác nhau, robot có
 
 Trả lời:
 
-1. Khi ENA và ENB bằng LOW, động cơ có dừng ngay lập tức không?
-2. Vì sao bánh xe vẫn có thể tiếp tục quay sau khi ngắt PWM?
+1. Khi hai chân chiều cùng HIGH và PWM bằng 0, driver ở trạng thái nào?
+2. Vì sao bánh xe vẫn cần thời gian để dừng khi phanh điện?
 3. Phanh điện khác gì so với ngắt đầu ra cầu H?
 4. Vì sao không nên đảo chiều động cơ đột ngột khi đang quay nhanh?
 
@@ -992,13 +1014,13 @@ Trả lời:
 Trước khi chuyển sang bài học tiếp theo, hãy đảm bảo:
 
 - [ ] Đã hiểu nguyên lý hoạt động của động cơ DC.
-- [ ] Đã biết vì sao ESP32 cần driver L298N.
+- [ ] Đã biết vì sao ESP32 cần driver TB6612FNG.
 - [ ] Đã hiểu nguyên lý cầu H.
-- [ ] Đã phân biệt IN1, IN2, IN3, IN4, ENA và ENB.
+- [ ] Đã phân biệt AIN1, AIN2, BIN1, BIN2, PWMA, PWMB và STBY.
 - [ ] Đã biết cách điều khiển chiều quay động cơ.
 - [ ] Đã hiểu chức năng của PWM.
 - [ ] Đã biết giá trị PWM 0–255 không phải tốc độ thực tế.
-- [ ] Đã kiểm tra nguồn và jumper của L298N.
+- [ ] Đã kiểm tra VM, VCC, GND chung và STBY của TB6612FNG.
 - [ ] Đã nạp thành công chương trình điều khiển động cơ.
 - [ ] Đã điều khiển được robot tiến, lùi, rẽ và dừng.
 - [ ] Đã hiểu vì sao cần dừng hoặc giảm tốc trước khi đảo chiều.
@@ -1007,15 +1029,15 @@ Trước khi chuyển sang bài học tiếp theo, hãy đảm bảo:
 
 ## 14. Tổng kết
 
-Qua bài học này, chúng ta đã tìm hiểu cách điều khiển động cơ DC bằng ESP32 và module L298N.
+Qua bài học này, chúng ta đã tìm hiểu cách điều khiển động cơ DC bằng ESP32 và module TB6612FNG.
 
 Những nội dung quan trọng bao gồm:
 
 - Hiểu nguyên lý hoạt động của động cơ DC.
-- Tìm hiểu cấu tạo và chức năng của driver L298N.
+- Tìm hiểu cấu tạo và chức năng của driver TB6612FNG.
 - Sử dụng cầu H để thay đổi chiều quay động cơ.
 - Sử dụng PWM để điều chỉnh mức công suất điều khiển.
-- Kết nối L298N với ESP32 theo sơ đồ chân của robot.
+- Kết nối TB6612FNG với ESP32 theo sơ đồ chân của robot.
 - Viết chương trình điều khiển hai động cơ.
 - Thực hiện các chuyển động tiến, lùi, rẽ trái, rẽ phải và dừng.
 - Tìm hiểu những nguyên nhân khiến động cơ không quay hoặc quay không đều.

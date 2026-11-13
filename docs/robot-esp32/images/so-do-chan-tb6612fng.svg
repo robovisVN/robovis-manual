@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620" role="img" aria-labelledby="title desc">
+  <title id="title">Kết nối ESP32 với TB6612FNG</title>
+  <desc id="desc">PWMA GPIO13, AIN1 GPIO14, AIN2 GPIO12, PWMB GPIO15, BIN1 GPIO4, BIN2 GPIO2. VCC và STBY nối 3,3 V. VM nối nguồn động cơ phù hợp. GND nối chung.</desc>
+  <style>text{font-family:Arial,sans-serif;fill:#172b4d;font-size:20px}.heading{font-size:26px;font-weight:bold}.small{font-size:18px}.wire{stroke:#2467ac;stroke-width:3;fill:none}.power{stroke:#c0392b;stroke-width:3;fill:none}</style>
+  <rect width="960" height="620" rx="16" fill="#fff"/>
+  <text x="480" y="44" text-anchor="middle" class="heading">ESP32 và driver TB6612FNG</text>
+  <rect x="50" y="80" width="270" height="340" rx="12" fill="#edf5ff" stroke="#2467ac"/>
+  <rect x="500" y="80" width="250" height="340" rx="12" fill="#edf5ff" stroke="#2467ac"/>
+  <text x="185" y="120" text-anchor="middle" class="heading">ESP32</text>
+  <text x="625" y="120" text-anchor="middle" class="heading">TB6612FNG</text>
+  <g class="wire"><path d="M320 157H500M320 197H500M320 237H500M320 277H500M320 317H500M320 357H500"/></g>
+  <g text-anchor="end"><text x="295" y="164">GPIO13</text><text x="295" y="204">GPIO14</text><text x="295" y="244">GPIO12</text><text x="295" y="284">GPIO15</text><text x="295" y="324">GPIO4</text><text x="295" y="364">GPIO2</text></g>
+  <g><text x="525" y="164">PWMA</text><text x="525" y="204">AIN1</text><text x="525" y="244">AIN2</text><text x="525" y="284">PWMB</text><text x="525" y="324">BIN1</text><text x="525" y="364">BIN2</text></g>
+  <path class="wire" d="M750 190H800M750 310H800"/>
+  <g text-anchor="middle" class="small"><text x="856" y="170">AO1, AO2</text><text x="856" y="200">Động cơ trái</text><text x="856" y="290">BO1, BO2</text><text x="856" y="320">Động cơ phải</text></g>
+  <path class="power" d="M90 455H480M90 495H480M90 535H480"/>
+  <g class="small"><text x="100" y="447">3V3 của ESP32</text><text x="505" y="462">VCC và STBY (giữ HIGH)</text><text x="100" y="487">Nguồn động cơ phù hợp</text><text x="505" y="502">VM</text><text x="100" y="527">GND ESP32 và âm nguồn động cơ</text><text x="505" y="542">GND driver</text></g>
+  <text x="480" y="592" text-anchor="middle" class="small">Ngắt nguồn khi đấu dây. Không nối điện áp bộ pin vào VCC.</text>
+</svg>

@@ -139,7 +139,7 @@ Bộ xe robot ESP32 Robovis sử dụng các thư viện để thực hiện nh�
 
 Chương trình nguồn được cung cấp tại:
 
-[Bộ mã nguồn robot ESP32 Robovis](https://drive.google.com/drive/folders/1HeAZaW--JOkl67SG3IJOWxS1aPKAO5UB)
+[Bộ mã nguồn robot ESP32 Robovis](https://drive.google.com/drive/folders/1k5zKdA2ZAdiqGVfENn3dRdBK9R6ugAer)
 
 ### 5.1. Danh sách thư viện
 
@@ -280,7 +280,7 @@ Servo myServo;
 
 Để sử dụng servo thực tế, cần kết nối đúng chân tín hiệu và nguồn cấp phù hợp.
 
-**Lưu ý:** Bộ mã `main.ino` của robot có sử dụng `ESP32Servo.h`. Vì vậy, thư viện ESP32Servo vẫn cần được cài đặt để biên dịch chương trình, kể cả khi phiên bản robot hiện tại chưa lắp cơ cấu gắp.
+**Lưu ý:** Bộ mã `set_2_tb6612.ino` của robot có sử dụng `ESP32Servo.h`. Vì vậy, thư viện ESP32Servo vẫn cần được cài đặt để biên dịch chương trình, kể cả khi phiên bản robot hiện tại chưa lắp cơ cấu gắp.
 
 Không thay thế thư viện này bằng thư viện Servo dành cho Arduino Nano ATmega328P.
 
@@ -387,25 +387,25 @@ Một chương trình Arduino có thể được chia thành nhiều tệp.
 Ví dụ:
 
 ```text
-main/
-├── main.ino
+set_2_tb6612/
+├── set_2_tb6612.ino
 ├── do_line.h
 └── do_line.cpp
 ```
 
-Đây là ví dụ minh họa cấu trúc dự án có nhiều tệp; các tệp thực tế phải được xác định theo bộ mã nguồn bàn giao.
+Đây là cấu trúc bộ mã nguồn TB6612FNG đang sử dụng.
 
 Trong đó:
 
-- `main.ino` là tệp chương trình chính.
+- `set_2_tb6612.ino` là tệp chương trình chính.
 - `do_line.h` có thể chứa các khai báo phục vụ chức năng dò line.
-- `do_line.cpp`, nếu có, có thể chứa phần triển khai các hàm tương ứng.
+- `do_line.cpp` chứa phần triển khai các hàm tương ứng.
 
 Không phải mọi tệp `.h` đều là thư viện phải cài từ Library Manager.
 
 Nếu một tệp `.h` được cung cấp cùng chương trình, cần giữ đúng cấu trúc thư mục của dự án.
 
-Với bộ mã robot Robovis, cần tải **toàn bộ thư mục `main`**, không chỉ tải riêng tệp `main.ino`.
+Với bộ mã robot Robovis, cần tải **toàn bộ thư mục `set_2_tb6612`**, không chỉ tải riêng tệp `set_2_tb6612.ino`.
 
 ---
 
@@ -551,7 +551,7 @@ Khi Upload, chương trình này sẽ thay thế chương trình ứng dụng ro
 
 Do đó, sau khi thực hành, robot sẽ không tự động tạo mạng **ESP32-Car** hoặc chạy giao diện điều khiển cũ.
 
-Để khôi phục chức năng robot, cần nạp lại bộ chương trình `main` đã được bàn giao.
+Để khôi phục chức năng robot, cần nạp lại bộ chương trình `set_2_tb6612` đã được bàn giao.
 
 Trong chương trình robot, chế độ tạo mạng Wi-Fi riêng được thực hiện thông qua các chức năng như `WiFi.softAP()`.
 
@@ -565,9 +565,9 @@ Sau khi cài đặt các thư viện cần thiết, chúng ta nên kiểm tra kh
 
 Tải bộ mã nguồn từ:
 
-[Thư mục chương trình robot ESP32 Robovis](https://drive.google.com/drive/folders/1HeAZaW--JOkl67SG3IJOWxS1aPKAO5UB)
+[Thư mục chương trình robot ESP32 Robovis](https://drive.google.com/drive/folders/1k5zKdA2ZAdiqGVfENn3dRdBK9R6ugAer)
 
-Giữ nguyên toàn bộ các tệp trong thư mục `main`.
+Đặt đủ ba tệp `set_2_tb6612.ino`, `do_line.cpp` và `do_line.h` trong thư mục `set_2_tb6612`. Tên thư mục cần trùng với tên tệp `.ino` để mở bằng Arduino IDE.
 
 Không chỉ mở một tệp mã riêng lẻ rồi bỏ qua các tệp còn lại.
 
@@ -576,8 +576,8 @@ Không chỉ mở một tệp mã riêng lẻ rồi bỏ qua các tệp còn l�
 Trong Arduino IDE:
 
 1. Chọn **File → Open**.
-2. Tìm đến thư mục `main`.
-3. Mở `main.ino`.
+2. Tìm đến thư mục `set_2_tb6612`.
+3. Mở `set_2_tb6612.ino`.
 4. Kiểm tra các tệp khác của dự án được giữ đúng vị trí.
 
 ### 9.3. Kiểm tra cấu hình
@@ -625,7 +625,7 @@ Nguyên nhân có thể:
 5. Cài đặt thư viện còn thiếu.
 6. Verify lại chương trình.
 
-Nếu tệp bị thiếu là `do_line.h`, cần kiểm tra bộ mã nguồn `main` thay vì tìm một thư viện bất kỳ có tên tương tự.
+Nếu tệp bị thiếu là `do_line.h`, cần kiểm tra bộ mã nguồn `set_2_tb6612` thay vì tìm một thư viện bất kỳ có tên tương tự.
 
 ### 10.2. Lỗi thiếu WiFi.h
 
@@ -800,7 +800,7 @@ Thực hiện:
 
 ### Bài tập 4: Kiểm tra mã nguồn robot
 
-Mở toàn bộ dự án `main` của robot.
+Mở toàn bộ dự án `set_2_tb6612` của robot.
 
 Thực hiện:
 

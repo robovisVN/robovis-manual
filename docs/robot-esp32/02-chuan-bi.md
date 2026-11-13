@@ -120,7 +120,7 @@ Chúng ta sẽ kiểm tra cổng COM và driver CH340 trong bài cài đặt Ard
 | 1 | ESP32 30P CH340 Type-C | 1 | Bộ điều khiển trung tâm |
 | 2 | Board mở rộng ESP32 30P | 1 | Kết nối các linh kiện |
 | 3 | Động cơ giảm tốc DC | 2 | Tạo chuyển động cho xe |
-| 4 | Module L298N | 1 | Điều khiển động cơ |
+| 4 | Module TB6612FNG | 1 | Điều khiển động cơ |
 | 5 | Cảm biến Encoder | 2 | Đo chuyển động bánh xe |
 | 6 | Cảm biến HC-SR04 | 1 | Đo khoảng cách |
 | 7 | Cảm biến dò line TCRT5000 5 mắt | 1 | Phát hiện đường line |
@@ -169,7 +169,7 @@ Trước khi cấp nguồn, hãy quan sát tổng thể xe và kiểm tra:
 - Các đầu dây kết nối không bị lỏng hoặc tuột.
 - Hai động cơ được cố định chắc chắn.
 - Bánh xe có thể quay mà không bị kẹt.
-- Driver L298N được lắp và kết nối đúng vị trí.
+- Driver TB6612FNG được lắp và kết nối đúng vị trí.
 - Cảm biến HC-SR04 được cố định chắc chắn.
 - Cảm biến dò line được đặt ở phía dưới xe.
 - Hai Encoder được lắp đúng vị trí.
@@ -199,9 +199,11 @@ Nếu board mở rộng có mạch cấp nguồn riêng, cần kiểm tra sơ đ
 
 ### 3.3. Kiểm tra kết nối động cơ
 
-Xe sử dụng hai động cơ DC được điều khiển thông qua module L298N.
+Xe sử dụng hai động cơ DC được điều khiển thông qua module TB6612FNG.
 
-ESP32 gửi tín hiệu điều khiển đến L298N, còn driver sử dụng nguồn động cơ để tạo công suất cho các động cơ DC.
+ESP32 gửi tín hiệu điều khiển đến TB6612FNG, còn driver sử dụng nguồn động cơ để tạo công suất cho các động cơ DC.
+
+Cần phân biệt VM là nguồn động cơ và VCC là nguồn logic. Trong cấu hình thực hành, VCC được cấp 3,3 V, STBY được nối lên VCC để giữ HIGH và GND được nối chung với ESP32.
 
 Trong quá trình thử nghiệm, động cơ có thể quay ngay khi ESP32 bắt đầu thực hiện chương trình đang lưu trong bộ nhớ.
 
@@ -209,7 +211,7 @@ Vì vậy, trước khi nạp hoặc chạy chương trình điều khiển đ�
 
 - Đặt xe trên mặt phẳng ổn định.
 - Kê bánh xe lên khỏi mặt đất trong lần thử đầu tiên.
-- Kiểm tra các dây kết nối giữa ESP32 và L298N.
+- Kiểm tra các dây kết nối giữa ESP32 và TB6612FNG.
 - Đảm bảo có thể ngắt nguồn động cơ khi cần thiết.
 
 Không đặt xe trực tiếp gần mép bàn khi chưa biết chương trình đang chạy.
@@ -354,7 +356,7 @@ Ví dụ:
 
 Trạng thái của các chân này tại thời điểm reset có thể ảnh hưởng đến quá trình khởi động hoặc nạp chương trình.
 
-Trong bộ robot, một số chân thuộc nhóm này có thể được sử dụng để điều khiển L298N.
+Trong bộ robot, một số chân thuộc nhóm này có thể được sử dụng để điều khiển TB6612FNG.
 
 Vì vậy, không tự ý thay đổi kết nối hoặc gắn thêm linh kiện vào những chân này khi chưa kiểm tra sơ đồ.
 

@@ -2,9 +2,9 @@
 
 ## 1. Giới thiệu
 
-Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC thông qua L298N, đọc xung Encoder để đo tốc độ bánh xe và điều khiển robot qua Wi-Fi.
+Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC thông qua TB6612FNG, đọc xung Encoder để đo tốc độ bánh xe và điều khiển robot qua Wi-Fi.
 
-Khi sử dụng L298N, chúng ta có thể thay đổi tốc độ động cơ bằng tín hiệu PWM. Tuy nhiên, **cùng một giá trị PWM không có nghĩa hai bánh xe sẽ quay cùng tốc độ**.
+Khi sử dụng TB6612FNG, chúng ta có thể thay đổi tốc độ động cơ bằng tín hiệu PWM. Tuy nhiên, **cùng một giá trị PWM không có nghĩa hai bánh xe sẽ quay cùng tốc độ**.
 
 Ví dụ, khi cấp PWM = 150 cho cả hai động cơ:
 
@@ -19,7 +19,7 @@ Nếu robot sử dụng hai bánh chủ động, sự chênh lệch tốc độ 
 
 Một trong những phương pháp phổ biến là bộ điều khiển PID.
 
-Trong bài học này, chúng ta sẽ xây dựng hai bộ điều khiển tốc độ độc lập, sử dụng dữ liệu Encoder của bánh trái và bánh phải để điều chỉnh PWM cấp cho L298N.
+Trong bài học này, chúng ta sẽ xây dựng hai bộ điều khiển tốc độ độc lập, sử dụng dữ liệu Encoder của bánh trái và bánh phải để điều chỉnh PWM cấp cho TB6612FNG.
 
 ## 2. Mục tiêu bài học
 
@@ -49,8 +49,8 @@ Sau bài học này, bạn có thể:
 Ví dụ:
 
 ```cpp
-analogWrite(ENA, 150);
-analogWrite(ENB, 150);
+analogWrite(PWMA, 150);
+analogWrite(PWMB, 150);
 ```
 
 Chương trình cấp cùng giá trị PWM cho hai động cơ.
@@ -63,7 +63,7 @@ Sơ đồ:
        PWM đặt trước
              │
              ▼
-           L298N
+           TB6612FNG
              │
              ▼
           Động cơ
@@ -98,7 +98,7 @@ flowchart LR
     F["Tốc độ đo từ Encoder"] --> B
     B --> C["Bộ điều khiển PID"]
     C --> D["PWM"]
-    D --> E["L298N và động cơ"]
+    D --> E["TB6612FNG và động cơ"]
     E --> F
 ```
 
@@ -308,7 +308,7 @@ flowchart TD
     D --> F["PID tốc độ bánh phải"]
     E --> G["PWM bánh trái"]
     F --> H["PWM bánh phải"]
-    G --> I["L298N và động cơ"]
+    G --> I["TB6612FNG và động cơ"]
     H --> I
     I --> J["Encoder trái và phải"]
     J --> E
@@ -327,7 +327,7 @@ flowchart TD
 |---|---|---|
 | 1 | ESP32 CH340 Type-C 30 chân | 1 |
 | 2 | Board mở rộng ESP32 30P | 1 |
-| 3 | Module L298N | 1 |
+| 3 | Module TB6612FNG | 1 |
 | 4 | Động cơ DC có bánh xe | 2 |
 | 5 | Cảm biến Encoder | 2 |
 | 6 | Nguồn cấp phù hợp cho động cơ | 1 |
@@ -335,20 +335,21 @@ flowchart TD
 | 8 | Máy tính cài Arduino IDE | 1 |
 | 9 | Cáp USB Type-C có truyền dữ liệu | 1 |
 
-### 6.2. Bảng kết nối L298N
+### 6.2. Bảng kết nối TB6612FNG
 
 Sử dụng cấu hình chân của robot ESP32 đã thực hành ở các bài trước.
 
-| L298N | GPIO ESP32 | Chức năng |
+| TB6612FNG | GPIO ESP32 | Chức năng |
 |---|---|---|
-| ENA | GPIO13 | PWM động cơ trái |
-| IN1 | GPIO12 | Chiều động cơ trái |
-| IN2 | GPIO14 | Chiều động cơ trái |
-| ENB | GPIO15 | PWM động cơ phải |
-| IN3 | GPIO4 | Chiều động cơ phải |
-| IN4 | GPIO2 | Chiều động cơ phải |
-| OUT1, OUT2 | Động cơ trái | Đầu ra công suất |
-| OUT3, OUT4 | Động cơ phải | Đầu ra công suất |
+| PWMA | GPIO13 | PWM động cơ trái |
+| AIN1 | GPIO14 | Chiều động cơ trái |
+| AIN2 | GPIO12 | Chiều động cơ trái |
+| PWMB | GPIO15 | PWM động cơ phải |
+| BIN1 | GPIO4 | Chiều động cơ phải |
+| BIN2 | GPIO2 | Chiều động cơ phải |
+| STBY | VCC 3,3 V | Giữ HIGH bằng phần cứng |
+| AO1, AO2 | Động cơ trái | Đầu ra công suất |
+| BO1, BO2 | Động cơ phải | Đầu ra công suất |
 | GND | GND chung | Mốc điện áp chung |
 
 Các GPIO12, GPIO2 và GPIO15 có liên quan đến cấu hình khởi động của ESP32. Nếu ESP32 không khởi động được, cần kiểm tra ảnh hưởng của mạch ngoài lên các chân này.
@@ -368,17 +369,17 @@ ESP32 sử dụng mức logic 3,3 V. Không đưa tín hiệu Encoder 5 V trực
 
 Nếu Encoder được cấp nguồn 5 V, cần kiểm tra điện áp đầu ra D0 và sử dụng giải pháp chuyển mức khi cần.
 
-### 6.4. Lưu ý về jumper L298N
+### 6.4. Lưu ý về nguồn và chân STBY
 
-Một số module L298N có jumper ENA và ENB.
+TB6612FNG cần nguồn logic tại VCC và nguồn động cơ tại VM.
 
-Nếu jumper đang nối cố định chân ENA/ENB lên mức HIGH, cần tháo jumper để ESP32 có thể điều khiển PWM qua hai chân này.
+Trong bài thực hành, VCC được nối với nguồn 3,3 V để phù hợp mức logic của ESP32. VM được cấp nguồn phù hợp với động cơ và thông số module.
 
-Không nhầm jumper ENA/ENB với jumper `5V_EN` của phần nguồn logic.
+STBY được nối lên VCC để giữ HIGH bằng phần cứng, giống bộ mã nguồn robot. Chương trình không khai báo GPIO cho chân này.
 
-Việc sử dụng jumper `5V_EN` phụ thuộc vào phiên bản module và điện áp cấp. Cần kiểm tra sơ đồ nguồn của module trước khi đấu nối.
+Nếu STBY ở mức LOW hoặc chưa được nối đúng, cả hai động cơ sẽ không hoạt động dù chương trình vẫn xuất PWM.
 
-Không cấp nguồn động cơ trực tiếp từ GPIO hoặc chân 3V3 của ESP32.
+ESP32 và driver cần nối GND chung. Không cấp nguồn động cơ trực tiếp từ GPIO hoặc chân 3V3 của ESP32.
 
 ### 6.5. An toàn trước khi thực hành
 
@@ -577,7 +578,7 @@ Tức khoảng 200 ms.
 3. Tính tốc độ hai bánh.
 4. Tính sai số tốc độ.
 5. Tính PWM mới.
-6. Gửi PWM đến L298N.
+6. Gửi PWM đến TB6612FNG.
 
 ---
 
@@ -587,7 +588,7 @@ Tức khoảng 200 ms.
 
 Chương trình thực hành có các chức năng:
 
-- Điều khiển hai động cơ DC bằng L298N.
+- Điều khiển hai động cơ DC bằng TB6612FNG.
 - Đếm xung Encoder bằng ngắt.
 - Đọc và đặt lại bộ đếm an toàn.
 - Tính tốc độ hai bánh theo m/s.
@@ -626,14 +627,14 @@ ESP32_PID_Speed/
 // ================= MOTOR PINS =================
 
 // Motor trai
-const int ENA = 13;
-const int IN1 = 12;
-const int IN2 = 14;
+const int PWMA = 13;
+const int AIN1 = 14;
+const int AIN2 = 12;
 
 // Motor phai
-const int ENB = 15;
-const int IN3 = 4;
-const int IN4 = 2;
+const int PWMB = 15;
+const int BIN1 = 4;
+const int BIN2 = 2;
 
 // ================= ENCODER PINS =================
 
@@ -706,7 +707,7 @@ bool ketThuc = false;
 
 // ================= MOTOR CONTROL =================
 
-void motor(int en, int a, int b, int pwm) {
+void motor(int pwmPin, int a, int b, int pwm) {
 
   pwm = constrain(pwm, -255, 255);
 
@@ -719,28 +720,28 @@ void motor(int en, int a, int b, int pwm) {
     digitalWrite(b, HIGH);
   }
   else {
-    digitalWrite(a, LOW);
-    digitalWrite(b, LOW);
+    digitalWrite(a, HIGH);
+    digitalWrite(b, HIGH);
   }
 
-  analogWrite(en, abs(pwm));
+  analogWrite(pwmPin, abs(pwm));
 }
 
 void drive(int left, int right) {
 
-  motor(ENA, IN1, IN2, left);
-  motor(ENB, IN3, IN4, right);
+  motor(PWMA, AIN1, AIN2, left);
+  motor(PWMB, BIN1, BIN2, right);
 }
 
 void setupMotors() {
 
-  pinMode(ENA, OUTPUT);
-  pinMode(ENB, OUTPUT);
+  pinMode(PWMA, OUTPUT);
+  pinMode(PWMB, OUTPUT);
 
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-  pinMode(IN3, OUTPUT);
-  pinMode(IN4, OUTPUT);
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
 
   drive(0, 0);
 }
@@ -947,6 +948,8 @@ void loop() {
 ---
 
 ## 10. Giải thích chương trình
+
+Trong hàm `motor()`, khi PWM bằng 0, hai chân chiều được đặt cùng HIGH để phanh điện, giống lệnh dừng trong chương trình chính `set_2_tb6612.ino`. Chân STBY cần được giữ HIGH trong suốt bài thực hành.
 
 ### 10.1. Khai báo tốc độ đặt
 
@@ -1355,7 +1358,7 @@ Không nên thay đổi đồng thời nhiều hệ số PID khi chưa xác đ�
 Giải thích sự khác nhau giữa:
 
 ```cpp
-analogWrite(ENA, 150);
+analogWrite(PWMA, 150);
 ```
 
 Và điều khiển PWM bằng PID sử dụng tốc độ phản hồi từ Encoder.
@@ -1454,7 +1457,7 @@ Hãy vẽ sơ đồ gồm các khối:
 4. Tính giá trị hiệu chỉnh hướng.
 5. Tạo tốc độ đặt cho bánh trái và bánh phải.
 6. Sử dụng PID tốc độ cho từng bánh.
-7. Xuất PWM đến L298N.
+7. Xuất PWM đến TB6612FNG.
 
 Giải thích sự khác nhau giữa sai số vị trí line và sai số tốc độ bánh xe.
 

@@ -2,7 +2,7 @@
 
 ## 1. Giới thiệu
 
-Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC bằng module L298N, đọc cảm biến siêu âm HC-SR04 và sử dụng cảm biến TCRT5000 để xác định vị trí vạch line.
+Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC bằng module TB6612FNG, đọc cảm biến siêu âm HC-SR04 và sử dụng cảm biến TCRT5000 để xác định vị trí vạch line.
 
 Tuy nhiên, khi điều khiển động cơ bằng PWM, chúng ta mới chỉ điều chỉnh mức công suất cấp cho động cơ, chưa biết chính xác bánh xe đang quay với tốc độ bao nhiêu.
 

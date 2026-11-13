@@ -148,7 +148,7 @@ Trong ví dụ của bài học, chúng ta sử dụng GPIO2 với điều kiệ
 |---|---|
 | LED tích hợp | GPIO2, nếu bo sử dụng cấu hình này |
 
-**Đặc biệt lưu ý với robot Robovis:** Trong cấu hình điều khiển động cơ của robot, GPIO2 được sử dụng cho L298N. Nếu ESP32 vẫn đang kết nối với driver, việc điều khiển GPIO2 có thể tác động đến tín hiệu điều khiển động cơ.
+**Đặc biệt lưu ý với robot Robovis:** Trong cấu hình điều khiển động cơ của robot, GPIO2 được sử dụng cho TB6612FNG. Nếu ESP32 vẫn đang kết nối với driver, việc điều khiển GPIO2 có thể tác động đến tín hiệu điều khiển động cơ.
 
 Vì vậy, bài thực hành LED tích hợp nên được thực hiện khi ESP32 đã được tách khỏi các kết nối điều khiển động cơ của robot, hoặc khi đã xác nhận việc sử dụng GPIO2 không gây xung đột.
 
@@ -565,7 +565,7 @@ Cách xử lý:
 
 ### 10.5. Robot có phản ứng khi thử LED
 
-Nếu ESP32 vẫn đang kết nối với robot, GPIO2 có thể đang được sử dụng để điều khiển L298N.
+Nếu ESP32 vẫn đang kết nối với robot, GPIO2 có thể đang được sử dụng để điều khiển TB6612FNG.
 
 Khi đó, việc thay đổi mức logic GPIO2 có thể ảnh hưởng đến tín hiệu điều khiển động cơ.
 
