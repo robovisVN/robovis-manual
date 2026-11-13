@@ -1,87 +1,60 @@
-# Lộ trình nhập môn robot và ROS 2
+# Robot và ROS 2 cơ bản
 
-**Mục tiêu:** hiểu dữ liệu được trao đổi giữa các thành phần ROS 2, làm một bài thử trên máy tính rồi biết thứ tự chuyển sang robot LiDAR.
+Một robot tự hành phải thực hiện nhiều công việc cùng lúc: đọc cảm biến, ước lượng chuyển động, nhận lệnh, điều khiển bánh xe và hiển thị trạng thái. Học ROS 2 là học cách tổ chức những công việc đó thành các chương trình có thể trao đổi dữ liệu và được kiểm tra độc lập.
 
-**Cần biết trước:** đã dùng được Terminal và đường dẫn theo [Ubuntu cơ bản](../../ubuntu-co-ban/index.md), đặc biệt [bài 6 về môi trường](../../ubuntu-co-ban/06-cai-va-chay-phan-mem.md). Không bắt buộc biết viết node C++/Python để bắt đầu.
+Trong phần này, chúng ta sẽ học từ các khái niệm đầu tiên đến cách viết chương trình, đọc dữ liệu và kiểm tra hệ thống robot. Các bài thực hành sử dụng Python trên **Ubuntu 22.04 và ROS 2 Humble**.
 
-## Phần nào chạy trên máy tính?
+## 1. Bạn sẽ tự xây dựng được gì?
 
-ROS 2 là bộ công cụ để xây dựng phần mềm gồm nhiều thành phần cùng làm việc. Nó không thay thế hệ điều hành, không phải firmware chung để nạp vào mọi vi điều khiển và không tự tạo ra khả năng tự hành chỉ nhờ cài đặt.
+Chúng ta sẽ xây dựng một hệ thống đo tốc độ giả lập trên máy tính:
 
-Trong cấu hình Robot ESP32 LiDAR hiện có, **PC chạy Ubuntu 22.04 và ROS 2 Humble**, ESP32 đọc cảm biến/điều khiển động cơ; hai bên trao đổi qua Wi-Fi. Sơ đồ và chương trình giao tiếp cụ thể giữ tại [Kiến trúc hệ thống sản phẩm](../../robot-esp32-lidar/01-gioi-thieu/02-kien-truc-he-thong.md).
-
-**Node** là thành phần tính toán của ROS 2; một chương trình có thể chứa một hoặc nhiều node. **Topic** là kênh trao đổi; **message** là dữ liệu có kiểu xác định. Bên gửi gọi là **publisher**, bên nhận là **subscriber**. Cùng tên topic chưa đủ trong mọi cấu hình: kiểu dữ liệu và các thiết lập truyền nhận cũng phải tương thích. Xem [ROS 2 Humble – Understanding nodes](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html) và [Understanding topics](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html).
-
-## Thứ tự học
-
-1. Thực hành truyền nhận mẫu ở phần dưới, **chưa cần robot**.
-2. Đọc [Node, topic và lệnh thường dùng](../../robot-esp32-lidar/04-ros2-co-ban/01-node-topic-va-lenh.md). Lệnh kiểm tra dùng chung; tên `/scan`, `/odom`, IP và bringup trong bài thuộc robot LiDAR, chỉ áp dụng khi đã chạy sản phẩm.
-3. Học [Hệ tọa độ và TF từ đầu](he-toa-do-va-tf.md), rồi đọc [RViz và hệ tọa độ TF](../../robot-esp32-lidar/04-ros2-co-ban/03-rviz-va-tf.md) để xem dữ liệu của robot.
-4. Theo [trang bắt đầu Robot ESP32 LiDAR](../../robot-esp32-lidar/index.md): chuẩn bị workspace, mạng, [khởi động và kiểm tra dữ liệu](../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra.md), rồi [các topic của robot](../../robot-esp32-lidar/04-ros2-co-ban/02-cac-topic-cua-robot.md).
-5. Chỉ sau khi kiểm tra dữ liệu ổn định mới [chạy thử](../../robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau.md), [tạo bản đồ SLAM](../../robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam.md) và [điều hướng Nav2](../../robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2.md). SLAM là vừa xây dựng bản đồ vừa ước lượng vị trí; Nav2 là bộ công cụ điều hướng robot tới đích.
-
-## Thực hành nhỏ: hai chương trình truyền chuỗi
-
-Thực hiện trên **Ubuntu 22.04 đã có ROS 2 Humble**. Nếu chưa cài, dùng [phần cài ROS 2 hiện có](../../robot-esp32-lidar/02-chuan-bi/01-yeu-cau-va-cai-ros2.md); bài thử này chưa cần workspace hay Wi-Fi robot. Không chạy bringup/điều khiển robot trong bài thử.
-
-### 1. Kiểm tra chương trình mẫu
-
-Trong Terminal Ubuntu:
-
-```bash
-source /opt/ros/humble/setup.bash
-printenv ROS_DISTRO
-ros2 pkg executables demo_nodes_cpp
+```mermaid
+flowchart LR
+    P["Bộ phát tốc độ giả lập"] -->|"/toc_do_do"| S["Bộ nhận và lọc trung bình"]
+    P -->|"/toc_do_do"| G["Cổng dữ liệu"]
+    C["Service bật/tắt"] --> G
+    G -->|"/toc_do_cho_phep"| O["Công cụ quan sát"]
 ```
 
-`ROS_DISTRO` cần hiện `humble`. Danh sách executable (chương trình chạy được) cần có `talker` và `listener` của gói `demo_nodes_cpp`. Nếu chưa có gói, với nguồn apt ROS 2 đã được thiết lập theo hướng dẫn cài chính thức, kết nối Internet rồi chạy:
+Từ ví dụ này, bạn sẽ biết tạo package, đăng ký executable, viết publisher/subscriber, dùng timer và callback, gọi service, truyền parameter và viết launch file. Sau đó, chúng ta dùng động học và TF để hiểu dữ liệu của robot thật.
 
-```bash
-sudo apt update
-sudo apt install ros-humble-demo-nodes-cpp
-```
+Ví dụ giả lập chỉ tạo dữ liệu trên máy tính. Các chương trình có tên `bo_phat`, `bo_nhan` và `cong_du_lieu` là chương trình thực hành trong khóa học.
 
-Chạy lại lệnh liệt kê. Nếu thiếu `/opt/ros/humble/setup.bash`, quay lại bước cài ROS 2, không tạo tệp rỗng để bỏ qua lỗi.
+## 2. Kiến thức cần có
 
-### 2. Mở bên gửi và bên nhận
+Bạn cần dùng được Terminal, đường dẫn và trình soạn thảo trên Ubuntu. Phần lập trình sử dụng hàm, lớp, danh sách và phép tính cơ bản của Python. Nếu chưa quen Ubuntu, hãy bắt đầu với [Ubuntu và công cụ](../../ubuntu-co-ban/index.md).
 
-Terminal thứ nhất:
+Mỗi Terminal cần nạp môi trường ROS 2. Từ bài 4 trở đi, Terminal chạy chương trình tự viết cần nạp thêm workspace thực hành. Hai thao tác này được giải thích trong bài 2 và bài 4.
 
-```bash
-source /opt/ros/humble/setup.bash
-ros2 run demo_nodes_cpp talker
-```
+## 3. Lộ trình học
 
-Giữ Terminal này chạy, mở Terminal thứ hai:
+| Bài | Nội dung | Sản phẩm cần đạt |
+| --- | --- | --- |
+| 1 | [Robot, kiến trúc phần mềm và ROS graph](00-robot-va-ros2.md) | Vẽ được luồng dữ liệu và lệnh của robot |
+| 2 | [Môi trường, talker/listener và Turtlesim](chuan-bi-va-turtlesim.md) | Chạy được hai chương trình trao đổi dữ liệu |
+| 3 | [Node, topic, message và công cụ kiểm tra](01-node-topic-va-lenh.md) | Tự tìm nguồn gửi, bên nhận và kiểu dữ liệu |
+| 4 | [Workspace, publisher và subscriber bằng Python](06-workspace-va-node-python.md) | Tạo và chạy package có hai node |
+| 5 | [Đọc dữ liệu vận tốc, LiDAR và odometry](02-cac-topic-cua-robot.md) | Giải thích được các trường của message |
+| 6 | [Viết service, client và làm quen action](04-service-va-action.md) | Bật/tắt một luồng dữ liệu bằng yêu cầu |
+| 7 | [Parameter, launch và namespace](05-parameter-va-launch.md) | Khởi động cả ví dụ bằng một lệnh |
+| 8 | [Động học robot hai bánh và odometry](08-dong-hoc-va-odometry.md) | Tính vận tốc robot từ vận tốc bánh |
+| 9 | [ROS 2 qua mạng và kết nối ESP32](09-ros2-qua-mang.md) | Phân biệt mạng ROS 2 với giao tiếp ESP32 |
+| 10 | [Hệ tọa độ và TF](he-toa-do-va-tf.md) | Đổi một điểm từ frame LiDAR sang thân robot |
+| 11 | [RViz, URDF và kiểm tra dữ liệu](03-rviz-va-tf.md) | Hiển thị được frame và tìm nguyên nhân lỗi |
+| 12 | [Rosbag và bài thực hành tổng hợp](07-rosbag-va-xu-ly-loi.md) | Ghi dữ liệu, phát lại và lập báo cáo kiểm tra |
 
-```bash
-source /opt/ros/humble/setup.bash
-ros2 run demo_nodes_cpp listener
-```
+Không cần học hết 12 bài trước khi chạm vào robot. Tuy nhiên, hãy hoàn thành phần môi trường, đọc topic, động học và TF trước khi tự thay cấu hình SLAM hoặc Nav2.
 
-**Kết quả mong đợi:** talker báo gửi chuỗi dạng `Hello World` kèm số đếm; listener báo nhận các chuỗi tương ứng. Số bắt đầu và thời điểm nhận có thể khác. Cách chạy dựa trên [ROS 2 Humble – thử talker/listener](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html#try-some-examples); ở đây dùng cả hai chương trình từ gói C++ [demo_nodes_cpp chính thức](https://github.com/ros2/demos/tree/humble/demo_nodes_cpp), không liên quan lệnh động cơ.
+## 4. Cách học từng bài
 
-### 3. Quan sát dữ liệu
+Đọc mục tiêu, chuẩn bị đúng chương trình cần chạy, thực hiện từng Terminal rồi đối chiếu kết quả. Khi gặp lỗi, giữ lại lệnh đã chạy và dòng lỗi đầu tiên. Chỉ thay một yếu tố trong mỗi lần kiểm tra để biết thay đổi nào tạo ra kết quả.
 
-Terminal thứ ba:
+Các đoạn mã có ghi đường dẫn tệp. Chép toàn bộ khối khi bài yêu cầu tạo tệp mới; khi bài yêu cầu sửa một phần, đối chiếu đúng vị trí. Dùng workspace `~/ros2_practice_ws` cho ví dụ xuyên suốt để các bài sau tìm thấy package của bài trước.
 
-```bash
-source /opt/ros/humble/setup.bash
-ros2 node list
-ros2 topic list -t
-ros2 topic info /chatter
-ros2 topic echo /chatter --once
-```
+## 5. Chuyển sang Robot ESP32 LiDAR
 
-Chạy từng lệnh; với ví dụ mặc định, tìm `/talker`, `/listener` và topic `/chatter` kiểu `std_msgs/msg/String`. Nếu tên đã bị cấu hình đổi, dùng tên thực tế từ danh sách. `--once` đọc một message rồi kết thúc.
+Khi đã hiểu luồng dữ liệu, hãy mở [tài liệu Robot ESP32 LiDAR](../../robot-esp32-lidar/index.md). Dùng workspace và launch của bộ bàn giao để kết nối phần cứng, sau đó học [SLAM](../../robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam.md) và [Nav2](../../robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2.md).
 
-**Tự kiểm tra:** dừng talker bằng Ctrl+C trong Terminal thứ nhất. Listener còn chạy nhưng không nhận chuỗi mới. Sau đó dừng listener bằng Ctrl+C; nếu lệnh echo đang chờ, Ctrl+C tại chính cửa sổ đó. Bài này cho thấy bên nhận có thể đang chờ, không nhất thiết bị treo.
+Các bài SLAM và điều hướng được trình bày trong mục sản phẩm, với thông số và lệnh chạy phù hợp với robot đang sử dụng.
 
-## Lỗi thường gặp
-
-- `ros2: command not found`: kiểm tra đúng Terminal Ubuntu và `source` trong từng cửa sổ.
-- Không tìm thấy package/executable: kiểm tra gói demo và tên chương trình; chưa cần cài workspace sản phẩm để chữa lỗi demo.
-- Talker gửi nhưng listener không nhận: kiểm tra hai Terminal có cùng môi trường ROS 2, `ROS_DOMAIN_ID` và thiết lập truyền nhận; không tự đặt một domain tùy ý rồi chỉ đổi ở một cửa sổ.
-- Không có `/scan` khi mới chạy demo: đúng, demo không tạo dữ liệu LiDAR.
-
-[← Bắt đầu từ đây: lộ trình B](../index.md#lo-trinh-b) · [Tiếp: Hệ tọa độ và TF →](he-toa-do-va-tf.md)
+[← Kiến thức nền](../index.md) · [Bắt đầu bài 1 →](00-robot-va-ros2.md)

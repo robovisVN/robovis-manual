@@ -61,6 +61,6 @@ Các topic này được sử dụng trong ROS 2 trên máy tính. Chương trì
 
 **Ví dụ:** khi bạn chọn “tiến”, máy tính gửi lệnh qua `/cmd_vel`. ESP32 nhận lệnh và cho bánh xe quay. Encoder đo chuyển động bánh xe; thông tin chuyển động được gửi lại máy tính và thể hiện trên `/odom`.
 
-Chi tiết các trường dữ liệu nằm trong bài [Các topic của robot](../04-ros2-co-ban/02-cac-topic-cua-robot.md).
+Chi tiết các trường dữ liệu nằm trong bài [Các topic của robot](../../kien-thuc-nen/robot-ros2/02-cac-topic-cua-robot.md).
 
 **Bước thực hành tiếp theo:** [Khởi động và kiểm tra dữ liệu](../03-van-hanh/02-khoi-dong-va-kiem-tra.md).

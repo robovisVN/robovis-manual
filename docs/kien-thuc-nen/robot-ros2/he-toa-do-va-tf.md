@@ -1,60 +1,125 @@
-# Hệ tọa độ và TF từ đầu
+# Bài 10: Hệ tọa độ và TF
 
-**Mục tiêu:** giải thích được một tọa độ đang được đo từ đâu và vì sao dữ liệu có topic vẫn có thể không hiển thị trong RViz.
+## 1. Mục tiêu
 
-**Cần biết trước:** [lộ trình ROS 2](index.md), hiểu node/topic/message. Bài đầu làm trên giấy; phần quan sát RViz cần robot LiDAR đã được chuẩn bị và khởi động theo tài liệu sản phẩm.
+Bạn sẽ đổi một điểm từ hệ tọa độ cảm biến sang thân robot, phân biệt `map`, `odom`, `base_link` và kiểm tra quan hệ TF theo thời gian. Bài tính có thể làm trên giấy; phần kiểm tra robot cần nguồn dữ liệu đã khởi động.
 
-## Một tọa độ luôn cần mốc
+## 2. Frame là gốc và các trục
 
-“Vật ở phía trước 1 m” chưa đủ: phía trước cảm biến hay phía trước thân robot? **Frame** là hệ tọa độ gồm một gốc và các trục. Cùng một vật có tọa độ khác nhau nếu đổi frame.
+Câu “vật ở trước 1 m” chưa cho biết phía trước bộ phận nào. Một LiDAR đặt trước tâm robot 0,1 m sẽ đo khoảng cách khác với tọa độ tính từ tâm thân.
 
-Quy ước phổ biến cho thân robot ROS: trục **x hướng trước**, **y hướng trái**, **z hướng lên**; chiều quay dương tuân theo quy tắc bàn tay phải. Với robot trên mặt phẳng, quay dương quanh z là quay ngược chiều kim đồng hồ khi nhìn từ trên xuống. Đơn vị thường dùng là m và radian; 180° tương ứng π radian. Camera có thể dùng optical frame với quy ước khác, không áp dụng trục thân robot cho mọi cảm biến. Xem [REP 103 – đơn vị và hệ tọa độ](https://www.ros.org/reps/rep-0103.html).
+Quy ước thân robot thông dụng trong ROS là x trước, y trái, z lên; khoảng cách dùng mét và góc dùng radian. Chiều quay dương theo quy tắc bàn tay phải. Camera có thể có optical frame với quy ước khác, nên cần đọc tên frame và mô hình lắp đặt.
 
-## TF biểu diễn quan hệ giữa các frame
+Trong mặt phẳng, pose của một frame so với frame khác có thể biểu diễn bằng `(x, y, theta)`. Trong không gian 3D, cần ba thành phần tịnh tiến và biểu diễn quay thích hợp.
 
-**TF/tf2** là hệ thống lưu và tra cứu quan hệ vị trí, hướng giữa các frame theo thời gian. Một **transform** mô tả phép tịnh tiến và quay giữa hai frame. Tên topic `/scan` là tên kênh dữ liệu; `header.frame_id` trong message cho biết dữ liệu ấy gắn với frame nào. Hai tên này không phải cùng một khái niệm.
+## 3. Tịnh tiến và quay phải thực hiện đúng thứ tự
 
-Quan hệ thường gặp ở robot di động:
+Giả sử frame LiDAR so với thân robot có độ lệch `(tx, ty)` và góc quay `theta`. Điểm đo trong LiDAR là `(xL, yL)`. Tọa độ trong thân:
 
 ```text
-map → odom → base_link → frame của LiDAR
+xB = cos(theta) × xL - sin(theta) × yL + tx
+yB = sin(theta) × xL + cos(theta) × yL + ty
 ```
 
-| Frame | Vai trò |
+Trước hết quay vector đo theo hướng cảm biến, sau đó cộng độ lệch gốc theo hệ thân.
+
+### Ví dụ 1: cùng hướng
+
+LiDAR nằm trước tâm thân `0,10 m`, không quay. Điểm `(1,0; 0)` m trong LiDAR trở thành `(1,10; 0)` m trong thân.
+
+### Ví dụ 2: quay 90 độ
+
+LiDAR vẫn ở trước `0,10 m` nhưng hướng x của nó quay trái 90°. Điểm `(1,0; 0)` m trở thành `(0,10; 1,0)` m trong thân. Chỉ cộng 0,10 vào x mà bỏ phép quay sẽ đặt vật sai vị trí.
+
+Có thể kiểm tra bằng Python:
+
+```python
+from math import cos, sin
+
+
+def doi_diem(x_lidar, y_lidar, tx, ty, theta):
+    return (
+        cos(theta) * x_lidar - sin(theta) * y_lidar + tx,
+        sin(theta) * x_lidar + cos(theta) * y_lidar + ty,
+    )
+```
+
+Đổi `header.frame_id` thành một tên mới không thực hiện phép tính trên. Nhãn frame và giá trị tọa độ phải nhất quán.
+
+## 4. Ghép nhiều phép biến đổi
+
+Một điểm từ LiDAR đi tới bản đồ có thể cần qua nhiều quan hệ:
+
+```text
+LiDAR → thân robot → odom → map
+```
+
+Trong cây frame, quan hệ thường được vẽ theo cha tới con:
+
+```mermaid
+flowchart LR
+    M["map"] --> O["odom"]
+    O --> B["base_link"]
+    B --> L["base_scan hoặc frame LiDAR thật"]
+```
+
+Đây là hai cách diễn đạt khác nhau: cây mô tả quan hệ cha/con, còn khi đổi điểm ta tra phép biến đổi từ frame nguồn tới frame đích. TF có thể tính theo các cạnh và nghịch đảo thích hợp; không cần tự phát thêm cạnh nối trực tiếp mọi cặp.
+
+## 5. Vì sao cần cả `map` và `odom`?
+
+| Frame | Đặc điểm | Nguồn quan hệ thường gặp |
+| --- | --- | --- |
+| `base_link` | Gắn cứng với thân | Mô hình robot |
+| `odom` | Cục bộ, liên tục, có thể trôi | Odometry hoặc bộ hợp nhất trạng thái |
+| `map` | Tham chiếu toàn cục, có thể hiệu chỉnh vị trí | SLAM hoặc định vị |
+
+Robot có thể đi mượt theo odometry nhưng lệch dần khỏi vị trí thật. Khi định vị nhận ra sai số, quan hệ `map → odom` được hiệu chỉnh. Nhờ tách hai frame, điều khiển cục bộ không cần coi một hiệu chỉnh toàn cục là chuyển động đột ngột của bánh xe.
+
+Không mặc định mọi hệ thống dùng đúng một chuỗi duy nhất. Một số mô hình có thêm `base_footprint` hoặc frame trung gian. Tên và nguồn phát phải đối chiếu với workspace đang chạy.
+
+## 6. Transform tĩnh và động
+
+Vị trí LiDAR bắt cố định trên thân thường là transform tĩnh. Chuyển động `odom → base_link` là transform động. Quan hệ tĩnh thường được đưa lên `/tf_static`; các quan hệ thay đổi được cập nhật trên `/tf`.
+
+Mỗi frame con cần một cha nhất quán trong cây. Hai node cùng phát quan hệ mâu thuẫn cho một frame con có thể làm dữ liệu nhảy hoặc gây kết quả khó hiểu.
+
+Khi nguồn odometry đã tồn tại, không thêm một static transform `odom → base_link` chỉ để làm RViz hết cảnh báo. Quan hệ đó cần thay đổi theo chuyển động thật.
+
+## 7. Thời gian là một phần của TF
+
+Robot di chuyển trong lúc LiDAR đo. Muốn đưa phép đo vào bản đồ, cần biết pose tương ứng thời điểm đo. TF lưu các quan hệ theo thời gian và trả lời yêu cầu tra cứu khi có dữ liệu phù hợp.
+
+| Lỗi | Điều nên kiểm tra |
 | --- | --- |
-| `base_link` | Mốc gắn với thân robot |
-| `odom` | Mốc chuyển động cục bộ, liên tục nhưng có thể trôi theo thời gian |
-| `map` | Mốc bản đồ; quá trình định vị có thể hiệu chỉnh quan hệ với odom |
+| Frame không tồn tại | Tên thật, node phát quan hệ đã chạy chưa? |
+| Hai frame thuộc hai cây rời | Quan hệ trung gian nào đang thiếu? |
+| Yêu cầu thời điểm tương lai | Timestamp dữ liệu, đồng hồ và độ trễ TF |
+| Dữ liệu quá cũ | Buffer, nguồn cảm biến bị ngừng, thời gian phát lại |
 
-Trong tài liệu LiDAR hiện có, frame LiDAR được minh họa là `base_scan`; tên và vị trí thật phụ thuộc workspace. `map` chưa nhất thiết tồn tại khi chỉ chạy phần kiểm tra ban đầu. Xem [REP 105 – các frame của robot di động](https://www.ros.org/reps/rep-0105.html).
+`use_sim_time` làm node sử dụng thời gian mô phỏng khi có `/clock`. Nếu một số node dùng thời gian thực và số khác dùng thời gian mô phỏng, topic có thể vẫn hiện nhưng tra TF thất bại.
 
-## Thực hành nhỏ trên giấy
+## 8. Kiểm tra quan hệ
 
-Giả sử LiDAR nằm trước gốc `base_link` 0,10 m, cùng hướng trục, không có phép quay. LiDAR thấy một điểm ở `(1,00; 0; 0)` m trong frame của nó.
+Sau khi [khởi động Robot ESP32 LiDAR](../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra.md), dùng tên frame thật. Ví dụ nếu có `odom` và `base_link`:
 
-- Trong `base_link`, điểm đó ở `(1,10; 0; 0)` m.
-- Nếu chỉ gắn nhãn điểm đó thành `base_link` mà không biến đổi tọa độ, vị trí bị lệch 0,10 m.
+```bash
+ros2 run tf2_ros tf2_echo odom base_link
+```
 
-**Kết quả mong đợi:** bạn cộng được độ lệch khi trục cùng hướng và hiểu rằng đổi tên frame không thay thế phép biến đổi. Khi có góc quay, không chỉ cộng các tọa độ như ví dụ này.
+Quan sát tịnh tiến và quay, dùng `Ctrl+C` để dừng. Với dữ liệu tĩnh:
 
-## Quan sát trên robot, không tạo thêm transform thử
+```bash
+ros2 topic echo /tf_static --qos-durability transient_local --once
+```
 
-Theo [Khởi động và kiểm tra dữ liệu](../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra.md) để có đúng môi trường, kết nối và các node. Bài này không gửi lệnh chuyển động; giữ robot ở trạng thái thử an toàn theo hướng dẫn sản phẩm.
+Tùy chọn durability giúp subscriber đến sau yêu cầu dữ liệu tĩnh đã được nguồn lưu. Có `/odom` không tự chứng minh có cạnh TF: message odometry và transform là hai giao diện cần được chương trình cung cấp đúng.
 
-1. Trong Terminal đã nạp môi trường ROS 2/workspace, dùng lệnh đọc dữ liệu trong [Các topic của robot](../../robot-esp32-lidar/04-ros2-co-ban/02-cac-topic-cua-robot.md), xem `header.frame_id` của LaserScan.
-2. Mở cấu hình RViz theo [RViz và hệ tọa độ TF](../../robot-esp32-lidar/04-ros2-co-ban/03-rviz-va-tf.md). RViz là ứng dụng hiển thị, không tự tạo TF còn thiếu.
-3. Thêm display TF, tìm frame của LiDAR và chuỗi nối về Fixed Frame (frame tham chiếu chính của RViz).
-4. Với chế độ kiểm tra odometry, tài liệu dùng `odom`; khi chạy SLAM/định vị và đã có chuỗi TF tương ứng mới dùng `map`.
+## 9. Bài tập
 
-**Kết quả mong đợi:** dữ liệu LaserScan hiển thị khi RViz nhận được dữ liệu và tra được chuỗi transform hợp lệ tại thời điểm dữ liệu. Thấy topic có message chỉ xác nhận phần truyền dữ liệu, chưa xác nhận TF đầy đủ.
+1. LiDAR nằm tại `(0,10; 0,05)` m trong thân, quay trái pi/2. Đổi điểm `(2; 0)` m. Kết quả gần `(0,10; 2,05)` m.
+2. Chỉ có bringup cảm biến, chưa chạy SLAM: vì sao `map` có thể chưa tồn tại?
+3. Trên robot thật, ghi frame cha/con và nguồn phát cho từng cạnh từ odom tới LiDAR.
 
-## Lỗi thường gặp
+Đọc thêm: [REP 103](https://www.ros.org/reps/rep-0103.html), [REP 105](https://www.ros.org/reps/rep-0105.html), [ROS 2 — tf2](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Tf2.html).
 
-- `No transform`: kiểm tra frame thật, Fixed Frame, node cung cấp TF và thời gian; không đổi ngẫu nhiên các tên trong launch.
-- Chọn `map` trước khi chạy thành phần tạo bản đồ/định vị: mốc này có thể chưa có.
-- Gõ `/scan` vào Fixed Frame: đó thường là topic, không phải tên frame.
-- Tự phát thêm transform để hết cảnh báo: có thể tạo quan hệ sai hoặc nhiều nguồn cùng công bố một quan hệ. Đối chiếu workspace trước.
-
-Chi tiết hệ thống TF: [ROS 2 Humble – tf2](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Tf2.html).
-
-[← Lộ trình ROS 2](index.md) · [Tiếp: Thực hành Robot ESP32 LiDAR →](../../robot-esp32-lidar/index.md)
+[← Bài 9](09-ros2-qua-mang.md) · [Bài 11: RViz và mô hình robot →](03-rviz-va-tf.md)

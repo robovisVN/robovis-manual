@@ -35,8 +35,8 @@ Bạn không cần học hết mọi thứ trước khi làm robot. Chọn lối
 ### Thứ tự nên học
 
 1. [Ubuntu và công cụ](../ubuntu-co-ban/index.md): đọc bài 1–6 để mở Terminal, tìm tệp và nạp môi trường; bài 7 cần robot, có thể để đến bước thực hành. Dùng bài 8 để tự kiểm tra thao tác.
-2. [Lộ trình robot và ROS 2](robot-ros2/index.md): làm bài truyền dữ liệu giữa hai chương trình mẫu trên máy tính, rồi đọc bài node/topic hiện có theo chỉ dẫn.
-3. [Hệ tọa độ và TF từ đầu](robot-ros2/he-toa-do-va-tf.md): hiểu trục tọa độ và quan hệ map, odom, base_link; tiếp tục bài RViz của sản phẩm.
+2. [Lộ trình robot và ROS 2](robot-ros2/index.md): học 12 bài theo lộ trình từ chương trình mẫu đến publisher/subscriber, service, động học robot, mạng và TF.
+3. [Hệ tọa độ và TF từ đầu](robot-ros2/he-toa-do-va-tf.md): hiểu trục tọa độ và quan hệ map, odom, base_link; thực hành đổi tọa độ và xem mô hình URDF trong RViz trước khi kết nối robot.
 4. [Robot ESP32 LiDAR](../robot-esp32-lidar/index.md): chuẩn bị môi trường/workspace → kết nối Wi-Fi → khởi động và kiểm tra dữ liệu → chạy thử → SLAM và điều hướng theo lộ trình sản phẩm.
 
 **Kết quả đạt được:** phân biệt chương trình trên ESP32 với node ROS 2 trên PC, xem được dữ liệu topic, hiểu vì sao RViz cần TF và biết bắt đầu kiểm tra robot từ đâu.

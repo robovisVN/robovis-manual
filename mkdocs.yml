@@ -60,7 +60,18 @@ nav:
               - Thực hành và xử lý lỗi: ubuntu-co-ban/08-thuc-hanh-va-loi.md
       - Robot và ROS 2 cơ bản:
           - Lộ trình nhập môn: kien-thuc-nen/robot-ros2/index.md
-          - Hệ tọa độ và TF từ đầu: kien-thuc-nen/robot-ros2/he-toa-do-va-tf.md
+          - Bài 1. Robot, kiến trúc phần mềm và ROS graph: kien-thuc-nen/robot-ros2/00-robot-va-ros2.md
+          - Bài 2. Môi trường và chương trình mẫu: kien-thuc-nen/robot-ros2/chuan-bi-va-turtlesim.md
+          - Bài 3. Node, topic và công cụ kiểm tra: kien-thuc-nen/robot-ros2/01-node-topic-va-lenh.md
+          - Bài 4. Workspace, publisher và subscriber: kien-thuc-nen/robot-ros2/06-workspace-va-node-python.md
+          - Bài 5. Dữ liệu vận tốc, LiDAR và odometry: kien-thuc-nen/robot-ros2/02-cac-topic-cua-robot.md
+          - Bài 6. Service, client và action: kien-thuc-nen/robot-ros2/04-service-va-action.md
+          - Bài 7. Parameter, launch và namespace: kien-thuc-nen/robot-ros2/05-parameter-va-launch.md
+          - Bài 8. Động học robot hai bánh và odometry: kien-thuc-nen/robot-ros2/08-dong-hoc-va-odometry.md
+          - Bài 9. ROS 2 qua mạng và kết nối ESP32: kien-thuc-nen/robot-ros2/09-ros2-qua-mang.md
+          - Bài 10. Hệ tọa độ và TF: kien-thuc-nen/robot-ros2/he-toa-do-va-tf.md
+          - Bài 11. RViz, URDF và kiểm tra dữ liệu: kien-thuc-nen/robot-ros2/03-rviz-va-tf.md
+          - Bài 12. Rosbag và thực hành tổng hợp: kien-thuc-nen/robot-ros2/07-rosbag-va-xu-ly-loi.md
   - Góc kỹ thuật:
       - Tổng quan: goc-ky-thuat/index.md
       - Robot tự hành:
@@ -153,24 +164,19 @@ nav:
             - Chạy thử lần đầu: robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau.md
             - Điều khiển robot bằng tay: robot-esp32-lidar/03-van-hanh/03-dieu-khien-bang-tay.md
 
-        - 4. ROS 2 cơ bản:
-            - Node, topic và lệnh thường dùng: robot-esp32-lidar/04-ros2-co-ban/01-node-topic-va-lenh.md
-            - Các topic của robot: robot-esp32-lidar/04-ros2-co-ban/02-cac-topic-cua-robot.md
-            - RViz và hệ tọa độ TF: robot-esp32-lidar/04-ros2-co-ban/03-rviz-va-tf.md
-
-        - 5. LiDAR, SLAM và Navigation:
+        - 4. LiDAR, SLAM và Navigation:
             - Kiểm tra dữ liệu LiDAR: robot-esp32-lidar/05-lidar-slam-navigation/01-kiem-tra-lidar.md
             - Tạo bản đồ SLAM: robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam.md
             - Lưu và quản lý bản đồ: robot-esp32-lidar/05-lidar-slam-navigation/03-luu-va-quan-ly-ban-do.md
             - Điều hướng tự động bằng Nav2: robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2.md
             - Đánh giá chất lượng bản đồ: robot-esp32-lidar/05-lidar-slam-navigation/05-danh-gia-ban-do.md
 
-        - 6. Xử lý sự cố:
+        - 5. Xử lý sự cố:
             - Lỗi kết nối và ROS 2: robot-esp32-lidar/06-xu-ly-su-co/01-loi-ket-noi-va-ros2.md
             - Lỗi LiDAR, SLAM và Navigation: robot-esp32-lidar/06-xu-ly-su-co/02-loi-lidar-slam-navigation.md
             - Thông tin cần gửi khi hỗ trợ: robot-esp32-lidar/06-xu-ly-su-co/03-thong-tin-ho-tro.md
 
-        - 7. Tham khảo:
+        - 6. Tham khảo:
             - Danh sách lệnh: robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh.md
             - Thuật ngữ: robot-esp32-lidar/07-tham-khao/02-thuat-ngu.md
   - Website mua hàng Robovis: https://robovis.vn/

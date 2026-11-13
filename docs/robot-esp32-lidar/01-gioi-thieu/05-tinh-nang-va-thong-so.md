@@ -22,7 +22,7 @@ ESP32 đọc cảm biến và điều khiển động cơ. Máy tính chạy ROS
 | --- | --- |
 | Điều khiển tiến, lùi và quay | [Điều khiển bằng tay](../03-van-hanh/03-dieu-khien-bang-tay.md) |
 | Xem khoảng cách do LiDAR đo | [Kiểm tra LiDAR](../05-lidar-slam-navigation/01-kiem-tra-lidar.md) |
-| Xem robot và dữ liệu trên màn hình | [RViz và TF](../04-ros2-co-ban/03-rviz-va-tf.md) |
+| Xem robot và dữ liệu trên màn hình | [RViz và TF](../../kien-thuc-nen/robot-ros2/03-rviz-va-tf.md) |
 | Tạo bản đồ khu vực | [Tạo bản đồ SLAM](../05-lidar-slam-navigation/02-tao-ban-do-slam.md) |
 | Lưu bản đồ để dùng lại | [Lưu bản đồ](../05-lidar-slam-navigation/03-luu-va-quan-ly-ban-do.md) |
 | Cho robot tự đi đến điểm đã chọn | [Điều hướng bằng Nav2](../05-lidar-slam-navigation/04-dieu-huong-nav2.md) |

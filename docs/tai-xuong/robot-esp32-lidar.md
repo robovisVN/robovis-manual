@@ -7,14 +7,16 @@ Giới thiệu hệ thống, Ubuntu/ROS 2, workspace, Wi-Fi, vận hành, tạo 
 | Thông tin | Nội dung |
 | --- | --- |
 | Định dạng | ZIP, chứa Markdown và hình minh họa nếu có |
-| Bản tài liệu | 2026.09.19 |
-| Ngày cập nhật | 19/09/2026 |
+| Bản tài liệu | 2026.11.13 |
+| Ngày cập nhật | 13/11/2026 |
 | Áp dụng | Robot ESP32 LiDAR |
 
 [Tải bộ tài liệu ZIP](../downloads/robovis-esp32-lidar-docs.zip){ .md-button .md-button--primary download="robovis-esp32-lidar-docs.zip" }
 [Xem hướng dẫn trực tuyến](../robot-esp32-lidar/index.md){ .md-button }
 
 Giải nén và đọc `DOC_TRUOC.md`. Các đoạn mã trong bài là ví dụ hướng dẫn; gói tài liệu không thay thế bộ mã nguồn hoặc firmware của sản phẩm.
+
+Phần ROS 2 nhập môn được học riêng tại [Robot và ROS 2 cơ bản](../kien-thuc-nen/robot-ros2/index.md). Các trang cũ trong gói ZIP dẫn đến bài học ở vị trí mới.
 
 ## Mã nguồn và công cụ liên quan
 

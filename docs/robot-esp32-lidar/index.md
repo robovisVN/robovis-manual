@@ -9,6 +9,10 @@ Robot ESP32 LiDAR là nền tảng thực hành với robot di động thật, L
 !!! tip "Chưa từng dùng Ubuntu?"
     Hãy bắt đầu với [Ubuntu cơ bản](../ubuntu-co-ban/index.md). Bạn sẽ học cách mở Terminal, chạy lệnh, tìm thư mục và kiểm tra mạng trước khi vận hành robot.
 
+## Kiến thức ROS 2 trước khi thực hành
+
+Phần ROS 2 cơ bản đã được chuyển sang [Kiến thức nền → Robot và ROS 2 cơ bản](../kien-thuc-nen/robot-ros2/index.md). Nếu mới bắt đầu, hãy học node/topic, các kiểu message và TF/RViz ở đó trước. Các mục bên dưới tập trung vào cấu hình và vận hành Robot ESP32 LiDAR.
+
 ## Bắt đầu theo hệ điều hành
 
 | Máy tính của bạn | Hướng dẫn đầu tiên | Môi trường chạy lệnh ROS 2 |
@@ -24,7 +28,7 @@ Sau khi chuẩn bị máy tính, hãy đọc [kết nối Wi-Fi của robot](02-
 | --- | --- |
 | Xem khả năng, thành phần và giới hạn | [Tính năng và thông số](01-gioi-thieu/05-tinh-nang-va-thong-so.md) |
 | Hiểu robot trao đổi dữ liệu với ROS 2 thế nào | [Kiến trúc hệ thống](01-gioi-thieu/02-kien-truc-he-thong.md) |
-| Kiểm tra LiDAR và encoder | [Kiểm tra LiDAR](05-lidar-slam-navigation/01-kiem-tra-lidar.md), [các topic của robot](04-ros2-co-ban/02-cac-topic-cua-robot.md) |
+| Kiểm tra LiDAR và encoder | [Kiểm tra LiDAR](05-lidar-slam-navigation/01-kiem-tra-lidar.md), [các topic của robot](../kien-thuc-nen/robot-ros2/02-cac-topic-cua-robot.md) |
 | Tạo bản đồ mới | [Tạo bản đồ SLAM](05-lidar-slam-navigation/02-tao-ban-do-slam.md) |
 | Dùng lại bản đồ để đi tới điểm đích | [Điều hướng bằng Nav2](05-lidar-slam-navigation/04-dieu-huong-nav2.md) |
 | Chuyển sang Wi-Fi của phòng học hoặc phòng lab | [Sử dụng Wi-Fi ngoài](02-chuan-bi/05-su-dung-wifi-ngoai.md) |
