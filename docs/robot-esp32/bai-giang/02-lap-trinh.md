@@ -7,6 +7,15 @@
 
 Trong các bài học trước, chúng ta đã tìm hiểu về bo mạch ESP32, chuẩn bị phần cứng và cài đặt môi trường lập trình Arduino IDE.
 
+<!-- tutorial-figure:quy-trinh-nap -->
+<figure class="tutorial-figure" markdown>
+
+[![Quy trình chọn bo và cổng USB, Verify, Upload rồi quan sát Serial Monitor hoặc LED.](../../assets/illustrations/quy-trinh-nap.svg)](../../assets/illustrations/quy-trinh-nap.svg)
+
+<figcaption>Quy trình nạp chương trình. Tên bo, cổng và tốc độ Serial cần theo đúng phần hướng dẫn của từng bo. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:quy-trinh-nap -->
+
 Ở bài học này, chúng ta sẽ bắt đầu viết và nạp chương trình cho **ESP32 30P CH340 Type-C** bằng Arduino IDE.
 
 Trước khi lập trình các chức năng của robot như điều khiển động cơ, đọc cảm biến hoặc kết nối Wi-Fi, chúng ta cần hiểu cách một chương trình Arduino hoạt động và cách nạp chương trình từ máy tính vào ESP32.

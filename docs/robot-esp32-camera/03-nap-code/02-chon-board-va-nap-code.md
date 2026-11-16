@@ -2,6 +2,15 @@
 
 ## 1. Kết nối ESP32
 
+<!-- tutorial-figure:quy-trinh-nap -->
+<figure class="tutorial-figure" markdown>
+
+[![Chọn đúng bo và cổng, biên dịch, nạp chương trình rồi kiểm tra kết quả.](../../assets/illustrations/quy-trinh-nap.svg)](../../assets/illustrations/quy-trinh-nap.svg)
+
+<figcaption>Làm lần lượt các bước nạp, giữ đúng cấu hình ESP32-S3 và chương trình tương ứng trong bài. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:quy-trinh-nap -->
+
 1. Cắm ESP32 vào máy tính bằng cáp USB có truyền dữ liệu.
 2. Mở **Device Manager → Ports COM and LPT**.
 3. Ghi lại cổng COM của `USB-SERIAL CH340`, ví dụ `COM5`.

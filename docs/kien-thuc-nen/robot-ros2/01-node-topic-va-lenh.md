@@ -19,6 +19,15 @@ Nếu không có `/turtlesim`, hãy lấy tên thật từ `node list`. Không �
 
 Topic là tên kênh; message là một mẫu dữ liệu đi qua kênh đó. Mỗi topic có kiểu giao diện, chẳng hạn `geometry_msgs/msg/Twist` cho vận tốc. Nhiều subscriber có thể dùng cùng dữ liệu mà không cần bên gửi viết riêng một bản cho từng ứng dụng.
 
+<!-- tutorial-figure:ros2-topic -->
+<figure class="tutorial-figure" markdown>
+
+[![Publisher phát message có kiểu xác định qua topic tới subscriber.](../../assets/illustrations/ros2-topic.svg)](../../assets/illustrations/ros2-topic.svg)
+
+<figcaption>Topic là kênh, message là dữ liệu truyền trên kênh. Kiểm tra dữ liệu thật thay vì chỉ dựa vào tên topic trong danh sách. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:ros2-topic -->
+
 ```mermaid
 flowchart LR
     T["teleop"] -->|"Twist"| C["/turtle1/cmd_vel"]

@@ -4,6 +4,15 @@
 
 Trong bài học trước, chúng ta đã làm quen với cấu trúc chương trình Arduino, cách nạp chương trình và sử dụng Serial Monitor để theo dõi dữ liệu.
 
+<!-- tutorial-figure:led-high-low -->
+<figure class="tutorial-figure" markdown>
+
+[![Xung HIGH LOW thay đổi theo thời gian, tương ứng bật và tắt đối với LED active-high.](../../assets/illustrations/led-high-low.svg)](../../assets/illustrations/led-high-low.svg)
+
+<figcaption>Sơ đồ thời gian giúp đọc trình tự bật/tắt. Kiểm tra loại LED thực tế và mức kích hoạt trong bài. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:led-high-low -->
+
 Ở bài học này, chúng ta sẽ bắt đầu thực hành **điều khiển thiết bị đầu ra bằng Arduino Nano** thông qua một ví dụ đơn giản: bật, tắt và điều khiển đèn LED nhấp nháy.
 
 Thông qua bài học, chúng ta sẽ tìm hiểu:

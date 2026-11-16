@@ -8,6 +8,15 @@
 
 Bạn sẽ tạo một thư mục, lưu ghi chú và ghi nhận cấu hình Ubuntu. Toàn bộ thao tác thực hiện trong **Ubuntu**.
 
+<!-- tutorial-figure:kiem-tra-tung-lop -->
+<figure class="tutorial-figure" markdown>
+
+[![Ba lớp kiểm tra: mạng, môi trường ROS 2, dữ liệu và hiển thị.](../assets/illustrations/kiem-tra-tung-lop.svg)](../assets/illustrations/kiem-tra-tung-lop.svg)
+
+<figcaption>Kiểm tra từ kết nối mạng tới môi trường và dữ liệu. Ghi lại lệnh đã chạy cùng thông báo lỗi ở lớp gặp vấn đề. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:kiem-tra-tung-lop -->
+
 ### Bước 1. Tạo thư mục bài tổng hợp
 
 ```bash

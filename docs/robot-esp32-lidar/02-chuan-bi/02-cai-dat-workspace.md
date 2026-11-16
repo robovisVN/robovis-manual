@@ -15,6 +15,15 @@ Nếu một lệnh báo không có thư mục, kiểm tra lại chỗ giải né
 
 ## 2. Build `slam_toolbox_ws`
 
+<!-- tutorial-figure:workspace-build-source -->
+<figure class="tutorial-figure" markdown>
+
+[![src chứa mã nguồn; colcon build tạo build, install và log; source install/setup.bash nạp môi trường workspace.](../../assets/illustrations/workspace-build-source.svg)](../../assets/illustrations/workspace-build-source.svg)
+
+<figcaption>Quan hệ giữa mã nguồn, kết quả build và môi trường Terminal. Bài LiDAR có hai workspace: giữ đúng thứ tự build/source được hướng dẫn. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:workspace-build-source -->
+
 ```bash
 cd ~/slam_toolbox_ws
 source /opt/ros/humble/setup.bash

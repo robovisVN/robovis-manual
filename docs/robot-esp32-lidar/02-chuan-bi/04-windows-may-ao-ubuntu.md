@@ -9,6 +9,15 @@ Luồng này dành cho **Windows 10/11 64 bit**. Windows quản lý Wi-Fi và VM
 
 ## Chuẩn bị
 
+<!-- tutorial-figure:ubuntu-trong-windows -->
+<figure class="tutorial-figure" markdown>
+
+[![Windows chứa VMware và Ubuntu; Terminal chạy phần mềm ROS 2 bên trong Ubuntu.](../../assets/illustrations/ubuntu-trong-windows.svg)](../../assets/illustrations/ubuntu-trong-windows.svg)
+
+<figcaption>Phân biệt nơi chạy phần mềm: nhập lệnh ROS 2 trong Terminal Ubuntu, không nhập vào PowerShell của Windows. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:ubuntu-trong-windows -->
+
 | Hạng mục | Nội dung từ bộ bàn giao |
 | --- | --- |
 | Bộ cài máy ảo | VMware Workstation 17 do ROBOVIS cung cấp hoặc bản tương thích được đơn vị hỗ trợ |

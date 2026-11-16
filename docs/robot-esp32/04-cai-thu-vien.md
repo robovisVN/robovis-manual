@@ -4,6 +4,15 @@
 
 Trong các bài học trước, chúng ta đã cài đặt Arduino IDE, driver CH340, gói hỗ trợ ESP32 và thực hành nạp chương trình vào bo mạch.
 
+<!-- tutorial-figure:goi-board-va-thu-vien -->
+<figure class="tutorial-figure" markdown>
+
+[![Boards Manager cài nền tảng bo; chọn đúng bo; Library Manager cài thư viện theo chương trình.](../assets/illustrations/goi-board-va-thu-vien.svg)](../assets/illustrations/goi-board-va-thu-vien.svg)
+
+<figcaption>Gói hỗ trợ bo và thư viện có nhiệm vụ khác nhau. Cài đúng thành phần được yêu cầu trong bài, không thay thế hai loại cho nhau. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:goi-board-va-thu-vien -->
+
 Tuy nhiên, khi lập trình các chức năng phức tạp hơn như điều khiển servo, giao tiếp Wi-Fi hoặc xây dựng giao diện điều khiển robot, chúng ta thường cần sử dụng thêm các **thư viện lập trình**.
 
 Thư viện cung cấp những hàm và công cụ được xây dựng sẵn, giúp người lập trình sử dụng các chức năng của vi điều khiển mà không phải viết lại toàn bộ chương trình từ đầu.

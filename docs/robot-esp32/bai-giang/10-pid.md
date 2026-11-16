@@ -4,6 +4,15 @@
 
 Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC thông qua TB6612FNG, đọc xung Encoder để đo tốc độ bánh xe và điều khiển robot qua Wi-Fi.
 
+<!-- tutorial-figure:pid-vong-kin -->
+<figure class="tutorial-figure" markdown>
+
+[![Vòng kín tốc độ đặt, so sánh, PID, driver động cơ, encoder và đường phản hồi.](../../assets/illustrations/pid-vong-kin.svg)](../../assets/illustrations/pid-vong-kin.svg)
+
+<figcaption>Encoder cung cấp tốc độ thực tế để bộ điều khiển liên tục tính lại sai số và điều chỉnh PWM. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:pid-vong-kin -->
+
 Khi sử dụng TB6612FNG, chúng ta có thể thay đổi tốc độ động cơ bằng tín hiệu PWM. Tuy nhiên, **cùng một giá trị PWM không có nghĩa hai bánh xe sẽ quay cùng tốc độ**.
 
 Ví dụ, khi cấp PWM = 150 cho cả hai động cơ:

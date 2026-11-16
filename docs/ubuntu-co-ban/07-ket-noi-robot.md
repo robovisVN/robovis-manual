@@ -88,6 +88,15 @@ Nếu vẫn chưa đúng, xem mục cấu hình thủ công bên dưới hoặc 
 
 Trong Terminal Ubuntu, chạy:
 
+<!-- tutorial-figure:mang-robot-ubuntu -->
+<figure class="tutorial-figure" markdown>
+
+[![Ubuntu kết nối tới Wi-Fi robot; máy ảo cần bridge đúng card, robot và Ubuntu có IP riêng.](../assets/illustrations/mang-robot-ubuntu.svg)](../assets/illustrations/mang-robot-ubuntu.svg)
+
+<figcaption>Sơ đồ kết nối với robot LiDAR ở chế độ AP mặc định. Với Wi-Fi ngoài, dùng IP thực tế theo cấu hình của mạng đó. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:mang-robot-ubuntu -->
+
 ```bash
 ping -c 4 192.168.4.1
 ```

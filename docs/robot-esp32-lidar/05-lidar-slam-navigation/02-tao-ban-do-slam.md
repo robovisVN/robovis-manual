@@ -2,6 +2,15 @@
 
 ## Điều kiện trước khi chạy
 
+<!-- tutorial-figure:slam-dau-vao -->
+<figure class="tutorial-figure" markdown>
+
+[![LiDAR và odometry cung cấp dữ liệu cho SLAM, kết quả là bản đồ và vị trí robot được quan sát trong RViz.](../../assets/illustrations/slam-dau-vao.svg)](../../assets/illustrations/slam-dau-vao.svg)
+
+<figcaption>Các thành phần tham gia tạo bản đồ. Đây là sơ đồ nguyên lý, không thay cho các lệnh khởi chạy trong bài. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:slam-dau-vao -->
+
 - Ping robot thành công.
 - Bringup đang chạy ổn định.
 - `/scan` và `/odom` cập nhật liên tục.

@@ -4,6 +4,15 @@
 
 Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC bằng L298N và sử dụng cảm biến Encoder để đo tốc độ quay của bánh xe.
 
+<!-- tutorial-figure:pid-vong-kin -->
+<figure class="tutorial-figure" markdown>
+
+[![Vòng kín tốc độ đặt, so sánh, PID, driver động cơ, encoder và đường phản hồi.](../../assets/illustrations/pid-vong-kin.svg)](../../assets/illustrations/pid-vong-kin.svg)
+
+<figcaption>Encoder cung cấp tốc độ thực tế để bộ điều khiển liên tục tính lại sai số và điều chỉnh PWM. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:pid-vong-kin -->
+
 Khi điều khiển động cơ bằng PWM, Arduino có thể thay đổi tốc độ quay bằng cách tăng hoặc giảm giá trị PWM. Tuy nhiên, việc đặt một giá trị PWM cố định không đảm bảo động cơ luôn quay với tốc độ mong muốn.
 
 Ví dụ, khi đặt PWM bằng 140 cho hai động cơ, tốc độ thực tế của hai bánh có thể khác nhau do:

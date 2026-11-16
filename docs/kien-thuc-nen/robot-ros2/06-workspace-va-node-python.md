@@ -14,6 +14,15 @@ Giá trị trong ví dụ mang quy ước đơn vị m/s. Đây là dữ liệu 
 
 Workspace là thư mục chứa các package đang phát triển. Sau khi build, thường có:
 
+<!-- tutorial-figure:workspace-build-source -->
+<figure class="tutorial-figure" markdown>
+
+[![src chứa mã nguồn; colcon build tạo build, install và log; source install/setup.bash nạp môi trường workspace.](../../assets/illustrations/workspace-build-source.svg)](../../assets/illustrations/workspace-build-source.svg)
+
+<figcaption>Quan hệ giữa mã nguồn, kết quả build và môi trường Terminal. Bài LiDAR có hai workspace: giữ đúng thứ tự build/source được hướng dẫn. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:workspace-build-source -->
+
 | Thư mục | Vai trò |
 | --- | --- |
 | `src` | Mã nguồn bạn chỉnh sửa |

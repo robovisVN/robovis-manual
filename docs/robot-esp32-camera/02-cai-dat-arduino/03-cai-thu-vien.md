@@ -4,6 +4,15 @@
 
 Trong Arduino IDE, chọn **Tools → Manage Libraries**. Gõ lần lượt từng tên thư viện vào ô tìm kiếm và nhấn **Install**.
 
+<!-- tutorial-figure:goi-board-va-thu-vien -->
+<figure class="tutorial-figure" markdown>
+
+[![Boards Manager cài nền tảng bo; chọn đúng bo; Library Manager cài thư viện theo chương trình.](../../assets/illustrations/goi-board-va-thu-vien.svg)](../../assets/illustrations/goi-board-va-thu-vien.svg)
+
+<figcaption>Gói hỗ trợ bo và thư viện có nhiệm vụ khác nhau. Cài đúng thành phần được yêu cầu trong bài, không thay thế hai loại cho nhau. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:goi-board-va-thu-vien -->
+
 | Tên tìm kiếm | Tác giả cần chọn | Mục đích |
 | --- | --- | --- |
 | `AsyncTCP` | ESP32Async | Giao tiếp TCP bất đồng bộ trên ESP32 |

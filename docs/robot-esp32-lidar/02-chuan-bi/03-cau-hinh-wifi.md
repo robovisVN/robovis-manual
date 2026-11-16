@@ -41,6 +41,15 @@ Không đặt máy tính thành `192.168.4.1` vì địa chỉ đó đã đượ
 
 ## 3. Kiểm tra kết nối
 
+<!-- tutorial-figure:mang-robot-ubuntu -->
+<figure class="tutorial-figure" markdown>
+
+[![Ubuntu kết nối tới Wi-Fi robot; máy ảo cần bridge đúng card, robot và Ubuntu có IP riêng.](../../assets/illustrations/mang-robot-ubuntu.svg)](../../assets/illustrations/mang-robot-ubuntu.svg)
+
+<figcaption>Sơ đồ kết nối với robot LiDAR ở chế độ AP mặc định. Với Wi-Fi ngoài, dùng IP thực tế theo cấu hình của mạng đó. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:mang-robot-ubuntu -->
+
 ```bash
 ip -4 addr
 ping -c 4 192.168.4.1

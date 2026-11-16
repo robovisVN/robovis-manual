@@ -4,6 +4,15 @@
 
 Trong các bài học trước, chúng ta đã tìm hiểu cách cài đặt Arduino IDE, lựa chọn bo mạch Arduino Nano và nạp chương trình đầu tiên.
 
+<!-- tutorial-figure:goi-board-va-thu-vien -->
+<figure class="tutorial-figure" markdown>
+
+[![Boards Manager cài nền tảng bo; chọn đúng bo; Library Manager cài thư viện theo chương trình.](../assets/illustrations/goi-board-va-thu-vien.svg)](../assets/illustrations/goi-board-va-thu-vien.svg)
+
+<figcaption>Gói hỗ trợ bo và thư viện có nhiệm vụ khác nhau. Cài đúng thành phần được yêu cầu trong bài, không thay thế hai loại cho nhau. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:goi-board-va-thu-vien -->
+
 Để điều khiển những thiết bị như động cơ servo hoặc giao tiếp Bluetooth, chương trình Arduino có thể cần sử dụng thêm các **thư viện lập trình (Library)**.
 
 Thư viện cung cấp các hàm và công cụ đã được xây dựng sẵn, giúp người dùng điều khiển phần cứng mà không phải tự lập trình toàn bộ quá trình giao tiếp ở mức thấp.

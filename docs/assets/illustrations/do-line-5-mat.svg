@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="470" viewBox="0 0 1120 470" role="img" aria-labelledby="title desc">
+<title id="title">Năm mắt dò line và vị trí vạch</title><desc id="desc">Năm mắt cảm biến quan sát bề mặt; vạch dưới mắt giữa giúp xác định line đang ở giữa. Mức 0/1 phụ thuộc cảm biến, cần hiệu chuẩn.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="470" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Năm mắt dò line và vị trí vạch</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="95" y="145" width="930" height="175" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<rect x="502" y="145" width="116" height="175" rx="0" fill="#292c35" stroke="#c8d8e7"/>
+<circle cx="200" cy="224" r="28" fill="#72c5dd" stroke="#3672a4" stroke-width="2"/>
+<text x="184" y="125" class="bold">L2</text>
+<path d="M200 261L200 307" stroke="#3672a4" stroke-width="3" fill="none"/>
+<circle cx="380" cy="224" r="28" fill="#72c5dd" stroke="#3672a4" stroke-width="2"/>
+<text x="364" y="125" class="bold">L1</text>
+<path d="M380 261L380 307" stroke="#3672a4" stroke-width="3" fill="none"/>
+<circle cx="560" cy="224" r="28" fill="#72c5dd" stroke="#3672a4" stroke-width="2"/>
+<text x="544" y="125" class="bold">M</text>
+<path d="M560 261L560 307" stroke="#3672a4" stroke-width="3" fill="none"/>
+<circle cx="740" cy="224" r="28" fill="#72c5dd" stroke="#3672a4" stroke-width="2"/>
+<text x="724" y="125" class="bold">R1</text>
+<path d="M740 261L740 307" stroke="#3672a4" stroke-width="3" fill="none"/>
+<circle cx="920" cy="224" r="28" fill="#72c5dd" stroke="#3672a4" stroke-width="2"/>
+<text x="904" y="125" class="bold">R2</text>
+<path d="M920 261L920 307" stroke="#3672a4" stroke-width="3" fill="none"/>
+<text x="72" y="364" class="bold">Nhìn từ trên xuống: vạch nằm dưới mắt M (giữa).</text>
+<text x="36" y="422" class="small muted">Xác định lại thứ tự trái/phải khi lắp. Không mặc định 0 hoặc 1 luôn là màu đen.</text>
+</svg>

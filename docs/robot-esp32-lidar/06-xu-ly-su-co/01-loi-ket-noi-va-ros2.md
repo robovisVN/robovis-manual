@@ -4,6 +4,15 @@
 
 Chỉ thay đổi một yếu tố mỗi lần. Kiểm tra theo thứ tự:
 
+<!-- tutorial-figure:kiem-tra-tung-lop -->
+<figure class="tutorial-figure" markdown>
+
+[![Ba lớp kiểm tra: mạng, môi trường ROS 2, dữ liệu và hiển thị.](../../assets/illustrations/kiem-tra-tung-lop.svg)](../../assets/illustrations/kiem-tra-tung-lop.svg)
+
+<figcaption>Kiểm tra từ kết nối mạng tới môi trường và dữ liệu. Ghi lại lệnh đã chạy cùng thông báo lỗi ở lớp gặp vấn đề. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:kiem-tra-tung-lop -->
+
 ```text
 Nguồn robot → Wi-Fi → IP/ping → môi trường ROS 2 → workspace → bringup → topic
 ```

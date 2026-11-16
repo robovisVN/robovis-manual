@@ -1,4 +1,7 @@
 :root {
+  /* Match robovis.vn: system text, Sen headings; code keeps Roboto Mono. */
+  --md-text-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --robovis-heading-font: "Sen", sans-serif;
   --md-primary-fg-color: #142b43;
   --md-primary-fg-color--light: #244a6f;
   --md-primary-fg-color--dark: #0a1c2d;
@@ -47,6 +50,10 @@
 .md-typeset h3 {
   color: var(--robovis-navy);
   font-weight: 700;
+}
+
+.md-typeset :is(h1, h2, h3, h4, h5) {
+  font-family: var(--robovis-heading-font);
 }
 
 .md-typeset h1 {
@@ -200,6 +207,12 @@
 
 /* Giữ bảng và sơ đồ trong chiều rộng bài, đặc biệt trên điện thoại. */
 .md-typeset .mermaid { overflow-x: auto; }
+
+/* Ubuntu lessons: responsive illustrations with compact, readable captions. */
+.md-typeset :is(.ubuntu-figure, .tutorial-figure) { display: block; width: 100%; max-width: 56rem; margin: .75rem auto 1rem; }
+.md-typeset :is(.ubuntu-figure, .tutorial-figure) a { display: block; }
+.md-typeset :is(.ubuntu-figure, .tutorial-figure) img { display: block; width: 100%; height: auto; border: 1px solid #dfe7ef; border-radius: .4rem; }
+.md-typeset :is(.ubuntu-figure, .tutorial-figure) figcaption { margin: .35rem 0 0; color: #53677a; font-size: .65rem; line-height: 1.5; }
 
 /* Product disclosure in the desktop header. Native details is the fallback. */
 .rv-tabs { overflow: visible; position: relative; z-index: 3; }

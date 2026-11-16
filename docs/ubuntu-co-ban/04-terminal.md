@@ -52,6 +52,13 @@ Lệnh `pwd` cho biết Terminal đang làm việc trong thư mục nào.
 
 Ngay dưới kết quả, dấu nhắc xuất hiện trở lại. Nghĩa là lệnh đã kết thúc và bạn có thể nhập lệnh tiếp theo.
 
+<figure class="ubuntu-figure" markdown>
+
+[![Terminal chạy pwd: phân biệt dấu nhắc robovis@ubuntu:~$, lệnh pwd, kết quả /home/robovis và dấu nhắc mới.](images/04-doc-terminal.svg)](images/04-doc-terminal.svg)
+
+<figcaption>Hình 4.1 — Đọc Terminal từ trên xuống: lệnh đã nhập → kết quả → dấu nhắc mới. Đây là màn hình minh họa; chỉ sao chép lệnh pwd.</figcaption>
+</figure>
+
 Tiếp tục chạy:
 
 ```bash
@@ -91,6 +98,13 @@ Bạn sẽ thấy những dòng phản hồi tiếp tục xuất hiện. Dấu n
 Nhấn **Ctrl + C** trong cửa sổ đó.
 
 **Kết quả cần thấy:** `ping` in thống kê rồi kết thúc; dấu nhắc xuất hiện trở lại. Các con số thời gian phản hồi có thể khác nhau giữa các máy.
+
+<figure class="ubuntu-figure" markdown>
+
+[![Minh họa ping 127.0.0.1 đang trả phản hồi, sau Ctrl+C hiện ^C, thống kê và dấu nhắc chờ lệnh mới.](images/04-dung-ping.svg)](images/04-dung-ping.svg)
+
+<figcaption>Hình 4.2 — Nhấn Ctrl + C để dừng ping. Ký hiệu ^C và thống kê trong hình là ví dụ kết quả, không phải lệnh cần nhập.</figcaption>
+</figure>
 
 Nếu hệ thống báo `ping: command not found`, dừng bài tập này và xem phần cài công cụ ở bài 6. Không cần đổi địa chỉ IP để sửa lỗi thiếu lệnh.
 

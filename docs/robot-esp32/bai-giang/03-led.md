@@ -4,6 +4,15 @@
 
 Trong bài học trước, chúng ta đã tìm hiểu cấu trúc chương trình Arduino, cách sử dụng `setup()`, `loop()` và cách nạp chương trình vào ESP32.
 
+<!-- tutorial-figure:led-high-low -->
+<figure class="tutorial-figure" markdown>
+
+[![Xung HIGH LOW thay đổi theo thời gian, tương ứng bật và tắt đối với LED active-high.](../../assets/illustrations/led-high-low.svg)](../../assets/illustrations/led-high-low.svg)
+
+<figcaption>Sơ đồ thời gian giúp đọc trình tự bật/tắt. Kiểm tra loại LED thực tế và mức kích hoạt trong bài. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:led-high-low -->
+
 Ở bài học này, chúng ta sẽ thực hành **điều khiển đèn LED tích hợp trên bo ESP32**.
 
 Đây là một trong những bài thực hành cơ bản nhất khi bắt đầu lập trình vi điều khiển. Thông qua việc điều khiển LED bật, tắt và nhấp nháy, chúng ta sẽ tìm hiểu cách sử dụng chân GPIO để xuất tín hiệu Digital.

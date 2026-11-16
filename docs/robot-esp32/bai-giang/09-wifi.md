@@ -692,6 +692,15 @@ Nếu chương trình sử dụng các lệnh `delay()` dài hoặc có tác v�
 
 ## 9. Kết nối điện thoại với ESP32
 
+<!-- tutorial-figure:wifi-trinh-duyet -->
+<figure class="tutorial-figure" markdown>
+
+[![Kết nối Wi-Fi do ESP32 phát, mở địa chỉ trong trình duyệt, gửi lệnh từ trang điều khiển.](../../assets/illustrations/wifi-trinh-duyet.svg)](../../assets/illustrations/wifi-trinh-duyet.svg)
+
+<figcaption>Ba bước sử dụng giao diện web. Dùng địa chỉ thực tế của chương trình; không mặc định mọi robot đều có cùng cấu hình. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:wifi-trinh-duyet -->
+
 ### 9.1. Bước 1: Nạp chương trình
 
 Trong Arduino IDE:

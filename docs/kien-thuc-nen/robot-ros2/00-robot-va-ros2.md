@@ -4,6 +4,15 @@
 
 Sau bài này, bạn có thể phân biệt dữ liệu cảm biến với lệnh điều khiển, giải thích vai trò của node và vẽ kiến trúc một robot di động. Bạn chưa cần viết mã hoặc có robot thật.
 
+<!-- tutorial-figure:ros2-topic -->
+<figure class="tutorial-figure" markdown>
+
+[![Publisher phát message có kiểu xác định qua topic tới subscriber.](../../assets/illustrations/ros2-topic.svg)](../../assets/illustrations/ros2-topic.svg)
+
+<figcaption>Topic là kênh, message là dữ liệu truyền trên kênh. Kiểm tra dữ liệu thật thay vì chỉ dựa vào tên topic trong danh sách. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:ros2-topic -->
+
 ## 2. Robot cần biết và làm những gì?
 
 Giả sử robot cần đi tới cửa phòng. Người dùng biết cửa ở đâu trên bản đồ, nhưng động cơ chỉ nhận được tín hiệu điều khiển. Giữa yêu cầu “đi tới cửa” và chuyển động bánh xe là nhiều bước xử lý.

@@ -4,6 +4,15 @@
 
 Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC bằng L298N và sử dụng cảm biến siêu âm HC-SR04 để đo khoảng cách đến vật cản.
 
+<!-- tutorial-figure:do-line-5-mat -->
+<figure class="tutorial-figure" markdown>
+
+[![Mảng năm cảm biến L2 L1 M R1 R2 nhìn từ trên xuống với vạch nằm dưới mắt giữa.](../../assets/illustrations/do-line-5-mat.svg)](../../assets/illustrations/do-line-5-mat.svg)
+
+<figcaption>Ví dụ nhận biết vị trí vạch bằng năm mắt cảm biến. Thứ tự kênh và mức 0/1 cần đối chiếu kết quả đo thực tế. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:do-line-5-mat -->
+
 Ở bài học này, chúng ta sẽ tìm hiểu và thực hành sử dụng **cảm biến dò line TCRT5000 5 kênh** để nhận biết vị trí đường line trên mặt sàn.
 
 Cảm biến dò line là một trong những thành phần quan trọng của xe robot di động. Nhờ cảm biến này, robot có thể nhận biết đường dẫn được tạo sẵn trên mặt đất và điều chỉnh hướng di chuyển để bám theo đường dẫn đó.

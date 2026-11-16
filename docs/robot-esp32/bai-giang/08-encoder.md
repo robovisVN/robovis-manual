@@ -4,6 +4,15 @@
 
 Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC bằng module TB6612FNG, đọc cảm biến siêu âm HC-SR04 và sử dụng cảm biến TCRT5000 để xác định vị trí vạch line.
 
+<!-- tutorial-figure:encoder-xung-rpm -->
+<figure class="tutorial-figure" markdown>
+
+[![Dạng xung encoder và công thức RPM bằng N nhân 60 chia cho PPR nhân T.](../../assets/illustrations/encoder-xung-rpm.svg)](../../assets/illustrations/encoder-xung-rpm.svg)
+
+<figcaption>Đếm số xung trong một khoảng thời gian để suy ra tốc độ. PPR phải phù hợp với bánh xe và cách đếm đang dùng. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:encoder-xung-rpm -->
+
 Tuy nhiên, khi điều khiển động cơ bằng PWM, chúng ta mới chỉ điều chỉnh mức công suất cấp cho động cơ, chưa biết chính xác bánh xe đang quay với tốc độ bao nhiêu.
 
 Ví dụ, khi cấp cùng một giá trị PWM cho hai động cơ, tốc độ thực tế của hai bánh có thể khác nhau do:

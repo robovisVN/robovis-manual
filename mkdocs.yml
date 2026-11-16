@@ -20,7 +20,7 @@ theme:
       primary: custom
       accent: custom
   font:
-    text: Roboto
+    text: Sen
     code: Roboto Mono
 
 extra_javascript:

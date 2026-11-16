@@ -53,6 +53,15 @@ Màn hình kích hoạt hoặc điều khoản có thể khác giữa các bản
 
 ## 3. Mở máy ảo Ubuntu
 
+<!-- tutorial-figure:mo-may-ao -->
+<figure class="tutorial-figure" markdown>
+
+[![Giải nén robovis.zip, chọn .vmx bằng VMware, bật máy và đăng nhập Ubuntu.](../assets/illustrations/mo-may-ao.svg)](../assets/illustrations/mo-may-ao.svg)
+
+<figcaption>Ba bước mở máy ảo; tệp .vmx và dữ liệu .vmdk cần được giữ trong bộ máy ảo đầy đủ. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:mo-may-ao -->
+
 ### Bước 1. Giải nén đầy đủ
 
 Giải nén `robovis.zip` vào một thư mục dễ tìm, ví dụ `D:\ROBOVIS\Ubuntu` nếu máy có ổ D còn đủ dung lượng.

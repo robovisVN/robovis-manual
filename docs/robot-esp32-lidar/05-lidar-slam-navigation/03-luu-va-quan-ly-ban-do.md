@@ -16,6 +16,15 @@ ros2 run nav2_map_server map_saver_cli -f ~/phong_lab
 
 ## Kiểm tra file
 
+<!-- tutorial-figure:ban-do-yaml-pgm -->
+<figure class="tutorial-figure" markdown>
+
+[![Tệp m_map.yaml tham chiếu tới ảnh m_map.pgm; cần lưu và sao lưu cả hai.](../../assets/illustrations/ban-do-yaml-pgm.svg)](../../assets/illustrations/ban-do-yaml-pgm.svg)
+
+<figcaption>Hai tệp làm việc cùng nhau. Chỉ sao chép YAML hoặc PGM sẽ không tạo thành bộ bản đồ đầy đủ. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:ban-do-yaml-pgm -->
+
 ```bash
 ls -lh ~/m_map.yaml ~/m_map.pgm
 ```

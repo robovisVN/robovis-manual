@@ -4,6 +4,15 @@
 
 Trong bài này, bạn sẽ tạo mô hình robot nhỏ, phát quan hệ thân–LiDAR và xem trong RViz. Sau đó, chúng ta đối chiếu các bước tương tự khi xem dữ liệu của Robot ESP32 LiDAR thật.
 
+<!-- tutorial-figure:tf-chuoi-frame -->
+<figure class="tutorial-figure" markdown>
+
+[![Ví dụ cây TF từ map tới odom, base_link và frame LiDAR.](../../assets/illustrations/tf-chuoi-frame.svg)](../../assets/illustrations/tf-chuoi-frame.svg)
+
+<figcaption>Chuỗi frame thường gặp để đưa dữ liệu cảm biến vào bản đồ. Đối chiếu tên frame và các nhánh thực tế của robot đang chạy. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:tf-chuoi-frame -->
+
 Bạn cần package thực hành của bài 4–7 và kiến thức TF của bài 10. Các tệp mô hình bên dưới chỉ thuộc bài thử trên máy tính.
 
 ## 2. RViz và mô phỏng khác nhau thế nào?

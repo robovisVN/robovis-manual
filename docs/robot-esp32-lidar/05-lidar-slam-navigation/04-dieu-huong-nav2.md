@@ -28,6 +28,15 @@ Sau khi khởi động, RViz phải hiển thị bản đồ.
 
 Robot cần biết vị trí và hướng hiện tại trên bản đồ.
 
+<!-- tutorial-figure:nav2-quy-trinh -->
+<figure class="tutorial-figure" markdown>
+
+[![Chuẩn bị bản đồ, đặt pose ban đầu trong RViz, gửi Nav2 Goal và giám sát chuyển động.](../../assets/illustrations/nav2-quy-trinh.svg)](../../assets/illustrations/nav2-quy-trinh.svg)
+
+<figcaption>Đặt vị trí ban đầu trước khi gửi mục tiêu. Mũi tên pose và mục tiêu đều cần đúng hướng, không chỉ đúng vị trí. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:nav2-quy-trinh -->
+
 1. Đặt robot thật tại một vị trí dễ nhận biết.
 2. Trong RViz, chọn **2D Pose Estimate**.
 3. Nhấn giữ chuột tại vị trí tương ứng trên bản đồ.

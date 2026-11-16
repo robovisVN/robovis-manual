@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="460" viewBox="0 0 1120 460" role="img" aria-labelledby="title desc">
+<title id="title">GND chung tạo mốc cho đường tín hiệu</title><desc id="desc">Hai mạch giao tiếp trực tiếp có đường tín hiệu và đường GND làm mốc chung; không nối tùy tiện hai cực dương nguồn.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="460" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">GND chung tạo mốc cho đường tín hiệu</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="60" y="142" width="350" height="180" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="78" y="208" class="bold" style="font-size:23px">Mạch phát</text>
+<text x="78" y="246" class="small" style="font-size:20px">Chân tín hiệu</text>
+<text x="78" y="276" class="small" style="font-size:20px">GND</text>
+<rect x="710" y="142" width="350" height="180" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="728" y="208" class="bold" style="font-size:23px">Mạch nhận</text>
+<text x="728" y="246" class="small" style="font-size:20px">Chân vào</text>
+<text x="728" y="276" class="small" style="font-size:20px">GND</text>
+<path d="M422 240L697 240" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="468" y="213" class="bold">Tín hiệu</text>
+<path d="M422 294L697 294" stroke="#68727e" stroke-width="3" fill="none"/>
+<text x="457" y="350" class="bold">GND: mốc chung</text>
+<text x="36" y="412" class="small muted">Sơ đồ nguyên lý giao tiếp trực tiếp. Không đồng nghĩa nối chung mọi cực dương nguồn.</text>
+</svg>

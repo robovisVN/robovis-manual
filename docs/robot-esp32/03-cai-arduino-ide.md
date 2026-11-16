@@ -4,6 +4,15 @@
 
 Sau khi chuẩn bị bo mạch ESP32, board mở rộng và các thiết bị cần thiết, bước tiếp theo là cài đặt môi trường lập trình trên máy tính.
 
+<!-- tutorial-figure:quy-trinh-nap -->
+<figure class="tutorial-figure" markdown>
+
+[![Quy trình chọn bo và cổng USB, Verify, Upload rồi quan sát Serial Monitor hoặc LED.](../assets/illustrations/quy-trinh-nap.svg)](../assets/illustrations/quy-trinh-nap.svg)
+
+<figcaption>Quy trình nạp chương trình. Tên bo, cổng và tốc độ Serial cần theo đúng phần hướng dẫn của từng bo. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:quy-trinh-nap -->
+
 Trong chuỗi bài học này, chúng ta sử dụng **Arduino IDE** để viết, biên dịch và nạp chương trình cho **ESP32 30P CH340 Type-C**.
 
 Để máy tính có thể lập trình ESP32, cần chuẩn bị ba thành phần chính:

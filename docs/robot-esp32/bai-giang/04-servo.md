@@ -4,6 +4,15 @@
 
 Sau bài này, bạn có thể:
 
+<!-- tutorial-figure:servo-goc-quay -->
+<figure class="tutorial-figure" markdown>
+
+[![Ba vị trí trục servo được minh họa với lệnh 0, 90 và 180 độ.](../../assets/illustrations/servo-goc-quay.svg)](../../assets/illustrations/servo-goc-quay.svg)
+
+<figcaption>Servo vị trí di chuyển tới góc yêu cầu. Ba góc minh họa không thay cho thông số hành trình của servo đang sử dụng. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:servo-goc-quay -->
+
 - Phân biệt servo vị trí với motor DC.
 - Đấu nguồn và tín hiệu servo đúng chân.
 - Dùng thư viện đặt góc và thử chuyển động trong khoảng nhỏ.

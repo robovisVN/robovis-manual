@@ -4,6 +4,15 @@
 
 Trong các bài học trước, chúng ta đã tìm hiểu cách điều khiển động cơ DC bằng L298N và sử dụng các cảm biến để nhận biết môi trường xung quanh robot.
 
+<!-- tutorial-figure:encoder-xung-rpm -->
+<figure class="tutorial-figure" markdown>
+
+[![Dạng xung encoder và công thức RPM bằng N nhân 60 chia cho PPR nhân T.](../../assets/illustrations/encoder-xung-rpm.svg)](../../assets/illustrations/encoder-xung-rpm.svg)
+
+<figcaption>Đếm số xung trong một khoảng thời gian để suy ra tốc độ. PPR phải phù hợp với bánh xe và cách đếm đang dùng. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:encoder-xung-rpm -->
+
 Tuy nhiên, khi điều khiển động cơ bằng PWM, Arduino chỉ thay đổi mức điều khiển cấp cho động cơ mà chưa biết chính xác bánh xe đang quay nhanh hay chậm.
 
 Ví dụ, khi đặt cùng một giá trị PWM cho hai động cơ, tốc độ quay thực tế của hai bánh có thể khác nhau do đặc tính động cơ, ma sát, tải trọng và nguồn điện.

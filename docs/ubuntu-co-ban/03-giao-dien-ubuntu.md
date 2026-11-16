@@ -18,6 +18,13 @@ Trên Ubuntu Desktop 22.04 mặc định, bạn thường thấy:
 
 Vị trí có thể khác nếu máy đã được tùy chỉnh. Khi không thấy biểu tượng, dùng chức năng tìm tên ứng dụng ở bước tiếp theo.
 
+<figure class="ubuntu-figure" markdown>
+
+[![Sơ đồ màn hình Ubuntu 22.04 với Activities, Dock, ngày giờ, menu hệ thống và Show Applications được đánh số.](images/03-man-hinh-ubuntu.svg)](images/03-man-hinh-ubuntu.svg)
+
+<figcaption>Hình 3.1 — Các khu vực chính trên Ubuntu Desktop 22.04, minh họa theo giao diện mặc định. Nhấp hình để xem lớn.</figcaption>
+</figure>
+
 ## 2. Mở một ứng dụng bằng tên
 
 1. Nhấp **Activities**.
@@ -49,6 +56,13 @@ Nếu bạn đã tải `robovis.zip` bằng Windows, tệp đó nằm trong Wind
 Nếu đã có `hoc_ubuntu`, mở thư mục đó, không cần tạo thêm. Các bài sau dùng chính thư mục này để thực hành.
 
 **Kết quả cần thấy:** Files đang mở thư mục `hoc_ubuntu` trong Home. Chưa có tệp bên trong cũng đúng.
+
+<figure class="ubuntu-figure" markdown>
+
+[![Minh họa Files: chọn Home ở thanh bên trái, rồi mở thư mục hoc_ubuntu; Downloads nằm trong cùng cửa sổ.](images/03-files-home.svg)](images/03-files-home.svg)
+
+<figcaption>Hình 3.2 — Từ Home, nhấp đúp hoc_ubuntu để mở. Nếu chưa có, dùng Ctrl + Shift + N để tạo thư mục.</figcaption>
+</figure>
 
 ## 4. Chuyển giữa các cửa sổ
 

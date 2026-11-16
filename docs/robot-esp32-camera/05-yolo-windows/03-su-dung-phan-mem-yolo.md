@@ -2,6 +2,15 @@
 
 ## Các thông số nhận diện
 
+<!-- tutorial-figure:yolo-luong-du-lieu -->
+<figure class="tutorial-figure" markdown>
+
+[![Robot gửi hình về máy Windows chạy YOLO; giao diện hiển thị nhận diện, điều khiển gửi qua WebSocket.](../../assets/illustrations/yolo-luong-du-lieu.svg)](../../assets/illustrations/yolo-luong-du-lieu.svg)
+
+<figcaption>Nhận diện YOLO chạy trên Windows. Kênh ảnh và kênh điều khiển robot có URL riêng; kiểm tra đúng cả hai. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:yolo-luong-du-lieu -->
+
 ### Model
 
 - `yolov8n.pt`: nhẹ nhất, tốc độ nhanh, nên dùng để bắt đầu.

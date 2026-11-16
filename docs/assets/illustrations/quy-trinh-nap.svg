@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="450" viewBox="0 0 1120 450" role="img" aria-labelledby="title desc">
+<title id="title">Từ mã nguồn đến chương trình trên bo mạch</title><desc id="desc">Chọn đúng → Verify → Upload → Quan sát. Chương trình biên dịch được chưa có nghĩa đã nạp thành công xuống bo.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="450" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Từ mã nguồn đến chương trình trên bo mạch</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="36.0" y="135" width="241.0" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="54.0" y="166" class="small accent bold">01</text>
+<text x="54.0" y="201" class="bold" style="font-size:23px">Chọn đúng</text>
+<text x="54.0" y="239" class="small" style="font-size:20px">Bo và cổng USB</text>
+<text x="54.0" y="269" class="small" style="font-size:17.126148705096078px">Theo cấu hình của bài</text>
+<path d="M280.0 218L300.0 218" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="305.0" y="135" width="241.0" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="323.0" y="166" class="small accent bold">02</text>
+<text x="323.0" y="201" class="bold" style="font-size:23px">Verify</text>
+<text x="323.0" y="239" class="small" style="font-size:19.98050682261209px">Kiểm tra biên dịch</text>
+<text x="323.0" y="269" class="small" style="font-size:20px">Sửa lỗi nếu có</text>
+<path d="M549.0 218L569.0 218" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="574.0" y="135" width="241.0" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="592.0" y="166" class="small accent bold">03</text>
+<text x="592.0" y="201" class="bold" style="font-size:23px">Upload</text>
+<text x="592.0" y="239" class="small" style="font-size:20px">Nạp xuống bo</text>
+<text x="592.0" y="269" class="small" style="font-size:16.347687400318982px">Chờ thông báo hoàn tất</text>
+<path d="M818.0 218L838.0 218" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="843.0" y="135" width="241.0" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="861.0" y="166" class="small accent bold">04</text>
+<text x="861.0" y="201" class="bold" style="font-size:23px">Quan sát</text>
+<text x="861.0" y="239" class="small" style="font-size:17.98245614035088px">Serial Monitor / LED</text>
+<text x="861.0" y="269" class="small" style="font-size:18.928901200369346px">Đối chiếu baud rate</text>
+<text x="36" y="402" class="small muted">Chương trình biên dịch được chưa có nghĩa đã nạp thành công xuống bo.</text>
+</svg>

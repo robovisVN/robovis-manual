@@ -50,6 +50,15 @@ def doi_diem(x_lidar, y_lidar, tx, ty, theta):
 
 Một điểm từ LiDAR đi tới bản đồ có thể cần qua nhiều quan hệ:
 
+<!-- tutorial-figure:tf-chuoi-frame -->
+<figure class="tutorial-figure" markdown>
+
+[![Ví dụ cây TF từ map tới odom, base_link và frame LiDAR.](../../assets/illustrations/tf-chuoi-frame.svg)](../../assets/illustrations/tf-chuoi-frame.svg)
+
+<figcaption>Chuỗi frame thường gặp để đưa dữ liệu cảm biến vào bản đồ. Đối chiếu tên frame và các nhánh thực tế của robot đang chạy. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:tf-chuoi-frame -->
+
 ```text
 LiDAR → thân robot → odom → map
 ```

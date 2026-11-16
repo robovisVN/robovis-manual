@@ -6,6 +6,15 @@
 
 ## Ba khái niệm có nhiệm vụ khác nhau
 
+<!-- tutorial-figure:digital-adc-pwm -->
+<figure class="tutorial-figure" markdown>
+
+[![So sánh tín hiệu số, đầu vào analog được ADC số hóa và chuỗi xung PWM.](../../assets/illustrations/digital-adc-pwm.svg)](../../assets/illustrations/digital-adc-pwm.svg)
+
+<figcaption>Ba dạng minh họa có nhiệm vụ khác nhau. Không coi PWM là điện áp analog liên tục hoặc dùng thang ADC của Nano cho mọi bo. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:digital-adc-pwm -->
+
 | Khái niệm | Làm gì? | Ví dụ trên Nano classic ATmega328P chạy 5 V |
 | --- | --- | --- |
 | Digital (tín hiệu số) | Đọc hoặc xuất hai trạng thái logic | Đọc nút bằng `digitalRead()`, xuất HIGH/LOW bằng `digitalWrite()` |

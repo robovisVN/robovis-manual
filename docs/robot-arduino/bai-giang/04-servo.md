@@ -4,6 +4,15 @@
 
 Trong các bài học trước, chúng ta đã làm quen với cách lập trình Arduino Nano và điều khiển các thiết bị đầu ra thông qua tín hiệu Digital.
 
+<!-- tutorial-figure:servo-goc-quay -->
+<figure class="tutorial-figure" markdown>
+
+[![Ba vị trí trục servo được minh họa với lệnh 0, 90 và 180 độ.](../../assets/illustrations/servo-goc-quay.svg)](../../assets/illustrations/servo-goc-quay.svg)
+
+<figcaption>Servo vị trí di chuyển tới góc yêu cầu. Ba góc minh họa không thay cho thông số hành trình của servo đang sử dụng. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:servo-goc-quay -->
+
 Ở bài học này, chúng ta sẽ tìm hiểu và thực hành điều khiển **động cơ Servo SG90**, một loại động cơ có khả năng quay đến vị trí góc xác định.
 
 Trên xe robot Arduino, servo được sử dụng để xoay cảm biến siêu âm HC-SR04 sang các hướng khác nhau, giúp xe đo khoảng cách và phát hiện vật cản ở phía trước, bên trái và bên phải.

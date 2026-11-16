@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="610" viewBox="0 0 1120 610" role="img" aria-labelledby="title desc">
+<title id="title">Robot Camera: chọn đúng một cấu hình</title><desc id="desc">Hai chương trình Camera có SSID và cổng khác nhau. YOLO dùng ESP32-Car-01, trang cổng 82, WebSocket cổng 82; kiểm tra cảm biến dùng ESP32-Car, trang và WebSocket cổng mặc định.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="610" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Robot Camera: chọn đúng một cấu hình</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="36" y="125" width="509" height="295" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="56" y="165" class="bold">Camera + motor / YOLO</text>
+<text x="56" y="218" class="mono" style="font-size:21px">Wi-Fi: ESP32-Car-01</text>
+<text x="56" y="266" class="small muted">Trang:</text>
+<text x="56" y="299" class="mono" style="font-size:22px">http://192.168.4.1:82</text>
+<text x="56" y="345" class="small muted">WebSocket:</text>
+<text x="56" y="378" class="mono" style="font-size:21px">ws://192.168.4.1:82/ws</text>
+<rect x="575" y="125" width="509" height="295" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="595" y="165" class="bold">Kiểm tra camera + cảm biến</text>
+<text x="595" y="218" class="mono" style="font-size:21px">Wi-Fi: ESP32-Car</text>
+<text x="595" y="266" class="small muted">Trang:</text>
+<text x="595" y="299" class="mono" style="font-size:22px">http://192.168.4.1</text>
+<text x="595" y="345" class="small muted">WebSocket:</text>
+<text x="595" y="378" class="mono" style="font-size:21px">ws://192.168.4.1/ws</text>
+<rect x="36" y="447" width="1048" height="60" rx="10" fill="#e7f0fb" stroke="#c8d8e7"/>
+<text x="57" y="485" class="mono" style="font-size:23px">Luồng camera của cả hai: http://192.168.4.1:81/stream</text>
+<text x="36" y="532" class="small muted">Không trộn SSID, cổng hay sơ đồ GPIO giữa hai chương trình.</text>
+<text x="36" y="562" class="small muted">Bảng mật khẩu và cấu hình phần cứng tương ứng nằm trong bài.</text>
+</svg>

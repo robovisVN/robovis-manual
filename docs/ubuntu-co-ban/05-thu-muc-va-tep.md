@@ -20,6 +20,13 @@ Tên tài khoản của bạn có thể khác. Để không phải thay tên ng�
 
 **Đường dẫn tuyệt đối** bắt đầu từ `/`. **Đường dẫn tương đối** được hiểu từ thư mục Terminal đang đứng. Bạn sẽ thấy khác biệt ngay ở bài tập tiếp theo.
 
+<figure class="ubuntu-figure" markdown>
+
+[![Cây thư mục từ / đến home, robovis, hoc_ubuntu, bai_05 và ghi_chu.txt; dấu ~ tương ứng /home/robovis, cd .. đi lên thư mục cha.](images/05-cay-thu-muc.svg)](images/05-cay-thu-muc.svg)
+
+<figcaption>Hình 5.1 — Cấu trúc thư mục và tệp sẽ tạo trong bài. Tài khoản robovis chỉ là ví dụ; ~ luôn trỏ tới Home của tài khoản đang đăng nhập.</figcaption>
+</figure>
+
 ## 2. Về Home và xem thư mục đang có
 
 Chạy từng lệnh:
@@ -86,6 +93,13 @@ Toi biet mo Terminal va tim thu muc Home.
 1. Nhấn **Ctrl + O**. Trong nano, chữ `^O` ở dưới màn hình có nghĩa là Ctrl + O.
 2. Nhấn **Enter** để xác nhận tên `ghi_chu.txt`.
 3. Nhấn **Ctrl + X** để thoát.
+
+<figure class="ubuntu-figure" markdown>
+
+[![Minh họa nano đang sửa ghi_chu.txt và ba bước lưu, thoát: Ctrl+O, Enter, Ctrl+X.](images/05-nano-luu-tep.svg)](images/05-nano-luu-tep.svg)
+
+<figcaption>Hình 5.2 — Nhập nội dung trong nano, rồi làm lần lượt ba bước phía dưới. ^O nghĩa là Ctrl + O, ^X nghĩa là Ctrl + X.</figcaption>
+</figure>
 
 Nếu báo `nano: command not found`, xem phần cài `nano` ở [bài 6](06-cai-va-chay-phan-mem.md), rồi quay lại bước này. Bạn cũng có thể dùng ứng dụng **Text Editor**, nhập nội dung và dùng **Save As** lưu vào đúng `~/hoc_ubuntu/bai_05/ghi_chu.txt`.
 

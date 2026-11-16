@@ -16,6 +16,15 @@ Cực âm pin thường được dùng làm GND của mạch chạy bằng pin �
 
 Giả sử một bo **ESP32 classic, logic 3,3 V**, đọc đầu ra digital (tín hiệu số) của cảm biến đã xác nhận dùng nguồn 3,3 V và xuất tín hiệu tương thích 3,3 V. Với kết nối không cách ly:
 
+<!-- tutorial-figure:gnd-tham-chieu -->
+<figure class="tutorial-figure" markdown>
+
+[![Hai mạch nối tín hiệu và nối GND tham chiếu chung; không có đường nối các cực dương nguồn.](../../assets/illustrations/gnd-tham-chieu.svg)](../../assets/illustrations/gnd-tham-chieu.svg)
+
+<figcaption>Bên nhận cần mốc GND phù hợp để hiểu mức điện áp tín hiệu. Với mạch cách ly hoặc nguồn đặc biệt, làm theo sơ đồ thiết kế. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:gnd-tham-chieu -->
+
 ```text
 ESP32 3V3  ---------- VCC cảm biến
 ESP32 GND  ---------- GND cảm biến

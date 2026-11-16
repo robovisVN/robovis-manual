@@ -4,6 +4,15 @@ Arduino IDE cần bộ công cụ của Espressif để biên dịch và nạp c
 
 ## 1. Thêm đường dẫn board ESP32
 
+<!-- tutorial-figure:goi-board-va-thu-vien -->
+<figure class="tutorial-figure" markdown>
+
+[![Boards Manager cài nền tảng bo; chọn đúng bo; Library Manager cài thư viện theo chương trình.](../../assets/illustrations/goi-board-va-thu-vien.svg)](../../assets/illustrations/goi-board-va-thu-vien.svg)
+
+<figcaption>Gói hỗ trợ bo và thư viện có nhiệm vụ khác nhau. Cài đúng thành phần được yêu cầu trong bài, không thay thế hai loại cho nhau. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:goi-board-va-thu-vien -->
+
 1. Mở Arduino IDE.
 2. Chọn **File → Preferences**.
 3. Tìm ô **Additional Board Manager URLs**.

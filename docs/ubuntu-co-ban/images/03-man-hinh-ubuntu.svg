@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="720" viewBox="0 0 1120 720" role="img" aria-labelledby="title desc">
+<title id="title">Nhận biết màn hình Ubuntu Desktop 22.04</title><desc id="desc">Sơ đồ màn hình: Activities góc trái trên; Dock bên trái; ngày giờ ở giữa thanh trên; menu hệ thống ở góc phải trên; Show Applications ở cuối Dock.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:22px;fill:#17334e}.title{font-size:30px;font-weight:700}.small{font-size:20px}.mono{font-family:Consolas,monospace;font-size:23px}.white{fill:#fff}.muted{fill:#53697d}.green{fill:#8ae59c}.orange{fill:#ffbc8c}.bold{font-weight:700}</style>
+<rect x="0" y="0" width="1120" height="720" rx="16" fill="#f4f7fb"/>
+<text x="36" y="48" class="title">Nhận biết màn hình Ubuntu Desktop 22.04</text>
+<text x="36" y="82" class="small muted">MINH HỌA • Tên tài khoản và giao diện thực tế có thể khác.</text>
+<rect x="36" y="110" width="1048" height="400" rx="10" fill="#4b2154"/>
+<rect x="36" y="110" width="1048" height="40" rx="8" fill="#26242a"/>
+<text x="57" y="138" class="small white">Activities</text>
+<text x="480" y="138" class="small white">May 12  09:41</text>
+<text x="943" y="138" class="small white">Mạng  •  Âm</text>
+<rect x="36" y="150" width="74" height="360" rx="0" fill="#302734"/>
+<rect x="48" y="180" width="50" height="46" rx="8" fill="#56515d"/>
+<text x="52" y="209" class="small white">Web</text>
+<rect x="48" y="245" width="50" height="46" rx="8" fill="#56515d"/>
+<text x="52" y="274" class="small white">Files</text>
+<rect x="48" y="310" width="50" height="46" rx="8" fill="#56515d"/>
+<text x="52" y="339" class="small white">Term</text>
+<rect x="48" y="375" width="50" height="46" rx="8" fill="#56515d"/>
+<text x="52" y="404" class="small white">Cài</text>
+<rect x="54" y="459" width="6" height="6" rx="1" fill="#fff"/>
+<rect x="54" y="476" width="6" height="6" rx="1" fill="#fff"/>
+<rect x="54" y="493" width="6" height="6" rx="1" fill="#fff"/>
+<rect x="71" y="459" width="6" height="6" rx="1" fill="#fff"/>
+<rect x="71" y="476" width="6" height="6" rx="1" fill="#fff"/>
+<rect x="71" y="493" width="6" height="6" rx="1" fill="#fff"/>
+<rect x="88" y="459" width="6" height="6" rx="1" fill="#fff"/>
+<rect x="88" y="476" width="6" height="6" rx="1" fill="#fff"/>
+<rect x="88" y="493" width="6" height="6" rx="1" fill="#fff"/>
+<text x="325" y="295" class="title white">Không gian làm việc của bạn</text>
+<text x="325" y="335" class="white">Mở ứng dụng từ Activities hoặc Dock.</text>
+<circle cx="196" cy="130" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="190" y="137" class="small white bold">1</text>
+<circle cx="119" cy="272" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="113" y="279" class="small white bold">2</text>
+<circle cx="688" cy="130" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="682" y="137" class="small white bold">3</text>
+<circle cx="1064" cy="166" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="1058" y="173" class="small white bold">4</text>
+<circle cx="118" cy="476" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="112" y="483" class="small white bold">5</text>
+<circle cx="54" cy="549" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="48" y="556" class="small white bold">1</text>
+<text x="82" y="555" class="">Activities: tìm ứng dụng</text>
+<circle cx="594" cy="549" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="588" y="556" class="small white bold">2</text>
+<text x="622" y="555" class="">Dock: mở nhanh ứng dụng</text>
+<circle cx="54" cy="599" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="48" y="606" class="small white bold">3</text>
+<text x="82" y="605" class="">Ngày giờ: lịch, thông báo</text>
+<circle cx="594" cy="599" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="588" y="606" class="small white bold">4</text>
+<text x="622" y="605" class="">Menu hệ thống: mạng, tắt máy</text>
+<circle cx="54" cy="649" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="48" y="656" class="small white bold">5</text>
+<text x="82" y="655" class="">Show Applications: danh sách ứng dụng</text>
+</svg>

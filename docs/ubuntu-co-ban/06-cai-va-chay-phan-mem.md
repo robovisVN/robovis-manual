@@ -8,6 +8,15 @@
 
 Cài phần mềm là đưa chương trình cùng các thành phần cần thiết vào máy. Chạy phần mềm là mở chương trình đã có để làm việc.
 
+<!-- tutorial-figure:cai-nap-chay -->
+<figure class="tutorial-figure" markdown>
+
+[![So sánh cài phần mềm, source môi trường và chạy chương trình.](../assets/illustrations/cai-nap-chay.svg)](../assets/illustrations/cai-nap-chay.svg)
+
+<figcaption>Phân biệt ba công việc thường gặp. Với ROS 2, dùng nguyên đường dẫn source được ghi trong bài. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:cai-nap-chay -->
+
 | Ví dụ | Đang làm gì? | Khi nào thực hiện? |
 | --- | --- | --- |
 | `sudo apt install nano` | Cài công cụ sửa văn bản nano | Khi công cụ chưa có hoặc cần cập nhật |

@@ -40,6 +40,15 @@ Bạn chưa cần cài từng thành phần ở bài này. Nếu dùng máy ảo
 
 **Máy ảo** là một máy tính được mô phỏng bằng phần mềm. VMware mở máy ảo Ubuntu trong một cửa sổ trên Windows.
 
+<!-- tutorial-figure:ubuntu-trong-windows -->
+<figure class="tutorial-figure" markdown>
+
+[![Windows chứa VMware và Ubuntu; Terminal chạy phần mềm ROS 2 bên trong Ubuntu.](../assets/illustrations/ubuntu-trong-windows.svg)](../assets/illustrations/ubuntu-trong-windows.svg)
+
+<figcaption>Phân biệt nơi chạy phần mềm: nhập lệnh ROS 2 trong Terminal Ubuntu, không nhập vào PowerShell của Windows. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:ubuntu-trong-windows -->
+
 ```mermaid
 flowchart TD
     subgraph PC["Máy tính của bạn"]

@@ -4,6 +4,15 @@
 
 Để lập trình và điều khiển xe robot Arduino Nano, trước tiên chúng ta cần cài đặt môi trường lập trình trên máy tính.
 
+<!-- tutorial-figure:quy-trinh-nap -->
+<figure class="tutorial-figure" markdown>
+
+[![Quy trình chọn bo và cổng USB, Verify, Upload rồi quan sát Serial Monitor hoặc LED.](../assets/illustrations/quy-trinh-nap.svg)](../assets/illustrations/quy-trinh-nap.svg)
+
+<figcaption>Quy trình nạp chương trình. Tên bo, cổng và tốc độ Serial cần theo đúng phần hướng dẫn của từng bo. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:quy-trinh-nap -->
+
 Trong bài học này, chúng ta sẽ sử dụng **Arduino IDE**, một phần mềm cho phép viết chương trình, biên dịch và nạp mã vào bo mạch Arduino.
 
 Sau khi cài đặt thành công, chúng ta sẽ thực hiện chương trình đầu tiên để điều khiển đèn LED tích hợp trên Arduino Nano nhấp nháy.

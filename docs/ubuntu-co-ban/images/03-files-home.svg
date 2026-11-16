@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="title desc">
+<title id="title">Tìm thư mục thực hành trong Files</title><desc id="desc">Cửa sổ Files ở Home với Downloads và hoc_ubuntu. Chọn Home ở thanh bên, rồi nhấp đúp hoc_ubuntu. Ctrl+Shift+N tạo thư mục mới.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:22px;fill:#17334e}.title{font-size:30px;font-weight:700}.small{font-size:20px}.mono{font-family:Consolas,monospace;font-size:23px}.white{fill:#fff}.muted{fill:#53697d}.green{fill:#8ae59c}.orange{fill:#ffbc8c}.bold{font-weight:700}</style>
+<rect x="0" y="0" width="1120" height="620" rx="16" fill="#f4f7fb"/>
+<text x="36" y="48" class="title">Tìm thư mục thực hành trong Files</text>
+<text x="36" y="82" class="small muted">MINH HỌA • Tên tài khoản và giao diện thực tế có thể khác.</text>
+<rect x="36" y="115" width="1048" height="350" rx="10" fill="#fff" stroke="#d3dde8"/>
+<rect x="36" y="115" width="1048" height="48" rx="10" fill="#e9e8e6"/>
+<text x="64" y="147" class="bold">Files   ‹   ›</text>
+<text x="370" y="147" class="bold">Home</text>
+<text x="1039" y="147" class="">×</text>
+<rect x="36" y="163" width="220" height="302" rx="0" fill="#f0f2f4"/>
+<rect x="48" y="194" width="196" height="42" rx="5" fill="#dbe9fb"/>
+<text x="66" y="224" class="small">Home</text>
+<text x="66" y="276" class="small">Documents</text>
+<text x="66" y="328" class="small">Downloads</text>
+<text x="66" y="380" class="small">Other Locations</text>
+<rect x="308" y="207" width="47" height="22" rx="4" fill="#d99038"/>
+<rect x="308" y="219" width="95" height="56" rx="6" fill="#edb25c"/>
+<text x="308" y="302" class="small">Documents</text>
+<rect x="548" y="207" width="47" height="22" rx="4" fill="#d99038"/>
+<rect x="548" y="219" width="95" height="56" rx="6" fill="#edb25c"/>
+<text x="548" y="302" class="small">Downloads</text>
+<rect x="776" y="195" width="170" height="116" rx="10" fill="#e6f0ff" stroke="#5c8fd0"/>
+<rect x="788" y="207" width="47" height="22" rx="4" fill="#d99038"/>
+<rect x="788" y="219" width="95" height="56" rx="6" fill="#edb25c"/>
+<text x="788" y="302" class="small">hoc_ubuntu</text>
+<circle cx="234" cy="212" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="228" y="219" class="small white bold">1</text>
+<circle cx="957" cy="216" r="17" fill="#1765b0" stroke="#fff" stroke-width="2"/>
+<text x="951" y="223" class="small white bold">2</text>
+<text x="65" y="510" class="">1. Chọn Home.</text>
+<text x="395" y="510" class="">2. Nhấp đúp hoc_ubuntu.</text>
+<rect x="60" y="538" width="998" height="49" rx="8" fill="#eaf2fc"/>
+<text x="80" y="570" class="small">Chưa có thư mục? Nhấn Ctrl + Shift + N → nhập hoc_ubuntu → Create.</text>
+</svg>

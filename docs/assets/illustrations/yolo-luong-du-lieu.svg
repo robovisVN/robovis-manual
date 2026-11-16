@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="530" viewBox="0 0 1120 530" role="img" aria-labelledby="title desc">
+<title id="title">YOLO chạy ở đâu trong hệ thống Camera?</title><desc id="desc">Robot gửi ảnh qua cổng 81 về máy Windows chạy YOLO và giao diện. Lệnh điều khiển đi từ giao diện trở lại robot qua WebSocket cổng 82.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="530" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">YOLO chạy ở đâu trong hệ thống Camera?</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="36" y="140" width="330" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="54" y="206" class="bold" style="font-size:23px">Robot ESP32 Camera</text>
+<text x="54" y="244" class="small" style="font-size:20px">Gửi hình ảnh qua Wi-Fi</text>
+<text x="54" y="274" class="small" style="font-size:20px">Nhận lệnh motor</text>
+<rect x="395" y="140" width="330" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="413" y="206" class="bold" style="font-size:23px">Máy tính Windows</text>
+<text x="413" y="244" class="small" style="font-size:20px">Python + model YOLO</text>
+<text x="413" y="274" class="small" style="font-size:20px">Nhận diện trên máy tính</text>
+<rect x="754" y="140" width="330" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="772" y="206" class="bold" style="font-size:23px">Giao diện người dùng</text>
+<text x="772" y="244" class="small" style="font-size:20px">Xem khung nhận diện</text>
+<text x="772" y="274" class="small" style="font-size:20px">Gửi lệnh qua WebSocket</text>
+<path d="M372 215L383 215" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M731 215L742 215" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M918 300L918 352" stroke="#3672a4" stroke-width="3" fill="none"/>
+<path d="M918 352L201 352" stroke="#3672a4" stroke-width="3" fill="none"/>
+<path d="M201 352L201 306" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="300" y="391" class="small bold">Lệnh điều khiển quay lại robot qua WebSocket</text>
+<text x="36" y="452" class="small muted">Luồng ảnh: cổng 81 /stream. Điều khiển của firmware YOLO: WebSocket cổng 82.</text>
+<text x="36" y="482" class="small muted">Model YOLO chạy trên máy tính Windows, không chạy trong ESP32.</text>
+</svg>

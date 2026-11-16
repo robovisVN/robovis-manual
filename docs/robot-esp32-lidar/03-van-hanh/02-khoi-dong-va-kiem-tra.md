@@ -51,6 +51,15 @@ Nếu báo không tìm thấy `robot_bringup`, kiểm tra phần nạp môi trư
 
 Mở **Terminal 2**, chạy:
 
+<!-- tutorial-figure:ros2-topic -->
+<figure class="tutorial-figure" markdown>
+
+[![Publisher phát message có kiểu xác định qua topic tới subscriber.](../../assets/illustrations/ros2-topic.svg)](../../assets/illustrations/ros2-topic.svg)
+
+<figcaption>Topic là kênh, message là dữ liệu truyền trên kênh. Kiểm tra dữ liệu thật thay vì chỉ dựa vào tên topic trong danh sách. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:ros2-topic -->
+
 ```bash
 ros2 topic list
 ```

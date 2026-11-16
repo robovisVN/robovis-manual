@@ -51,6 +51,15 @@ WebSocket:      ws://192.168.4.1/ws
 
 ## Chọn đúng chương trình
 
+<!-- tutorial-figure:camera-hai-cau-hinh -->
+<figure class="tutorial-figure" markdown>
+
+[![Hai cấu hình ESP32 Camera: YOLO dùng Wi-Fi ESP32-Car-01 và cổng 82; kiểm tra cảm biến dùng ESP32-Car và cổng mặc định.](../../assets/illustrations/camera-hai-cau-hinh.svg)](../../assets/illustrations/camera-hai-cau-hinh.svg)
+
+<figcaption>Chọn trọn một cấu hình tương ứng với firmware đang chạy. Luồng camera dùng cổng 81, nhưng cổng điều khiển khác nhau. Nhấp hình để xem lớn.</figcaption>
+</figure>
+<!-- /tutorial-figure:camera-hai-cau-hinh -->
+
 | Mục đích | Chương trình cần nạp |
 | --- | --- |
 | Chạy ứng dụng Python và nhận diện YOLO | Camera và motor dùng với Python YOLO |
