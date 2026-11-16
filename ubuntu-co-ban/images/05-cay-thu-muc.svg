@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="title desc">
+<title id="title">Hiểu đường dẫn bằng cây thư mục</title><desc id="desc">Cây /home/robovis chứa Downloads và hoc_ubuntu. Trong hoc_ubuntu có bai_05, bên trong chứa ghi_chu.txt. Ký hiệu ~ là /home/robovis; cd .. đi từ bai_05 lên hoc_ubuntu.</desc>
+<style>text{font-family:Segoe UI,Arial,sans-serif;font-size:22px;fill:#17334e}.title{font-size:30px;font-weight:700}.small{font-size:20px}.mono{font-family:Consolas,monospace;font-size:23px}.white{fill:#fff}.muted{fill:#53697d}.green{fill:#8ae59c}.orange{fill:#ffbc8c}.bold{font-weight:700}</style>
+<rect x="0" y="0" width="1120" height="680" rx="16" fill="#f4f7fb"/>
+<text x="36" y="48" class="title">Hiểu đường dẫn bằng cây thư mục</text>
+<text x="36" y="82" class="small muted">MINH HỌA • Tên tài khoản và giao diện thực tế có thể khác.</text>
+<rect x="60" y="126" width="340" height="48" rx="7" fill="#fff" stroke="#b9cddd"/>
+<text x="76" y="158" class="mono">/</text>
+<rect x="105" y="193" width="295" height="48" rx="7" fill="#fff" stroke="#b9cddd"/>
+<text x="121" y="225" class="mono">home</text>
+<rect x="150" y="260" width="250" height="48" rx="7" fill="#eaf2fc" stroke="#b9cddd"/>
+<text x="166" y="292" class="mono">robovis  (= ~)</text>
+<rect x="205" y="327" width="245" height="48" rx="7" fill="#fff" stroke="#b9cddd"/>
+<text x="221" y="359" class="mono">Downloads</text>
+<rect x="205" y="394" width="245" height="48" rx="7" fill="#fff" stroke="#b9cddd"/>
+<text x="221" y="426" class="mono">hoc_ubuntu</text>
+<rect x="260" y="461" width="250" height="48" rx="7" fill="#eaf2fc" stroke="#b9cddd"/>
+<text x="276" y="493" class="mono">bai_05</text>
+<rect x="315" y="528" width="280" height="48" rx="7" fill="#fff" stroke="#b9cddd"/>
+<text x="331" y="560" class="mono">ghi_chu.txt</text>
+<path d="M80 174L80 217" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M80 217L105 217" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M125 241L125 284" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M125 284L150 284" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M175 308L175 418" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M175 351L205 351" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M175 418L205 418" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M230 442L230 485" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M230 485L260 485" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M285 509L285 552" fill="none" stroke="#7193b3" stroke-width="3"/>
+<path d="M285 552L315 552" fill="none" stroke="#7193b3" stroke-width="3"/>
+<rect x="565" y="136" width="493" height="133" rx="10" fill="#122b44"/>
+<text x="587" y="173" class="small white bold">HAI CÁCH VIẾT CÙNG MỘT VỊ TRÍ</text>
+<text x="587" y="215" class="mono white">/home/robovis/hoc_ubuntu</text>
+<text x="587" y="250" class="mono green">~/hoc_ubuntu</text>
+<rect x="565" y="300" width="493" height="150" rx="10" fill="#fff" stroke="#b9cddd"/>
+<text x="587" y="339" class="bold">Nếu Terminal đang ở bai_05:</text>
+<text x="587" y="382" class="mono">cd ..</text>
+<text x="587" y="423" class="small">→ trở về hoc_ubuntu</text>
+<text x="60" y="625" class="mono bold">Tệp ví dụ: ~/hoc_ubuntu/bai_05/ghi_chu.txt</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="490" viewBox="0 0 1120 490" role="img" aria-labelledby="title desc">
+<title id="title">HC-SR04: sóng đi và sóng phản xạ</title><desc id="desc">Cảm biến phát sóng đến vật cản, nhận sóng quay lại. Khoảng cách bằng vận tốc âm nhân thời gian khứ hồi chia hai.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="490" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">HC-SR04: sóng đi và sóng phản xạ</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="60" y="155" width="245" height="180" rx="10" fill="#dfeef5" stroke="#c8d8e7"/>
+<text x="105" y="192" class="bold">HC-SR04</text>
+<circle cx="132" cy="263" r="36" fill="#fff" stroke="#3672a4" stroke-width="2"/>
+<circle cx="232" cy="263" r="36" fill="#fff" stroke="#3672a4" stroke-width="2"/>
+<rect x="895" y="140" width="145" height="230" rx="10" fill="#d6dce4" stroke="#c8d8e7"/>
+<text x="917" y="265" class="bold">Vật cản</text>
+<path d="M325 208L871 208" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="465" y="184" class="">Sóng phát đi</text>
+<path d="M871 309L325 309" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="455" y="349" class="">Sóng phản xạ</text>
+<text x="350" y="401" class="bold">d = vận tốc âm × thời gian khứ hồi / 2</text>
+<text x="36" y="442" class="small muted">Sơ đồ nguyên lý, không phải sơ đồ đấu dây. Mức điện áp Echo phải theo đúng bài của bo.</text>
+</svg>

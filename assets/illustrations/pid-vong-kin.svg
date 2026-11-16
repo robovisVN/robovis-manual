@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="490" viewBox="0 0 1120 490" role="img" aria-labelledby="title desc">
+<title id="title">Điều khiển tốc độ có phản hồi</title><desc id="desc">Tốc độ đặt được so sánh với tốc độ encoder. Sai số đi vào PID, đầu ra PWM tới động cơ; encoder đo tốc độ đưa về so sánh.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="490" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Điều khiển tốc độ có phản hồi</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="36" y="145" width="225" height="170" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="54" y="211" class="bold" style="font-size:23px">So sánh</text>
+<text x="54" y="249" class="small" style="font-size:20px">Đặt − tốc độ đo</text>
+<text x="54" y="279" class="small" style="font-size:20px">Sai số e</text>
+<rect x="307" y="145" width="225" height="170" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="325" y="211" class="bold" style="font-size:23px">PID</text>
+<text x="325" y="249" class="small" style="font-size:20px">Tính điều khiển</text>
+<text x="325" y="279" class="small" style="font-size:20px">Giới hạn đầu ra</text>
+<rect x="578" y="145" width="225" height="170" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="596" y="211" class="bold" style="font-size:20.36637931034483px">Driver + động cơ</text>
+<text x="596" y="249" class="small" style="font-size:20px">Nhận PWM</text>
+<text x="596" y="279" class="small" style="font-size:20px">Bánh xe quay</text>
+<rect x="849" y="145" width="235" height="170" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="867" y="211" class="bold" style="font-size:23px">Encoder</text>
+<text x="867" y="249" class="small" style="font-size:20px">Đo tốc độ</text>
+<text x="867" y="279" class="small" style="font-size:20px">Phản hồi</text>
+<path d="M265 225L299 225" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M536 225L570 225" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M807 225L841 225" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M964 315L964 369" stroke="#3672a4" stroke-width="3" fill="none"/>
+<path d="M964 369L148 369" stroke="#3672a4" stroke-width="3" fill="none"/>
+<path d="M148 369L148 321" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="404" y="400" class="small">Tốc độ đo quay về điểm so sánh</text>
+<text x="36" y="442" class="small muted">Sơ đồ nguyên lý vòng kín; hệ số PID và giới hạn PWM phải theo thử nghiệm trong bài.</text>
+</svg>

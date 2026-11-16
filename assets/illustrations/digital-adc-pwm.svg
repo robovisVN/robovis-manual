@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="570" viewBox="0 0 1120 570" role="img" aria-labelledby="title desc">
+<title id="title">Digital, ADC và PWM có nhiệm vụ khác nhau</title><desc id="desc">Digital dùng HIGH LOW; ADC chuyển điện áp analog đầu vào thành số; PWM là xung số với tỷ lệ thời gian HIGH thay đổi, không phải DAC.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="570" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Digital, ADC và PWM có nhiệm vụ khác nhau</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="36" y="114" width="1048" height="108" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="58" y="149" class="bold">Digital</text>
+<text x="58" y="185" class="small">Đọc / xuất HIGH hoặc LOW</text>
+<rect x="36" y="238" width="1048" height="108" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="58" y="273" class="bold">ADC</text>
+<text x="58" y="309" class="small">Điện áp đầu vào → giá trị số</text>
+<rect x="36" y="362" width="1048" height="108" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="58" y="397" class="bold">PWM</text>
+<text x="58" y="433" class="small">Thay đổi tỷ lệ thời gian HIGH</text>
+<path d="M580 185V135H705V185H830V135H1025" stroke="#1765b0" stroke-width="4" fill="none"/>
+<path d="M580 305L640 285L700 302L760 255L820 270L880 240L950 260L1020 235" stroke="#1765b0" stroke-width="4" fill="none"/>
+<path d="M580 432V382H610V432H700V382H760V432H820V382H910V432H1025" stroke="#1765b0" stroke-width="4" fill="none"/>
+<text x="36" y="522" class="small muted">PWM vẫn là xung HIGH/LOW. Độ phân giải ADC và cách tạo PWM phụ thuộc từng bo.</text>
+</svg>

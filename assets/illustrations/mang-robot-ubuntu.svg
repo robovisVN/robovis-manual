@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="450" viewBox="0 0 1120 450" role="img" aria-labelledby="title desc">
+<title id="title">Kiểm tra mạng từ Ubuntu tới robot</title><desc id="desc">Ubuntu → Đường kết nối → Robot LiDAR. Ví dụ AP mặc định: IP Ubuntu 192.168.4.99, robot 192.168.4.1; không đặt trùng IP. Ping thành công mới xác nhận kết nối mạng, chưa xác nhận ROS 2 hoạt động.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="450" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Kiểm tra mạng từ Ubuntu tới robot</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="36.0" y="135" width="330.6666666666667" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="54.0" y="166" class="small accent bold">01</text>
+<text x="54.0" y="201" class="bold" style="font-size:23px">Ubuntu</text>
+<text x="54.0" y="239" class="small" style="font-size:20px">IP trên card đang dùng</text>
+<text x="54.0" y="269" class="small" style="font-size:20px">Khác IP của Windows</text>
+<path d="M369.6666666666667 218L389.6666666666667 218" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="394.6666666666667" y="135" width="330.6666666666667" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="412.6666666666667" y="166" class="small accent bold">02</text>
+<text x="412.6666666666667" y="201" class="bold" style="font-size:23px">Đường kết nối</text>
+<text x="412.6666666666667" y="239" class="small" style="font-size:20px">Wi-Fi robot</text>
+<text x="412.6666666666667" y="269" class="small" style="font-size:20px">VMware: kiểm tra Bridged</text>
+<path d="M728.3333333333334 218L748.3333333333334 218" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="753.3333333333334" y="135" width="330.6666666666667" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="771.3333333333334" y="166" class="small accent bold">03</text>
+<text x="771.3333333333334" y="201" class="bold" style="font-size:23px">Robot LiDAR</text>
+<text x="771.3333333333334" y="239" class="small" style="font-size:20px">192.168.4.1</text>
+<text x="771.3333333333334" y="269" class="small" style="font-size:20px">Cấu hình AP mặc định</text>
+<text x="36" y="372" class="small muted">Ví dụ AP mặc định: IP Ubuntu 192.168.4.99, robot 192.168.4.1; không đặt trùng IP.</text>
+<text x="36" y="402" class="small muted">Ping thành công mới xác nhận kết nối mạng, chưa xác nhận ROS 2 hoạt động.</text>
+</svg>

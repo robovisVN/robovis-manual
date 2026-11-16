@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="title desc">
+<title id="title">Workspace: mã nguồn, build và môi trường</title><desc id="desc">src chứa mã nguồn, colcon build tạo build, install, log. Source install/setup.bash để Terminal tìm thấy package đã build.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="500" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Workspace: mã nguồn, build và môi trường</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="36" y="140" width="280" height="175" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="54" y="206" class="bold" style="font-size:23px">src/</text>
+<text x="54" y="244" class="small" style="font-size:20px">Mã nguồn và package</text>
+<text x="54" y="274" class="small" style="font-size:20px">Nơi chỉnh sửa</text>
+<rect x="375" y="140" width="280" height="175" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="393" y="206" class="bold" style="font-size:23px">colcon build</text>
+<text x="393" y="244" class="small" style="font-size:20px">Chạy ở gốc workspace</text>
+<text x="393" y="274" class="small" style="font-size:20px">Đọc thông báo build</text>
+<rect x="714" y="140" width="370" height="175" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="732" y="206" class="bold" style="font-size:23px">build/  install/  log/</text>
+<text x="732" y="244" class="small" style="font-size:19.53216374269006px">install: môi trường và tệp cài</text>
+<text x="732" y="274" class="small" style="font-size:20px">log: nhật ký build</text>
+<path d="M322 225L363 225" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<path d="M661 225L702 225" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="36" y="345" width="1048" height="60" rx="10" fill="#e7f0fb" stroke="#c8d8e7"/>
+<text x="58" y="383" class="small bold">Sau khi build: source install/setup.bash trong Terminal dùng workspace.</text>
+<text x="36" y="452" class="small muted">Nạp ROS 2 nền trước overlay của workspace, theo đúng thứ tự và đường dẫn trong bài.</text>
+</svg>

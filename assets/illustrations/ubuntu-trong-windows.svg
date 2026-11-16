@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="580" viewBox="0 0 1120 580" role="img" aria-labelledby="title desc">
+<title id="title">Windows, máy ảo Ubuntu và phần mềm robot</title><desc id="desc">Windows chứa VMware, VMware chứa Ubuntu. Terminal và ROS 2 chạy bên trong Ubuntu. ESP32 không chạy Ubuntu.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="580" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Windows, máy ảo Ubuntu và phần mềm robot</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="36" y="117" width="1048" height="360" rx="10" fill="#e5edf6" stroke="#c8d8e7"/>
+<text x="58" y="154" class="bold">Máy tính Windows</text>
+<rect x="82" y="177" width="970" height="272" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="104" y="214" class="bold">VMware — máy ảo Ubuntu</text>
+<rect x="125" y="240" width="400" height="165" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="143" y="306" class="bold" style="font-size:23px">Terminal Ubuntu</text>
+<text x="143" y="344" class="small" style="font-size:20px">Nhập lệnh trong Ubuntu</text>
+<rect x="605" y="240" width="400" height="165" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="623" y="306" class="bold" style="font-size:23px">Phần mềm ROS 2</text>
+<text x="623" y="344" class="small" style="font-size:20px">Nhận dữ liệu, điều khiển robot</text>
+<path d="M536 320L590 320" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="36" y="502" class="small muted">Tệp tải trong Windows không tự xuất hiện trong Home của Ubuntu.</text>
+<text x="36" y="532" class="small muted">Nếu cài Ubuntu trực tiếp, bạn không cần lớp VMware.</text>
+</svg>
