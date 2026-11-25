@@ -79,3 +79,8 @@ Mã nguồn robot, firmware, công cụ cấu hình và máy ảo chưa được
 | `docs/stylesheets/extra.css` | Bộ nhận diện, dropdown và sidebar |
 
 Phiên bản Material được giữ theo `requirements.txt`. Khi nâng phiên bản theme, kiểm tra lại các template override. Cấu hình Mermaid được giữ; việc hiển thị sơ đồ trên web cần trình duyệt tải được tài nguyên Mermaid.
+
+
+## Controlled releases
+
+This repository contains the approved publication source. Authoring and draft review take place separately. Do not add unpublished lessons here.

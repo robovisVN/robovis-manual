@@ -2,3 +2,10 @@
 site/
 .DS_Store
 __pycache__/
+
+# Local work and internal workspace instructions
+.vscode/
+.release/
+tmp/
+AGENTS.md
+PROJECT_RULES.md
