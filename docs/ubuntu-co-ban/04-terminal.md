@@ -1,14 +1,18 @@
 # Bài 4. Làm quen với Terminal
 
+Trong bài trước, chúng ta dùng chuột để mở ứng dụng và tìm thư mục. Khi học robot, nhiều công việc tương tự được thực hiện bằng lệnh, giúp chỉ rõ chương trình cần chạy và các thiết lập đi kèm.
+
+Terminal là nơi chúng ta nhập những lệnh đó. Bài này sẽ giúp bạn đọc một cửa sổ Terminal, chạy lệnh đầu tiên và nhận biết khi nào chương trình vẫn đang hoạt động.
+
 **Mục tiêu:** tự nhập một lệnh, nhận biết khi lệnh đã chạy xong và dừng được lệnh đang chạy.
 
 **Chuẩn bị:** Ubuntu đã mở. Bài này không cần Internet và không cần robot.
 
 ## 1. Terminal dùng để làm gì?
 
-Terminal là cửa sổ để bạn yêu cầu máy tính thực hiện công việc bằng cách nhập lệnh. Trong tài liệu robot, nhiều phần mềm được mở theo cách này.
+Terminal là cửa sổ để chúng ta làm việc với máy tính bằng lệnh. Chẳng hạn, thay vì tìm biểu tượng của một chương trình robot, chúng ta có thể nhập tên chương trình cùng các thông tin cần thiết để khởi chạy nó.
 
-Bạn chỉ cần học cách nhập, đọc kết quả và dừng lệnh trước. Chưa cần ghi nhớ nhiều tên lệnh.
+Ở bước đầu, điều cần làm quen là trình tự nhập lệnh, đọc kết quả và dừng chương trình. Bạn có thể tra lại tên lệnh trong tài liệu khi cần, rồi dần ghi nhớ qua thực hành.
 
 ## 2. Mở Terminal đúng nơi
 
@@ -36,7 +40,7 @@ Dòng này gọi là **dấu nhắc lệnh**. Tên người dùng trên máy b�
 
 ## 3. Chạy lệnh đầu tiên
 
-Gõ lệnh sau, rồi nhấn **Enter**:
+Trước tiên, chúng ta sẽ hỏi Terminal đang làm việc trong thư mục nào. Gõ lệnh sau, rồi nhấn **Enter**:
 
 ```bash
 pwd
@@ -50,7 +54,7 @@ Lệnh `pwd` cho biết Terminal đang làm việc trong thư mục nào.
 /home/robovis
 ```
 
-Ngay dưới kết quả, dấu nhắc xuất hiện trở lại. Nghĩa là lệnh đã kết thúc và bạn có thể nhập lệnh tiếp theo.
+Sau dòng kết quả, bạn sẽ thấy dấu nhắc xuất hiện trở lại. Đây là dấu hiệu lệnh `pwd` đã kết thúc và Terminal sẵn sàng nhận lệnh tiếp theo. Việc nhận biết dấu nhắc sẽ hữu ích khi chúng ta chạy những chương trình kéo dài ở phần sau.
 
 <figure class="ubuntu-figure" markdown>
 
@@ -69,7 +73,7 @@ whoami
 
 ## 4. Sao chép và dán lệnh
 
-Trong trình duyệt, sao chép lệnh bằng nút sao chép hoặc **Ctrl + C**. Chuyển vào Terminal và dùng **Ctrl + Shift + V** để dán. Đọc lại lệnh, rồi nhấn **Enter**.
+Khi làm theo tài liệu, chúng ta có thể sao chép lệnh thay vì gõ lại. Trong trình duyệt, dùng nút sao chép hoặc **Ctrl + C**, sau đó chuyển vào Terminal và nhấn **Ctrl + Shift + V** để dán. Hãy đọc lại nội dung vừa dán trước khi nhấn **Enter**.
 
 | Việc cần làm | Phím trong Terminal Ubuntu |
 | --- | --- |
@@ -85,13 +89,13 @@ Nếu sao chép từ Windows vào Ubuntu máy ảo chưa hoạt động, gõ tay
 
 ## 5. Thử một lệnh chạy liên tục
 
-Chạy:
+Các lệnh vừa thử đều trả kết quả rồi kết thúc. Bây giờ, chúng ta sẽ chạy một lệnh tiếp tục hoạt động để quan sát sự khác biệt:
 
 ```bash
 ping 127.0.0.1
 ```
 
-`127.0.0.1` là địa chỉ để máy tính liên lạc với **chính nó**. Bài tập này không kiểm tra robot hoặc Internet.
+`127.0.0.1` là địa chỉ để máy tính liên lạc với **chính nó**. Lệnh này chỉ minh họa cách chạy và dừng một chương trình liên tục.
 
 Bạn sẽ thấy những dòng phản hồi tiếp tục xuất hiện. Dấu nhắc chưa quay lại vì `ping` vẫn đang chạy.
 
@@ -106,11 +110,11 @@ Nhấn **Ctrl + C** trong cửa sổ đó.
 <figcaption>Hình 4.2 — Nhấn Ctrl + C để dừng ping. Ký hiệu ^C và thống kê trong hình là ví dụ kết quả, không phải lệnh cần nhập.</figcaption>
 </figure>
 
-Nếu hệ thống báo `ping: command not found`, dừng bài tập này và xem phần cài công cụ ở bài 6. Không cần đổi địa chỉ IP để sửa lỗi thiếu lệnh.
+Nếu hệ thống báo `ping: command not found`, xem phần cài công cụ ở bài 6 trước khi chạy lại lệnh. Không cần đổi địa chỉ IP để sửa lỗi thiếu lệnh.
 
 ## 6. Khi nào cần mở Terminal thứ hai?
 
-Sau này, một Terminal có thể đang chạy chương trình kết nối robot. Bạn phải giữ nó chạy, đồng thời mở Terminal khác để kiểm tra dữ liệu.
+Giả sử một Terminal đang chạy chương trình kết nối robot, còn chúng ta muốn kiểm tra dữ liệu nhận được. Nếu dừng chương trình kết nối để nhập lệnh kiểm tra, nguồn dữ liệu có thể cũng ngừng theo. Trong trường hợp đó, hãy giữ Terminal thứ nhất và mở thêm một cửa sổ cho công việc kiểm tra.
 
 ```mermaid
 flowchart TD
@@ -128,6 +132,8 @@ Một chương trình không in thêm dòng mới chưa chắc bị treo. Một 
 
 ## 7. Những lỗi nhập lệnh dễ gặp
 
+Khi một lệnh chưa chạy như mong đợi, hãy đọc phần cuối cửa sổ trước khi nhập lại. Những dấu hiệu sau giúp chúng ta nhận ra lỗi gõ lệnh hoặc chương trình đang chờ thao tác.
+
 | Hiện tượng | Kiểm tra trước tiên |
 | --- | --- |
 | `command not found` | Có gõ sai tên lệnh, sai chữ hoa/thường hoặc chưa cài công cụ không? |
@@ -135,10 +141,8 @@ Một chương trình không in thêm dòng mới chưa chắc bị treo. Một 
 | Dán cả kết quả vào Terminal | Chỉ sao chép phần **lệnh cần chạy** |
 | Gõ mà không thấy dấu nhắc | Chương trình trước có thể vẫn đang chạy hoặc đang hỏi thông tin |
 
-## Tự thực hành
+## Tổng kết
 
-Mở Terminal, chạy `pwd`, gọi lại lệnh bằng mũi tên lên, rồi chạy `ping 127.0.0.1` và dừng bằng **Ctrl + C**.
-
-**Bạn đã hoàn thành bài này khi:** phân biệt được lệnh cần chạy, kết quả trả về và dấu nhắc đang chờ nhập.
+Trong Terminal, câu lệnh là yêu cầu chúng ta gửi cho máy tính, còn các dòng xuất hiện sau đó là kết quả hoặc thông báo của chương trình. Dấu nhắc trở lại cho biết có thể nhập lệnh mới. Ở bài tiếp theo, chúng ta sẽ dùng cách làm này để tạo thư mục và lưu một tệp ghi chú.
 
 [← Bài 3](03-giao-dien-ubuntu.md) · [Bài 5: Thư mục, đường dẫn và tệp →](05-thu-muc-va-tep.md)

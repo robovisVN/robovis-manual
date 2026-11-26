@@ -55,12 +55,6 @@ Cong suat: 0.33 W
 
 Các hàm do bạn viết, tham số, `return` và phạm vi biến là C/C++. `Serial` là API Arduino. `setup()` và `loop()` cũng là các hàm C++, nhưng được Arduino gọi theo quy ước của nền tảng. Tham khảo [Arduino API – Sketch và return](https://docs.arduino.cc/learn/programming/reference).
 
-## Tự thực hành
-
-Thêm một lời gọi `inCongSuat(tinhCongSuat(5.0, 0.1));` trong `setup()`. Dự đoán: thêm dòng `Cong suat: 0.50 W`. Giữ các lời gọi cũ để kiểm tra việc dùng lại hàm.
-
-**Hoàn thành khi:** giải thích được dữ liệu đi vào đâu, kết quả đi ra đâu và vì sao chỉ có hàm in dùng `Serial`.
-
 ## Lỗi thường gặp
 
 - Quên `return` ở hàm cần trả kết quả.

@@ -8,7 +8,7 @@ Bộ tài liệu được xây dựng dành cho người mới bắt đầu tìm
 
 Thông qua các bài học, chúng ta sẽ từng bước tìm hiểu cấu tạo của xe robot, cách lập trình ESP32, điều khiển động cơ, đọc dữ liệu cảm biến và xây dựng các chức năng điều khiển có phản hồi.
 
-Nội dung được tổ chức theo phương pháp **học lý thuyết kết hợp thực hành**. Mỗi bài tập trung vào một thành phần hoặc chức năng cụ thể, từ tìm hiểu nguyên lý, kết nối phần cứng đến viết chương trình, chạy thử và đánh giá kết quả.
+Nội dung được tổ chức theo phương pháp **học lý thuyết kết hợp thực hành**. Mỗi bài trình bày một thành phần hoặc chức năng cụ thể, từ tìm hiểu nguyên lý, kết nối phần cứng đến viết chương trình, chạy thử và đánh giá kết quả.
 
 Bộ tài liệu áp dụng cho **bo mạch ESP32 DevKit 30 chân (30P), sử dụng cổng USB Type-C và chip giao tiếp USB–UART CH340**, cùng các linh kiện được trang bị trên bộ xe robot.
 

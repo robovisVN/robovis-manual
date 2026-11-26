@@ -717,43 +717,7 @@ Cách kiểm tra:
 3. Nhấn Upload.
 4. Quan sát lại LED L.
 
-## 15. Bài tập thực hành
-
-**Bài tập 1: Thay đổi thời gian nhấp nháy**
-
-Sửa chương trình Blink để:
-
-- LED sáng 500 ms.
-- LED tắt 500 ms.
-
-Nạp chương trình và quan sát kết quả.
-
-**Bài tập 2: LED sáng và tắt không đều**
-
-Viết chương trình để:
-
-- LED sáng 100 ms.
-- LED tắt 900 ms.
-
-Quan sát sự khác biệt so với chương trình Blink ban đầu.
-
-**Bài tập 3: LED nhấp nháy nhanh**
-
-Sửa chương trình để LED sáng 100 ms và tắt 100 ms.
-
-So sánh tốc độ nhấp nháy với các bài tập trước.
-
-**Bài tập 4: Tìm hiểu Verify và Upload**
-
-Trả lời các câu hỏi:
-
-1. Verify có nạp chương trình vào Arduino không?
-2. Upload có thực hiện biên dịch không?
-3. Vì sao cần chọn đúng Board và Processor?
-4. Cổng COM có chức năng gì?
-5. Sau khi nạp thành công, Arduino có thể chạy mà không kết nối với máy tính không?
-
-## 16. Tổng kết
+## 15. Tổng kết { #16-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu và thực hành:
 

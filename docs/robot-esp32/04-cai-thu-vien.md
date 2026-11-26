@@ -774,54 +774,7 @@ Không nên thay đổi đồng thời ESP32 core, nhiều thư viện và mã n
 
 ---
 
-## 12. Bài tập thực hành
-
-### Bài tập 1: Phân biệt các thành phần
-
-Trả lời:
-
-1. Board Package là gì?
-2. Library là gì?
-3. ESP32 core được cài đặt ở đâu?
-4. ESP32Servo được cài đặt bằng công cụ nào?
-5. Vì sao không cần cài thêm thư viện WiFi ngẫu nhiên cho ESP32?
-
-### Bài tập 2: Cài đặt thư viện
-
-Sử dụng Library Manager để tìm và cài đặt:
-
-1. AsyncTCP.
-2. ESPAsyncWebServer.
-3. ESP32Servo.
-
-Với mỗi thư viện, ghi lại tên, tác giả hoặc dự án và phiên bản đã cài.
-
-### Bài tập 3: Kiểm tra WiFi
-
-Thực hiện:
-
-1. Tạo sketch `ESP32ThuVien`.
-2. Nhập chương trình kiểm tra WiFi.
-3. Verify chương trình.
-4. Upload lên ESP32.
-5. Mở Serial Monitor với tốc độ 115200 baud.
-6. Kiểm tra thông báo sau khi nhấn EN/RESET.
-
-### Bài tập 4: Kiểm tra mã nguồn robot
-
-Mở toàn bộ dự án `set_2_tb6612` của robot.
-
-Thực hiện:
-
-1. Xác định các dòng `#include`.
-2. Phân biệt thư viện đi kèm ESP32 core và thư viện ngoài.
-3. Xác định các tệp mã nguồn riêng của dự án.
-4. Verify toàn bộ chương trình.
-5. Ghi lại lỗi nếu quá trình biên dịch không thành công.
-
----
-
-## 13. Kiểm tra trước khi bắt đầu
+## 12. Kiểm tra trước khi bắt đầu { #13-kiem-tra-truoc-khi-bat-au }
 
 Trước khi chuyển sang bài học tiếp theo, hãy đảm bảo:
 
@@ -839,7 +792,7 @@ Trước khi chuyển sang bài học tiếp theo, hãy đảm bảo:
 
 ---
 
-## 14. Tổng kết
+## 13. Tổng kết { #14-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu cách cài đặt và quản lý thư viện khi lập trình ESP32.
 

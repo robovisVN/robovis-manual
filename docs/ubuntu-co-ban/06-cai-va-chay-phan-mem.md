@@ -1,12 +1,16 @@
 # Bài 6. Cài phần mềm và chạy chương trình
 
+Khi làm theo một hướng dẫn robot, chúng ta có thể gặp ba yêu cầu nối tiếp nhau: cài một gói phần mềm, nạp môi trường và chạy chương trình. Các lệnh có thể cùng được nhập trong Terminal, nhưng mỗi bước thực hiện một công việc khác nhau.
+
+Trong bài này, chúng ta sẽ phân biệt những công việc đó qua các công cụ Ubuntu và một chương trình Python nhỏ, rồi liên hệ với bước chuẩn bị môi trường ROS 2.
+
 **Mục tiêu:** phân biệt cài phần mềm, mở phần mềm và chuẩn bị môi trường; biết dùng `sudo` khi hướng dẫn yêu cầu.
 
 **Chuẩn bị:** đã biết Terminal và đường dẫn. Phần cài công cụ cần Ubuntu có Internet; phần chạy chương trình mẫu không cần robot.
 
 ## 1. Cài và chạy là hai việc khác nhau
 
-Cài phần mềm là đưa chương trình cùng các thành phần cần thiết vào máy. Chạy phần mềm là mở chương trình đã có để làm việc.
+Cài phần mềm là đưa chương trình cùng các thành phần cần thiết vào máy. Sau khi đã cài, chúng ta có thể mở chương trình nhiều lần để sử dụng. Chẳng hạn, nano cần được cài nếu máy chưa có công cụ này; những lần sửa tệp sau chỉ cần chạy nano với tên tệp muốn mở.
 
 <!-- tutorial-figure:cai-nap-chay -->
 <figure class="tutorial-figure" markdown>
@@ -24,11 +28,11 @@ Cài phần mềm là đưa chương trình cùng các thành phần cần thi�
 | `source /opt/ros/humble/setup.bash` | Nạp thiết lập ROS 2 cho Terminal hiện tại | Khi Terminal chưa có môi trường ROS 2 |
 | `ros2 topic list` | Chạy công cụ xem tên các kênh dữ liệu ROS 2 | Khi muốn kiểm tra hệ thống |
 
-Tắt máy rồi mở lại không có nghĩa phải cài lại toàn bộ phần mềm. Một số chương trình và thiết lập môi trường cần được khởi chạy hoặc nạp lại.
+Vì phần mềm đã cài được lưu trên máy, chúng ta thường không phải cài lại sau mỗi lần khởi động. Tuy nhiên, chương trình cần được mở lại và một số thiết lập môi trường cần được nạp cho phiên Terminal đang dùng. Đây là lý do tài liệu có thể lặp lại lệnh `source` mà không yêu cầu cài lại ROS 2.
 
 ## 2. `sudo` và mật khẩu
 
-`sudo` cho phép chạy một lệnh với quyền quản trị khi tài khoản của bạn được cấp quyền. Công việc như cài phần mềm thường cần quyền này.
+Một số thao tác thay đổi phần mềm của hệ thống cần quyền quản trị. Khi tài khoản được cấp quyền, `sudo` cho phép chúng ta thực hiện một lệnh với quyền đó. Trong bài này, bạn sẽ gặp `sudo` ở các bước cài công cụ bằng `apt`.
 
 Khi lệnh hỏi mật khẩu, Terminal có thể hiện:
 
@@ -42,7 +46,7 @@ Nếu mật khẩu sai, đọc thông báo rồi nhập lại. Không tự thêm
 
 ## 3. Kiểm tra công cụ trước khi cài
 
-Chạy từng lệnh:
+Trước khi cài thêm, chúng ta nên kiểm tra công cụ đã có trên máy hay chưa. Chạy từng lệnh dưới đây để xem phiên bản nano và Python 3:
 
 ```bash
 nano --version
@@ -56,7 +60,7 @@ python3 --version
 
 ## 4. Cài công cụ còn thiếu bằng `apt`
 
-`apt` là công cụ lấy và cài các gói phần mềm từ nguồn đã cấu hình trong Ubuntu.
+Nếu một công cụ còn thiếu, chúng ta có thể sử dụng `apt` để cài gói tương ứng từ các nguồn đã cấu hình trong Ubuntu. Quá trình này cần kết nối Internet để lấy thông tin và tải gói phần mềm.
 
 ### Bước 1. Kết nối Internet
 
@@ -68,7 +72,7 @@ Nếu đang nối Wi-Fi robot, hãy chuyển về mạng có Internet. Với má
 sudo apt update
 ```
 
-Lệnh này tải lại danh sách gói có sẵn. Nó không có nghĩa là nâng cấp phiên bản Ubuntu. Chờ dấu nhắc quay lại và kiểm tra có lỗi tải dữ liệu không trước khi tiếp tục.
+Lệnh này tải lại danh sách các gói có sẵn để `apt` biết có thể lấy phần mềm từ đâu. Đây là bước cập nhật thông tin gói, không nâng cấp phiên bản Ubuntu. Hãy chờ dấu nhắc quay lại và kiểm tra thông báo tải dữ liệu trước khi chuyển sang bước cài đặt.
 
 ### Bước 3. Cài đúng công cụ cần dùng
 
@@ -96,7 +100,7 @@ Nếu báo đang có tiến trình khác giữ khóa `apt`, chờ trình cài/c�
 
 ## 5. Chạy một chương trình Python nhỏ
 
-Đây là bài tập hiểu cách **chạy tệp chương trình**. Bạn không cần học Python trước và chương trình không điều khiển robot.
+Sau khi kiểm tra công cụ, chúng ta sẽ tạo một tệp Python và chạy nó để thấy mối quan hệ giữa nội dung tệp với kết quả trên màn hình. Bạn có thể làm theo mà chưa cần học Python trước; chương trình chỉ in một câu chào, không điều khiển robot.
 
 Tạo thư mục:
 
@@ -132,7 +136,7 @@ Xin chao! Toi da chay duoc chuong trinh tren Ubuntu.
 
 ## 6. Hiểu bước `source` trong tài liệu ROS 2
 
-Phần này dành cho máy **đã cài ROS 2 Humble**, chẳng hạn máy ảo ROBOVIS. Máy Ubuntu mới cài có thể chưa có ROS 2; khi đó hoàn thành phần cài môi trường trong tài liệu robot trước.
+Khi chuyển sang phần mềm robot, Terminal còn cần biết vị trí các công cụ ROS 2. Chúng ta sẽ kiểm tra và nạp những thiết lập đó trên máy **đã cài ROS 2 Humble**, chẳng hạn máy ảo ROBOVIS. Nếu Ubuntu mới cài chưa có ROS 2, hãy hoàn thành phần cài môi trường trong tài liệu robot trước.
 
 Kiểm tra trong Terminal hiện tại:
 
@@ -166,7 +170,7 @@ ros2 --help
 
 ### Workspace của robot là lớp riêng
 
-ROS 2 chạy được chưa đảm bảo các gói riêng của robot đã được nạp. Với workspace theo cấu trúc `~/robot_ws`, kiểm tra:
+Ngoài các công cụ ROS 2 dùng chung, một robot còn có các gói riêng được đặt trong workspace của dự án. Terminal có thể chạy `ros2` nhưng vẫn chưa tìm thấy những gói này nếu chưa nạp workspace. Với cấu trúc `~/robot_ws`, chúng ta kiểm tra:
 
 ```bash
 ls ~/robot_ws/install/setup.bash
@@ -191,5 +195,9 @@ Nếu tệp không có, không tạo một tệp rỗng để cho hết lỗi. W
 | `ROS_DISTRO` hiện tên khác `humble` | Kiểm tra môi trường theo tài liệu robot, chưa chạy lệnh cài chồng thêm phiên bản |
 
 **Bạn đã hoàn thành bài này khi:** chạy được `xin_chao.py`, hiểu mật khẩu `sudo` và biết vì sao đôi khi cần `source`.
+
+## Tổng kết
+
+Cài đặt đưa phần mềm vào máy, nạp môi trường giúp Terminal tìm đúng các thành phần, còn chạy chương trình bắt đầu công việc cần thực hiện. Phân biệt ba bước này sẽ giúp chúng ta chọn đúng cách kiểm tra khi một lệnh chưa hoạt động. Tiếp theo, chúng ta sẽ xem máy tính kết nối với robot qua mạng như thế nào.
 
 [← Bài 5](05-thu-muc-va-tep.md) · [Bài 7: Kết nối máy tính với robot →](07-ket-noi-robot.md)

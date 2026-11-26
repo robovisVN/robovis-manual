@@ -1,12 +1,18 @@
 # Bài 8: Động học robot hai bánh và odometry
 
+Trong các bài trước, chúng ta đã đọc lệnh vận tốc tiến và vận tốc quay của thân robot. Tuy nhiên, động cơ tác động lên từng bánh xe. Để robot đi thẳng hoặc quay theo yêu cầu, hệ thống cần chuyển đổi giữa chuyển động của thân và chuyển động hai bánh.
+
+Chúng ta sẽ tìm hiểu mối liên hệ này bằng mô hình hai bánh, rồi sử dụng số đếm encoder để ước lượng một bước dịch chuyển của robot.
+
 ## 1. Mục tiêu và giả thiết
 
-Chúng ta sẽ liên hệ vận tốc hai bánh với vận tốc thân robot và tính một bước odometry từ encoder. Bài tính dùng mô hình **dẫn động vi sai**: hai bánh chủ động có trục song song, robot đổi hướng bằng chênh lệch tốc độ bánh.
+Bài tính sử dụng mô hình **dẫn động vi sai**: hai bánh chủ động có trục song song, robot đổi hướng nhờ chênh lệch tốc độ giữa chúng. Từ vận tốc hoặc số đếm của hai bánh, chúng ta sẽ tính chuyển động thân và một bước **odometry**, tức ước lượng chuyển động dựa trên dữ liệu đó.
 
 Giả sử robot chạy trên mặt phẳng, bánh lăn không trượt, bán kính hai bánh bằng nhau và khoảng cách hai bánh đã biết. Robot nhiều bánh vẫn có thể được xấp xỉ bằng mô hình này, nhưng trượt khi quay có thể làm sai số lớn hơn.
 
 ## 2. Thống nhất đại lượng và đơn vị
+
+Trước khi thay số vào công thức, chúng ta thống nhất ký hiệu và đơn vị. Bán kính hoặc khoảng cách bánh nhập theo milimét trong một công thức dùng mét sẽ làm kết quả sai dù phép tính đã thực hiện đúng.
 
 | Ký hiệu | Ý nghĩa | Đơn vị |
 | --- | --- | --- |
@@ -21,7 +27,7 @@ Quy ước bánh quay tiến có vận tốc dương. Với hệ trục x trư�
 
 ## 3. Động học thuận: từ bánh tới thân
 
-Vận tốc dài của một bánh bằng bán kính nhân vận tốc góc:
+Nếu biết bánh quay nhanh bao nhiêu và bán kính bánh, chúng ta tính được vận tốc dài tại vành bánh. Sau đó, trung bình và chênh lệch vận tốc hai bên cho biết vận tốc tiến và quay của thân:
 
 ```text
 uL = r × wL
@@ -30,7 +36,7 @@ v  = (uR + uL) / 2
 w  = (uR - uL) / L
 ```
 
-Khi hai bánh cùng tiến bằng nhau, hiệu bằng 0 nên robot đi thẳng. Khi bánh phải nhanh hơn, robot quay trái. Khi hai bánh bằng nhau về độ lớn nhưng trái dấu, trung bình bằng 0 nên mô hình cho chuyển động quay tại chỗ.
+Có thể đọc ý nghĩa công thức qua các tình huống quen thuộc. Nếu hai bánh cùng tiến bằng nhau, hiệu vận tốc bằng 0 và robot đi thẳng. Nếu bánh phải nhanh hơn, robot quay trái theo quy ước đã chọn. Khi hai bánh quay ngược chiều với cùng độ lớn, vận tốc tiến trung bình bằng 0, tạo chuyển động quay tại chỗ trong mô hình.
 
 ### Ví dụ có số
 
@@ -47,7 +53,7 @@ Robot vừa tiến vừa quay trái. Đây là kết quả lý tưởng từ v�
 
 ## 4. Động học nghịch: từ lệnh thân tới bánh
 
-Với lệnh mong muốn `v`, `w`:
+Ở chiều ngược lại, bộ điều khiển nhận lệnh mong muốn cho thân là `v` và `w`, rồi cần tìm vận tốc đặt cho từng bánh. Chúng ta sử dụng các quan hệ sau:
 
 ```text
 uL = v - w × L / 2
@@ -58,13 +64,13 @@ wR = uR / r
 
 Ví dụ `v = 0,20 m/s`, `w = 0,50 rad/s` cho `uL = 0,155 m/s`, `uR = 0,245 m/s`. Bánh phải cần quay nhanh hơn bánh trái.
 
-Các kết quả này là **giá trị đặt vận tốc bánh**, không phải PWM. Muốn bánh đáp ứng vận tốc đặt, bộ điều khiển còn cần đo phản hồi và điều chỉnh công suất. Cùng PWM không bảo đảm cùng vận tốc ở mọi tải.
+Kết quả vừa tính là **giá trị đặt vận tốc bánh**. Để đạt giá trị đó, bộ điều khiển động cơ còn phải đọc phản hồi và điều chỉnh công suất, chẳng hạn thông qua PWM. Do tải và điều kiện vận hành có thể thay đổi, cùng một mức PWM chưa bảo đảm bánh luôn quay cùng vận tốc.
 
 Nếu một bánh vượt giới hạn, cắt riêng từng giá trị có thể đổi tỷ lệ quay của robot. Có thể cần giảm đồng thời hai giá trị theo cùng tỷ lệ để giữ độ cong đường đi, tùy thiết kế bộ điều khiển.
 
 ## 5. Từ xung encoder tới quãng đường
 
-Gọi `N` là số đếm encoder hiệu dụng cho **một vòng bánh** theo cách đọc đang dùng. Nếu encoder gắn trên trục trước hộp số, cần tính thêm tỷ số truyền; nếu dùng nhiều sườn xung, số đếm cũng thay đổi.
+Encoder cung cấp số đếm theo chuyển động trục. Để đổi số đếm thành quãng đường bánh, chúng ta cần biết `N`, số đếm hiệu dụng cho **một vòng bánh** với cách đọc đang dùng. Nếu encoder gắn trước hộp số, phải tính thêm tỷ số truyền; số sườn xung được đọc cũng ảnh hưởng đến `N`.
 
 ```text
 dsL = 2 × pi × r × dcountL / N
@@ -88,7 +94,7 @@ Các thông số này chỉ dùng để tính ví dụ. Đọc thông số và h
 
 ## 6. Cập nhật pose trên mặt phẳng
 
-Robot đang ở `(x, y, theta)`. Với bước dịch chuyển nhỏ, có thể dùng hướng giữa bước:
+Khi đã biết quãng đường và góc quay trong một bước, chúng ta cần cập nhật pose, gồm vị trí và hướng của robot trên mặt phẳng. Nếu pose hiện tại là `(x, y, theta)`, có thể sử dụng hướng giữa bước để xấp xỉ vị trí mới khi bước dịch chuyển đủ nhỏ:
 
 ```text
 x_moi = x + ds × cos(theta + dtheta / 2)
@@ -122,17 +128,16 @@ def buoc_odometry(x, y, theta, dem_trai, dem_phai,
 
 ## 7. Vì sao odometry vẫn trôi?
 
-Encoder đo chuyển động trục, còn ta quan tâm chuyển động của thân trên sàn. Bánh trượt, lốp biến dạng, đường kính lệch và mặt sàn không phẳng đều làm phép suy ra có sai số. Sai số tích lũy khi tích phân nhiều bước.
+Các công thức trên suy ra chuyển động thân từ chuyển động bánh. Trong thực tế, encoder đo chuyển động trục, còn bánh có thể trượt hoặc biến dạng khi tiếp xúc với sàn. Sai lệch đường kính và bề mặt không phẳng cũng ảnh hưởng phép suy ra. Khi cộng dồn nhiều bước, những sai số này tích lũy khiến vị trí odometry lệch dần.
 
 Do đó, odometry thường cung cấp chuyển động cục bộ liên tục. LiDAR hoặc các nguồn khác hỗ trợ định vị và hiệu chỉnh vị trí trên bản đồ. Bài TF sẽ giải thích cách chia vai trò cho `odom` và `map`.
 
-## 8. Bài tập và kiểm tra thực tế
-
-1. Tính `v`, `w` khi hai bánh quay `5 rad/s` và `-5 rad/s` với thông số ví dụ. Robot quay theo hướng nào?
-2. Tăng đồng thời cả hai bán kính giả định thêm 10%. Những kết quả nào bị ảnh hưởng?
-3. Khi robot đứng yên, encoder có đếm bất thường không? Khi đi thẳng, dấu hai bên có cùng quy ước không?
-4. Khi thử robot thật, so sánh quãng đường đo trên sàn và odometry ở tốc độ thấp theo hướng dẫn sản phẩm. Không sửa PPR và bán kính cùng lúc vì sẽ khó xác định nguồn sai số.
+Khi kiểm tra odometry trên robot thật, dùng tốc độ thấp theo hướng dẫn sản phẩm. Không sửa PPR và bán kính cùng lúc vì sẽ khó xác định nguồn sai số.
 
 Đọc thêm: [REP 103 — đơn vị và trục](https://www.ros.org/reps/rep-0103.html).
+
+## 8. Tổng kết { #9-tong-ket }
+
+Động học thuận giúp suy ra vận tốc thân từ hai bánh; động học nghịch giúp tính vận tốc bánh từ lệnh chuyển động thân. Từ encoder, chúng ta còn ước lượng được quãng đường và cập nhật pose, với sai số phụ thuộc mô hình và điều kiện thực tế. Bài tiếp theo sẽ chuyển sang cách dữ liệu và lệnh đi giữa các máy qua mạng.
 
 [← Bài 7](05-parameter-va-launch.md) · [Bài 9: ROS 2 qua mạng →](09-ros2-qua-mang.md)

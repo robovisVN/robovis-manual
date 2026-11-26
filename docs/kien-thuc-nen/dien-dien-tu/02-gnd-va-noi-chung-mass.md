@@ -47,16 +47,6 @@ Nếu cảm biến dùng nguồn DC riêng phù hợp, GND cảm biến và GND 
 
 Dòng lớn từ động cơ gây sụt áp và nhiễu trên dây dẫn. Đưa dòng động cơ qua dây GND mảnh của cảm biến có thể làm tín hiệu sai hoặc bo reset. Với bộ xe, giữ cách đi dây và đường nguồn của sản phẩm; không gom lại toàn bộ dây theo một sơ đồ minh họa.
 
-## Thực hành nhỏ: tìm đường tham chiếu
-
-Trên giấy, vẽ bo điều khiển và cảm biến digital dùng nguồn riêng. Đánh dấu VCC, GND và OUT, rồi trả lời:
-
-1. Nếu chỉ có dây OUT, bên nhận đang so sánh tín hiệu với mốc nào?
-2. Nối thêm GND có cho phép đưa OUT 5 V vào ESP32 không?
-3. Có cần nối hai cực dương của hai nguồn với nhau không?
-
-**Kết quả mong đợi:** thêm đường tham chiếu GND cho tín hiệu không cách ly; trả lời “không” cho câu 2 và 3. Nếu kiểm tra thông mạch trên bo thật, tắt nguồn và rút USB trước; đường dẫn qua linh kiện có thể làm tiếng bíp khó diễn giải.
-
 ## Lỗi thường gặp
 
 - Thấy đèn nguồn sáng rồi cho rằng tín hiệu đã có chung mốc: hai việc khác nhau.

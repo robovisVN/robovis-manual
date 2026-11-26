@@ -1,12 +1,18 @@
 # Bài 6: Viết service, client và làm quen action
 
+Ở ví dụ phát tốc độ, dữ liệu liên tục đi từ bên phát đến bên nhận. Bây giờ, giả sử chúng ta muốn quyết định khi nào một luồng dữ liệu được chuyển tiếp và nhận thông báo xác nhận sau mỗi lần thay đổi.
+
+Đây là nhu cầu khác với việc nhận mẫu liên tục qua topic. Trong bài này, chúng ta sẽ dùng service để thực hiện thao tác bật, tắt và tìm hiểu khi nào một nhiệm vụ cần đến action.
+
 ## 1. Mục tiêu và tình huống
 
-Trong bài 4, bên phát gửi liên tục các mẫu tốc độ. Bây giờ ta muốn bật hoặc tắt việc chuyển tiếp những mẫu đó bằng một yêu cầu có phản hồi. Chúng ta sẽ thêm node `cong_du_lieu` vào package `robovis_practice`.
+Chúng ta sẽ thêm node `cong_du_lieu` vào package `robovis_practice` của bài 4. Node này nhận mẫu từ bên phát và chỉ chuyển tiếp khi được cho phép. Một chương trình khác gửi yêu cầu bật hoặc tắt cổng, rồi đọc phản hồi để biết thao tác đã được xử lý thế nào.
 
 Bạn cần hoàn thành bài 4 và giữ đúng các phụ thuộc `rclpy`, `std_msgs`, `std_srvs`. Mỗi Terminal chạy ví dụ cần nạp ROS 2 và `~/ros2_practice_ws/install/setup.bash`.
 
 ## 2. Chọn topic, service hay action?
+
+Trước khi viết mã, chúng ta xác định loại trao đổi cần thực hiện. Nhận số đo liên tục, đổi một trạng thái và giao một nhiệm vụ kéo dài có cách theo dõi khác nhau:
 
 | Nhu cầu | Giao diện phù hợp | Điều cần theo dõi |
 | --- | --- | --- |
@@ -14,19 +20,23 @@ Bạn cần hoàn thành bài 4 và giữ đúng các phụ thuộc `rclpy`, `st
 | Yêu cầu đổi trạng thái bật/tắt | Service | Request và response |
 | Yêu cầu robot đi tới một vị trí | Action | Goal, feedback và result |
 
-Service có client gửi request và server xử lý để trả response. Giao diện này phù hợp với thao tác trả lời trong thời gian ngắn. Với một nhiệm vụ kéo dài, người dùng thường cần theo dõi tiến trình và có cơ chế yêu cầu hủy; action cung cấp cấu trúc cho việc đó.
+Với **service**, bên yêu cầu gọi là **client** gửi **request**, còn bên xử lý gọi là **server** trả về **response**. Cách trao đổi này phù hợp với thao tác có phản hồi trong thời gian ngắn, như bật cổng dữ liệu. Nếu giao robot đi tới một vị trí, chúng ta còn cần theo dõi tiến trình và có thể yêu cầu hủy; **action** cung cấp cấu trúc để xử lý loại nhiệm vụ đó.
 
 ## 3. Đọc giao diện `SetBool`
+
+Service cũng cần một kiểu giao diện để hai bên hiểu cấu trúc yêu cầu và phản hồi. Ví dụ bật, tắt sử dụng `SetBool`; chúng ta xem định nghĩa trước khi viết server:
 
 ```bash
 ros2 interface show std_srvs/srv/SetBool
 ```
 
-Phần yêu cầu có `data` kiểu bool. Sau dấu `---` là phản hồi gồm `success` và `message`. Trong ví dụ, `data: true` cho phép chuyển tiếp, `data: false` tạm ngừng chuyển tiếp.
+Trong định nghĩa, phần trước dấu `---` là yêu cầu với trường `data` kiểu bool. Phần sau là phản hồi, gồm `success` và `message`. Chúng ta quy định `data: true` cho phép chuyển tiếp, còn `data: false` tạm ngừng chuyển tiếp; server sẽ trả thông báo tương ứng sau khi cập nhật trạng thái.
 
 Trạng thái “đã nhận response” và nội dung `success: true` là hai điều khác nhau. Một server vẫn có thể trả response để báo rằng thao tác không được chấp nhận.
 
 ## 4. Viết server và cổng dữ liệu
+
+Node mới có hai công việc: nhận mẫu tốc độ để chuyển tiếp khi được phép và xử lý yêu cầu thay đổi trạng thái cổng. Vì hai công việc cùng sử dụng trạng thái `cho_phep`, chúng ta đặt chúng trong cùng một node.
 
 Tạo `~/ros2_practice_ws/src/robovis_practice/robovis_practice/cong_du_lieu.py`:
 
@@ -79,7 +89,7 @@ if __name__ == '__main__':
     main()
 ```
 
-Node đồng thời là subscriber, publisher và service server. Callback `nhan_mau` chuyển mẫu mới nếu được phép; callback service thay trạng thái rồi trả response.
+Trong chương trình trên, một node đồng thời đảm nhiệm vai trò subscriber, publisher và service server. Mỗi khi có mẫu mới, callback `nhan_mau` kiểm tra trạng thái cổng trước khi phát tiếp. Khi có request, callback service thay đổi trạng thái đó và trả response cho bên yêu cầu.
 
 Khi tắt, node không gửi mẫu 0 và không dừng bên phát. Nó chỉ ngừng chuyển tiếp. Vì vậy, người nhận không được tự hiểu “không có mẫu mới” là “tốc độ bằng 0”. Trong một hệ thống đo thật, bên nhận còn cần kiểm tra độ mới của dữ liệu.
 
@@ -117,7 +127,7 @@ Bạn cần thấy response thành công và các mẫu được chuyển tiếp
 
 ## 6. Viết client bất đồng bộ
 
-CLI thuận tiện để thử, còn ứng dụng cần gọi service từ mã. Tạo `~/ros2_practice_ws/src/robovis_practice/robovis_practice/doi_trang_thai.py`:
+Lệnh CLI giúp chúng ta thử service và quan sát kết quả mà chưa phải viết bên gọi. Khi muốn một ứng dụng tự gửi yêu cầu, chúng ta cần tạo client trong mã. Tạo tệp `~/ros2_practice_ws/src/robovis_practice/robovis_practice/doi_trang_thai.py`:
 
 ```python
 import rclpy
@@ -163,13 +173,13 @@ Thêm entry point `'doi_trang_thai = robovis_practice.doi_trang_thai:main',`, bu
 ros2 run robovis_practice doi_trang_thai
 ```
 
-`call_async` trả về một **future**, đại diện cho kết quả sẽ có sau. Executor vẫn cần xử lý sự kiện để response được nhận. `spin_until_future_complete` phục vụ việc đó trong chương trình client độc lập này.
+Client gọi `call_async` để gửi yêu cầu và nhận một **future**, đối tượng đại diện cho kết quả sẽ có sau. Trong lúc chờ, executor vẫn cần xử lý sự kiện để nhận response. Chương trình client độc lập này sử dụng `spin_until_future_complete` cho việc đó, rồi đọc kết quả hoặc báo đã hết thời gian chờ.
 
 Timeout phía client chỉ giới hạn thời gian chờ; nó không chứng minh server chưa xử lý yêu cầu. Với tác vụ có tác động thật, ứng dụng phải xem xét khả năng yêu cầu đã được thực hiện dù response chưa về.
 
 ## 7. Action qua ví dụ Turtlesim
 
-Mở Turtlesim mặc định, dừng teleop trong lúc thử action:
+Để hình dung action, chúng ta quay lại Turtlesim và yêu cầu rùa quay tới một hướng xác định. Mở Turtlesim mặc định, dừng teleop trong lúc thử để tránh nguồn lệnh khác can thiệp, rồi chạy:
 
 ```bash
 ros2 action list -t
@@ -177,17 +187,14 @@ ros2 interface show turtlesim/action/RotateAbsolute
 ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute '{theta: 1.57}' --feedback
 ```
 
-Goal yêu cầu rùa quay tới hướng tuyệt đối gần 1,57 rad. Action có ba phần: mục tiêu, kết quả và phản hồi tiến trình. Nếu rùa đã ở hướng đó, chuyển động nhỏ là bình thường.
+Trong lệnh trên, **goal** là yêu cầu rùa quay tới hướng tuyệt đối gần 1,57 rad. Khi thực hiện, action có thể gửi **feedback** về tiến trình, rồi trả **result** khi nhiệm vụ kết thúc. Nếu rùa đã gần hướng được yêu cầu, chuyển động sẽ nhỏ; chúng ta cần đọc cả phản hồi thay vì chỉ nhìn quãng quay.
 
 Phản hồi được gửi trong quá trình chạy; kết quả cho biết nhiệm vụ đã kết thúc thế nào. “Mục tiêu được nhận” chưa đồng nghĩa “đã tới đích”. Khả năng hủy phụ thuộc server chấp nhận và thực hiện yêu cầu hủy.
 
-## 8. Bài tập
-
-1. Dừng server rồi chạy client. Lỗi cần xuất hiện ở bước tìm service.
-2. Tắt cổng dữ liệu, đo `/toc_do_do` và `/toc_do_cho_phep`; mô tả sự khác nhau.
-3. Sửa client để yêu cầu tắt, rồi kiểm tra response và dữ liệu thực tế.
-4. Nêu thông tin cần có trong feedback cho nhiệm vụ đi tới một vị trí.
-
 Đọc thêm: [SetBool](https://github.com/ros2/common_interfaces/blob/humble/std_srvs/srv/SetBool.srv), [ROS 2 — Service/client Python](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Service-And-Client.html), [Understanding actions](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html).
+
+## 8. Tổng kết { #9-tong-ket }
+
+Chúng ta đã dùng service để điều khiển trạng thái cổng dữ liệu và đọc phản hồi từ server. Qua Turtlesim, chúng ta cũng phân biệt yêu cầu ngắn với nhiệm vụ có tiến trình và kết quả. Bài tiếp theo sẽ tổ chức các node đã viết bằng cấu hình và launch file để thuận tiện chạy lại cả ví dụ.
 
 [← Bài 5](02-cac-topic-cua-robot.md) · [Bài 7: Parameter và launch →](05-parameter-va-launch.md)

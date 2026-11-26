@@ -1,12 +1,16 @@
 # Bài 7. Kết nối máy tính với robot
 
+Trước khi xem dữ liệu LiDAR hoặc gửi lệnh cho robot, chúng ta cần một đường kết nối giữa robot và máy Ubuntu. Việc máy tính đã chọn được Wi-Fi mới là một phần của quá trình này, đặc biệt khi Ubuntu đang chạy trong VMware.
+
+Trong bài, chúng ta sẽ lần theo đường kết nối, tìm địa chỉ IP của Ubuntu và dùng `ping` để kiểm tra liên lạc mạng trước khi chạy phần mềm robot.
+
 **Mục tiêu:** biết Ubuntu có liên lạc được với robot hay chưa, trước khi chạy phần mềm điều khiển.
 
 **Chuẩn bị:** robot ESP32 LiDAR/SLAM, Ubuntu đã mở và đã biết dùng Terminal. Bài này chỉ kiểm tra kết nối, chưa gửi lệnh chuyển động.
 
 ## 1. Wi-Fi và địa chỉ IP khác nhau thế nào?
 
-**Tên Wi-Fi** giúp bạn chọn mạng để tham gia. **Địa chỉ IP** giúp các thiết bị trong mạng tìm đến nhau.
+Khi mở danh sách mạng, chúng ta dùng **tên Wi-Fi** để chọn mạng cần tham gia. Sau khi kết nối, các thiết bị sử dụng **địa chỉ IP** để tìm đến nhau trong mạng. Vì vậy, chọn đúng Wi-Fi và kiểm tra đúng IP là hai bước có liên quan nhưng cần thực hiện riêng.
 
 Ví dụ của bộ robot hiện tại:
 
@@ -21,6 +25,8 @@ Ví dụ của bộ robot hiện tại:
 
 ## 2. Hiểu đường kết nối trên máy Windows
 
+Nếu dùng Windows và VMware, tín hiệu từ robot đi qua card Wi-Fi của máy thật rồi mới đến card mạng ảo trong Ubuntu. Sơ đồ dưới đây giúp chúng ta nhận ra từng phần cần kiểm tra khi Windows đã kết nối nhưng Ubuntu chưa liên lạc được với robot.
+
 ```mermaid
 flowchart TD
     R["Robot phát Wi-Fi"] <-->|"Kết nối không dây"| W["Card Wi-Fi của máy Windows"]
@@ -30,11 +36,13 @@ flowchart TD
     W --> H["Windows cũng có địa chỉ IP riêng"]
 ```
 
-**Bridged** là chế độ cho máy ảo tham gia mạng qua card mạng máy thật. Vì vậy, Windows kết nối được Wi-Fi chưa đảm bảo Ubuntu máy ảo đã có IP đúng.
+Trong chế độ **Bridged**, máy ảo tham gia mạng thông qua card mạng của máy thật. Ubuntu vẫn có cấu hình và địa chỉ IP riêng, nên chúng ta cần kiểm tra bên trong Ubuntu ngay cả khi Windows đã báo kết nối Wi-Fi thành công.
 
 Ubuntu cài trực tiếp thì kết nối Wi-Fi ngay trong Ubuntu, bỏ qua nhánh Windows và VMware.
 
 ## 3. Kết nối Wi-Fi robot
+
+Chúng ta bắt đầu bằng mạng do robot phát ra trong cấu hình mặc định. Hãy thực hiện bước chọn Wi-Fi ở hệ điều hành đang quản lý card không dây của máy tính:
 
 1. Bật nguồn robot theo hướng dẫn sản phẩm.
 2. Nếu dùng máy ảo, mở danh sách Wi-Fi **trên Windows**. Nếu cài Ubuntu trực tiếp, mở Wi-Fi **trong Ubuntu**.
@@ -46,7 +54,7 @@ Wi-Fi robot dùng cho liên lạc nội bộ nên có thể không cung cấp In
 
 ## 4. Kiểm tra địa chỉ bên trong Ubuntu
 
-Mở Terminal Ubuntu và chạy:
+Sau khi kết nối Wi-Fi, chúng ta xem Ubuntu đang nhận địa chỉ nào. Mở Terminal Ubuntu và chạy:
 
 ```bash
 ip -br -4 addr
@@ -65,7 +73,7 @@ Tên `ens33` có thể khác, ví dụ `ens160` hoặc `wlp2s0`. Hãy nhìn vào
 - `192.168.4.99/24` là địa chỉ Ubuntu mong đợi trong cấu hình này.
 - `/24` mô tả kích thước mạng; khi điền trong giao diện, thường tương ứng với netmask `255.255.255.0`.
 
-Một địa chỉ khác trong cùng mạng **có thể vẫn ping được robot**, nhưng cấu hình robot gửi dữ liệu về máy tính có thể yêu cầu đúng `192.168.4.99`. Vì vậy, không dừng kiểm tra chỉ vì ping thành công.
+Địa chỉ IP còn được dùng làm đích gửi dữ liệu. Chẳng hạn, một địa chỉ khác trong cùng mạng **có thể vẫn ping được robot**, trong khi robot vẫn gửi dữ liệu đến `192.168.4.99` theo cấu hình đã lưu. Vì vậy, chúng ta cần đối chiếu địa chỉ Ubuntu với cấu hình robot, kể cả khi đã nhận được phản hồi ping.
 
 ### Nếu Ubuntu chưa có IP đúng
 
@@ -101,7 +109,7 @@ Trong Terminal Ubuntu, chạy:
 ping -c 4 192.168.4.1
 ```
 
-`-c 4` nghĩa là gửi bốn lần rồi tự dừng. Bạn không cần nhấn Ctrl + C trong lần thử này.
+Trong lệnh trên, `-c 4` yêu cầu `ping` gửi bốn lần rồi tự kết thúc. Chúng ta có thể chờ phần thống kê xuất hiện để đọc kết quả, không cần nhấn Ctrl + C như khi chạy `ping` liên tục.
 
 **Kết quả ví dụ khi kết nối tốt:**
 
@@ -124,7 +132,7 @@ Thời gian và `ttl` có thể khác. Điều cần quan sát là có phản h�
 
 ## 6. Nếu robot dùng Wi-Fi ngoài
 
-Khi robot và máy tính cùng nối mạng của nhà hoặc phòng lab, địa chỉ thường khác `192.168.4.x`. Không sao chép nguyên cặp IP mặc định ở trên.
+Nếu robot và máy tính cùng tham gia mạng của nhà hoặc phòng lab, chúng ta vẫn kiểm tra theo trình tự Wi-Fi, IP rồi liên lạc mạng. Tuy nhiên, địa chỉ thường khác `192.168.4.x`, nên cần dùng thông tin thực tế của mạng đó thay cho cặp IP mặc định ở trên.
 
 Bạn cần biết IP hiện tại của robot và IP Ubuntu mà robot gửi dữ liệu tới. Nếu router tự cấp địa chỉ, IP máy tính có thể thay đổi sau lần kết nối khác. Khi đó cần đặt IP cố định/đặt chỗ DHCP phù hợp hoặc cấu hình lại địa chỉ máy tính trong robot theo bài Wi-Fi ngoài của sản phẩm.
 
@@ -132,7 +140,7 @@ Với máy ảo, địa chỉ cần kiểm tra là **IP Ubuntu**, không mặc n
 
 ## 7. Kiểm tra USB nếu bài hướng dẫn yêu cầu
 
-Kết nối Wi-Fi ở trên không bắt buộc cắm USB. Phần này chỉ dùng khi cần kiểm tra một thiết bị USB theo hướng dẫn sản phẩm.
+Một số bước trong tài liệu sản phẩm có thể yêu cầu kết nối thiết bị qua USB. Khi đó, chúng ta kiểm tra thiết bị theo cách dưới đây. Phép thử này tách biệt với kết nối Wi-Fi vừa thực hiện; bạn không cần cắm USB chỉ để kiểm tra ping robot.
 
 Chạy trước và sau khi cắm thiết bị:
 
@@ -145,5 +153,9 @@ Quan sát dòng mới xuất hiện. Nếu dùng VMware, có thể cần chọn 
 Việc thấy thiết bị trong `lsusb` chưa đảm bảo chương trình đã có quyền mở cổng serial. Khi có lỗi quyền, ghi lại chính xác thông báo và tên cổng để xử lý theo tài liệu sản phẩm. Bài này không yêu cầu nạp firmware.
 
 **Bạn đã hoàn thành bài này khi:** xác định đúng Wi-Fi, tìm được IP Ubuntu và đọc được kết quả ping robot.
+
+## Tổng kết
+
+Chúng ta đã phân biệt tên Wi-Fi với địa chỉ IP và kiểm tra đường liên lạc từ Ubuntu đến robot. Ping thành công là bằng chứng cho phép thử mạng cơ bản; dữ liệu ROS 2 còn phụ thuộc chương trình kết nối và cấu hình đích gửi. Bài cuối sẽ kết hợp những thao tác Ubuntu đã học thành một bài thực hành hoàn chỉnh.
 
 [← Bài 6](06-cai-va-chay-phan-mem.md) · [Bài 8: Thực hành và xử lý lỗi →](08-thuc-hanh-va-loi.md)

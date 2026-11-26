@@ -1,12 +1,12 @@
 # Robot và ROS 2 cơ bản
 
-Một robot tự hành phải thực hiện nhiều công việc cùng lúc: đọc cảm biến, ước lượng chuyển động, nhận lệnh, điều khiển bánh xe và hiển thị trạng thái. Học ROS 2 là học cách tổ chức những công việc đó thành các chương trình có thể trao đổi dữ liệu và được kiểm tra độc lập.
+Khi điều khiển một robot đi tới vị trí mong muốn, chúng ta chỉ nhìn thấy kết quả là bánh xe chuyển động. Bên trong hệ thống, nhiều công việc đang diễn ra: đọc cảm biến, ước lượng chuyển động, nhận lệnh và cập nhật trạng thái trên màn hình.
 
-Trong phần này, chúng ta sẽ học từ các khái niệm đầu tiên đến cách viết chương trình, đọc dữ liệu và kiểm tra hệ thống robot. Các bài thực hành sử dụng Python trên **Ubuntu 22.04 và ROS 2 Humble**.
+Nếu tách những công việc này thành các chương trình riêng, chúng sẽ trao đổi dữ liệu với nhau như thế nào? Làm sao biết phần nào đang hoạt động khi robot chưa đáp ứng đúng yêu cầu? Nhóm bài này giới thiệu ROS 2 từ những câu hỏi đó, rồi từng bước hướng dẫn viết chương trình và kiểm tra hệ thống. Các bài thực hành sử dụng Python trên **Ubuntu 22.04 và ROS 2 Humble**.
 
 ## 1. Bạn sẽ tự xây dựng được gì?
 
-Chúng ta sẽ xây dựng một hệ thống đo tốc độ giả lập trên máy tính:
+Để bắt đầu, chúng ta sử dụng một hệ thống đo tốc độ giả lập ngay trên máy tính. Một chương trình tạo các mẫu tốc độ, chương trình khác nhận và tính trung bình; sau đó, chúng ta bổ sung khả năng bật hoặc tắt việc chuyển tiếp dữ liệu.
 
 ```mermaid
 flowchart LR
@@ -16,9 +16,9 @@ flowchart LR
     G -->|"/toc_do_cho_phep"| O["Công cụ quan sát"]
 ```
 
-Từ ví dụ này, bạn sẽ biết tạo package, đăng ký executable, viết publisher/subscriber, dùng timer và callback, gọi service, truyền parameter và viết launch file. Sau đó, chúng ta dùng động học và TF để hiểu dữ liệu của robot thật.
+Qua ví dụ này, chúng ta sẽ gặp các công việc thường có trong một dự án ROS 2: tổ chức mã trong package, tạo bên phát và bên nhận, gọi service để thay đổi trạng thái, rồi lưu cấu hình và khởi động hệ thống bằng launch file. Mỗi công cụ được giới thiệu khi ví dụ cần đến nó. Ở phần sau, chúng ta dùng động học và TF để hiểu thêm dữ liệu của robot thật.
 
-Ví dụ giả lập chỉ tạo dữ liệu trên máy tính. Các chương trình có tên `bo_phat`, `bo_nhan` và `cong_du_lieu` là chương trình thực hành trong khóa học.
+Các chương trình `bo_phat`, `bo_nhan` và `cong_du_lieu` thuộc ví dụ thực hành này. Dữ liệu được tạo trên máy tính để chúng ta quan sát luồng trao đổi, chưa phải số đo từ bánh xe hoặc lệnh điều khiển động cơ.
 
 ## 2. Kiến thức cần có
 
@@ -27,6 +27,8 @@ Bạn cần dùng được Terminal, đường dẫn và trình soạn thảo tr
 Mỗi Terminal cần nạp môi trường ROS 2. Từ bài 4 trở đi, Terminal chạy chương trình tự viết cần nạp thêm workspace thực hành. Hai thao tác này được giải thích trong bài 2 và bài 4.
 
 ## 3. Lộ trình học
+
+Lộ trình đi từ quan sát chương trình có sẵn đến tự xây dựng một luồng dữ liệu. Sau đó, chúng ta mới xét đơn vị đo, chuyển động, kết nối mạng và hệ tọa độ để liên hệ với robot thật.
 
 | Bài | Nội dung | Sản phẩm cần đạt |
 | --- | --- | --- |
@@ -47,7 +49,7 @@ Không cần học hết 12 bài trước khi chạm vào robot. Tuy nhiên, hã
 
 ## 4. Cách học từng bài
 
-Đọc mục tiêu, chuẩn bị đúng chương trình cần chạy, thực hiện từng Terminal rồi đối chiếu kết quả. Khi gặp lỗi, giữ lại lệnh đã chạy và dòng lỗi đầu tiên. Chỉ thay một yếu tố trong mỗi lần kiểm tra để biết thay đổi nào tạo ra kết quả.
+Với mỗi bài, hãy đọc tình huống và mục tiêu trước khi nhập lệnh. Sau khi chuẩn bị đúng các chương trình cần chạy, chúng ta thực hiện từng bước trong Terminal và đối chiếu kết quả. Nếu một bước chưa đạt, giữ lại lệnh cùng dòng lỗi đầu tiên, rồi kiểm tra từng yếu tố để biết thay đổi nào có tác dụng.
 
 Các đoạn mã có ghi đường dẫn tệp. Chép toàn bộ khối khi bài yêu cầu tạo tệp mới; khi bài yêu cầu sửa một phần, đối chiếu đúng vị trí. Dùng workspace `~/ros2_practice_ws` cho ví dụ xuyên suốt để các bài sau tìm thấy package của bài trước.
 
@@ -55,6 +57,6 @@ Các đoạn mã có ghi đường dẫn tệp. Chép toàn bộ khối khi bài
 
 Khi đã hiểu luồng dữ liệu, hãy mở [tài liệu Robot ESP32 LiDAR](../../robot-esp32-lidar/index.md). Dùng workspace và launch của bộ bàn giao để kết nối phần cứng, sau đó học [SLAM](../../robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam.md) và [Nav2](../../robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2.md).
 
-Các bài SLAM và điều hướng được trình bày trong mục sản phẩm, với thông số và lệnh chạy phù hợp với robot đang sử dụng.
+Các bài SLAM và điều hướng nằm trong mục sản phẩm để đi cùng thông số và lệnh chạy của robot đang sử dụng. Kiến thức trong nhóm bài này sẽ giúp chúng ta hiểu vai trò của từng chương trình và kiểm tra dữ liệu trước khi thay đổi cấu hình robot.
 
 [← Kiến thức nền](../index.md) · [Bắt đầu bài 1 →](00-robot-va-ros2.md)

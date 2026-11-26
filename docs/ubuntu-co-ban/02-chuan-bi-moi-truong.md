@@ -1,10 +1,16 @@
 # Bài 2. Chuẩn bị môi trường Ubuntu
 
+Sau khi biết Ubuntu là nơi chạy phần mềm robot, chúng ta cần mở được môi trường này trên máy tính của mình. Cách chuẩn bị sẽ khác nhau giữa người đang dùng Windows và người đã cài Ubuntu trực tiếp.
+
+Bài này hướng dẫn bạn chọn đúng trường hợp, mở máy ảo được cung cấp nếu cần và kiểm tra phiên bản Ubuntu trước khi thực hành.
+
 **Mục tiêu:** mở được Ubuntu để thực hành các bài tiếp theo.
 
 **Chuẩn bị:** máy tính và bộ máy ảo ROBOVIS nếu bạn đang dùng Windows.
 
 ## 1. Chọn đúng nhánh dành cho bạn
+
+Trước khi cài thêm phần mềm, hãy xác định máy tính hiện đã có những gì. Nếu Ubuntu đã hoạt động, chúng ta chỉ cần kiểm tra môi trường thay vì thực hiện lại toàn bộ quá trình chuẩn bị.
 
 | Máy tính hiện tại | Việc cần làm |
 | --- | --- |
@@ -20,7 +26,7 @@ Bạn có thể gặp hướng dẫn dùng **WSL**, tức môi trường Linux t
 
 ### Bước 1. Kiểm tra máy tính
 
-Đây là mức chuẩn bị trong hướng dẫn máy ảo ROBOVIS:
+Máy ảo sử dụng tài nguyên của máy tính Windows trong lúc chạy. Vì vậy, chúng ta cần kiểm tra bộ nhớ và dung lượng trống trước khi giải nén bộ máy ảo. Hướng dẫn ROBOVIS sử dụng mức chuẩn bị sau:
 
 | Hạng mục | Tối thiểu | Nên có để sử dụng thoải mái hơn |
 | --- | --- | --- |
@@ -32,7 +38,7 @@ RAM trong bảng là RAM **toàn bộ máy tính**, không phải yêu cầu c�
 
 ### Bước 2. Tải đủ tệp khi còn Internet
 
-Chuẩn bị hai thành phần từ bộ tài liệu được gửi cùng robot:
+Để mở Ubuntu theo cách này, chúng ta cần phần mềm chạy máy ảo và bộ dữ liệu của máy ảo. Hãy chuẩn bị đủ hai thành phần từ bộ tài liệu được gửi cùng robot:
 
 - Bộ cài **VMware Workstation**. Hướng dẫn gốc dùng bản **17.6.1**.
 - Tệp **`robovis.zip`**, chứa máy ảo Ubuntu đã cài môi trường robot.
@@ -64,7 +70,7 @@ Màn hình kích hoạt hoặc điều khoản có thể khác giữa các bản
 
 ### Bước 1. Giải nén đầy đủ
 
-Giải nén `robovis.zip` vào một thư mục dễ tìm, ví dụ `D:\ROBOVIS\Ubuntu` nếu máy có ổ D còn đủ dung lượng.
+Trước tiên, giải nén `robovis.zip` vào một thư mục dễ tìm, ví dụ `D:\ROBOVIS\Ubuntu` nếu máy có ổ D còn đủ dung lượng. VMware sẽ sử dụng các tệp trong thư mục này để mở và lưu trạng thái máy ảo.
 
 Giữ toàn bộ tệp đã giải nén cùng nhau. Tệp **`.vmx`** là cấu hình máy ảo; tệp **`.vmdk`** chứa dữ liệu ổ đĩa máy ảo. Không chỉ chép riêng tệp `.vmx` sang chỗ khác.
 
@@ -79,7 +85,7 @@ Nếu Windows đang ẩn đuôi tệp, tìm mục có loại tệp **VMware virt
 
 ### Bước 3. Kiểm tra mạng và bật máy
 
-Khi máy ảo còn tắt, vào **Edit virtual machine settings → Network Adapter**. Với cấu hình robot trong bộ tài liệu này, chọn **Bridged**, đồng thời bật **Connect at power on**.
+Trước khi bật Ubuntu, chúng ta kiểm tra cách máy ảo tham gia mạng của máy tính. Khi máy ảo còn tắt, vào **Edit virtual machine settings → Network Adapter**. Với cấu hình robot trong bộ tài liệu này, chọn **Bridged**, đồng thời bật **Connect at power on**.
 
 Chọn **Power on this virtual machine**. Nếu VMware hỏi máy ảo đã được di chuyển hay sao chép, chọn **I copied it** cho bản sao bạn vừa nhận.
 
@@ -95,7 +101,7 @@ Nhấp vào bên trong màn hình Ubuntu để nhập bàn phím. Khi cần tr�
 
 ## 4. Kiểm tra Ubuntu đang dùng
 
-Thực hiện **bên trong Ubuntu**:
+Khi đã vào màn hình làm việc, chúng ta cần xác nhận đây là phiên bản Ubuntu phù hợp với tài liệu. Thực hiện các bước sau **bên trong Ubuntu**:
 
 1. Mở **Settings**.
 2. Tìm mục **About**.
@@ -107,6 +113,8 @@ Nếu bạn tự cài Ubuntu, việc mở được desktop **chưa có nghĩa** 
 
 ## 5. Những tình huống dễ nhầm
 
+Một số khác biệt về chuột, màn hình hoặc mạng xuất phát từ việc Ubuntu đang chạy trong máy ảo. Bảng sau giúp chúng ta chọn bước kiểm tra tương ứng với hiện tượng đang thấy.
+
 | Hiện tượng | Cách xử lý |
 | --- | --- |
 | Chỉ thấy danh sách tệp trong ZIP | Giải nén hết rồi mở `.vmx` bằng VMware |
@@ -116,5 +124,9 @@ Nếu bạn tự cài Ubuntu, việc mở được desktop **chưa có nghĩa** 
 | Đã có Ubuntu nhưng không có phần mềm robot | Hoàn thành phần chuẩn bị ROS 2/workspace của tài liệu sản phẩm sau series này |
 
 **Bạn đã hoàn thành bài này khi:** đăng nhập được Ubuntu và biết mình dùng máy ảo hay cài trực tiếp.
+
+## Tổng kết
+
+Chúng ta đã chuẩn bị nơi thực hành và kiểm tra phiên bản Ubuntu. Việc mở được desktop cho phép bắt đầu học thao tác cơ bản; phần mềm ROS 2 và workspace của robot sẽ được kiểm tra ở các bước riêng. Bài tiếp theo sẽ giúp bạn sử dụng giao diện Ubuntu để mở ứng dụng và tìm thư mục.
 
 [← Bài 1](01-ubuntu-la-gi.md) · [Bài 3: Làm quen với giao diện →](03-giao-dien-ubuntu.md)

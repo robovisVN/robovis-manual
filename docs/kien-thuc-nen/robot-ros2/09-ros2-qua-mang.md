@@ -1,5 +1,9 @@
 # Bài 9: ROS 2 qua mạng và kết nối ESP32
 
+Từ đầu series, các chương trình của chúng ta chủ yếu chạy trên cùng một máy tính. Khi chuyển sang robot thật, cảm biến và phần mềm xử lý có thể nằm trên những thiết bị khác nhau, nên dữ liệu còn phải đi qua kết nối mạng.
+
+Trong bài này, chúng ta sẽ thử talker và listener trên hai máy, rồi đối chiếu với đường giao tiếp giữa máy tính và ESP32 của bộ robot. Việc phân biệt hai trường hợp giúp chọn đúng nơi kiểm tra khi dữ liệu chưa tới được bên nhận.
+
 ## 1. Mục tiêu và hai tình huống cần phân biệt
 
 Chúng ta sẽ chạy một ví dụ ROS 2 trên hai máy và tìm hiểu nó khác giao tiếp với ESP32 thế nào. Phần hai máy cần hai môi trường Ubuntu có ROS 2 Humble và kết nối cùng mạng; có thể đọc phần lý thuyết nếu chỉ có một máy.
@@ -9,19 +13,19 @@ Chúng ta sẽ chạy một ví dụ ROS 2 trên hai máy và tìm hiểu nó kh
 | Hai máy chạy node ROS 2 | ROS 2 trên máy A ↔ ROS 2 trên máy B |
 | Robot ESP32 LiDAR Robovis | Chương trình ROS 2 trên PC ↔ giao thức kết nối ↔ firmware ESP32 |
 
-Việc ESP32 có Wi-Fi và IP không tự làm nó tham gia discovery như một node trên PC. Muốn biết giao thức truyền thực tế, phải xem firmware và chương trình kết nối của sản phẩm.
+Trong trường hợp hai máy chạy ROS 2, các node sử dụng cơ chế giao tiếp của ROS 2. Với ESP32, thiết bị có thể trao đổi qua một giao thức do firmware và chương trình kết nối quy định. Vì vậy, việc có Wi-Fi và IP chưa cho biết ESP32 có tham gia quá trình tìm thấy node của ROS 2 hay không; chúng ta cần xem thiết kế sản phẩm.
 
 ## 2. Discovery và domain
 
-Trong cấu hình ROS 2 thông dụng, middleware tìm các thành phần có thể trao đổi qua quá trình discovery. Sau khi nhận biết các đầu gửi/nhận, dữ liệu mới được trao đổi theo giao diện và QoS tương ứng.
+Để trao đổi dữ liệu, các thành phần trước hết cần tìm thấy nhau. Trong cấu hình ROS 2 thông dụng, lớp phần mềm trung gian, gọi là **middleware**, thực hiện quá trình **discovery** để nhận biết các đầu gửi và nhận. Những đầu tương thích có thể trao đổi dữ liệu theo giao diện và QoS tương ứng.
 
-`ROS_DOMAIN_ID` phân tách các nhóm giao tiếp. Hai máy trong cùng bài thử cần dùng cùng giá trị. Domain ID không phải địa chỉ IP và không phải cơ chế xác thực người dùng.
+Chúng ta sử dụng `ROS_DOMAIN_ID` để phân tách các nhóm giao tiếp ROS 2. Hai máy trong cùng bài thử cần đặt cùng giá trị để thuộc cùng nhóm. Giá trị domain phục vụ việc phân nhóm này; địa chỉ IP và cơ chế xác thực là những thông tin có vai trò khác.
 
 `ROS_LOCALHOST_ONLY=1` giới hạn giao tiếp ROS trong máy theo cấu hình hỗ trợ. Khi thử hai máy, kiểm tra để không vô tình giữ thiết lập này.
 
 ## 3. Kiểm tra mạng trước ROS 2
 
-Trên mỗi máy:
+Trước khi kiểm tra node, chúng ta xác nhận từng máy có địa chỉ và đường mạng phù hợp. Trên mỗi máy, chạy:
 
 ```bash
 ip -4 addr
@@ -34,13 +38,13 @@ Ví dụ phòng học có máy A `192.168.1.51`, máy B `192.168.1.52`. Đây l�
 ping -c 4 192.168.1.52
 ```
 
-Ping phản hồi cho thấy liên lạc IP cơ bản. ROS 2 còn phụ thuộc các luồng truyền mà middleware dùng, cấu hình discovery, tường lửa và khả năng mạng chuyển multicast. Vì vậy, ping thành công chưa đủ kết luận ROS 2 hoạt động.
+Phản hồi ping giúp xác nhận phép thử liên lạc IP cơ bản đã thành công. Để ROS 2 trao đổi được, mạng còn phải cho phép các luồng truyền mà middleware sử dụng, trong đó có thể có multicast phục vụ discovery. Vì vậy, sau khi kiểm tra IP, chúng ta tiếp tục thử trực tiếp talker/listener và xem cấu hình discovery, tường lửa nếu cần.
 
 Với máy ảo, kiểm tra card mạng của Ubuntu. Chế độ NAT và bridge có thể tạo đường đi mạng khác nhau; máy ảo truy cập Internet được chưa chứng minh discovery giữa các máy đã thông.
 
 ## 4. Bài thử hai máy bằng talker/listener
 
-Trước tiên, dùng một mạng thử được phép sử dụng. Các lệnh `export` dưới đây chỉ đặt giá trị cho Terminal hiện tại, không thêm vào `~/.bashrc`.
+Chúng ta dùng lại talker/listener của bài 2 để giảm số yếu tố mới trong phép thử. Chọn một mạng thử được phép sử dụng, rồi đặt cùng domain và cho phép giao tiếp ra ngoài localhost ở hai Terminal. Các lệnh `export` chỉ áp dụng cho Terminal hiện tại, không ghi vào `~/.bashrc`.
 
 Trên **máy A**:
 
@@ -66,6 +70,8 @@ Nếu đã thay domain trong phiên trước, daemon CLI có thể đang gắn v
 
 ## 5. Xác định điểm không thông
 
+Nếu B chưa nhận được chuỗi, chúng ta cần biết hai máy đã tìm thấy các thành phần của nhau chưa hay chỉ đang thiếu mẫu mới. Trước tiên, xem danh sách node, topic và thông tin đầu gửi, nhận ở phía B.
+
 Trên B, mở Terminal quan sát với cùng hai biến ở trên:
 
 ```bash
@@ -87,7 +93,7 @@ Không tắt toàn bộ tường lửa để thử một cách kéo dài. Hãy x
 
 ## 6. Áp dụng đúng với Robot ESP32 LiDAR
 
-Theo tài liệu bàn giao, robot gửi dữ liệu cảm biến về PC; các chương trình trên PC tạo giao diện ROS 2. Vì vậy, việc đặt `ROS_DOMAIN_ID` trên PC không tự đổi địa chỉ đích trong firmware ESP32.
+Với Robot ESP32 LiDAR trong tài liệu bàn giao, robot gửi dữ liệu cảm biến về PC, rồi các chương trình trên PC tạo giao diện ROS 2 cho những phần mềm khác sử dụng. Khi kiểm tra, chúng ta cần xét riêng địa chỉ gửi dữ liệu trong firmware và nhóm giao tiếp ROS 2 trên PC. Thay `ROS_DOMAIN_ID` trên PC không tự thay địa chỉ đích của ESP32.
 
 ```mermaid
 flowchart LR
@@ -99,12 +105,10 @@ Với Wi-Fi mặc định, [hướng dẫn cấu hình sản phẩm](../../robot
 
 Thực hiện [khởi động và kiểm tra dữ liệu](../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra.md), lần lượt kiểm tra Wi-Fi/IP → chương trình kết nối → `/scan`, `/odom` → TF/RViz. Giữ cấu hình RMW và workspace theo [bài cài workspace](../../robot-esp32-lidar/02-chuan-bi/02-cai-dat-workspace.md).
 
-## 7. Bài tập
-
-1. Đổi domain ở riêng B, dừng và chạy lại listener; sau đó đưa về cùng domain. Ghi sự khác nhau.
-2. Vẽ hai lớp giao tiếp của robot ESP32 và ghi công cụ kiểm tra cho từng lớp.
-3. PC ping robot được nhưng không có `/scan`: nêu hai kiểm tra tiếp theo mà không sửa thuật toán SLAM.
-
 Đọc thêm: [ROS 2 — Configuring environment](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html).
+
+## 7. Tổng kết { #8-tong-ket }
+
+Kết nối mạng tạo đường truyền giữa các thiết bị, còn discovery, domain và QoS quyết định việc trao đổi giữa các thành phần ROS 2. Với robot ESP32, chúng ta còn phải kiểm tra lớp kết nối từ firmware đến chương trình trên PC. Sau khi dữ liệu đã tới nơi, bài tiếp theo sẽ giải thích cách xác định dữ liệu đó nằm trong hệ tọa độ nào.
 
 [← Bài 8](08-dong-hoc-va-odometry.md) · [Bài 10: Hệ tọa độ và TF →](he-toa-do-va-tf.md)

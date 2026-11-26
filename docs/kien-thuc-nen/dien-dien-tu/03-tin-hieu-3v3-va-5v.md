@@ -2,7 +2,7 @@
 
 **Mục tiêu:** quyết định một đường tín hiệu có thể nối trực tiếp hay cần chuyển mức điện áp.
 
-**Cần biết trước:** [GND và nối chung mass](02-gnd-va-noi-chung-mass.md). Bài tập làm trên giấy, chưa cần cắm cảm biến.
+**Cần biết trước:** [GND và nối chung mass](02-gnd-va-noi-chung-mass.md). Các sơ đồ và phép tính trong bài dùng để giải thích nguyên lý, chưa yêu cầu cắm cảm biến.
 
 ## Điện áp nguồn khác điện áp tín hiệu
 
@@ -40,16 +40,6 @@ Tín hiệu vào -- R1 --+-- Tín hiệu ra tới đầu vào
 Giả sử tín hiệu vào được giới hạn **tối đa 5,0 V**, R1 = 10 kΩ và R2 = 15 kΩ, kết quả lý tưởng là `5 × 15 / 25 = 3,0 V`. Đây là ví dụ tính; thiết kế thật phải kiểm tra sai số điện trở, dải điện áp đầu vào, ngưỡng HIGH bên nhận và tốc độ tín hiệu. Cặp điện trở này không phải lựa chọn mặc định cho mọi giao tiếp.
 
 Cầu chia áp **không phải nguồn 3,3 V để cấp cho bo**, không nâng điện áp và không thay bộ chuyển mức hai chiều. Với cảm biến cụ thể, theo mạch giao tiếp trong tài liệu sản phẩm, chẳng hạn [HC-SR04 với ESP32](../../robot-esp32/bai-giang/06-hc-sr04.md).
-
-## Thực hành nhỏ
-
-Phân loại ba trường hợp:
-
-- Cảm biến có đầu ra push-pull 5 V → GPIO ESP32 classic: cần chuyển mức, không nối trực tiếp.
-- Đầu ra 3,3 V → thiết bị nguồn 5 V, chưa biết `VIH`: chưa đủ thông tin để quyết định.
-- Module I2C có điện trở kéo lên 5 V → ESP32: cần xử lý cả mức kéo lên và chuyển mức theo sơ đồ; không chỉ đổi dây VCC rồi giữ mọi kết nối khác.
-
-**Kết quả mong đợi:** hỏi về kiểu đầu ra, ngưỡng logic và GND trước khi nối dây, thay vì chỉ nhìn nhãn nguồn.
 
 ## Lỗi thường gặp
 

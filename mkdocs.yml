@@ -71,6 +71,9 @@ nav:
   - Tổng quan: goc-ky-thuat/index.md
   - Robot tự hành:
     - Giới thiệu: goc-ky-thuat/robot-tu-hanh/index.md
+    - Tổng quan điều phối nhiều robot: goc-ky-thuat/robot-tu-hanh/dieu-phoi-da-robot/index.md
+    - Mô phỏng nhiều robot:
+      - Lộ trình 9 bài: goc-ky-thuat/robot-tu-hanh/mo-phong-nhieu-robot/index.md
   - Vi điều khiển & lập trình:
     - Giới thiệu: goc-ky-thuat/vi-dieu-khien-lap-trinh/index.md
   - Cảm biến và điều khiển:

@@ -1,6 +1,6 @@
 # Tải tài liệu Robot ESP32
 
-Gồm 10 bài giảng: ESP32, lập trình, LED, servo, TB6612FNG, HC-SR04, TCRT5000, encoder, Wi-Fi và PID. Mỗi bài có mã thử, kết quả mong đợi và bài tập. Kèm IDE/CH340, thư viện, nạp project `set_2_tb6612` và hướng dẫn Manual/Line follow theo bộ bàn giao.
+Gồm 10 bài giảng: ESP32, lập trình, LED, servo, TB6612FNG, HC-SR04, TCRT5000, encoder, Wi-Fi và PID. Các bài có mã thử và kết quả mong đợi. Kèm IDE/CH340, thư viện, nạp project `set_2_tb6612` và hướng dẫn Manual/Line follow theo bộ bàn giao.
 
 ## Bộ tài liệu có sẵn
 

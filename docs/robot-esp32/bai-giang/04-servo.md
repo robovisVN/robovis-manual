@@ -76,12 +76,4 @@ Servo đứng gần giữa, sau đó qua lại trong khoảng nhỏ. Dừng ngay
 | Servo rung, bo reset | Nguồn tải, dòng và GND |
 | Servo không quay | Chân Signal, nguồn và cơ cấu kẹt |
 
-## 7. Bài tập thực hành
-
-1. Thay 75°/105° bằng 80°/100°.
-2. Viết hàm đưa servo về giữa.
-3. Giải thích vì sao nguồn USB cho bo không bảo đảm đủ dòng cho servo.
-
-**Điều kiện học tiếp:** thực hiện được mục tiêu của bài và giải thích được kết quả quan sát.
-
 [Bài trước](03-led.md) · [Lộ trình](../index.md) · [Bài tiếp: Motor DC và TB6612FNG](05-dong-co.md)

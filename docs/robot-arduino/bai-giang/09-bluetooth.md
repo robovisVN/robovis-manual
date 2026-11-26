@@ -803,37 +803,7 @@ Khi gặp lỗi, nên kiểm tra từng phần theo thứ tự:
 
 Không nên sửa đồng thời nhiều phần khi chưa xác định được nguyên nhân.
 
-## 12. Bài tập thực hành
-
-**Bài tập 1: Kiểm tra kết nối Bluetooth**
-
-Viết chương trình nhận dữ liệu từ GamePad và hiển thị các lệnh tiến, lùi, trái, phải trên Serial Monitor.
-
-**Bài tập 2: Điều khiển một động cơ**
-
-Sử dụng nút Up để quay động cơ trái theo một chiều và nút Down để quay theo chiều ngược lại.
-
-Thả nút để dừng động cơ.
-
-**Bài tập 3: Điều khiển hai động cơ**
-
-Sử dụng bốn nút hướng để điều khiển xe tiến, lùi, rẽ trái và rẽ phải.
-
-Kiểm tra hoạt động khi bánh xe được kê khỏi mặt đất.
-
-**Bài tập 4: Thay đổi tốc độ động cơ**
-
-Thay đổi giá trị PWM từ 140 xuống 110 và tăng lên 160.
-
-Quan sát sự thay đổi tốc độ quay của bánh xe.
-
-**Bài tập 5: Điều khiển servo**
-
-Sử dụng các nút Cross, Triangle và Start để thay đổi góc servo và đưa servo về vị trí giữa.
-
-Chỉ thử trong khoảng góc an toàn của cơ cấu gá.
-
-## 13. Tổng kết
+## 12. Tổng kết { #13-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu và thực hành:
 

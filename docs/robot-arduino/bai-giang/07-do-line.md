@@ -793,54 +793,7 @@ Do đó, nên thử nghiệm cảm biến trong điều kiện ánh sáng tươn
 
 Khi gặp lỗi, nên kiểm tra từng mắt cảm biến độc lập trước khi thử chương trình đọc đồng thời năm kênh.
 
-## 12. Bài tập thực hành
-
-Sau khi hoàn thành các ví dụ, hãy thực hiện những bài tập sau.
-
-**Bài tập 1: Kiểm tra từng mắt cảm biến**
-
-Viết chương trình đọc lần lượt năm mắt và hiển thị trạng thái của từng mắt trên Serial Monitor.
-
-Đưa đường line dưới từng mắt để kiểm tra kết quả.
-
-**Bài tập 2: Xác định vị trí line**
-
-Viết chương trình đọc năm mắt và hiển thị một trong các thông báo:
-
-- `Line o giua`.
-- `Line lech trai`.
-- `Line lech phai`.
-- `Mat line`.
-
-**Bài tập 3: Đếm số mắt phát hiện line**
-
-Viết chương trình đếm số mắt đang phát hiện đường line.
-
-Ví dụ:
-
-```text
-So mat phat hien line: 1
-So mat phat hien line: 2
-So mat phat hien line: 3
-```
-
-**Bài tập 4: Tính vị trí trung bình**
-
-Sử dụng quy ước vị trí `-2, -1, 0, 1, 2` để tính vị trí trung bình của đường line.
-
-Thử nghiệm với các trạng thái:
-
-```text
-1 1 0 1 1
-1 0 0 1 1
-1 1 0 0 1
-0 0 1 1 1
-1 1 1 0 0
-```
-
-So sánh kết quả tính toán với vị trí line thực tế.
-
-## 13. Tổng kết
+## 12. Tổng kết { #13-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu và thực hành:
 

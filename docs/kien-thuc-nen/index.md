@@ -24,8 +24,6 @@ Bạn không cần học hết mọi thứ trước khi làm robot. Chọn lối
 
 **Có thể bỏ qua:** phần cài IDE nếu đã Verify/Upload được; từng bài lập trình nếu bạn giải thích và tự sửa được ví dụ. Trước khi chuyển sang robot, vẫn đối chiếu điện áp và sơ đồ sản phẩm.
 
-**Tự kiểm tra:** bạn giải thích được vì sao ESP32 không nhận trực tiếp tín hiệu 5 V, vì sao nút INPUT_PULLUP nhấn lại đọc LOW, và vì sao PWM không phải nguồn analog ổn định.
-
 ## B. Tôi đã biết Arduino/ESP32, muốn học robot ROS 2 { #lo-trinh-b }
 
 **Dành cho ai:** đã quen nạp chương trình, cảm biến và điều khiển cơ bản, muốn hiểu phần mềm robot chạy trên máy tính.
@@ -34,7 +32,7 @@ Bạn không cần học hết mọi thứ trước khi làm robot. Chọn lối
 
 ### Thứ tự nên học
 
-1. [Ubuntu và công cụ](../ubuntu-co-ban/index.md): đọc bài 1–6 để mở Terminal, tìm tệp và nạp môi trường; bài 7 cần robot, có thể để đến bước thực hành. Dùng bài 8 để tự kiểm tra thao tác.
+1. [Ubuntu và công cụ](../ubuntu-co-ban/index.md): đọc bài 1–6 để mở Terminal, tìm tệp và nạp môi trường; bài 7 cần robot, có thể để đến bước thực hành. Bài 8 tổng hợp cách lưu thông tin môi trường và xử lý lỗi.
 2. [Lộ trình robot và ROS 2](robot-ros2/index.md): học 12 bài theo lộ trình từ chương trình mẫu đến publisher/subscriber, service, động học robot, mạng và TF.
 3. [Hệ tọa độ và TF từ đầu](robot-ros2/he-toa-do-va-tf.md): hiểu trục tọa độ và quan hệ map, odom, base_link; thực hành đổi tọa độ và xem mô hình URDF trong RViz trước khi kết nối robot.
 4. [Robot ESP32 LiDAR](../robot-esp32-lidar/index.md): chuẩn bị môi trường/workspace → kết nối Wi-Fi → khởi động và kiểm tra dữ liệu → chạy thử → SLAM và điều hướng theo lộ trình sản phẩm.
@@ -42,8 +40,6 @@ Bạn không cần học hết mọi thứ trước khi làm robot. Chọn lối
 **Kết quả đạt được:** phân biệt chương trình trên ESP32 với node ROS 2 trên PC, xem được dữ liệu topic, hiểu vì sao RViz cần TF và biết bắt đầu kiểm tra robot từ đâu.
 
 **Có thể bỏ qua:** bài điện và lập trình cơ bản nếu đã nắm; bài Ubuntu 1–5 nếu đã tự dùng Terminal, cd, ls và đường dẫn. Vẫn kiểm tra phiên bản ROS 2 và môi trường ở bài 6; không dùng phần mềm robot với phiên bản khác chỉ vì đã quen Linux.
-
-**Tự kiểm tra:** bạn chạy được ví dụ ROS 2, phân biệt topic với frame và biết đọc header.frame_id trước khi đổi Fixed Frame trong RViz.
 
 ## C. Tôi đã có robot Robovis, muốn sử dụng ngay { #lo-trinh-c }
 
@@ -74,4 +70,4 @@ Bạn không cần học hết mọi thứ trước khi làm robot. Chọn lối
 | Chưa biết nhập lệnh ở đâu | [Terminal Ubuntu](../ubuntu-co-ban/04-terminal.md) |
 | Không hiểu node, topic hoặc TF | [Robot và ROS 2 cơ bản](robot-ros2/index.md) |
 
-**Kiến thức nền** giải thích kiến thức dùng chung và bài thực hành nhỏ. **Tài liệu theo sản phẩm** chứa sơ đồ, cấu hình và thao tác trên từng robot. Các bài khám phá, so sánh và kinh nghiệm thuộc **Góc kỹ thuật**; bạn không cần đọc chúng để bắt đầu lộ trình này.
+**Kiến thức nền** giải thích kiến thức dùng chung qua các ví dụ có hướng dẫn. **Tài liệu theo sản phẩm** chứa sơ đồ, cấu hình và thao tác trên từng robot. Các bài khám phá, so sánh và kinh nghiệm thuộc **Góc kỹ thuật**; bạn không cần đọc chúng để bắt đầu lộ trình này.

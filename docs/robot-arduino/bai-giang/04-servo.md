@@ -625,47 +625,7 @@ Tuy nhiên, khi kết hợp nhiều thư viện trong một chương trình, c�
 
 Khi gặp lỗi, nên kiểm tra nguồn điện và kết nối trước khi thay đổi chương trình.
 
-## 13. Bài tập thực hành
-
-Sau khi hoàn thành các ví dụ, hãy thực hiện những bài tập sau.
-
-**Bài tập 1: Điều khiển vị trí**
-
-Viết chương trình để servo lần lượt di chuyển đến các góc:
-
-- 80°.
-- 90°.
-- 100°.
-- Trở về 90°.
-
-Mỗi vị trí được giữ trong một giây.
-
-**Bài tập 2: Thay đổi thời gian**
-
-Chỉnh sửa chương trình để servo di chuyển giữa hai góc 75° và 105°, với thời gian chờ hai giây giữa các lệnh.
-
-Quan sát sự khác biệt so với chương trình ban đầu.
-
-**Bài tập 3: Điều khiển góc bằng biến**
-
-Khai báo hai biến:
-
-```cpp
-int gocTrai = 70;
-int gocPhai = 110;
-```
-
-Sử dụng các biến này để điều khiển servo quay qua lại.
-
-Thay đổi giá trị của biến và quan sát kết quả.
-
-**Bài tập 4: Quét góc tự động**
-
-Sử dụng vòng lặp `for` để điều khiển servo quét từ 80° đến 100° và quay ngược trở lại.
-
-Thử thay đổi thời gian chờ giữa các bước để quan sát độ mượt và tốc độ chuyển động.
-
-## 14. Tổng kết
+## 13. Tổng kết { #14-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu và thực hành:
 

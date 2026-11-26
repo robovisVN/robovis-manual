@@ -1029,43 +1029,7 @@ Trong các ứng dụng cần xác định chính xác chiều chuyển động,
 
 Khi gặp lỗi, nên quay lại chương trình đọc tín hiệu Digital ở Ví dụ 1 để kiểm tra hoạt động cơ bản của Encoder trước khi kiểm tra phần đếm xung hoặc tính RPM.
 
-## 14. Bài tập thực hành
-
-**Bài tập 1: Đọc tín hiệu Encoder**
-
-Viết chương trình đọc trạng thái Digital của Encoder trái.
-
-Quay bánh bằng tay và quan sát sự thay đổi giữa HIGH và LOW.
-
-**Bài tập 2: Đếm xung hai bánh**
-
-Viết chương trình sử dụng ngắt ngoài để đếm xung của hai Encoder.
-
-Hiển thị số xung trên Serial Monitor sau mỗi 500 ms.
-
-**Bài tập 3: Xác định PPR**
-
-Đánh dấu vị trí trên bánh xe và quay đúng một vòng.
-
-Ghi lại số xung tăng thêm.
-
-Lặp lại ba lần để xác định PPR thực tế.
-
-**Bài tập 4: Tính tốc độ RPM**
-
-Sử dụng PPR đã đo để tính RPM của bánh trái và bánh phải.
-
-Thử quay bánh bằng tay ở các tốc độ khác nhau và quan sát kết quả.
-
-**Bài tập 5: Tính quãng đường**
-
-Đo đường kính bánh xe.
-
-Tính chu vi bánh và số xung tương ứng khi bánh lăn một quãng đường 50 cm theo giả định không trượt.
-
-So sánh kết quả lý thuyết với số xung đo được khi quay bánh bằng tay.
-
-## 15. Tổng kết
+## 14. Tổng kết { #15-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu và thực hành:
 

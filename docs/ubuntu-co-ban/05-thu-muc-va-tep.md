@@ -1,12 +1,16 @@
 # Bài 5. Thư mục, đường dẫn và tệp
 
+Giả sử chúng ta vừa tạo một tệp ghi chú bằng Terminal nhưng không tìm thấy nó trong Files. Tệp có thể đã được lưu đúng, chỉ là hai cửa sổ đang mở ở hai thư mục khác nhau.
+
+Để tránh nhầm lẫn này, chúng ta cần hiểu đường dẫn và thư mục làm việc hiện tại. Trong bài, bạn sẽ tạo một tệp, tìm lại nó bằng giao diện và đọc nội dung từ một vị trí khác.
+
 **Mục tiêu:** biết mình đang ở đâu, vào đúng thư mục và tạo được một tệp ghi chú bằng Terminal.
 
 **Chuẩn bị:** đã làm được [bài Terminal](04-terminal.md). Các thao tác dưới đây dùng thư mục thực hành `hoc_ubuntu` trong Home.
 
 ## 1. Đường dẫn là địa chỉ của thư mục hoặc tệp
 
-Ví dụ `/home/robovis/hoc_ubuntu` có nghĩa là thư mục `hoc_ubuntu` nằm trong Home của tài khoản `robovis`.
+Mỗi tệp và thư mục nằm ở một vị trí trong cấu trúc lưu trữ của Ubuntu. **Đường dẫn** mô tả vị trí đó. Chẳng hạn, `/home/robovis/hoc_ubuntu` cho biết thư mục `hoc_ubuntu` nằm trong Home của tài khoản `robovis`.
 
 Tên tài khoản của bạn có thể khác. Để không phải thay tên người dùng trong từng lệnh, các bài dùng ký hiệu **`~`**, đại diện cho Home của tài khoản đang đăng nhập.
 
@@ -18,7 +22,7 @@ Tên tài khoản của bạn có thể khác. Để không phải thay tên ng�
 | `.` | Thư mục hiện tại của Terminal |
 | `..` | Thư mục cha, tức lên một cấp |
 
-**Đường dẫn tuyệt đối** bắt đầu từ `/`. **Đường dẫn tương đối** được hiểu từ thư mục Terminal đang đứng. Bạn sẽ thấy khác biệt ngay ở bài tập tiếp theo.
+Khi viết địa chỉ từ gốc `/`, chúng ta đang dùng **đường dẫn tuyệt đối**. Khi chỉ viết tên tệp hoặc thư mục con, vị trí đó được hiểu từ thư mục Terminal đang làm việc; đây là **đường dẫn tương đối**. Phần thực hành dưới đây sẽ giúp bạn thấy khi nào hai cách viết cho cùng một kết quả.
 
 <figure class="ubuntu-figure" markdown>
 
@@ -29,7 +33,7 @@ Tên tài khoản của bạn có thể khác. Để không phải thay tên ng�
 
 ## 2. Về Home và xem thư mục đang có
 
-Chạy từng lệnh:
+Trước khi tạo tệp, chúng ta đưa Terminal về một vị trí đã biết là Home. Chạy lần lượt các lệnh và đọc kết quả sau mỗi bước:
 
 ```bash
 cd ~
@@ -53,6 +57,8 @@ Mở một thư mục trong Files **không tự chuyển** vị trí của Termi
 
 ## 3. Tạo thư mục thực hành và vào bên trong
 
+Chúng ta sẽ dành riêng thư mục `bai_05` cho ví dụ trong bài. Nhờ đó, các tệp tạo ra nằm cùng một nơi và dễ tìm lại khi cần đối chiếu.
+
 ```bash
 mkdir -p ~/hoc_ubuntu/bai_05
 ```
@@ -73,13 +79,13 @@ Trong Files, bạn cũng có thể mở Home → `hoc_ubuntu` → `bai_05` để
 
 ## 4. Tạo một tệp ghi chú
 
-Chạy:
+Khi Terminal đã ở trong `bai_05`, chúng ta mở trình soạn thảo để tạo tệp đầu tiên:
 
 ```bash
 nano ghi_chu.txt
 ```
 
-`nano` là trình sửa văn bản trong Terminal. `ghi_chu.txt` là tên tệp muốn sửa; nếu chưa có, nano sẽ mở nội dung trống để bạn tạo tệp.
+Trong lệnh này, `nano` là trình sửa văn bản chạy trong Terminal, còn `ghi_chu.txt` là tệp chúng ta muốn mở. Nếu tệp chưa tồn tại, nano bắt đầu với nội dung trống; sau khi nhập và lưu, chúng ta sẽ có một tệp văn bản trong thư mục hiện tại.
 
 Nhập hai dòng sau **vào màn hình nano**, không chạy chúng như lệnh:
 
@@ -104,6 +110,8 @@ Toi biet mo Terminal va tim thu muc Home.
 Nếu báo `nano: command not found`, xem phần cài `nano` ở [bài 6](06-cai-va-chay-phan-mem.md), rồi quay lại bước này. Bạn cũng có thể dùng ứng dụng **Text Editor**, nhập nội dung và dùng **Save As** lưu vào đúng `~/hoc_ubuntu/bai_05/ghi_chu.txt`.
 
 ## 5. Kiểm tra tệp vừa lưu
+
+Lưu xong chưa phải là bước cuối cùng. Chúng ta cần xác nhận tệp nằm đúng chỗ và nội dung bên trong đúng với phần vừa nhập. Trước tiên, xem danh sách tệp trong thư mục:
 
 ```bash
 ls
@@ -137,7 +145,7 @@ cat ~/hoc_ubuntu/bai_05/ghi_chu.txt
 
 ## 6. Sao chép tệp trước khi sửa
 
-Tạo bản sao bằng lệnh:
+Trước khi sửa một tệp cấu hình, việc giữ bản sao giúp chúng ta còn dữ liệu cũ để so sánh. Hãy tập thao tác này với tệp ghi chú vừa tạo:
 
 ```bash
 cp -i ~/hoc_ubuntu/bai_05/ghi_chu.txt ~/hoc_ubuntu/bai_05/ghi_chu_ban_sao.txt
@@ -154,6 +162,8 @@ ls ~/hoc_ubuntu/bai_05
 **Kết quả cần thấy:** tệp gốc và tệp `ghi_chu_ban_sao.txt`. Bạn có thể mở bản sao bằng nano rồi sửa thử một câu để so sánh hai tệp.
 
 ## 7. Khi gặp đường dẫn trong tài liệu robot
+
+Các lệnh trong tài liệu robot cũng sử dụng đường dẫn theo cùng nguyên tắc. Khi gặp những tên dưới đây, hãy xác định chúng trỏ đến thư mục dự án hay một tệp cụ thể trước khi thực hiện thao tác.
 
 | Ví dụ | Bạn cần hiểu gì? |
 | --- | --- |
@@ -178,5 +188,9 @@ Tệp `.yaml` và `.pgm` của bản đồ có vai trò khác nhau. Khi sao lưu
 **Mẹo:** nhấn **Tab** để Terminal hỗ trợ hoàn thành tên đường dẫn. Với tệp thực hành và bản đồ mới, đặt tên không dấu, dùng `_` thay khoảng trắng sẽ dễ thao tác hơn.
 
 **Bạn đã hoàn thành bài này khi:** tạo, đọc và tìm lại được `ghi_chu.txt` từ một thư mục khác.
+
+## Tổng kết
+
+Chúng ta đã dùng `pwd` để xác định vị trí, `cd` để chuyển thư mục và đường dẫn để tìm lại cùng một tệp từ nhiều nơi. Khi một lệnh báo không thấy tệp, những thao tác này giúp kiểm tra nguyên nhân trước khi tạo lại dữ liệu. Bài tiếp theo sẽ sử dụng tệp theo cách tương tự để chạy một chương trình Python nhỏ.
 
 [← Bài 4](04-terminal.md) · [Bài 6: Cài phần mềm và chạy chương trình →](06-cai-va-chay-phan-mem.md)

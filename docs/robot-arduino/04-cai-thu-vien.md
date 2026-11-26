@@ -806,69 +806,7 @@ bài học     kiểm tra phiên bản
 
 Cách kiểm tra theo từng bước giúp xác định nguyên nhân chính xác hơn so với việc cài thêm nhiều thư viện không liên quan.
 
-## 14. Bài tập thực hành
-
-**Bài tập 1: Tìm hiểu thư viện**
-
-Trả lời các câu hỏi:
-
-1. Thư viện Arduino là gì?
-2. Board Package và Library khác nhau như thế nào?
-3. Dòng `#include <Servo.h>` có chức năng gì?
-4. Verify thành công có chứng minh servo đang hoạt động không?
-
-**Bài tập 2: Cài đặt Servo**
-
-Sử dụng Library Manager để tìm và cài đặt thư viện Servo.
-
-Sau đó, tạo chương trình sử dụng đối tượng Servo và kiểm tra bằng Verify.
-
-**Bài tập 3: Cài đặt Dabble**
-
-Tìm thư viện Dabble của STEMpedia.
-
-Cài đặt thư viện và Verify chương trình kiểm tra GamePad.
-
-**Bài tập 4: Xác định thư viện trong chương trình**
-
-Cho chương trình:
-
-```cpp
-#define CUSTOM_SETTINGS
-#define INCLUDE_GAMEPAD_MODULE
-
-#include <Dabble.h>
-#include <Servo.h>
-
-Servo myServo;
-
-void setup() {
-  myServo.attach(A5);
-}
-
-void loop() {
-  Dabble.processInput();
-}
-```
-
-Hãy xác định:
-
-1. Chương trình sử dụng những thư viện nào?
-2. Thư viện nào phục vụ điều khiển servo?
-3. Thư viện nào phục vụ nhận dữ liệu từ ứng dụng điện thoại?
-4. Chương trình có thể cần những thư viện nào được cài thêm trước khi Verify?
-
-**Bài tập 5: Phân tích lỗi**
-
-Giả sử Arduino IDE báo:
-
-```text
-fatal error: Dabble.h: No such file or directory
-```
-
-Hãy mô tả các bước cần kiểm tra để xử lý lỗi này.
-
-## 15. Tổng kết
+## 14. Tổng kết { #15-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu và thực hành:
 

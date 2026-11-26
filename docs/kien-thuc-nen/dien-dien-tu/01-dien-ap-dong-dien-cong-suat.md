@@ -33,16 +33,6 @@ Với tải DC ổn định, `P = U × I`. Một tải dùng 5 V và tiêu thụ
 
 Trong Robot Arduino/ESP32, vi điều khiển gửi tín hiệu cho driver động cơ (mạch cấp và điều khiển dòng cho động cơ); GPIO không phải đầu cấp công suất cho động cơ. Điện áp pin và vị trí cấp nguồn phải lấy từ tài liệu sản phẩm.
 
-## Thực hành nhỏ: đọc nhãn trên giấy
-
-Giả sử hai cảm biến được nhà sản xuất quy định dùng 5 V, mỗi cảm biến tối đa 100 mA. Chúng dùng một nguồn riêng, chưa có động cơ hay bo điều khiển trên đường nguồn này.
-
-- Tổng dòng: `0,1 + 0,1 = 0,2 A`.
-- Tổng công suất: `5 × 0,2 = 1 W`.
-- So sánh nguồn ổn áp 5 V – 1 A và nguồn 12 V – 2 A: nguồn 5 V có điện áp phù hợp và đủ dòng theo giả định; không nối nguồn 12 V trực tiếp vào cảm biến.
-
-**Kết quả mong đợi:** chọn theo điện áp trước, dòng sau; giải thích được vì sao “nhiều watt hơn” không đồng nghĩa phù hợp hơn. Đây là bài tính, chưa xác nhận một bộ nguồn hay cảm biến cụ thể.
-
 ## Lỗi thường gặp
 
 - Nhầm mA với A: 200 mA là 0,2 A.

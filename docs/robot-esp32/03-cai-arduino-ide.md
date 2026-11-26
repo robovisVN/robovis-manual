@@ -562,52 +562,7 @@ Nếu đã xác nhận các thông số trên mà vẫn không nạp được, t
 
 ---
 
-## 10. Bài tập thực hành
-
-### Bài tập 1: Nhận diện môi trường lập trình
-
-Mở Arduino IDE và xác định:
-
-1. Nút Verify.
-2. Nút Upload.
-3. Boards Manager.
-4. Library Manager.
-5. Serial Monitor.
-6. Menu Tools → Board.
-7. Menu Tools → Port.
-
-### Bài tập 2: Kiểm tra driver CH340
-
-Thực hiện:
-
-1. Kết nối ESP32 với máy tính.
-2. Mở Device Manager.
-3. Xác định cổng COM của ESP32.
-4. Rút cáp USB và quan sát sự thay đổi.
-5. Cắm lại ESP32 và xác nhận cổng COM.
-
-### Bài tập 3: Kiểm tra ESP32 core
-
-Mở Boards Manager và trả lời:
-
-1. Gói hỗ trợ ESP32 có tên gì?
-2. Nhà phát triển gói hỗ trợ là ai?
-3. Phiên bản ESP32 core đang được cài đặt là bao nhiêu?
-4. Vì sao cần cài ESP32 Board Package dù đã có Arduino IDE?
-
-### Bài tập 4: Kiểm tra cấu hình
-
-Trong Arduino IDE, xác nhận:
-
-- Board: ESP32 Dev Module.
-- Port: Đúng cổng COM của ESP32.
-- ESP32 core: Đã cài đặt thành công.
-
-Chưa cần nạp chương trình trong bài này.
-
----
-
-## 11. Kiểm tra trước khi bắt đầu
+## 10. Kiểm tra trước khi bắt đầu { #11-kiem-tra-truoc-khi-bat-au }
 
 Trước khi chuyển sang bài học tiếp theo, hãy đảm bảo:
 
@@ -624,7 +579,7 @@ Trước khi chuyển sang bài học tiếp theo, hãy đảm bảo:
 
 ---
 
-## 12. Tổng kết
+## 11. Tổng kết { #12-tong-ket }
 
 Qua bài học này, chúng ta đã hoàn thành việc cài đặt môi trường lập trình cho ESP32.
 

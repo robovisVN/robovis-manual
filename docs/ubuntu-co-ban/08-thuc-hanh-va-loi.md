@@ -1,12 +1,16 @@
 # Bài 8. Thực hành tổng hợp và xử lý lỗi
 
+Ở các bài trước, chúng ta đã thực hiện riêng từng thao tác: mở ứng dụng, chuyển thư mục, sửa tệp và chạy lệnh. Khi làm việc với robot, những thao tác này thường xuất hiện trong cùng một quy trình.
+
+Bài cuối sẽ kết hợp chúng thành một nhiệm vụ nhỏ: tạo hồ sơ thực hành của máy Ubuntu. Từ kết quả đó, chúng ta cũng học cách mô tả một lỗi để có thể kiểm tra hoặc nhờ hỗ trợ rõ ràng hơn.
+
 **Mục tiêu:** tự thực hiện một công việc nhỏ từ đầu đến cuối, sau đó biết cách cung cấp thông tin khi gặp lỗi.
 
 **Chuẩn bị:** đã học bài 3–6. Phần kiểm tra robot là tùy chọn nếu chưa có robot bên cạnh.
 
 ## 1. Nhiệm vụ thực hành
 
-Bạn sẽ tạo một thư mục, lưu ghi chú và ghi nhận cấu hình Ubuntu. Toàn bộ thao tác thực hiện trong **Ubuntu**.
+Chúng ta sẽ tạo một thư mục riêng, ghi nhận cấu hình Ubuntu vào tệp rồi tìm lại tệp bằng cả Terminal và Files. Cách làm này giống việc lưu thông tin một lần thử robot để đối chiếu về sau. Toàn bộ thao tác thực hiện trong **Ubuntu**.
 
 <!-- tutorial-figure:kiem-tra-tung-lop -->
 <figure class="tutorial-figure" markdown>
@@ -34,6 +38,8 @@ pwd
 **Kết quả cần thấy:** đường dẫn kết thúc bằng `/hoc_ubuntu/tong_hop`.
 
 ### Bước 2. Ghi nhận phiên bản Ubuntu
+
+Trước khi ghi kết quả, hãy đọc thông tin từ máy đang sử dụng. Nhờ đó, hồ sơ phản ánh môi trường thực tế thay vì chép nguyên phiên bản trong ví dụ.
 
 ```bash
 cat /etc/os-release
@@ -81,7 +87,7 @@ Mở **Files → Home → hoc_ubuntu → tong_hop**. Bạn cần thấy `ket_qua
 
 ### Bước 5. Đọc tệp từ vị trí khác
 
-Trong Terminal, chạy:
+Tệp đã lưu có thể được đọc từ một thư mục khác nếu chúng ta cung cấp đúng đường dẫn. Hãy đưa Terminal về Home rồi tìm lại tệp bằng địa chỉ của nó:
 
 ```bash
 cd ~
@@ -95,7 +101,7 @@ Nếu đọc được đúng nội dung, bạn đã hiểu cách dùng đường
 
 ## 2. Kiểm tra thêm nếu đã có môi trường robot
 
-Chạy:
+Nếu máy đã có ROS 2 và bạn có robot để thử kết nối, chúng ta có thể bổ sung thông tin môi trường vào lần kiểm tra. Nếu chưa có, bạn vẫn có thể hoàn thành phần thực hành tệp ở trên và quay lại phần này sau. Trước tiên, chạy:
 
 ```bash
 printenv ROS_DISTRO
@@ -119,9 +125,11 @@ ping -c 4 192.168.4.1
 
 Địa chỉ trên chỉ dùng khi robot vẫn sử dụng cấu hình mặc định. Kết quả IP và ping được đọc theo [bài 7](07-ket-noi-robot.md).
 
-Hoàn thành bước này mới cho thấy môi trường cơ bản đã sẵn sàng. Chưa có chương trình bringup chạy thì không nên dùng việc thiếu topic robot để kết luận phần cứng bị lỗi.
+Những phép thử trên kiểm tra công cụ ROS 2 và kết nối mạng cơ bản. Để có dữ liệu cảm biến, chúng ta còn cần chạy chương trình khởi động hệ thống, thường gọi là **bringup**, theo tài liệu robot. Nếu bước đó chưa được thực hiện, việc chưa thấy topic robot chưa đủ để kết luận phần cứng có lỗi.
 
 ## 3. Gặp lỗi thì kiểm tra theo thứ tự nào?
+
+Giả sử lệnh đọc tệp báo không tìm thấy đường dẫn. Cài lại phần mềm sẽ không giải quyết được việc Terminal đang đứng sai thư mục. Vì vậy, trước khi thay đổi cấu hình, chúng ta cần xác định bước đang lỗi thuộc phần thao tác, tệp, phần mềm hay mạng.
 
 ```mermaid
 flowchart TD
@@ -135,7 +143,7 @@ flowchart TD
     G --> H
 ```
 
-Không cần cài lại Ubuntu khi mới gặp một lỗi. Trước tiên, xác định lỗi thuộc thao tác, tệp, phần mềm hay mạng.
+Sơ đồ trên bắt đầu từ những thông tin có thể kiểm tra ngay trong cửa sổ đang dùng. Khi đã xác định được phần gặp vấn đề, chúng ta mới chọn thao tác sửa tương ứng và thử lại từng thay đổi.
 
 ## 4. Bảng tra lỗi nhanh
 
@@ -154,7 +162,7 @@ Không cần cài lại Ubuntu khi mới gặp một lỗi. Trước tiên, xác
 
 ## 5. Gửi thông tin lỗi thế nào để dễ hỗ trợ?
 
-Một ảnh chỉ có dòng “Error” thường thiếu nguyên nhân. Hãy gửi cả lệnh đã chạy và đoạn thông báo liên quan trước/sau lỗi.
+Để người hỗ trợ hiểu cùng một tình huống, chúng ta cần cho biết đã làm bước nào, mong đợi điều gì và thực tế nhận được gì. Một ảnh chỉ có dòng “Error” thường chưa chứa đủ thông tin này. Hãy giữ cả lệnh đã chạy và đoạn thông báo liên quan trước, sau lỗi.
 
 Bạn có thể dùng mẫu sau:
 
@@ -175,22 +183,16 @@ Trong Terminal, bôi chọn nội dung rồi **Ctrl + Shift + C** để sao ché
 
 Nếu mục tiêu là hiểu phần mềm trước khi vận hành robot, học tiếp [Robot và ROS 2 cơ bản](../kien-thuc-nen/robot-ros2/index.md): bài truyền nhận mẫu không cần robot. Nếu muốn sử dụng robot ngay, làm theo các bước sản phẩm bên dưới.
 
-| Việc cần làm | Tự kiểm tra |
-| --- | --- |
-| Mở đúng Terminal Ubuntu | Tôi không nhập nhầm vào PowerShell |
-| Sao chép và chạy lệnh | Tôi chỉ chạy phần lệnh, không chạy phần kết quả |
-| Đọc đường dẫn | Tôi tìm được tệp trong Home |
-| Giữ một chương trình chạy | Tôi biết mở Terminal thứ hai |
-| Dừng chương trình | Tôi biết Ctrl + C và chờ dấu nhắc trở lại |
-| Kiểm tra môi trường | Tôi phân biệt được cài phần mềm với `source` |
-| Kiểm tra mạng robot | Tôi biết tìm IP Ubuntu và đọc kết quả ping |
-
-Nếu đã làm được các việc trên, chuyển sang khu vực [ESP32 LiDAR](../robot-esp32-lidar/index.md) trên website. Làm bài [Khởi động và kiểm tra dữ liệu](../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra.md) trước, sau đó mới [Chạy thử lần đầu](../robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau.md).
+Để sử dụng robot, chuyển sang khu vực [ESP32 LiDAR](../robot-esp32-lidar/index.md) trên website. Làm bài [Khởi động và kiểm tra dữ liệu](../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra.md) trước, sau đó mới [Chạy thử lần đầu](../robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau.md).
 
 Nếu Ubuntu của bạn chưa có ROS 2 và workspace, hoàn thành các bài [Cài ROS 2](../robot-esp32-lidar/02-chuan-bi/01-yeu-cau-va-cai-ros2.md) và [Cài workspace](../robot-esp32-lidar/02-chuan-bi/02-cai-dat-workspace.md) của sản phẩm trước bước khởi động.
 
 ## Tài liệu đọc thêm
 
 Sau khi hoàn thành bài thực hành, bạn có thể học thêm các thao tác Terminal qua [hướng dẫn dòng lệnh cho người mới của Ubuntu](https://ubuntu.com/tutorials/command-line-for-beginners).
+
+## Tổng kết
+
+Kết quả của nhóm bài Ubuntu là khả năng tự thực hiện và kiểm tra một chuỗi thao tác trên máy tính: mở đúng môi trường, tạo và tìm lại tệp, chạy chương trình, đọc thông báo và kiểm tra mạng khi cần. Với nền tảng này, chúng ta có thể chuyển sang tìm hiểu cách các chương trình robot trao đổi dữ liệu trong ROS 2.
 
 [← Bài 7](07-ket-noi-robot.md) · [Quay lại lộ trình Ubuntu cơ bản](index.md)

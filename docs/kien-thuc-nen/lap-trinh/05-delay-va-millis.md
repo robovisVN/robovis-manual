@@ -52,10 +52,6 @@ Trên các bo đang xét, bộ đếm `millis()` 32 bit quay về 0 sau khoảng
 
 `moc = hienTai` chọn chu kỳ tính từ lần thực hiện gần nhất; nếu code bị chậm, lịch có thể trôi. Bài này không cố chạy bù các lượt đã lỡ.
 
-## Tự thực hành
-
-Đổi `CHU_KY_NHANH` thành `250UL`; giữ nhánh chậm. Kỳ vọng dòng nhanh khoảng bốn lần mỗi giây, nhánh chậm vẫn khoảng hai giây một lần. Không cần chờ 49 ngày để thử bài học này.
-
 ## Lỗi thường gặp
 
 - Lưu mốc bằng `int`: có thể mất dữ liệu thời gian.

@@ -1,5 +1,9 @@
 # Bài 11: RViz, URDF và kiểm tra dữ liệu
 
+Sau bài TF, chúng ta đã biết cách mô tả vị trí cảm biến so với thân robot. Bước tiếp theo là nhìn thấy các quan hệ đó trên màn hình và đối chiếu với hình dạng mô hình.
+
+Trong bài này, chúng ta tạo một thân robot hình hộp với LiDAR hình trụ để tìm hiểu cách mô hình, TF và công cụ hiển thị phối hợp với nhau. Từ ví dụ nhỏ này, bạn có thể áp dụng cùng cách kiểm tra khi xem dữ liệu robot thật.
+
 ## 1. Mục tiêu
 
 Trong bài này, bạn sẽ tạo mô hình robot nhỏ, phát quan hệ thân–LiDAR và xem trong RViz. Sau đó, chúng ta đối chiếu các bước tương tự khi xem dữ liệu của Robot ESP32 LiDAR thật.
@@ -17,13 +21,13 @@ Bạn cần package thực hành của bài 4–7 và kiến thức TF của bà
 
 ## 2. RViz và mô phỏng khác nhau thế nào?
 
-RViz hiển thị dữ liệu do các nguồn ROS 2 cung cấp. Turtlesim và các trình mô phỏng thực hiện cập nhật một thế giới mô phỏng. Chỉ mở RViz chưa làm xuất hiện cảm biến, chuyển động hoặc bản đồ.
+Khi mở Turtlesim, chương trình vừa cập nhật thế giới mô phỏng vừa vẽ rùa. **RViz** có vai trò hiển thị dữ liệu do các nguồn ROS 2 cung cấp. Vì vậy, để thấy robot, phép quét hoặc bản đồ trong RViz, chúng ta phải có nguồn tạo ra những dữ liệu tương ứng.
 
-Trong RViz, mỗi **display** nhận và vẽ một loại dữ liệu. TF vẽ các frame, RobotModel vẽ hình dạng từ mô hình, LaserScan vẽ các mẫu quét, Map hiển thị lưới bản đồ.
+Trong cửa sổ RViz, chúng ta thêm các **display**, tức thành phần nhận và vẽ từng loại dữ liệu. Display TF hiển thị các frame, RobotModel vẽ hình dạng từ mô hình, LaserScan vẽ mẫu quét và Map hiển thị lưới bản đồ. Mỗi display cần được chọn đúng nguồn và cấu hình phù hợp.
 
 ## 3. URDF mô tả hình học và quan hệ khớp
 
-URDF dùng các **link** cho bộ phận và **joint** cho quan hệ nối giữa chúng. Một joint cố định thể hiện hai link không thay đổi vị trí tương đối. Joint chuyển động có trạng thái cần cập nhật khi robot vận động.
+Để hiển thị mô hình robot, chúng ta cần mô tả các bộ phận và cách chúng nối với nhau. **URDF (Unified Robot Description Format)** sử dụng **link** cho bộ phận và **joint** cho quan hệ nối. Một joint cố định giữ nguyên vị trí tương đối giữa hai link; với joint chuyển động, hệ thống cần cập nhật trạng thái khi bộ phận vận động.
 
 Cài công cụ khi đang có Internet:
 
@@ -57,11 +61,13 @@ Trong package `robovis_practice`, tạo thư mục `urdf`, rồi tệp `~/ros2_p
 </robot>
 ```
 
-Kích thước dùng mét, góc `rpy` dùng radian. Joint đặt frame LiDAR trước thân 0,08 m và cao 0,09 m. `visual/origin` của thân dịch hình hộp lên trên gốc link; nó không tạo thêm frame con trong TF.
+Trong mô hình trên, kích thước dùng mét và góc `rpy` dùng radian. Joint `gan_lidar` đặt frame LiDAR trước thân 0,08 m và cao 0,09 m. Riêng `visual/origin` của thân chỉ đặt hình hộp so với gốc link, nên chúng ta cần phân biệt vị trí hình hiển thị với quan hệ giữa các frame trong TF.
 
 Mô hình này chỉ có hình hiển thị và một khớp cố định. Một mô hình dùng cho mô phỏng vật lý còn cần mô tả va chạm, quán tính và các thông số phù hợp.
 
 ## 4. Nạp mô hình bằng launch
+
+Tệp URDF đã mô tả cấu trúc robot, nhưng chúng ta còn cần một chương trình đọc mô hình và công bố quan hệ cho ROS 2. Launch file sau khởi động `robot_state_publisher` và truyền nội dung mô hình qua parameter `robot_description`.
 
 Tạo tệp `~/ros2_practice_ws/src/robovis_practice/launch/mo_hinh.launch.py`:
 
@@ -100,7 +106,7 @@ source ~/ros2_practice_ws/install/setup.bash
 ros2 launch robovis_practice mo_hinh.launch.py
 ```
 
-`robot_state_publisher` đọc mô hình và công bố quan hệ khớp. Với joint cố định, không cần tự phát vị trí khớp. Nếu mô hình có bánh quay, các joint động cần trạng thái từ nguồn phù hợp, thường qua `/joint_states`.
+Khi chạy, `robot_state_publisher` đọc mô hình để công bố các quan hệ khớp. Ví dụ của chúng ta chỉ có joint cố định, nên không cần thêm nguồn phát vị trí khớp. Nếu mô hình có joint chuyển động như bánh quay, các quan hệ động cần trạng thái từ nguồn phù hợp, thường thông qua `/joint_states`.
 
 ## 5. Hiển thị và kiểm tra
 
@@ -123,7 +129,7 @@ Nếu một frame đã có quan hệ đúng nhưng hình vẽ lệch, kiểm tra
 
 ## 6. Vì sao Fixed Frame ảnh hưởng kết quả?
 
-Fixed Frame là frame tham chiếu chung mà RViz dùng để biểu diễn dữ liệu. Mô hình bài thử chỉ có cây từ `base_link` tới `base_scan`, nên chọn `base_link`. Mô hình chưa có `odom` hoặc `map`.
+Để vẽ nhiều nguồn dữ liệu trong cùng một không gian, RViz cần một frame tham chiếu chung, gọi là **Fixed Frame**. Trong bài thử, cây chỉ có `base_link` và `base_scan`, nên chúng ta chọn `base_link`. Các frame `odom` hoặc `map` chưa được tạo bởi mô hình này.
 
 | Bối cảnh | Fixed Frame thường dùng |
 | --- | --- |
@@ -137,7 +143,7 @@ RViz cần tra được chuỗi TF từ frame dữ liệu tới Fixed Frame tạ
 
 Dừng launch mô hình thử trước khi [khởi động robot thật](../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra.md), vì mô hình thử dùng các tên frame có thể trùng sản phẩm.
 
-Mở cấu hình RViz được bàn giao nếu có. Thêm display LaserScan, chọn topic quét thật, rồi kiểm tra:
+Với robot thật, chúng ta giữ cùng cách kiểm tra nhưng sử dụng nguồn và mô hình của sản phẩm. Mở cấu hình RViz được bàn giao nếu có, thêm display LaserScan và chọn topic quét thực tế. Nếu chưa thấy các điểm, lần lượt xem những thông tin sau:
 
 - Có mẫu quét mới trên topic không?
 - `header.frame_id` có frame tương ứng không?
@@ -147,13 +153,10 @@ Mở cấu hình RViz được bàn giao nếu có. Thêm display LaserScan, ch�
 
 Với cảm biến phát best effort, chọn độ tin cậy phù hợp trong thuộc tính display. Thay màu hoặc cỡ điểm không sửa được lỗi nguồn dữ liệu hay TF.
 
-## 8. Bài tập
-
-1. Đổi joint LiDAR thành x = 0,10 m, build và khởi động lại. Kiểm tra bằng `tf2_echo`.
-2. Đổi riêng `visual/origin` của thân. Giải thích vì sao quan hệ `base_link → base_scan` không đổi.
-3. Chọn nhầm Fixed Frame thành `map` trong bài mô hình; đọc thông báo rồi đưa về đúng frame.
-4. Trên robot thật, dùng `Status` của display để mô tả lỗi trước khi sửa cấu hình.
-
 Đọc thêm: [ROS 2 — URDF với robot_state_publisher](https://docs.ros.org/en/humble/Tutorials/Intermediate/URDF/Using-URDF-with-Robot-State-Publisher.html), [RViz User Guide](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html).
+
+## 8. Tổng kết { #9-tong-ket }
+
+URDF mô tả bộ phận và quan hệ khớp, `robot_state_publisher` công bố các quan hệ từ mô hình, còn RViz hiển thị dữ liệu theo Fixed Frame đã chọn. Khi hình chưa đúng, chúng ta có thể kiểm tra riêng mô hình, TF và nguồn dữ liệu. Bài cuối sẽ hướng dẫn lưu dữ liệu để quan sát lại một lần thử và tổng hợp kết quả kiểm tra.
 
 [← Bài 10](he-toa-do-va-tf.md) · [Bài 12: Rosbag và thực hành tổng hợp →](07-rosbag-va-xu-ly-loi.md)

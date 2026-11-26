@@ -1,16 +1,20 @@
 # Bài 12: Rosbag và bài thực hành tổng hợp
 
+Khi một luồng dữ liệu chỉ xuất hiện trong vài giây, chúng ta có thể chưa kịp đọc hết các giá trị hoặc nhận ra thời điểm bất thường. Nếu phải chạy lại toàn bộ hệ thống mỗi lần muốn kiểm tra, việc đối chiếu sẽ mất nhiều thao tác.
+
+Rosbag giúp lưu các message để phát lại cho công cụ phân tích. Trong bài cuối, chúng ta sẽ ghi ví dụ tốc độ đã xây dựng, quan sát lại dữ liệu và lập báo cáo giải thích kết quả của một lần thử.
+
 ## 1. Mục tiêu
 
 Chúng ta sẽ ghi hai topic của ví dụ xuyên suốt, phát lại dữ liệu cho node phân tích và lập một báo cáo kiểm tra. Bạn cần hoàn thành bài 4–7. Bài này dùng dữ liệu giả lập trên PC.
 
-Rosbag ghi các message trên topic được chọn. Nó giúp xem lại một hiện tượng mà không cần lặp lại toàn bộ lần đo, nhưng không tự lưu mã nguồn, trạng thái phần cứng và mọi tệp cấu hình.
+**Rosbag** ghi lại các message trên những topic được chọn để chúng ta xem hoặc xử lý lại sau. Dữ liệu ghi được phản ánh các message mà công cụ đã nhận trong lần thử; để hiểu đầy đủ điều kiện tạo ra chúng, chúng ta còn cần lưu mã nguồn, cấu hình và thông tin vận hành liên quan.
 
 ## 2. Chuẩn bị lần thử có thể đối chiếu
 
 Nếu chưa có công cụ, cài `ros-humble-rosbag2` khi có Internet. Chạy lại `thuc_hanh.launch.py` của bài 7. Trong các Terminal mới, nạp ROS 2 và workspace thực hành.
 
-Kiểm tra trước khi ghi:
+Một lần ghi sẽ dễ giải thích hơn nếu chúng ta biết nguồn nào đang chạy và dùng cấu hình nào. Trước khi bắt đầu, kiểm tra tên topic cùng các parameter của bên phát:
 
 ```bash
 ros2 topic list -t
@@ -18,11 +22,11 @@ ros2 param get /thuc_hanh/nguon_toc_do toc_do_co_so
 ros2 param get /thuc_hanh/nguon_toc_do chu_ky
 ```
 
-Ghi ra giấy giá trị parameter, thời điểm và tên đầy đủ của topic. Nếu YAML chưa đổi, tốc độ cơ sở là 0,25 m/s và chu kỳ 0,2 giây.
+Hãy ghi lại giá trị parameter, thời điểm và tên đầy đủ của các topic để có dữ liệu đối chiếu sau khi phát lại. Nếu giữ nguyên YAML của bài 7, tốc độ cơ sở là 0,25 m/s và chu kỳ 0,2 giây.
 
 ## 3. Ghi hai topic
 
-Trong Terminal ghi dữ liệu:
+Chúng ta sẽ ghi cả topic gốc và topic sau cổng. Khi bật, tắt cổng trong cùng lần ghi, số mẫu của hai kênh sẽ giúp quan sát tác dụng của service. Mở Terminal ghi dữ liệu và chạy:
 
 ```bash
 mkdir -p ~/ros2_practice/bags
@@ -46,13 +50,13 @@ Chờ khoảng 5 giây, gọi service với `data: false`. Chờ thêm khoảng 
 ros2 bag info ~/ros2_practice/bags/toc_do_lan_1
 ```
 
-Đọc thời lượng, danh sách topic, kiểu và số message. Thư mục bag có metadata và tệp dữ liệu theo định dạng lưu đã dùng; giữ cả thư mục khi sao chép.
+Trong kết quả, chúng ta đọc thời lượng, tên topic, kiểu dữ liệu và số message để xác nhận lần ghi có nội dung cần dùng. Thư mục bag chứa cả metadata, tức thông tin mô tả lần ghi, và tệp dữ liệu theo định dạng lưu đang sử dụng. Khi sao chép, hãy giữ cả thư mục để công cụ còn đọc được đầy đủ.
 
 Nếu topic có 0 message hoặc bị thiếu, xem nguồn có thật sự phát trong lúc ghi không. “Đã chạy lệnh record” chưa chứng minh đã ghi được mẫu có ích.
 
 ## 5. Phát lại để phân tích
 
-Dừng launch thực hành để không trộn nguồn phát trực tiếp với dữ liệu phát lại. Mở Terminal nhận:
+Để kiểm tra dữ liệu đã lưu, chúng ta cho bag thay vai trò nguồn phát và dùng lại node nhận của bài 4. Trước tiên, dừng launch thực hành để hai nguồn trực tiếp và phát lại không cùng gửi trên một topic. Sau đó mở Terminal nhận:
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -68,11 +72,11 @@ ros2 bag play ~/ros2_practice/bags/toc_do_lan_1 --topics /thuc_hanh/toc_do_do
 
 Bộ nhận in lại các mẫu và trung bình. Hãy mở bộ nhận trước để giảm khả năng bỏ qua các mẫu đầu trong lúc discovery.
 
-Thử thêm `--rate 0.5` để phát chậm. Nhịp nhận thay đổi, còn giá trị các mẫu vẫn là dữ liệu đã ghi. Nếu đồng thời có nguồn trực tiếp cùng topic, công cụ có thể nhận cả hai luồng và khiến kết quả khó giải thích.
+Sau lần phát đầu, bạn có thể thử thêm `--rate 0.5` để quan sát chậm hơn. Giá trị các mẫu vẫn lấy từ dữ liệu đã ghi, trong khi nhịp nhận thay đổi. Nếu vẫn có nguồn trực tiếp cùng topic, bên nhận có thể thấy dữ liệu từ cả hai nguồn, khiến chúng ta khó xác định mẫu nào thuộc lần thử đang phân tích.
 
 ## 6. Thời gian khi phát lại dữ liệu robot
 
-Ví dụ số thực không có timestamp nên chưa bộc lộ vấn đề thời gian. Dữ liệu robot có thể chứa thời điểm đo và cần TF tương ứng. Phát lại một topic `/scan` riêng có thể chưa đủ để RViz hoặc SLAM xử lý.
+Ví dụ tốc độ dùng một số thực không có timestamp. Với dữ liệu robot, mỗi phép đo có thể mang thời điểm và frame riêng, nên chương trình xử lý còn cần TF tương ứng. Chẳng hạn, phát lại riêng `/scan` có thể cung cấp các khoảng cách nhưng vẫn thiếu quan hệ tọa độ để RViz hoặc SLAM đặt chúng vào đúng vị trí.
 
 Khi thiết kế lần ghi cho phân tích LiDAR, xem xét các nguồn cần thiết như `/scan`, `/odom`, `/tf`, `/tf_static`, cấu hình và nguồn thời gian. Transform tĩnh có chính sách lưu giữ cần phù hợp với bên ghi/nhận.
 
@@ -81,6 +85,8 @@ Khi thiết kế lần ghi cho phân tích LiDAR, xem xét các nguồn cần th
 Một bag chứa topic lệnh có thể tác động tới phần cứng khi phát lại. Với bài phân tích, hãy chọn rõ các topic dữ liệu và hệ thống nhận được phép chạy.
 
 ## 7. Kiểm tra lỗi theo lớp
+
+Đến đây, chúng ta đã gặp nhiều thành phần có thể ảnh hưởng đến kết quả: môi trường, node, giao diện, dữ liệu và TF. Khi một lần thử chưa đạt, hãy lần theo các lớp này để tìm phần đầu tiên chưa có bằng chứng hoạt động đúng.
 
 | Lớp | Cần chứng minh | Bằng chứng nên giữ |
 | --- | --- | --- |
@@ -93,17 +99,7 @@ Một bag chứa topic lệnh có thể tác động tới phần cứng khi ph�
 
 Khi build thất bại, bắt đầu từ dòng lỗi đầu tiên có ý nghĩa. Một lỗi import có thể dẫn tới hàng loạt thông báo sau đó; không nên sửa tất cả thông báo phụ như những lỗi độc lập.
 
-## 8. Bài thực hành tổng hợp
-
-Tự hoàn thành các yêu cầu:
-
-1. Đặt tốc độ cơ sở 0,30 m/s, chu kỳ 0,1 giây bằng YAML.
-2. Chạy ba node bằng một launch; xác nhận gần 10 Hz ở topic gốc.
-3. Bật cổng bằng client hoặc CLI, nhận một mẫu topic sau cổng.
-4. Ghi một lần bật/tắt, giải thích chênh lệch số mẫu giữa hai topic.
-5. Dừng nguồn trực tiếp, phát lại bag cho node nhận và đối chiếu giá trị.
-
-### Mẫu báo cáo
+## 8. Mẫu báo cáo
 
 | Nội dung | Ghi lại |
 | --- | --- |
@@ -114,8 +110,12 @@ Tự hoàn thành các yêu cầu:
 | Hiện tượng lỗi | Thời điểm, log, cách tái hiện |
 | Tệp đính kèm | YAML, phiên bản mã và thư mục bag |
 
-Bạn đạt mục tiêu khi có thể giải thích từng bước bằng dữ liệu, không chỉ cho biết “chương trình chạy được”. Sau đó, dùng [lộ trình Robot ESP32 LiDAR](../../robot-esp32-lidar/index.md) để chuyển từ nguồn giả lập sang robot thật.
+Báo cáo cần đi cùng dữ liệu và điều kiện của lần ghi. Dùng [lộ trình Robot ESP32 LiDAR](../../robot-esp32-lidar/index.md) để chuyển từ nguồn giả lập sang robot thật.
 
 Đọc thêm: [ROS 2 — Recording and playing back data](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html), [rosbag2](https://github.com/ros2/rosbag2/tree/humble).
+
+## 9. Tổng kết
+
+Qua series, chúng ta đã đi từ quan sát node có sẵn đến tự xây dựng, cấu hình và kiểm tra một luồng dữ liệu. Rosbag bổ sung khả năng lưu và phát lại message để phân tích, còn báo cáo ghi rõ điều kiện và kết quả của lần thử. Khi chuyển sang Robot ESP32 LiDAR, chúng ta tiếp tục dùng cách lần theo từng nguồn dữ liệu này cùng cấu hình được bàn giao cho sản phẩm.
 
 [← Bài 11](03-rviz-va-tf.md) · [Về lộ trình](index.md) · [Thực hành Robot ESP32 LiDAR →](../../robot-esp32-lidar/index.md)

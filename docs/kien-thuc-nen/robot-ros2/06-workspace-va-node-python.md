@@ -1,8 +1,12 @@
 # Bài 4: Workspace, publisher và subscriber bằng Python
 
+Sau khi quan sát các node có sẵn, chúng ta sẽ tự tạo một luồng dữ liệu nhỏ. Giả sử cần theo dõi tốc độ và tính giá trị trung bình của các mẫu gần đây: một chương trình có thể phụ trách phát mẫu, còn chương trình khác nhận mẫu để xử lý.
+
+Trong bài này, chúng ta viết hai chương trình bằng Python và đặt chúng trong một package ROS 2. Ví dụ sẽ được dùng tiếp ở các bài service, parameter và ghi dữ liệu.
+
 ## 1. Mục tiêu và cấu trúc ví dụ
 
-Trong bài này, bạn sẽ tạo package `robovis_practice`, viết hai node và tự kiểm tra luồng dữ liệu. Một node tạo tốc độ giả lập, node còn lại tính trung bình của tối đa năm mẫu gần nhất.
+Trong bài này, chúng ta sẽ tạo package `robovis_practice`, viết hai node và kiểm tra luồng dữ liệu. Một node tạo tốc độ giả lập, node còn lại tính trung bình của tối đa năm mẫu gần nhất.
 
 ```text
 bo_phat → /toc_do_do → bo_nhan → thông báo trung bình trong Terminal
@@ -12,7 +16,7 @@ Giá trị trong ví dụ mang quy ước đơn vị m/s. Đây là dữ liệu 
 
 ## 2. Workspace, underlay và overlay
 
-Workspace là thư mục chứa các package đang phát triển. Sau khi build, thường có:
+Trước khi viết mã, chúng ta cần một nơi tổ chức dự án. **Workspace** là thư mục chứa các package đang phát triển cùng kết quả của quá trình build. Trong workspace, mã nguồn và các tệp được tạo khi build có vai trò khác nhau:
 
 <!-- tutorial-figure:workspace-build-source -->
 <figure class="tutorial-figure" markdown>
@@ -30,13 +34,13 @@ Workspace là thư mục chứa các package đang phát triển. Sau khi build,
 | `install` | Chương trình và tệp được cài để ROS 2 tìm thấy |
 | `log` | Nhật ký quá trình build |
 
-Môi trường ROS 2 tại `/opt/ros/humble` là underlay. Workspace riêng được nạp sau đó đóng vai trò overlay. Khi chạy `source install/setup.bash`, bạn giúp Terminal tìm thêm package vừa phát triển.
+Trong ví dụ này, môi trường ROS 2 đã cài tại `/opt/ros/humble` cung cấp nền tảng và được gọi là **underlay**. Workspace của chúng ta được nạp sau để bổ sung các package đang phát triển, đóng vai trò **overlay**. Lệnh `source install/setup.bash` giúp Terminal tìm thấy phần bổ sung đó.
 
 Build package Python còn thực hiện việc cài đặt và đăng ký executable. Vì vậy, dù Python không cần biên dịch như C++, bạn vẫn cần bước build để dùng package đúng cách với `ros2 run`.
 
 ## 3. Tạo package
 
-Trong Terminal mới:
+Chúng ta sử dụng workspace `~/ros2_practice_ws` và package `robovis_practice` xuyên suốt các bài. Mở Terminal mới, nạp môi trường ROS 2 rồi tạo cấu trúc dự án:
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -56,9 +60,11 @@ Nếu package đã có từ lần học trước, giữ thư mục đó và ch�
 | `robovis_practice/__init__.py` | Đánh dấu mô-đun Python |
 | `resource/robovis_practice` | Dấu nhận diện trong chỉ mục package |
 
-Giữ các tệp được tạo sẵn. Mã Python sẽ đặt trong thư mục `robovis_practice` nằm **bên trong** package cùng tên.
+Sau khi tạo package, hãy giữ các tệp có sẵn theo cấu trúc trên. Bạn sẽ thấy hai cấp thư mục cùng tên `robovis_practice`: thư mục ngoài là package, còn thư mục bên trong chứa các mô-đun Python chúng ta sẽ viết.
 
 ## 4. Viết bên phát dữ liệu
+
+Bên phát cần tạo mẫu theo một chu kỳ để bên nhận có dữ liệu quan sát. Chúng ta sẽ dùng một giá trị tốc độ cơ sở cộng với dãy độ lệch lặp lại; cách tạo này giúp tính trước kết quả để kiểm tra chương trình.
 
 Tạo tệp `~/ros2_practice_ws/src/robovis_practice/robovis_practice/bo_phat.py`:
 
@@ -111,13 +117,15 @@ if __name__ == '__main__':
 
 ### Giải thích theo luồng chạy
 
-Khi tạo `BoPhat`, hàm khởi tạo đặt tên node là `nguon_toc_do`, khai báo parameter và tạo publisher. `Float64` có một trường `data` kiểu số thực; đơn vị m/s do ví dụ này quy định.
+Khi chương trình tạo đối tượng `BoPhat`, hàm khởi tạo đặt tên node là `nguon_toc_do`, khai báo các giá trị cấu hình và tạo publisher. Publisher dùng message `Float64`, có một trường số thực là `data`. Trong ví dụ, chúng ta thống nhất hiểu số đó theo đơn vị m/s; bản thân kiểu message không ghi đơn vị này.
 
-Timer gọi `gui_mau()` mỗi 0,2 giây theo giá trị mặc định, tương ứng khoảng 5 Hz. Mỗi callback đọc tốc độ cơ sở, cộng một độ lệch rồi phát message. Dãy độ lệch lặp lại nên bạn có thể tính trước kết quả.
+Để phát dữ liệu định kỳ, chương trình tạo **timer** gọi hàm `gui_mau()` mỗi 0,2 giây theo cấu hình mặc định, tương ứng khoảng 5 Hz. Hàm được gọi khi có sự kiện như vậy thường gọi là **callback**. Mỗi lần chạy, callback đọc tốc độ cơ sở, cộng độ lệch hiện tại và phát một message mới.
 
 Số `10` trong `create_publisher` là độ sâu hàng đợi theo cấu hình QoS được tạo từ tham số này, không phải tần số phát. `spin()` cho executor xử lý timer và các callback khác; nếu tạo node rồi thoát ngay, timer chưa có cơ hội hoạt động.
 
 ## 5. Viết bên nhận và lọc dữ liệu
+
+Với bên nhận, chúng ta muốn giữ tối đa năm mẫu gần nhất và tính lại trung bình mỗi khi có dữ liệu. Công việc này được thực hiện trong callback của subscriber, thay vì dùng một vòng lặp liên tục hỏi xem đã có mẫu hay chưa.
 
 Tạo tệp `~/ros2_practice_ws/src/robovis_practice/robovis_practice/bo_nhan.py`:
 
@@ -161,11 +169,13 @@ if __name__ == '__main__':
     main()
 ```
 
-Subscriber gọi `nhan_mau()` khi có message. `deque(maxlen=5)` tự bỏ mẫu cũ nhất khi đã đầy. Lúc mới chạy, cửa sổ chưa đủ năm mẫu nên ta chia cho `len(self.mau)`, tránh coi các mẫu chưa có là số 0.
+Khi nhận message, subscriber gọi `nhan_mau()` để thêm giá trị vào `deque(maxlen=5)`. Cấu trúc này tự bỏ mẫu cũ nhất khi đã đầy, nên phép tính luôn dùng tối đa năm mẫu gần đây. Lúc mới chạy chưa đủ năm mẫu, chúng ta chia cho số mẫu thực có là `len(self.mau)` để tính đúng trung bình.
 
 Trung bình trượt làm dữ liệu bớt dao động nhưng cũng làm phản ứng chậm hơn khi giá trị đổi đột ngột. Đây là đánh đổi cần xem xét khi dùng bộ lọc trong điều khiển.
 
 ## 6. Đăng ký executable
+
+Hai tệp Python đã có hàm `main`, nhưng ROS 2 còn cần biết tên lệnh nào sẽ gọi các hàm đó. Chúng ta khai báo mối liên hệ này bằng **entry point** trong cấu hình package.
 
 Trong `setup.py`, giữ thông tin và cấu trúc package đang có, sửa phần `entry_points` thành:
 
@@ -184,7 +194,7 @@ Mỗi dòng có dạng `executable = package.module:function`. Khi gõ `ros2 run
 
 ## 7. Build, nạp môi trường và chạy
 
-Terminal build:
+Sau khi lưu mã và đăng ký executable, chúng ta build package để cài các thành phần vào workspace. Dùng một Terminal cho bước build:
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -230,13 +240,10 @@ ros2 topic hz /toc_do_do
 | Có log bên phát nhưng bên nhận im lặng | Tên topic, kiểu, domain và nguồn đang chạy |
 | Sửa mã không thấy đổi | Xác định package đang được tìm từ workspace nào bằng `ros2 pkg prefix` |
 
-## 9. Bài tập có kết quả đối chiếu
-
-1. Với bốn mẫu `0,18; 0,20; 0,22; 0,20`, trung bình là bao nhiêu? Kết quả là 0,20 m/s.
-2. Giảm `maxlen` xuống 2, rồi tăng lên 10. Quan sát độ mượt và độ trễ khi thay tốc độ cơ sở ở bài parameter.
-3. Khởi động bên nhận trước bên phát. Vì sao bên nhận chỉ chờ chứ không tự tạo dữ liệu?
-4. Đổi topic ở riêng bên nhận. Dùng công cụ bài 3 để tìm chỗ không khớp.
-
 Đọc thêm: [ROS 2 — Publisher/subscriber Python](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html), [Creating a package](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html).
+
+## 9. Tổng kết { #10-tong-ket }
+
+Chúng ta đã tổ chức mã trong workspace, viết publisher và subscriber, rồi đăng ký các chương trình để chạy bằng `ros2 run`. Timer tạo nhịp phát dữ liệu, còn callback bên nhận xử lý từng mẫu được gửi đến. Bài tiếp theo sẽ mở rộng từ một số thực sang các message có nhiều trường thông tin của robot.
 
 [← Bài 3](01-node-topic-va-lenh.md) · [Bài 5: Đọc message của robot →](02-cac-topic-cua-robot.md)

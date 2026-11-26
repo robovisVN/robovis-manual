@@ -957,55 +957,7 @@ Vì vậy, điều khiển hai động cơ bằng cùng giá trị PWM không đ
 
 Khi gặp lỗi, nên kiểm tra từng động cơ độc lập trước khi chạy chương trình điều khiển hai bánh.
 
-## 14. Bài tập thực hành
-
-Sau khi hoàn thành các ví dụ, hãy thực hiện những bài tập sau.
-
-**Bài tập 1: Điều khiển từng động cơ**
-
-Viết chương trình để:
-
-1. Động cơ trái quay trong hai giây.
-2. Dừng một giây.
-3. Động cơ phải quay trong hai giây.
-4. Dừng cả hai động cơ.
-
-**Bài tập 2: Điều chỉnh PWM**
-
-Viết chương trình để động cơ trái lần lượt hoạt động ở các mức PWM:
-
-- 100.
-- 150.
-- 200.
-
-Mỗi mức được giữ trong hai giây.
-
-Quan sát sự thay đổi tốc độ quay.
-
-**Bài tập 3: Điều khiển xe tiến và lùi**
-
-Viết chương trình để xe thực hiện:
-
-1. Tiến trong hai giây.
-2. Dừng một giây.
-3. Lùi trong hai giây.
-4. Dừng hai giây.
-5. Lặp lại.
-
-**Bài tập 4: Điều khiển xe quay tại chỗ**
-
-Bổ sung hai hàm:
-
-```cpp
-void rotateLeft(int pwm);
-void rotateRight(int pwm);
-```
-
-Sau đó lập trình để xe quay trái và quay phải tại chỗ.
-
-Thực hiện thử nghiệm trên bánh kê trước khi cho xe di chuyển trên mặt đất.
-
-## 15. Tổng kết
+## 14. Tổng kết { #15-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu và thực hành:
 

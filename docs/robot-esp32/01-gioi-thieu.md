@@ -593,111 +593,33 @@ Chi tiết được trình bày trong [hướng dẫn cài đặt Arduino IDE](0
 
 ---
 
-## 10. Thực hành nhận diện phần cứng
+## 10. Một số lưu ý khi sử dụng ESP32 { #11-mot-so-luu-y-khi-su-dung-esp32 }
 
-### 10.1. Mục tiêu thực hành
-
-Sau phần thực hành này, bạn cần nhận diện được các thành phần chính của robot và hiểu chức năng cơ bản của từng thành phần.
-
-### 10.2. Thực hành 1: Nhận diện bo ESP32
-
-Quan sát bo mạch và xác định:
-
-1. Module ESP32-WROOM-32.
-2. Chip CH340.
-3. Cổng USB Type-C.
-4. Nút EN/RESET.
-5. Nút BOOT.
-6. Các chân GPIO.
-7. Chân 3V3.
-8. Chân GND.
-
-**Kết quả mong đợi:** Phân biệt được vi điều khiển ESP32, chip CH340 và cổng USB Type-C.
-
-### 10.3. Thực hành 2: Nhận diện các linh kiện trên robot
-
-Quan sát robot và xác định:
-
-1. Driver TB6612FNG.
-2. Các động cơ DC.
-3. Cảm biến HC-SR04.
-4. Cảm biến dò line năm kênh.
-5. Encoder.
-6. Bộ nguồn và dây cấp nguồn.
-
-Với mỗi linh kiện, hãy giải thích chức năng của nó trong quá trình robot hoạt động.
-
-### 10.4. Thực hành 3: Phân loại tín hiệu
-
-Hãy xác định loại tín hiệu thường được sử dụng cho từng chức năng.
-
-| Chức năng | Loại tín hiệu |
-|---|---|
-| Điều khiển chiều quay động cơ | Digital |
-| Điều chỉnh tốc độ động cơ | PWM |
-| Đọc cảm biến dò line Digital | Digital Input |
-| Đọc xung Encoder | Digital Input / Interrupt |
-| Kích hoạt HC-SR04 | Digital Output |
-| Đo thời gian Echo | Digital Input |
-| Nhận lệnh từ điện thoại | Wi-Fi |
-
-### 10.5. Thực hành 4: Giải thích quá trình điều khiển robot
-
-Hãy mô tả quá trình hoạt động khi người dùng nhấn nút tiến trên giao diện web.
-
-Gợi ý:
-
-```text
-Người dùng nhấn Tiến
-          |
-          v
-Giao diện web gửi lệnh
-          |
-          v
-ESP32 nhận lệnh qua Wi-Fi
-          |
-          v
-Chương trình xử lý lệnh
-          |
-          v
-ESP32 gửi tín hiệu đến TB6612FNG
-          |
-          v
-Động cơ quay
-          |
-          v
-Robot di chuyển
-```
-
----
-
-## 11. Một số lưu ý khi sử dụng ESP32
-
-### 11.1. Không nhầm mức nguồn và mức logic
+### 10.1. Không nhầm mức nguồn và mức logic { #111-khong-nham-muc-nguon-va-muc-logic }
 
 ESP32 có thể được cấp nguồn thông qua USB 5 V, nhưng GPIO hoạt động ở mức logic 3,3 V.
 
 Không được kết luận rằng chân GPIO chịu được 5 V chỉ vì bo có chân nguồn 5 V.
 
-### 11.2. Không sử dụng tùy ý các chân GPIO
+### 10.2. Không sử dụng tùy ý các chân GPIO { #112-khong-su-dung-tuy-y-cac-chan-gpio }
 
 Một số GPIO có chức năng đặc biệt hoặc ảnh hưởng đến quá trình khởi động.
 
 Cần sử dụng đúng cấu hình chân trong tài liệu sản phẩm.
 
-### 11.3. Không nhầm chip CH340 với ESP32
+### 10.3. Không nhầm chip CH340 với ESP32 { #113-khong-nham-chip-ch340-voi-esp32 }
 
 CH340 chỉ đảm nhiệm việc chuyển đổi USB–UART.
 
 ESP32 mới là thành phần thực thi chương trình và điều khiển robot.
 
-### 11.4. Không nhầm cổng Type-C với loại bo mạch
+### 10.4. Không nhầm cổng Type-C với loại bo mạch { #114-khong-nham-cong-type-c-voi-loai-bo-mach }
 
 USB Type-C là kiểu đầu nối.
 
 Khi lựa chọn Board trong Arduino IDE, cần dựa vào vi điều khiển và cấu hình phần cứng thực tế.
 
-### 11.5. Đảm bảo an toàn khi thử động cơ
+### 10.5. Đảm bảo an toàn khi thử động cơ { #115-am-bao-an-toan-khi-thu-ong-co }
 
 Khi chạy thử chương trình điều khiển động cơ:
 
@@ -709,46 +631,7 @@ Khi chạy thử chương trình điều khiển động cơ:
 
 ---
 
-## 12. Bài tập ôn tập
-
-**Bài tập 1: Kiến thức ESP32**
-
-Trả lời các câu hỏi:
-
-1. ESP32 có vai trò gì trong hệ thống robot?
-2. ESP32-WROOM-32 là gì?
-3. Chip CH340 có chức năng gì?
-4. USB Type-C có quyết định loại vi điều khiển không?
-5. Vì sao ESP32 có thể điều khiển robot qua Wi-Fi mà không cần module Wi-Fi ngoài?
-
-**Bài tập 2: Tìm hiểu phần cứng**
-
-Hãy giải thích chức năng của:
-
-1. Driver TB6612FNG.
-2. Cảm biến HC-SR04.
-3. Cảm biến dò line TCRT5000.
-4. Encoder.
-5. Bộ nguồn của robot.
-
-**Bài tập 3: So sánh Arduino Nano và ESP32**
-
-Hãy nêu ít nhất ba điểm khác biệt giữa Arduino Nano ATmega328P và ESP32 classic.
-
-Giải thích vì sao không thể chuyển toàn bộ dây tín hiệu từ một robot Arduino Nano sang ESP32 mà không kiểm tra lại mức điện áp và sơ đồ chân.
-
-**Bài tập 4: Điều khiển Wi-Fi**
-
-Trả lời:
-
-1. Chế độ Access Point là gì?
-2. ESP32-Car có vai trò gì trong chương trình robot?
-3. Chế độ Manual và Line follow khác nhau như thế nào?
-4. Khi xe chạy theo line, dữ liệu cảm biến được sử dụng để làm gì?
-
----
-
-## 13. Tổng kết
+## 11. Tổng kết { #13-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu:
 

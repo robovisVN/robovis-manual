@@ -1,5 +1,9 @@
 # Bài 5: Đọc dữ liệu vận tốc, LiDAR và odometry
 
+Giả sử một topic trả về giá trị `0.2`. Chúng ta chưa thể biết đó là vận tốc mong muốn, vận tốc đo được hay một đại lượng khác nếu chỉ nhìn vào con số.
+
+Khi làm việc với robot, cách hiểu dữ liệu còn phụ thuộc kiểu message, đơn vị, thời điểm và hệ tọa độ. Bài này sử dụng ba loại message thường gặp để chúng ta tập đọc đủ những thông tin đó.
+
 ## 1. Mục tiêu
 
 Ở bài 4, `Float64` chỉ mang một số thực; cách hiểu số đó do chúng ta quy định. Với robot, cần biết thêm đơn vị, thời điểm đo, hệ tọa độ và ý nghĩa từng trường. Bài này giúp bạn đọc các message thường gặp mà không suy đoán từ tên topic.
@@ -7,6 +11,8 @@
 Bạn có thể xem định nghĩa ngay trên máy đã cài ROS 2. Để đọc message thật trên `/scan` hoặc `/odom`, cần [khởi động robot](../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra.md) hoặc có dữ liệu phát lại.
 
 ## 2. Tìm kiểu trước, đọc trường sau
+
+Trước khi đọc dữ liệu của một topic, chúng ta tìm kiểu giao diện và xem định nghĩa của nó. Các lệnh sau giúp kiểm tra ba kiểu message sẽ dùng trong bài:
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -16,13 +22,13 @@ ros2 interface show sensor_msgs/msg/LaserScan
 ros2 interface show nav_msgs/msg/Odometry
 ```
 
-`interface show` đọc định nghĩa đã cài, không cần publisher đang hoạt động. `topic echo` thì phải chờ dữ liệu trên topic.
+Lệnh `interface show` đọc định nghĩa giao diện đã cài trên máy, nên chúng ta có thể tìm hiểu cấu trúc mà chưa cần chạy nguồn dữ liệu. Khi muốn xem một mẫu thật bằng `topic echo`, hệ thống cần có publisher phát trên topic tương ứng.
 
 Tên `/cmd_vel` chỉ là tên kênh. Hãy kiểm tra kiểu thực tế: một ứng dụng có thể dùng `Twist`, ứng dụng khác dùng kiểu có timestamp hoặc quy ước khác.
 
 ## 3. `Twist`: lệnh vận tốc của thân
 
-`Twist` có hai vector:
+Khi điều khiển chuyển động, chúng ta thường gặp `Twist`, một message biểu diễn vận tốc tịnh tiến và vận tốc quay. Cấu trúc của nó gồm hai vector:
 
 | Nhóm | Thành phần | Ý nghĩa |
 | --- | --- | --- |
@@ -35,9 +41,11 @@ Ví dụ `linear.x = 0,20`, `angular.z = 0,50` yêu cầu robot vừa tiến v�
 
 `Twist` tự nó không có `header`. Frame và thời gian áp dụng phải được giao diện hệ thống quy định. Vì thế không nên lấy một message giống cấu trúc từ nguồn bất kỳ rồi mặc định nó phù hợp điều khiển robot.
 
-Lệnh là giá trị mong muốn. Nếu bánh kẹt hoặc nguồn yếu, vận tốc thực có thể khác; cần đọc phản hồi thay vì dùng lệnh làm kết quả đo.
+Trong trường hợp `Twist` được dùng làm lệnh, giá trị bên trong thể hiện chuyển động mong muốn. Robot có thể chưa đạt vận tốc đó nếu bánh bị kẹt hoặc nguồn yếu. Để đánh giá chuyển động thực tế, chúng ta cần đọc dữ liệu phản hồi và phân biệt nó với lệnh đã gửi.
 
 ## 4. `LaserScan`: một vòng quét có cấu trúc
+
+Một lần quét LiDAR gồm nhiều phép đo khoảng cách theo các hướng. **`LaserScan`** lưu các phép đo cùng thông tin về góc, giới hạn đo, thời gian và frame để chương trình nhận có thể xác định vị trí của từng điểm.
 
 | Trường | Ý nghĩa thực hành |
 | --- | --- |
@@ -56,13 +64,13 @@ x_i = ranges[i] × cos(goc_i)
 y_i = ranges[i] × sin(goc_i)
 ```
 
-Các tọa độ này nằm trong frame của LiDAR. Muốn đặt điểm vào frame thân hoặc bản đồ, cần phép biến đổi ở bài TF.
+Kết quả tính từ góc và khoảng cách cho biết vị trí điểm theo hệ tọa độ, hay **frame**, của LiDAR. Vì cảm biến có vị trí lắp đặt riêng trên thân, chúng ta cần phép biến đổi tọa độ để đặt điểm vào frame thân hoặc bản đồ. Nội dung này sẽ được giải thích trong bài TF.
 
 ### Ví dụ đọc mẫu
 
 Nếu `angle_min = -1,0 rad`, `angle_increment = 0,01 rad`, mẫu chỉ số 100 có góc `0 rad`. Nếu khoảng cách mẫu đó là `1,5 m`, điểm nằm trên trục x dương của frame quét, ở tọa độ `(1,5; 0)` m.
 
-Một giá trị vô hạn có thể xuất hiện khi không có phản xạ hợp lệ, tùy driver. Khi xử lý cần kiểm tra tính hữu hạn và giới hạn đo, không biến mọi giá trị không hợp lệ thành khoảng cách 0.
+Tùy driver, một tia không có phản xạ hợp lệ có thể được biểu diễn bằng giá trị vô hạn. Khi đó, coi giá trị này là khoảng cách 0 sẽ tạo ra một điểm đo có ý nghĩa sai. Trước khi tính tọa độ, chúng ta cần kiểm tra số đo có hữu hạn và nằm trong giới hạn của cảm biến hay không.
 
 Ví dụ hàm tự viết để kiểm tra một mẫu, với góc và khoảng cách theo quy ước của `LaserScan`:
 
@@ -80,7 +88,7 @@ def diem_quet(khoang_cach, goc, gioi_han_duoi, gioi_han_tren):
 
 ## 5. `Odometry`: pose và twist trong những frame nào?
 
-`Odometry` mô tả ước lượng vị trí và vận tốc. Hai tên frame có vai trò khác nhau:
+Sau dữ liệu khoảng cách, chúng ta xét **`Odometry`**, message mô tả ước lượng vị trí và vận tốc của robot. Vị trí cùng hướng gọi là **pose**, còn phần vận tốc được biểu diễn bằng **twist**. Hai phần này sử dụng các tên frame với vai trò khác nhau:
 
 - Pose được biểu diễn trong frame của `header.frame_id`.
 - Twist được biểu diễn theo frame của `child_frame_id`.
@@ -93,7 +101,7 @@ Hai khối pose và twist còn có covariance để biểu diễn độ không c
 
 ## 6. Đọc dữ liệu trên Robot ESP32 LiDAR
 
-Sau bringup, lấy đúng tên thực tế từ danh sách rồi dùng:
+Khi chương trình bringup của robot đã chạy, chúng ta có thể đối chiếu các định nghĩa trên với message nhận được. Lấy đúng tên topic từ danh sách thực tế, rồi dùng các lệnh sau để quan sát:
 
 ```bash
 ros2 topic info /scan --verbose
@@ -106,13 +114,10 @@ Nếu topic có namespace, dùng tên đầy đủ. Không cần phát thêm l�
 
 Khi kiểm tra một mẫu, ghi lại thời điểm, frame và giá trị chính. Một phép đo nhìn hợp lý nhưng timestamp quá cũ vẫn có thể không dùng được cho xử lý hiện tại.
 
-## 7. Bài tập
-
-1. Dùng hàm `diem_quet` với khoảng cách 2 m và góc pi/2. Kết quả gần `(0; 2)` m.
-2. Thử giá trị vô hạn và giá trị lớn hơn `range_max`; hàm cần trả `None`.
-3. Giải thích vì sao nhận được `/odom` không bảo đảm đã có TF `odom → base_link`.
-4. Tìm trong dữ liệu thật tên frame LiDAR và ghi lại để dùng ở bài 10–11.
-
 Định nghĩa để đối chiếu: [Twist](https://github.com/ros2/common_interfaces/blob/humble/geometry_msgs/msg/Twist.msg), [LaserScan](https://github.com/ros2/common_interfaces/blob/humble/sensor_msgs/msg/LaserScan.msg), [Odometry](https://github.com/ros2/common_interfaces/blob/humble/nav_msgs/msg/Odometry.msg).
+
+## 7. Tổng kết { #8-tong-ket }
+
+Đọc dữ liệu robot cần nhiều hơn việc nhìn tên topic hoặc một giá trị số. Chúng ta cần biết message mô tả lệnh hay phép đo, dùng đơn vị và frame nào, đồng thời được tạo ở thời điểm nào. Bài tiếp theo sẽ chuyển từ nhận dữ liệu liên tục sang gửi một yêu cầu có phản hồi bằng service.
 
 [← Bài 4](06-workspace-va-node-python.md) · [Bài 6: Service và action →](04-service-va-action.md)

@@ -188,6 +188,11 @@
   margin: 0.15em 0;   /* Khoảng cách giữa các đoạn văn */
 }
 
+/* Justify article paragraphs while preserving the custom homepage layout. */
+.md-content__inner:not(:has(.rv-home)) p:not(.admonition-title) {
+  text-align: justify;
+}
+
 /* Bốn mục chính: Trang chủ, Kiến thức nền, Sản phẩm, Tải xuống. */
 .md-tabs__link {
   font-weight: 500;

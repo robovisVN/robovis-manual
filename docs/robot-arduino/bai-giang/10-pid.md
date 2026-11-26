@@ -1360,74 +1360,7 @@ Khi gặp lỗi, nên kiểm tra theo thứ tự:
 
 Không nên điều chỉnh hệ số PID để che giấu lỗi cảm biến hoặc lỗi phần cứng.
 
-## 13. Bài tập thực hành
-
-**Bài tập 1: Tính sai số**
-
-Cho tốc độ đặt bằng 0,15 m/s.
-
-Tính sai số khi tốc độ thực tế lần lượt bằng:
-
-- 0,10 m/s.
-- 0,12 m/s.
-- 0,15 m/s.
-- 0,18 m/s.
-
-Giải thích khi nào PWM cần tăng hoặc giảm.
-
-**Bài tập 2: Tính thành phần P**
-
-Cho:
-
-- Kp = 100.
-- PWM cơ sở = 120.
-- Tốc độ đặt = 0,15 m/s.
-- Tốc độ đo = 0,12 m/s.
-
-Tính PWM đề xuất.
-
-Kết quả:
-
-**e = 0,15 − 0,12 = 0,03**
-
-**P = 100 × 0,03 = 3**
-
-**PWM = 120 + 3 = 123**
-
-**Bài tập 3: Mô phỏng thay đổi Kp**
-
-Sử dụng chương trình ở Ví dụ 1.
-
-Lần lượt thay đổi Kp thành:
-
-- 50.
-- 100.
-- 200.
-
-Quan sát sự thay đổi của PWM đề xuất.
-
-**Bài tập 4: Tính tốc độ từ Encoder**
-
-Cho:
-
-- PPR = 20.
-- Chu vi bánh = 0,20 m.
-- Thời gian đo = 0,2 giây.
-- Số xung tăng thêm = 4.
-
-Tính vận tốc bánh xe.
-
-**Bài tập 5: Phân tích điều khiển hai bánh**
-
-Giả sử:
-
-- Tốc độ đặt hai bánh: 0,15 m/s.
-- Tốc độ thực tế bánh trái: 0,12 m/s.
-- Tốc độ thực tế bánh phải: 0,17 m/s.
-
-Hãy xác định hướng điều chỉnh PWM của từng bánh.
-
-## 14. Tổng kết
+## 13. Tổng kết { #14-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu:
 

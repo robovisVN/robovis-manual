@@ -525,45 +525,7 @@ Khi gặp lỗi biên dịch, hãy đọc thông báo lỗi và kiểm tra dòng
 
 Đôi khi lỗi xuất phát từ dòng phía trước, ví dụ thiếu dấu chấm phẩy hoặc dấu ngoặc.
 
-## 11. Bài tập thực hành
-
-Sau khi hoàn thành các ví dụ, hãy thực hiện những bài tập sau.
-
-**Bài tập 1: Thay đổi thời gian**
-
-Viết chương trình gửi dòng thông báo:
-
-```text
-Arduino dang hoat dong
-```
-
-Sau mỗi hai giây.
-
-**Bài tập 2: Đếm số lần thực hiện**
-
-Viết chương trình đếm từ 0 đến 20, sau đó quay trở lại 0.
-
-Mỗi giá trị được gửi về Serial Monitor sau một giây.
-
-**Bài tập 3: Thay đổi bước đếm**
-
-Chỉnh sửa chương trình để hiển thị:
-
-```text
-0
-2
-4
-6
-8
-10
-0
-2
-4
-```
-
-Gợi ý: Thay đổi phép toán tăng giá trị của biến và điều kiện đưa biến trở về 0.
-
-## 12. Tổng kết
+## 11. Tổng kết { #12-tong-ket }
 
 Qua bài học này, chúng ta đã thực hiện được những thao tác lập trình Arduino cơ bản:
 

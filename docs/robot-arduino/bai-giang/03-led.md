@@ -508,48 +508,7 @@ Trong quá trình thực hành, có thể gặp các lỗi sau:
 
 Khi gặp lỗi, nên kiểm tra chương trình và kết nối từng bước trước khi thay đổi nhiều phần cùng lúc.
 
-## 11. Bài tập thực hành
-
-Sau khi hoàn thành các ví dụ, hãy thực hiện những bài tập sau.
-
-**Bài tập 1: Điều chỉnh thời gian**
-
-Viết chương trình để đèn LED:
-
-- Sáng trong hai giây.
-- Tắt trong một giây.
-- Lặp lại liên tục.
-
-**Bài tập 2: Nhấp nháy nhanh**
-
-Viết chương trình để LED sáng và tắt với thời gian 100 ms cho mỗi trạng thái.
-
-Quan sát sự khác biệt so với chương trình sử dụng `delay(1000)`.
-
-**Bài tập 3: Tạo hiệu ứng nhấp nháy**
-
-Viết chương trình để LED thực hiện chuỗi hành động:
-
-1. Sáng 200 ms.
-2. Tắt 200 ms.
-3. Sáng 200 ms.
-4. Tắt 2000 ms.
-5. Lặp lại từ đầu.
-
-Kết quả mong muốn: Đèn nhấp nháy nhanh hai lần, sau đó nghỉ hai giây rồi tiếp tục.
-
-**Bài tập 4: Sử dụng biến**
-
-Chỉnh sửa bài tập 3 để sử dụng hai biến:
-
-```cpp
-int nhayNhanh = 200;
-int thoiGianNghi = 2000;
-```
-
-Thay đổi giá trị các biến và quan sát kết quả.
-
-## 12. Tổng kết
+## 11. Tổng kết { #12-tong-ket }
 
 Qua bài học này, chúng ta đã tìm hiểu và thực hành:
 
