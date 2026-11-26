@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="450" viewBox="0 0 1120 450" role="img" aria-labelledby="title desc">
+<title id="title">Servo vị trí: lệnh góc và vị trí trục</title><desc id="desc">Ba vị trí minh họa 0, 90, 180 độ. Giới hạn cơ khí và góc thực tế phụ thuộc servo.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="450" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Servo vị trí: lệnh góc và vị trí trục</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<circle cx="195" cy="245" r="72" fill="#e7f0fb" stroke="#3672a4" stroke-width="2"/>
+<circle cx="195" cy="245" r="13" fill="#1765b0" stroke="#3672a4" stroke-width="2"/>
+<path d="M195 245L111.0 245.0" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="173" y="355" class="bold">0°</text>
+<circle cx="560" cy="245" r="72" fill="#e7f0fb" stroke="#3672a4" stroke-width="2"/>
+<circle cx="560" cy="245" r="13" fill="#1765b0" stroke="#3672a4" stroke-width="2"/>
+<path d="M560 245L560.0 161.0" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="538" y="355" class="bold">90°</text>
+<circle cx="925" cy="245" r="72" fill="#e7f0fb" stroke="#3672a4" stroke-width="2"/>
+<circle cx="925" cy="245" r="13" fill="#1765b0" stroke="#3672a4" stroke-width="2"/>
+<path d="M925 245L1009.0 245.0" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="903" y="355" class="bold">180°</text>
+<text x="36" y="402" class="small muted">Góc chỉ là minh họa; kiểm tra hành trình thực tế và không ép servo qua giới hạn cơ khí.</text>
+</svg>

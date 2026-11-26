@@ -1,0 +1,5334 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tìm hiểu sự khác biệt giữa hệ thống một robot và nhiều robot, những vấn đề phát sinh khi robot cùng hoạt động và các phương pháp điều phối robot.">
+      
+      
+      
+        <link rel="canonical" href="https://manual.robovis.vn/goc-ky-thuat/robot-tu-hanh/dieu-phoi-da-robot/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../mo-phong-nhieu-robot/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Tổng quan điều phối nhiều robot - Tài liệu hướng dẫn Robovis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sen:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Sen";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tong-quan-ieu-phoi-nhieu-robot" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="../../.." title="Tài liệu hướng dẫn Robovis" class="md-header__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Tài liệu hướng dẫn Robovis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tổng quan điều phối nhiều robot
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+
+<nav class="md-tabs rv-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+          
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+        
+      
+        
+          
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../kien-thuc-nen/" class="md-tabs__link">
+          
+  
+  
+  Kiến thức nền
+
+        </a>
+      </li>
+    
+  
+
+        
+      
+        
+          
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Góc kỹ thuật
+
+        </a>
+      </li>
+    
+  
+
+        
+      
+        
+          <li class="md-tabs__item rv-products">
+            <details class="rv-products__disclosure">
+              <summary class="md-tabs__link rv-products__trigger" aria-controls="rv-products-panel">
+                Tài liệu theo sản phẩm <span class="rv-products__chevron" aria-hidden="true">▾</span>
+              </summary>
+              <ul class="rv-products__panel" id="rv-products-panel" aria-label="Chọn tài liệu theo sản phẩm">
+                
+                  <li><a href="../../../san-pham/">Tất cả tài liệu sản phẩm</a></li>
+                
+                  <li><a href="../../../robot-arduino/">Robot Arduino</a></li>
+                
+                  <li><a href="../../../robot-esp32/">Robot ESP32</a></li>
+                
+                  <li><a href="../../../robot-esp32-camera/">Robot ESP32 Camera</a></li>
+                
+                  <li><a href="../../../robot-esp32-lidar/">Robot ESP32 LiDAR</a></li>
+                
+              </ul>
+            </details>
+          </li>
+        
+      
+        
+          <li class="md-tabs__item">
+            <a href="https://robovis.vn/" class="md-tabs__link" target="_blank" rel="noopener noreferrer">
+              Website mua hàng Robovis
+            </a>
+          </li>
+        
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Tài liệu hướng dẫn Robovis" class="md-nav__button md-logo" aria-label="Tài liệu hướng dẫn Robovis" data-md-component="logo">
+      <img src="../../../assets/robovis-logo.png" alt="Robovis — Trang chủ" width="800" height="174">
+    </a>
+    Tài liệu hướng dẫn Robovis
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+        
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trang chủ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Kiến thức nền
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Kiến thức nền
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu từ đây
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Điện – điện tử cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Điện – điện tử cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/dien-dien-tu/01-dien-ap-dong-dien-cong-suat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điện áp, dòng điện và công suất
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/dien-dien-tu/02-gnd-va-noi-chung-mass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GND và nối chung mass
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/dien-dien-tu/03-tin-hieu-3v3-va-5v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tín hiệu 3,3 V và 5 V
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Lập trình cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Lập trình cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/01-bien-kieu-du-lieu-toan-tu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Biến, kiểu dữ liệu và toán tử
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/02-cau-lenh-dieu-kien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Câu lệnh điều kiện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/03-vong-lap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Vòng lặp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/04-ham-va-chia-chuong-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hàm và cách chia chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/lap-trinh/05-delay-va-millis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    delay() và millis()
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Vi điều khiển và ngoại vi
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Vi điều khiển và ngoại vi
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/vi-dieu-khien/01-gpio-va-dien-tro-keo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GPIO, HIGH/LOW và điện trở kéo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/vi-dieu-khien/02-digital-adc-pwm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Digital, ADC và PWM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu và công cụ
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Ubuntu và công cụ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình học
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu với Ubuntu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu với Ubuntu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/01-ubuntu-la-gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ubuntu là gì?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/02-chuan-bi-moi-truong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị môi trường
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_3" id="__nav_2_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Thao tác hằng ngày
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Thao tác hằng ngày
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/03-giao-dien-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giao diện Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/04-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Làm quen với Terminal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/05-thu-muc-va-tep/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thư mục, đường dẫn và tệp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_4" id="__nav_2_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Phần mềm và kết nối
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Phần mềm và kết nối
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/06-cai-va-chay-phan-mem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài và chạy phần mềm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/07-ket-noi-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối máy tính với robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_5" id="__nav_2_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Thực hành tổng hợp
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Thực hành tổng hợp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ubuntu-co-ban/08-thuc-hanh-va-loi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thực hành và xử lý lỗi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot và ROS 2 cơ bản
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Robot và ROS 2 cơ bản
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình nhập môn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/00-robot-va-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Robot, kiến trúc phần mềm và ROS graph
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/chuan-bi-va-turtlesim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Môi trường và chương trình mẫu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/01-node-topic-va-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Node, topic và công cụ kiểm tra
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/06-workspace-va-node-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 4. Workspace, publisher và subscriber
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/02-cac-topic-cua-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Dữ liệu vận tốc, LiDAR và odometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/04-service-va-action/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Service, client và action
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/05-parameter-va-launch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Parameter, launch và namespace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/08-dong-hoc-va-odometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Động học robot hai bánh và odometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/09-ros2-qua-mang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. ROS 2 qua mạng và kết nối ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/he-toa-do-va-tf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Hệ tọa độ và TF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/03-rviz-va-tf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 11. RViz, URDF và kiểm tra dữ liệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kien-thuc-nen/robot-ros2/07-rosbag-va-xu-ly-loi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 12. Rosbag và thực hành tổng hợp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Góc kỹ thuật
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Góc kỹ thuật
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot tự hành
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Robot tự hành
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giới thiệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan điều phối nhiều robot
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan điều phối nhiều robot
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-mot-robot-tu-hanh-hoat-ong-nhu-the-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Một robot tự hành hoạt động như thế nào?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ieu-gi-xay-ra-khi-nhieu-robot-cung-hoat-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Điều gì xảy ra khi nhiều robot cùng hoạt động?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Điều gì xảy ra khi nhiều robot cùng hoạt động?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tai-sao-tranh-vat-can-chua-u" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tại sao tránh vật cản chưa đủ?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ieu-phoi-nhieu-robot-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Điều phối nhiều robot là gì?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Điều phối nhiều robot là gì?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nhung-bai-toan-thuong-gap-trong-he-thong-a-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Những bài toán thường gặp trong hệ thống đa robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cac-mo-hinh-to-chuc-va-ieu-phoi-nhieu-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Các mô hình tổ chức và điều phối nhiều robot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Các mô hình tổ chức và điều phối nhiều robot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-ieu-phoi-tap-trung-centralized-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Điều phối tập trung (Centralized Coordination)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-ieu-phoi-phan-tan-distributed-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Điều phối phân tán (Distributed Coordination)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-ieu-phoi-ket-hop-hybrid-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Điều phối kết hợp (Hybrid Coordination)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-cac-mo-hinh-ieu-phoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      So sánh các mô hình điều phối
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-bai-toan-tim-uong-cho-nhieu-robot-mapf" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Bài toán tìm đường cho nhiều robot (MAPF)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tai-sao-nen-hoc-ieu-phoi-nhieu-robot-thong-qua-mo-phong" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Tại sao nên học điều phối nhiều robot thông qua mô phỏng?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-bai-toan-thuc-hanh-trong-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Bài toán thực hành trong series
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Mô phỏng nhiều robot
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Mô phỏng nhiều robot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mo-phong-nhieu-robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình 9 bài
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Vi điều khiển & lập trình
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Vi điều khiển & lập trình
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vi-dieu-khien-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giới thiệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cảm biến và điều khiển
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Cảm biến và điều khiển
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cam-bien-va-dieu-khien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Giới thiệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tài liệu theo sản phẩm
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tài liệu theo sản phẩm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tất cả tài liệu sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot Arduino
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Robot Arduino
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE và nạp Blink
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_3" id="__nav_4_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe Arduino Nano
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Viết và nạp chương trình đầu tiên
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/04-servo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 4. Điều khiển servo SG90
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và L298N
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Đọc cảm biến dò line 5 kênh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder và hiểu tốc độ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/09-bluetooth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Bluetooth HM-10 và Dabble
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-arduino/bai-giang/10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Làm quen với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cài đặt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/03-cai-arduino-ide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài IDE, CH340 và gói ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/04-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thêm thư viện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_3" id="__nav_4_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Bài giảng từ cơ bản đến điều khiển xe
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Bài giảng từ cơ bản đến điều khiển xe
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/01-gioi-thieu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 1. Giới thiệu xe ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/02-lap-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 2. Hướng dẫn lập trình xe
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/03-led/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 3. Điều khiển LED
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/05-dong-co/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 5. Động cơ DC và TB6612FNG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/06-hc-sr04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 6. Đọc tín hiệu HC-SR04
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/07-do-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 7. Cảm biến dò line TCRT5000
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/08-encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 8. Đọc encoder
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/09-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 9. Điều khiển xe qua Wi-Fi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32/bai-giang/10-pid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bài 10. Điều khiển xe với PID
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 Camera
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 Camera
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lộ trình cho người mới
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_2" id="__nav_4_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Bắt đầu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Bắt đầu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/01-tong-quan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/02-chuan-bi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị trước khi sử dụng
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/01-bat-dau/03-phan-biet-hai-chuong-trinh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Phân biệt hai chương trình ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_3" id="__nav_4_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Cài đặt Arduino IDE
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Cài đặt Arduino IDE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/01-cai-arduino-va-driver-ch340/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài Arduino IDE và driver CH340
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/02-cai-board-esp32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài board ESP32
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/02-cai-dat-arduino/03-cai-thu-vien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài các thư viện cần thiết
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Nạp chương trình cho ESP32
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Nạp chương trình cho ESP32
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/01-chuan-bi-thu-muc-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị thư mục mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/02-chon-board-va-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chọn board và nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/03-nap-code/03-xu-ly-loi-nap-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Xử lý lỗi khi nạp chương trình
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_5" id="__nav_4_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. Điều khiển robot bằng trình duyệt
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. Điều khiển robot bằng trình duyệt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/04-dieu-khien-web/01-ket-noi-va-mo-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kết nối Wi-Fi và mở giao diện
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/04-dieu-khien-web/02-su-dung-giao-dien/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng giao diện điều khiển
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_6" id="__nav_4_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. Chạy nhận diện YOLO trên Windows
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. Chạy nhận diện YOLO trên Windows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/01-cai-moi-truong-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài môi trường Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/02-chay-chuong-trinh-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chuẩn bị và chạy chương trình YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/05-yolo-windows/03-su-dung-phan-mem-yolo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng phần mềm YOLO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_7" id="__nav_4_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Khắc phục lỗi và lưu ý
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Khắc phục lỗi và lưu ý
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/06-khac-phuc-loi/01-cac-loi-thuong-gap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Các lỗi thường gặp
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-camera/06-khac-phuc-loi/02-luu-y-an-toan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu ý an toàn và bảo quản mã nguồn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Robot ESP32 LiDAR
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Robot ESP32 LiDAR
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Bắt đầu với Robot ESP32 LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_2" id="__nav_4_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    1. Giới thiệu
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            1. Giới thiệu
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/01-tong-quan-san-pham/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tổng quan sản phẩm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/02-kien-truc-he-thong/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiến trúc hệ thống
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/03-lidar-va-odometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    LiDAR và odometry
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/04-an-toan-va-gioi-han/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    An toàn và giới hạn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/01-gioi-thieu/05-tinh-nang-va-thong-so/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tính năng và thông số
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_3" id="__nav_4_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    2. Chuẩn bị
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2. Chuẩn bị
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/01-yeu-cau-va-cai-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Yêu cầu hệ thống và cài ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/02-cai-dat-workspace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cài đặt workspace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/03-cau-hinh-wifi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cấu hình Wi-Fi robot
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/04-windows-may-ao-ubuntu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Windows và máy ảo Ubuntu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/02-chuan-bi/05-su-dung-wifi-ngoai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Sử dụng Wi-Fi ngoài
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_4" id="__nav_4_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    3. Bắt đầu sử dụng
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            3. Bắt đầu sử dụng
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/02-khoi-dong-va-kiem-tra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Khởi động và kiểm tra dữ liệu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/01-chay-thu-lan-dau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Chạy thử lần đầu
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/03-van-hanh/03-dieu-khien-bang-tay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều khiển robot bằng tay
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_5" id="__nav_4_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    4. LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            4. LiDAR, SLAM và Navigation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/01-kiem-tra-lidar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kiểm tra dữ liệu LiDAR
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/02-tao-ban-do-slam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tạo bản đồ SLAM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/03-luu-va-quan-ly-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lưu và quản lý bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/04-dieu-huong-nav2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Điều hướng tự động bằng Nav2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/05-lidar-slam-navigation/05-danh-gia-ban-do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Đánh giá chất lượng bản đồ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_6" id="__nav_4_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    5. Xử lý sự cố
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            5. Xử lý sự cố
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/01-loi-ket-noi-va-ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi kết nối và ROS 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/02-loi-lidar-slam-navigation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lỗi LiDAR, SLAM và Navigation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/06-xu-ly-su-co/03-thong-tin-ho-tro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thông tin cần gửi khi hỗ trợ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5_7" id="__nav_4_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    6. Tham khảo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            6. Tham khảo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/07-tham-khao/01-danh-sach-lenh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Danh sách lệnh
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../robot-esp32-lidar/07-tham-khao/02-thuat-ngu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Thuật ngữ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+      
+    
+      
+        <li class="md-nav__item">
+          <a href="https://robovis.vn/" class="md-nav__link" target="_blank" rel="noopener noreferrer">
+            <span class="md-ellipsis">Website mua hàng Robovis</span>
+          </a>
+        </li>
+      
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-mot-robot-tu-hanh-hoat-ong-nhu-the-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Một robot tự hành hoạt động như thế nào?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ieu-gi-xay-ra-khi-nhieu-robot-cung-hoat-ong" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Điều gì xảy ra khi nhiều robot cùng hoạt động?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Điều gì xảy ra khi nhiều robot cùng hoạt động?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tai-sao-tranh-vat-can-chua-u" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tại sao tránh vật cản chưa đủ?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ieu-phoi-nhieu-robot-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Điều phối nhiều robot là gì?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Điều phối nhiều robot là gì?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nhung-bai-toan-thuong-gap-trong-he-thong-a-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Những bài toán thường gặp trong hệ thống đa robot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-cac-mo-hinh-to-chuc-va-ieu-phoi-nhieu-robot" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Các mô hình tổ chức và điều phối nhiều robot
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Các mô hình tổ chức và điều phối nhiều robot">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-ieu-phoi-tap-trung-centralized-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. Điều phối tập trung (Centralized Coordination)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-ieu-phoi-phan-tan-distributed-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. Điều phối phân tán (Distributed Coordination)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-ieu-phoi-ket-hop-hybrid-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. Điều phối kết hợp (Hybrid Coordination)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-sanh-cac-mo-hinh-ieu-phoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      So sánh các mô hình điều phối
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-bai-toan-tim-uong-cho-nhieu-robot-mapf" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Bài toán tìm đường cho nhiều robot (MAPF)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tai-sao-nen-hoc-ieu-phoi-nhieu-robot-thong-qua-mo-phong" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Tại sao nên học điều phối nhiều robot thông qua mô phỏng?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-bai-toan-thuc-hanh-trong-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Bài toán thực hành trong series
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-tong-ket" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Tổng kết
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+  
+                  
+
+
+
+<h1 id="tong-quan-ieu-phoi-nhieu-robot">Tổng quan điều phối nhiều robot</h1>
+<p>Khi tìm hiểu về robot tự hành, chúng ta thường bắt đầu với những chức năng cơ bản như tạo bản đồ, xác định vị trí, tìm đường và tránh vật cản. Khi đã có những khả năng này, robot có thể tự di chuyển đến một vị trí được yêu cầu mà không cần con người điều khiển trực tiếp.</p>
+<p>Tuy nhiên, trong các ứng dụng thực tế như nhà máy, kho hàng hay trung tâm logistics, chúng ta thường không chỉ sử dụng một robot. Nhiều robot được đưa vào hoạt động đồng thời để tăng năng suất và đáp ứng nhu cầu vận chuyển.</p>
+<p>Một câu hỏi đặt ra là: Nếu một robot đã có thể tự di chuyển và tránh vật cản, liệu chúng ta chỉ cần đưa thêm nhiều robot tương tự vào cùng một môi trường là có thể xây dựng được một hệ thống đa robot?</p>
+<p>Để trả lời câu hỏi này, trước tiên hãy tìm hiểu cách một robot tự hành hoạt động.</p>
+<h2 id="1-mot-robot-tu-hanh-hoat-ong-nhu-the-nao">1. Một robot tự hành hoạt động như thế nào?</h2>
+<p>Giả sử chúng ta có một robot vận chuyển hàng hóa từ vị trí A đến vị trí B trong nhà kho.</p>
+<p>Để thực hiện nhiệm vụ này, robot cần giải quyết một số vấn đề cơ bản:</p>
+<ul>
+<li><strong>Định vị (Localization):</strong> Xác định robot đang ở đâu trên bản đồ.</li>
+<li><strong>Lập kế hoạch đường đi (Path Planning):</strong> Tìm đường từ vị trí hiện tại đến vị trí đích.</li>
+<li><strong>Điều khiển chuyển động (Motion Control):</strong> Điều khiển động cơ để robot di chuyển theo đường đã được tính toán.</li>
+<li><strong>Tránh vật cản (Obstacle Avoidance):</strong> Phản ứng với người, hàng hóa hoặc các vật cản xuất hiện trong quá trình di chuyển.</li>
+</ul>
+<p>Các chức năng này phối hợp với nhau để giúp robot di chuyển tự động trong môi trường.</p>
+<p>Trong ROS 2, một hệ thống thường được sử dụng để thực hiện các chức năng điều hướng là <strong>Navigation2 (Nav2)</strong>. Khi được cung cấp thông tin về môi trường, vị trí hiện tại và vị trí đích, Nav2 có thể lập kế hoạch đường đi, tính toán lệnh điều khiển và thực hiện các hành vi cần thiết để đưa robot đến đích.</p>
+<p>Đối với hệ thống chỉ có một robot, robot chủ yếu cần quan tâm đến vị trí của mình, môi trường xung quanh và nhiệm vụ đang thực hiện.</p>
+<p>Nhưng khi có thêm các robot khác, vấn đề bắt đầu trở nên phức tạp hơn.</p>
+<h2 id="2-ieu-gi-xay-ra-khi-nhieu-robot-cung-hoat-ong">2. Điều gì xảy ra khi nhiều robot cùng hoạt động?</h2>
+<p>Hãy tưởng tượng một nhà kho có hai robot vận chuyển hàng hóa.</p>
+<p>Robot A cần di chuyển từ khu vực A sang khu vực B. Trong khi đó, robot B cần di chuyển theo hướng ngược lại. Giữa hai khu vực chỉ có một hành lang hẹp, không đủ không gian để hai robot đi qua nhau.</p>
+<p>Nếu hoạt động độc lập, cả hai robot có thể lựa chọn hành lang này vì đây là đường đi ngắn nhất đến đích của mình.</p>
+<p>Khi gặp nhau trong hành lang, mỗi robot có thể phát hiện chiếc còn lại là một vật cản và giảm tốc hoặc dừng lại để tránh va chạm. Tuy nhiên, nếu không có đường đi thay thế hoặc cơ chế nhường đường phù hợp, cả hai có thể bị mắc kẹt tại đó.</p>
+<p>Điều đáng chú ý là trong tình huống này, cả hai robot đều có thể đang hoạt động đúng theo chương trình điều hướng của mình.</p>
+<p>Vấn đề nằm ở chỗ chúng chưa có cơ chế phối hợp để sử dụng chung một lối đi.</p>
+<h3 id="tai-sao-tranh-vat-can-chua-u">Tại sao tránh vật cản chưa đủ?</h3>
+<p>Tránh vật cản giúp robot hạn chế va chạm trong quá trình di chuyển. Tuy nhiên, chức năng này không nhất thiết giúp robot quyết định được chiếc nào nên đi trước, chiếc nào nên nhường đường hoặc khi nào cần thay đổi lộ trình để đảm bảo hiệu quả hoạt động của cả đội.</p>
+<p>Khi triển khai nhiều robot sử dụng Nav2, mỗi robot có thể chạy một hệ thống điều hướng riêng. Các hệ thống này có thể hoạt động đồng thời nhưng mặc định không có cơ chế điều phối giao thông chung cho toàn bộ đội robot.</p>
+<p>Việc một robot nhìn thấy robot khác thông qua cảm biến không đồng nghĩa với việc nó biết robot đó đang đi đâu, thực hiện nhiệm vụ gì hoặc dự định di chuyển như thế nào.</p>
+<p>Đây chính là sự khác biệt quan trọng giữa việc vận hành nhiều robot độc lập và xây dựng một hệ thống đa robot có khả năng phối hợp.</p>
+<h2 id="3-ieu-phoi-nhieu-robot-la-gi">3. Điều phối nhiều robot là gì?</h2>
+<p>Điều phối nhiều robot (Multi-Robot Coordination) là quá trình tổ chức hoạt động của nhiều robot nhằm giúp chúng phối hợp với nhau để hoàn thành các nhiệm vụ trong một môi trường chung.</p>
+<p>Quay lại ví dụ về hành lang hẹp, một phương án đơn giản là cho robot A đi qua trước, trong khi robot B chờ tại một vị trí không cản trở lối đi. Sau khi robot A rời khỏi hành lang, robot B mới bắt đầu di chuyển.</p>
+<p>Bằng cách bổ sung một quy tắc phối hợp, chúng ta đã có thể giải quyết một tình huống mà hai robot điều hướng độc lập có thể không tự xử lý được.</p>
+<p>Tuy nhiên, trong thực tế, điều phối robot không chỉ liên quan đến việc nhường đường. Khi số lượng robot và nhiệm vụ tăng lên, hệ thống còn phải giải quyết nhiều bài toán khác nhau.</p>
+<h3 id="nhung-bai-toan-thuong-gap-trong-he-thong-a-robot">Những bài toán thường gặp trong hệ thống đa robot</h3>
+<table>
+<thead>
+<tr>
+<th>Bài toán</th>
+<th>Mục đích</th>
+<th>Ví dụ thực tế</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phân công nhiệm vụ</td>
+<td>Xác định robot nào thực hiện công việc nào.</td>
+<td>Chọn robot phù hợp để đến lấy hàng.</td>
+</tr>
+<tr>
+<td>Lập kế hoạch đường đi</td>
+<td>Xác định đường di chuyển cho robot.</td>
+<td>Lựa chọn giữa đường ngắn và đường vòng.</td>
+</tr>
+<tr>
+<td>Điều phối giao thông</td>
+<td>Tổ chức việc di chuyển của các robot trong khu vực dùng chung.</td>
+<td>Cấp quyền đi qua giao lộ hoặc hành lang hẹp.</td>
+</tr>
+<tr>
+<td>Xử lý tắc nghẽn</td>
+<td>Giải quyết các tình huống robot cản trở hoặc chờ đợi lẫn nhau.</td>
+<td>Yêu cầu một robot lùi về điểm chờ để giải phóng đường.</td>
+</tr>
+<tr>
+<td>Quản lý nhiệm vụ</td>
+<td>Theo dõi và cập nhật quá trình thực hiện công việc.</td>
+<td>Giao nhiệm vụ mới khi robot hoàn thành công việc trước đó.</td>
+</tr>
+<tr>
+<td>Quản lý tài nguyên</td>
+<td>Phân bổ các tài nguyên có giới hạn trong hệ thống.</td>
+<td>Sắp xếp thứ tự robot sử dụng trạm sạc hoặc trạm lấy hàng.</td>
+</tr>
+</tbody>
+</table>
+<p>Các bài toán này có mối liên hệ chặt chẽ với nhau.</p>
+<p>Ví dụ, lựa chọn robot gần vị trí lấy hàng nhất có thể giúp giảm quãng đường di chuyển. Tuy nhiên, nếu đường đến vị trí lấy hàng đang bị tắc nghẽn, lựa chọn một robot ở xa hơn đôi khi lại giúp hoàn thành nhiệm vụ nhanh hơn.</p>
+<p>Vì vậy, mục tiêu của hệ thống điều phối không chỉ là tối ưu hoạt động của từng robot, mà còn là nâng cao hiệu quả hoạt động của toàn bộ đội robot.</p>
+<h2 id="4-cac-mo-hinh-to-chuc-va-ieu-phoi-nhieu-robot">4. Các mô hình tổ chức và điều phối nhiều robot</h2>
+<p>Có nhiều cách để xây dựng một hệ thống đa robot. Một cách phân loại phổ biến là dựa trên nơi đưa ra các quyết định phối hợp.</p>
+<h3 id="41-ieu-phoi-tap-trung-centralized-coordination">4.1. Điều phối tập trung (Centralized Coordination)</h3>
+<p>Trong mô hình tập trung, một bộ điều phối chung thu thập thông tin từ các robot và đưa ra các quyết định ở cấp độ hệ thống.</p>
+<p>Bộ điều phối có thể nắm được vị trí, trạng thái, mức pin, nhiệm vụ hiện tại và đường đi dự kiến của từng robot.</p>
+<p>Dựa trên những thông tin này, hệ thống có thể phân công công việc, lập kế hoạch đường đi và quản lý quyền di chuyển tại các khu vực dùng chung.</p>
+<p>Có thể hình dung bộ điều phối hoạt động tương tự một trung tâm điều hành giao thông.</p>
+<p>Các robot không nhất thiết phải trao đổi trực tiếp với nhau. Thay vào đó, chúng gửi thông tin về bộ điều phối và nhận các yêu cầu cần thiết từ hệ thống.</p>
+<p><strong>Ưu điểm:</strong></p>
+<ul>
+<li>Có cái nhìn tổng thể về hoạt động của đội robot.</li>
+<li>Thuận lợi cho việc quản lý nhiệm vụ và giao thông.</li>
+<li>Có khả năng tối ưu hoạt động trên phạm vi toàn hệ thống.</li>
+</ul>
+<p><strong>Hạn chế:</strong></p>
+<ul>
+<li>Khả năng xử lý phụ thuộc vào bộ điều phối và kiến trúc hệ thống.</li>
+<li>Cần duy trì việc trao đổi thông tin với các robot.</li>
+<li>Cần có cơ chế dự phòng để hạn chế ảnh hưởng khi bộ điều phối gặp sự cố.</li>
+</ul>
+<p>Trong các ứng dụng công nghiệp, bộ điều phối thường được tích hợp trong hệ thống quản lý đội robot, chẳng hạn như RCS (Robot Control System) hoặc Fleet Management System.</p>
+<h3 id="42-ieu-phoi-phan-tan-distributed-coordination">4.2. Điều phối phân tán (Distributed Coordination)</h3>
+<p>Trong mô hình phân tán, các quyết định phối hợp được thực hiện bởi chính các robot hoặc nhiều thành phần xử lý khác nhau, thay vì phụ thuộc hoàn toàn vào một bộ điều phối trung tâm.</p>
+<p>Tùy vào cách thiết kế, mỗi robot có thể sử dụng thông tin từ cảm biến, trạng thái của các robot lân cận hoặc dữ liệu được trao đổi qua mạng để đưa ra quyết định.</p>
+<p>Ví dụ, khi hai robot tiến đến cùng một giao lộ, chúng có thể trao đổi thông tin và xác định thứ tự di chuyển dựa trên một quy tắc ưu tiên đã được thiết lập.</p>
+<p><strong>Ưu điểm:</strong></p>
+<ul>
+<li>Giảm sự phụ thuộc vào một bộ điều phối trung tâm.</li>
+<li>Có tiềm năng mở rộng khi số lượng robot tăng lên.</li>
+<li>Cho phép robot chủ động phản ứng với những thay đổi trong môi trường.</li>
+</ul>
+<p><strong>Hạn chế:</strong></p>
+<ul>
+<li>Khó đảm bảo các quyết định cục bộ tạo ra kết quả tốt cho toàn hệ thống.</li>
+<li>Việc thiết kế cơ chế phối hợp giữa các robot có thể phức tạp.</li>
+<li>Cần xử lý các tình huống thông tin không đầy đủ hoặc không đồng nhất.</li>
+</ul>
+<p>Đây cũng là một hướng nghiên cứu quan trọng trong lĩnh vực hệ thống đa tác nhân (Multi-Agent Systems) và robot bầy đàn (Swarm Robotics).</p>
+<h3 id="43-ieu-phoi-ket-hop-hybrid-coordination">4.3. Điều phối kết hợp (Hybrid Coordination)</h3>
+<p>Mô hình kết hợp sử dụng cả cơ chế ra quyết định tập trung và phân tán hoặc tự chủ cục bộ.</p>
+<p>Một số quyết định được thực hiện ở cấp độ hệ thống, trong khi các quyết định khác được giao cho từng robot.</p>
+<p>Ví dụ:</p>
+<ul>
+<li>Bộ điều phối lựa chọn robot thực hiện nhiệm vụ.</li>
+<li>Bộ điều phối quản lý quyền sử dụng giao lộ và hành lang hẹp.</li>
+<li>Robot tự lập kế hoạch di chuyển trong phạm vi được giao.</li>
+<li>Robot tự điều khiển động cơ và phản ứng với vật cản.</li>
+</ul>
+<p>Cách tổ chức này cho phép hệ thống duy trì khả năng quản lý tổng thể, đồng thời tận dụng khả năng tự chủ của từng robot.</p>
+<p>Đây là một kiến trúc hữu ích trong nhiều ứng dụng robot tự hành, đặc biệt khi cần kết hợp quản lý giao thông chung với khả năng điều hướng cục bộ của robot.</p>
+<h3 id="so-sanh-cac-mo-hinh-ieu-phoi">So sánh các mô hình điều phối</h3>
+<table>
+<thead>
+<tr>
+<th>Tiêu chí</th>
+<th>Tập trung</th>
+<th>Phân tán</th>
+<th>Kết hợp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nơi ra quyết định phối hợp</td>
+<td>Bộ điều phối chung</td>
+<td>Các robot hoặc các thành phần phân tán</td>
+<td>Cả bộ điều phối và robot</td>
+</tr>
+<tr>
+<td>Thông tin sử dụng</td>
+<td>Thông tin toàn hệ thống</td>
+<td>Thông tin cục bộ hoặc được chia sẻ</td>
+<td>Kết hợp cả hai</td>
+</tr>
+<tr>
+<td>Khả năng tự chủ</td>
+<td>Phụ thuộc vào thiết kế</td>
+<td>Thường cao</td>
+<td>Linh hoạt theo từng chức năng</td>
+</tr>
+<tr>
+<td>Tối ưu toàn hệ thống</td>
+<td>Thuận lợi hơn</td>
+<td>Có thể khó khăn hơn</td>
+<td>Phụ thuộc cách phân chia trách nhiệm</td>
+</tr>
+<tr>
+<td>Khả năng mở rộng</td>
+<td>Phụ thuộc kiến trúc bộ điều phối</td>
+<td>Có tiềm năng tốt</td>
+<td>Phụ thuộc kiến trúc triển khai</td>
+</tr>
+</tbody>
+</table>
+<p>Không có mô hình nào phù hợp với tất cả các ứng dụng. Việc lựa chọn phụ thuộc vào số lượng robot, đặc điểm môi trường, khả năng giao tiếp và yêu cầu vận hành của hệ thống.</p>
+<h2 id="5-bai-toan-tim-uong-cho-nhieu-robot-mapf">5. Bài toán tìm đường cho nhiều robot (MAPF)</h2>
+<p>Khi tìm đường cho một robot, chúng ta thường muốn xác định một đường đi phù hợp từ vị trí bắt đầu đến vị trí đích, đồng thời tránh các vật cản trong môi trường.</p>
+<p>Khi tìm đường cho nhiều robot, chúng ta cần quan tâm thêm đến vị trí và đường di chuyển của những robot khác.</p>
+<p>Giả sử hai robot đều cần đi qua một giao lộ. Nếu chỉ xét riêng từng robot, cả hai có thể lựa chọn đường đi ngắn nhất và dự kiến đến giao lộ cùng một thời điểm.</p>
+<p>Nếu xét đồng thời cả hai robot, hệ thống có thể đưa ra một phương án khác:</p>
+<ul>
+<li>Cho một robot đi qua giao lộ trước.</li>
+<li>Yêu cầu robot còn lại chờ trong một khoảng thời gian.</li>
+<li>Hoặc lựa chọn một đường đi khác để tránh xung đột.</li>
+</ul>
+<p>Bài toán tìm kiếm đường đi cho nhiều đối tượng di chuyển, có xét đến các xung đột giữa chúng, được gọi là <strong>Multi-Agent Path Finding (MAPF)</strong>.</p>
+<p>Điểm khác biệt quan trọng là chúng ta không chỉ quan tâm robot đi qua những vị trí nào, mà còn quan tâm đến thời điểm robot đi qua những vị trí đó.</p>
+<p>Trong các ứng dụng mà robot liên tục nhận nhiệm vụ mới, chẳng hạn như vận chuyển hàng hóa trong kho, bài toán còn có thể được mở rộng theo hướng <strong>Lifelong MAPF</strong>.</p>
+<p>MAPF là một phần của lĩnh vực điều phối đa robot. Một hệ thống điều phối hoàn chỉnh có thể sử dụng MAPF hoặc các phương pháp khác để giải quyết vấn đề tìm đường và xung đột giao thông, kết hợp với các chức năng phân công nhiệm vụ, quản lý tài nguyên và theo dõi trạng thái robot.</p>
+<p>Không phải mọi hệ thống điều phối robot đều bắt buộc phải sử dụng thuật toán MAPF.</p>
+<h2 id="6-tai-sao-nen-hoc-ieu-phoi-nhieu-robot-thong-qua-mo-phong">6. Tại sao nên học điều phối nhiều robot thông qua mô phỏng?</h2>
+<p>Việc xây dựng một hệ thống nhiều robot thực tế đòi hỏi chi phí phần cứng, không gian thử nghiệm và thời gian triển khai.</p>
+<p>Bên cạnh đó, một số tình huống như tắc nghẽn, xung đột giao thông hoặc lỗi điều phối có thể khó tái hiện một cách chính xác trên robot thật.</p>
+<p>Môi trường mô phỏng giúp chúng ta tiếp cận những vấn đề này dễ dàng hơn.</p>
+<p>Thay vì phải chuẩn bị nhiều robot vật lý, chúng ta có thể tạo ra nhiều robot ảo hoạt động trong cùng một môi trường, quan sát cách chúng di chuyển và thử nghiệm các phương pháp điều phối khác nhau.</p>
+<p>Thông qua mô phỏng, chúng ta có thể:</p>
+<ul>
+<li>Hiểu cách tổ chức phần mềm cho một hệ thống nhiều robot.</li>
+<li>Tìm hiểu cách các robot trao đổi và phân biệt dữ liệu với nhau.</li>
+<li>Quan sát những hạn chế của việc điều hướng độc lập.</li>
+<li>Chủ động tạo ra các tình huống xung đột và tắc nghẽn.</li>
+<li>Xây dựng và kiểm tra các thuật toán điều phối.</li>
+<li>So sánh hiệu quả của hệ thống trước và sau khi bổ sung cơ chế phối hợp.</li>
+</ul>
+<p>Mô phỏng không thể thay thế hoàn toàn việc thử nghiệm trên robot thật, nhưng đây là một bước khởi đầu phù hợp để học tập, nghiên cứu và phát triển các hệ thống đa robot.</p>
+<h2 id="7-bai-toan-thuc-hanh-trong-series">7. Bài toán thực hành trong series</h2>
+<p>Để bắt đầu tìm hiểu về điều phối nhiều robot, chúng ta chưa cần xây dựng ngay một hệ thống quản lý hàng chục hay hàng trăm robot.</p>
+<p>Một hệ thống gồm hai robot đã đủ để minh họa nhiều vấn đề cơ bản.</p>
+<p>Trong series mô phỏng nhiều robot, chúng ta sẽ sử dụng tình huống hai robot cần di chuyển ngược chiều qua một hành lang hẹp.</p>
+<figure class="tutorial-figure">
+<p><a href="../mo-phong-nhieu-robot/images/kich-ban-hanh-lang.svg"><img alt="Hai khu vực được nối với nhau bằng một hành lang hẹp, với hai robot di chuyển ngược chiều và các điểm chờ." src="../mo-phong-nhieu-robot/images/kich-ban-hanh-lang.svg" /></a></p>
+<figcaption>Minh họa tình huống hai robot cần phối hợp để sử dụng chung một hành lang hẹp.</figcaption>
+</figure>
+<p>Ban đầu, chúng ta sẽ cho hai robot hoạt động độc lập để quan sát những vấn đề có thể phát sinh.</p>
+<p>Sau đó, một chương trình điều phối sẽ được bổ sung để quản lý quyền sử dụng hành lang. Khi một robot đang di chuyển trong hành lang, robot còn lại sẽ chờ tại vị trí phù hợp. Quyền di chuyển được cấp cho robot tiếp theo sau khi hành lang đã được giải phóng.</p>
+<p>Hệ thống mô phỏng sẽ sử dụng các công cụ sau:</p>
+<table>
+<thead>
+<tr>
+<th>Công cụ</th>
+<th>Vai trò</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROS 2 Humble</td>
+<td>Nền tảng phát triển và kết nối các thành phần phần mềm.</td>
+</tr>
+<tr>
+<td>TurtleBot3 Burger</td>
+<td>Mô hình robot sử dụng trong quá trình thực hành.</td>
+</tr>
+<tr>
+<td>Gazebo</td>
+<td>Môi trường mô phỏng robot và không gian hoạt động.</td>
+</tr>
+<tr>
+<td>Navigation2</td>
+<td>Thực hiện các chức năng điều hướng cho từng robot.</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>Xây dựng chương trình điều phối chung.</td>
+</tr>
+</tbody>
+</table>
+<p>Kiến trúc này cho phép chúng ta tận dụng hệ thống điều hướng có sẵn của TurtleBot3 và tập trung vào việc tìm hiểu, xây dựng các chức năng phối hợp giữa các robot.</p>
+<p>Trong những bài đầu tiên, nhiệm vụ và vị trí đích của robot sẽ được thiết lập trước. Các vấn đề phức tạp hơn như phân công nhiệm vụ tự động, tìm đường cho toàn bộ đội robot hay tối ưu năng suất chưa được đưa vào ngay.</p>
+<p>Sau khi hiểu được cách điều phối hai robot trong một tình huống đơn giản, chúng ta có thể tiếp tục mở rộng hệ thống với nhiều robot, nhiều giao lộ và các quy tắc điều phối phức tạp hơn.</p>
+<h2 id="8-tong-ket">8. Tổng kết</h2>
+<p>Việc chuyển từ hệ thống một robot sang hệ thống nhiều robot không đơn thuần là tăng số lượng thiết bị.</p>
+<p>Bên cạnh khả năng định vị, tìm đường và điều hướng của từng robot, chúng ta cần quan tâm đến cách các robot chia sẻ không gian hoạt động, sử dụng tài nguyên và phối hợp để hoàn thành nhiệm vụ.</p>
+<p>Hiểu được những vấn đề này là nền tảng quan trọng trước khi tiếp cận các thuật toán điều phối đa robot hoặc xây dựng một hệ thống quản lý robot trong thực tế.</p>
+<p>Trong các bài tiếp theo, chúng ta sẽ từng bước xây dựng môi trường mô phỏng, vận hành nhiều robot với ROS 2 và phát triển một chương trình điều phối đơn giản.</p>
+<p>Xem tiếp: <a href="../mo-phong-nhieu-robot/">Lộ trình 9 bài mô phỏng và điều phối nhiều robot</a>.</p>
+<details class="note">
+<summary>Tài liệu đọc thêm</summary>
+<ul>
+<li><a href="https://doi.org/10.5772/57313">Khảo sát về phối hợp nhiều robot — Yan và cộng sự</a>.</li>
+<li><a href="https://arxiv.org/abs/1906.08291">MAPF: Định nghĩa và các biến thể — Stern và cộng sự</a>.</li>
+<li><a href="https://arxiv.org/abs/2404.16162">Những bài toán khi mở rộng Lifelong MAPF — Jiang và cộng sự</a>.</li>
+</ul>
+</details>
+<p><a href="../">← Chuyên mục Robot tự hành</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © Robovis — Tài liệu hướng dẫn sản phẩm
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../javascripts/navigation-accordion.js"></script>
+      
+        <script src="../../../javascripts/products-dropdown.js"></script>
+      
+    
+  </body>
+</html>

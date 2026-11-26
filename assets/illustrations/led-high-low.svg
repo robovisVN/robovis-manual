@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="440" viewBox="0 0 1120 440" role="img" aria-labelledby="title desc">
+<title id="title">LED bật và tắt theo thời gian</title><desc id="desc">Sơ đồ LED active-high: HIGH bật, LOW tắt. Trục ngang là thời gian. LED active-low có trạng thái ngược lại.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="440" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">LED bật và tắt theo thời gian</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<text x="45" y="171" class="mono">HIGH</text>
+<text x="45" y="272" class="mono">LOW</text>
+<path d="M155 298L1055 298" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<text x="922" y="334" class="small">Thời gian</text>
+<path d="M170 270V170H385V270H600V170H815V270H1035" stroke="#1765b0" stroke-width="4" fill="none"/>
+<text x="220" y="145" class="">Bật</text>
+<text x="435" y="248" class="">Tắt</text>
+<text x="650" y="145" class="">Bật</text>
+<text x="865" y="248" class="">Tắt</text>
+<text x="36" y="392" class="small muted">Minh họa cho LED active-high; LED active-low có trạng thái sáng/tắt ngược lại.</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="450" viewBox="0 0 1120 450" role="img" aria-labelledby="title desc">
+<title id="title">SLAM kết hợp cảm biến và chuyển động</title><desc id="desc">LiDAR + odometry → SLAM + TF → Bản đồ trong RViz. Di chuyển chậm theo bài thực hành; kiểm tra scan, odometry và TF trước khi quét.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="450" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">SLAM kết hợp cảm biến và chuyển động</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<rect x="36.0" y="135" width="330.6666666666667" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="54.0" y="166" class="small accent bold">01</text>
+<text x="54.0" y="201" class="bold" style="font-size:23px">LiDAR + odometry</text>
+<text x="54.0" y="239" class="small" style="font-size:20px">Quét môi trường</text>
+<text x="54.0" y="269" class="small" style="font-size:20px">Ước lượng chuyển động</text>
+<path d="M369.6666666666667 218L389.6666666666667 218" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="394.6666666666667" y="135" width="330.6666666666667" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="412.6666666666667" y="166" class="small accent bold">02</text>
+<text x="412.6666666666667" y="201" class="bold" style="font-size:23px">SLAM + TF</text>
+<text x="412.6666666666667" y="239" class="small" style="font-size:20px">Ghép các lần quan sát</text>
+<text x="412.6666666666667" y="269" class="small" style="font-size:20px">Ước lượng vị trí robot</text>
+<path d="M728.3333333333334 218L748.3333333333334 218" stroke="#3672a4" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="753.3333333333334" y="135" width="330.6666666666667" height="160" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="771.3333333333334" y="166" class="small accent bold">03</text>
+<text x="771.3333333333334" y="201" class="bold" style="font-size:23px">Bản đồ trong RViz</text>
+<text x="771.3333333333334" y="239" class="small" style="font-size:20px">Quan sát vùng đã quét</text>
+<text x="771.3333333333334" y="269" class="small" style="font-size:20px">Kiểm tra trước khi lưu</text>
+<text x="36" y="402" class="small muted">Di chuyển chậm theo bài thực hành; kiểm tra scan, odometry và TF trước khi quét.</text>
+</svg>

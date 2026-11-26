@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="650" viewBox="0 0 1120 650" role="img" aria-labelledby="title desc">
+<title id="title">Hai robot đi ngược chiều qua hành lang dùng chung</title>
+<desc id="desc">Nhà kho gồm khu A bên trái và khu B bên phải, nối bằng một hành lang hẹp. Robot A muốn đi sang phải; robot B muốn đi sang trái. Hai vị trí chờ được đặt lệch khỏi cửa, minh họa quy tắc một robot qua mỗi lượt.</desc>
+<defs>
+  <marker id="blue-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#2467b5"/></marker>
+  <marker id="teal-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#147d78"/></marker>
+</defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:23px}.title{font-size:30px;font-weight:700}.small{font-size:20px}.muted{fill:#53697d}.white{fill:white}.bold{font-weight:700}</style>
+<rect width="1120" height="650" rx="16" fill="#f4f7fb"/>
+<text x="36" y="48" class="title">Hai robot — một hành lang dùng chung</text>
+<text x="36" y="84" class="small muted">SƠ ĐỒ KHÁI NIỆM • Không theo tỷ lệ, chưa phải bản đồ mô phỏng.</text>
+<path d="M60 150H360V260H760V150H1060V490H760V380H360V490H60Z" fill="#eaf1fa" stroke="#7795b2" stroke-width="3"/>
+<rect x="363" y="263" width="394" height="114" fill="white"/>
+<text x="100" y="203" class="bold">Khu A</text>
+<text x="925" y="464" class="bold">Khu B</text>
+<text x="455" y="231" class="bold">Hành lang hẹp</text>
+<path d="M395 300H725" stroke="#2467b5" stroke-width="4" marker-end="url(#blue-arrow)"/>
+<path d="M725 343H395" stroke="#147d78" stroke-width="4" marker-end="url(#teal-arrow)"/>
+<circle cx="180" cy="316" r="38" fill="#2467b5"/>
+<text x="172" y="325" class="white bold">A</text>
+<path d="M160 273H204" stroke="#2467b5" stroke-width="3" marker-end="url(#blue-arrow)"/>
+<text x="112" y="390" class="small">A muốn sang B</text>
+<circle cx="940" cy="326" r="38" fill="#147d78"/>
+<text x="933" y="335" class="white bold">B</text>
+<path d="M963 282H919" stroke="#147d78" stroke-width="3" marker-end="url(#teal-arrow)"/>
+<text x="853" y="400" class="small">B muốn sang A</text>
+<circle cx="286" cy="432" r="17" fill="white" stroke="#2467b5" stroke-width="3" stroke-dasharray="5 4"/>
+<text x="234" y="471" class="small">Điểm chờ A</text>
+<circle cx="834" cy="202" r="17" fill="white" stroke="#147d78" stroke-width="3" stroke-dasharray="5 4"/>
+<text x="797" y="242" class="small">Điểm chờ B</text>
+<rect x="60" y="524" width="1000" height="63" rx="10" fill="#dfeafa"/>
+<text x="86" y="563" class="bold">Bài 7: quan sát Nav2 độc lập. Bài 8: bổ sung quyền qua hành lang.</text>
+<text x="60" y="622" class="small muted">Giữ cùng mặt bằng ở bài 7–8. Đến bài 9 mới bổ sung lối vòng để minh họa MAPF.</text>
+</svg>

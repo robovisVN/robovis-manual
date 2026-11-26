@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="title desc">
+<title id="title">Encoder: từ xung đến tốc độ bánh xe</title><desc id="desc">Đếm N xung trong T giây. RPM bằng N nhân 60 chia PPR và T; PPR phải tính theo một vòng bánh và phương pháp đếm thực tế.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#3672a4"/></marker></defs>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#183b56;font-size:22px}.title{font-size:29px;font-weight:700}.small{font-size:20px}.bold{font-weight:700}.mono{font-family:Consolas,monospace}.muted{fill:#53697d}.white{fill:white}.accent{fill:#1765b0}</style>
+<rect x="0" y="0" width="1120" height="500" rx="16" fill="#f4f7fb" stroke="#c8d8e7"/>
+<text x="36" y="48" class="title">Encoder: từ xung đến tốc độ bánh xe</text>
+<text x="36" y="82" class="small muted">SƠ ĐỒ MINH HỌA • Đọc cùng các bước và cấu hình trong bài.</text>
+<text x="44" y="152" class="bold">Tín hiệu encoder</text>
+<path d="M65 269V199H120V269H175V199H230V269H285V199H340V269H395V199H450V269" stroke="#1765b0" stroke-width="4" fill="none"/>
+<path d="M65 312L450 312" stroke="#3672a4" stroke-width="3" fill="none"/>
+<path d="M65 299L65 325" stroke="#3672a4" stroke-width="3" fill="none"/>
+<path d="M450 299L450 325" stroke="#3672a4" stroke-width="3" fill="none"/>
+<text x="155" y="352" class="small">Cửa sổ đo T giây</text>
+<rect x="535" y="143" width="505" height="215" rx="10" fill="#fff" stroke="#c8d8e7"/>
+<text x="553" y="209" class="bold" style="font-size:23px">Đếm N xung trong T giây</text>
+<text x="553" y="247" class="small" style="font-size:20px">RPM = N × 60 / (PPR × T)</text>
+<text x="553" y="277" class="small" style="font-size:20px">PPR: xung / một vòng bánh</text>
+<text x="36" y="452" class="small muted">Hiệu chuẩn PPR theo đúng trục bánh và chế độ đếm; không lấy số xung ví dụ làm mặc định.</text>
+</svg>
